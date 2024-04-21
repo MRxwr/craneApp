@@ -1,0 +1,144 @@
+<?php
+
+namespace Modules\Roles\Http\Traits;
+
+trait PermissionTrait
+{
+    public static function getData()
+    {
+        return collect([
+            [
+                'type' => 'manage-user',
+                'title' => 'view-users'
+            ],
+            [
+                'type' => 'manage-user',
+                'title' => 'create-user'
+            ],
+            [
+                'type' => 'manage-user',
+                'title' => 'edit-user'
+            ],
+            [
+                'type' => 'manage-user',
+                'title' => 'delete-user'
+            ],
+            [
+                'type' => 'manage-user',
+                'title' => 'change-status-user'
+            ],
+
+            [
+                'type' => 'manage-role',
+                'title' => 'view-roles'
+            ],
+            [
+                'type' => 'manage-role',
+                'title' => 'manage-permissions'
+            ],
+            [
+                'type' => 'manage-role',
+                'title' => 'create-role'
+            ],
+            [
+                'type' => 'manage-role',
+                'title' => 'edit-role'
+            ],
+            [
+                'type' => 'manage-role',
+                'title' => 'delete-role'
+            ],
+            [
+                'type' => 'manage-role',
+                'title' => 'change-status-role'
+            ],
+
+            // Manage language
+            [
+                'type' => 'manage-language',
+                'title' => 'view-language'
+            ],
+            
+            [
+                'type' => 'manage-language',
+                'title' => 'create-language'
+            ],
+            [
+                'type' => 'manage-language',
+                'title' => 'edit-language'
+            ],
+            [
+                'type' => 'manage-language',
+                'title' => 'delete-language'
+            ],
+
+            [
+                'type' => 'manage-language',
+                'title' => 'change-status-language'
+            ],
+
+            // Manage Local
+            [
+                'type' => 'manage-locale',
+                'title' => 'view-locale'
+            ],
+            
+            [
+                'type' => 'manage-locale',
+                'title' => 'create-locale'
+            ],
+            [
+                'type' => 'manage-locale',
+                'title' => 'edit-locale'
+            ],
+            [
+                'type' => 'manage-locale',
+                'title' => 'delete-locale'
+            ],
+
+            [
+                'type' => 'manage-locale',
+                'title' => 'change-status-locale'
+            ],
+
+
+            // Manage Setting
+            [
+                'type' => 'manage-setting',
+                'title' => 'view-setting'
+            ],
+            
+            
+            [
+                'type' => 'manage-setting',
+                'title' => 'edit-setting'
+            ],
+
+
+            // Manage Service
+            [
+                'type' => 'manage-service',
+                'title' => 'view-service'
+            ],
+            
+            [
+                'type' => 'manage-service',
+                'title' => 'create-service'
+            ],
+            [
+                'type' => 'manage-service',
+                'title' => 'edit-service'
+            ],
+            [
+                'type' => 'manage-service',
+                'title' => 'delete-service'
+            ],
+
+            [
+                'type' => 'manage-service',
+                'title' => 'change-status-service'
+            ],
+            
+        ]);
+    }
+}

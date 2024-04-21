@@ -1,0 +1,6 @@
+{
+    "Users": true,
+    "Roles": true,
+    "AppUser": true,
+    "Service": true
+}

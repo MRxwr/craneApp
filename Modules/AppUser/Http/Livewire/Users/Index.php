@@ -1,12 +1,11 @@
 <?php
 
-namespace Modules\Users\Http\Livewire\Users;
+namespace Modules\AppUser\Http\Livewire\Users;
 
-use App\Models\User;
 use Livewire\Component;
 use App\Traits\MasterData;
 use Livewire\WithPagination;
-use Modules\Roles\Entities\Role;
+use Modules\AppUser\Entities\AppUser;
 use Modules\Users\Http\Traits\UserTrait;
 use Modules\Roles\Http\Traits\PermissionTrait;
 

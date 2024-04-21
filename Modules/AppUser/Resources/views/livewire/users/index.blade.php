@@ -7,7 +7,7 @@
                 <div class="buttons float-right">
                     <a wire:click.prevent="tambah_data" href="#" class="btn btn-icon icon-left btn-primary"><i
                             class="bi bi-clipboard-plus"></i>
-                        Add Data</a>
+                        {{_lang('Add new')}}</a>
                 </div>
             @endif
         </div>
@@ -42,18 +42,20 @@
                     <tbody>
                         <tr>
                             <th>ID</th>
-                            <th>Role</th>
-                            <th>Name</th>
-                            <th>Email</th>
-                            <th>Status</th>
-                            <th>Action</th>
+                            <th>{{_lang('Name')}}</th>
+                            <th>{{_lang('Mobile')}}</th>
+                            <th>{{_lang('Email')}}</th>
+                            <th>{{_lang('DOB')}}</th>
+                            <th>{{_lang('Status')}}</th>
+                            <th>{{_lang('Action')}}  </th>
                         </tr>
                         @foreach ($data as $e => $dt)
                             <tr>
                                 <td>{{ $dt->id }}</td>
-                                <td>{{ $dt->role->name }}</td>
                                 <td>{{ $dt->name }}</td>
+                                <td>{{ $dt->mobile }}</td>
                                 <td>{{ $dt->email }}</td>
+                                <td>{{ $dt->dob }}</td>
                                 <td>
                                     @if (akses('edit-user'))
                                         @if ($dt->is_active == 1)
@@ -128,9 +130,9 @@
                             <div class="card-body">
                                 {{ $message ?? '' }}
                                 <div class="form-group">
-                                    <label for="name">Name</label>
+                                    <label for="name">{{ _lang('Name') }}</label>
                                     <input wire:model="forms.name" type="text" class="form-control" id="name"
-                                        placeholder="Name">
+                                        placeholder="{{ _lang('Name') }}">
                                     {{-- {{ $forms['name'] }} --}}
                                     @error('forms.name')
                                         <span style="color: red;" class="error">{{ $message }}</span>
@@ -138,9 +140,19 @@
                                 </div>
                                 <div class="form-row">
                                     <div class="form-group col-md-12">
-                                        <label for="inputEmail4">Email</label>
+                                        <label for="inputmobile4">{{ _lang('Mobile') }}</label>
+                                        <input wire:model="forms.mobile" type="text" class="form-control"
+                                            id="inputmobile4" placeholder="{{ _lang('Mobile') }} ">
+                                        @error('forms.mobile')
+                                            <span style="color: red;" class="error">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-12">
+                                        <label for="inputEmail4">{{ _lang('Email') }} </label>
                                         <input wire:model="forms.email" type="text" class="form-control"
-                                            id="inputEmail4" placeholder="Email">
+                                            id="inputEmail4" placeholder="{{ _lang('Email') }} ">
                                         @error('forms.email')
                                             <span style="color: red;" class="error">{{ $message }}</span>
                                         @enderror
@@ -148,16 +160,33 @@
                                 </div>
                                 <div class="form-row">
                                     <div class="form-group col-md-12">
-                                        <label for="role_id">Role</label>
-                                        <select class="form-control" wire:model="forms.role_id">
-                                            <option value="">Select Role</option>
-                                            @foreach ($roles as $rl)
-                                                <option value="{{ $rl->id }}">{{ $rl->name }}</option>
-                                            @endforeach
-                                        </select>
-                                        @error('forms.role_id')
+                                        <label for="inputDob4">{{ _lang('DOB') }} </label>
+                                        <input wire:model="forms.dob" type="date" class="form-control"
+                                            id="inputDob4" placeholder="{{ _lang('Date of Birth') }} ">
+                                        @error('forms.dob')
                                             <span style="color: red;" class="error">{{ $message }}</span>
                                         @enderror
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-12">
+                                        <label for="role_id">{{ _lang('User Type') }}</label>
+                                        <select class="form-control" wire:model="forms.user_type">
+                                            <option value="">Select Type</option>
+                                            
+                                                <option value="1">{{ _lang('Client') }}</option>
+                                                <option value="2">{{ _lang('Driver') }}</option>
+                                        </select>
+                                        @error('forms.user_type')
+                                            <span style="color: red;" class="error">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-lg-3 col-12">{{_lang('Avator')}} </div>
+                                    <div class="col-lg-9 col-12">
+                                    <img src="{{ asset('storage/' . $avator) }}" alt="Uploaded avator">
+                                        <input type="file" class="form-control"  wire:model="forms.avator">
                                     </div>
                                 </div>
                             </div>

@@ -7,10 +7,13 @@ trait AppUserTrait
 {
     public static function firstForm()
     {
-        $a['title'] = '';
+        $a['name'] = '';
         $a['email'] = '';
         $a['mobile'] = '';
-        $a['image'] = '';
+        $a['dob'] = '';
+        $a['is_active'] = '';
+        $a['user_type'] = '';
+        $a['avator'] = '';
 
         return $a;
     }
@@ -18,31 +21,31 @@ trait AppUserTrait
     public static function store_validation($data, $id_edit = null)
     {
         // dd($data);
-        if (!$data['title']) {
+        if (!$data['name']) {
             // $this->emit('pesanGagal', 'Name Required');
             return [
                 'success' => false,
-                'message' => 'title Required'
+                'message' => 'name Required'
             ];
-        } elseif (!$data['description']) {
+        } elseif (!$data['email']) {
             // $this->emit('pesanGagal', 'email Required');
             return [
                 'success' => false,
-                'message' => 'description Required'
+                'message' => 'email Required'
             ];
         } else {
 
             if ($id_edit) {
-                $cek = Service::where('title', $data['title'])->where('id', '!=', $id_edit)->exists();
+                $cek = AppUser::where('mobile', $data['mobile'])->where('id', '!=', $id_edit)->exists();
 
                 if ($cek) {
                     return [
                         'success' => false,
-                        'message' => 'title already exist.'
+                        'message' => 'mobile already exist.'
                     ];
                 }
             } else {
-                $cek = Service::where('title', $data['title'])->exists();
+                $cek = AppUser::where('mobile', $data['mobile'])->exists();
 
                 if ($cek) {
                     return [
@@ -79,9 +82,13 @@ trait AppUserTrait
         $dt = Service::find($id);
 
         return [
-            'title' => $dt->title,
-            'description' => $dt->description,
-            'image' => $dt->role_id
+            'name' => $dt->name,
+            'mobile' => $dt->mobile,
+            'email' => $dt->email,
+            'dob' => $dt->dob,
+            'is_active' => $dt->is_active,
+            'user_type' => $dt->user_type,
+            'avator' => $dt->avator
         ];
     }
 }

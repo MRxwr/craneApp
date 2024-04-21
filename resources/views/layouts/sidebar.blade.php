@@ -46,7 +46,7 @@
         @if (akses('view-language'))
           <li class="nav-item">
              <a href="{{ url('services/index') }}" class="nav-link">
-                <i class="nav-icon fas fa-notes"></i>
+                <i class="nav-icon fas fa-th"></i>
                 <p>{{_lang('Services')}}</p>
              </a>
           </li> 

@@ -6,8 +6,8 @@ use Livewire\Component;
 use App\Traits\MasterData;
 use Livewire\WithPagination;
 use Modules\AppUser\Entities\AppUser;
-use Modules\Users\Http\Traits\UserTrait;
-use Modules\Roles\Http\Traits\PermissionTrait;
+use Modules\AppUser\Http\Traits\AppUserTrait;
+
 
 class Index extends Component
 {
@@ -16,12 +16,12 @@ class Index extends Component
 
     public $paging, $search;
     public $forms = [];
-    public $id_edit, $is_edit;
+    public $id_edit, $is_edit,$avator ;
 
     public function mount()
     {
         $this->paging = 25;
-        $this->forms = UserTrait::firstForm();
+        $this->forms = AppUserTrait::firstForm();
         // dd($this->forms);
 
     }
@@ -45,12 +45,12 @@ class Index extends Component
         }
 
         try {
-            $dt = User::find($id);
+            $dt = AppUser::find($id);
 
             // if ($dt->is_paten == 1) {
             //     $this->emit('pesanGagal', 'Sorry, this user can not edited..');
             // } else {
-            updateStatus(new User, $id);
+            updateStatus(new AppUser, $id);
 
             $this->emit('pesanSukses', 'Sucess..');
             // }
@@ -65,7 +65,7 @@ class Index extends Component
     public function tambah_data()
     {
         $this->reset(['is_edit', 'id_edit']);
-        $this->forms = UserTrait::firstForm();
+        $this->forms = AppUserTrait::firstForm();
         $this->emit('modalAdd', 'show');
     }
 
@@ -74,7 +74,7 @@ class Index extends Component
         $this->is_edit = 1;
         $this->id_edit = $id;
 
-        $this->forms = UserTrait::find_data($id);
+        $this->forms = AppUserTrait::find_data($id);
 
         $this->emit('modalAdd', 'show');
     }
@@ -88,23 +88,23 @@ class Index extends Component
 
             // dd($this->forms);
             if ($this->id_edit) {
-                $validasi = UserTrait::store_validation($this->forms, $this->id_edit);
+                $validasi = AppUserTrait::store_validation($this->forms, $this->id_edit);
             } else {
-                $validasi = UserTrait::store_validation($this->forms);
+                $validasi = AppUserTrait::store_validation($this->forms);
             }
             // dd($validasi);
             if (!$validasi['success']) {
                 $this->emit('pesanGagal', $validasi['message']);
             } else {
                 if ($this->id_edit) {
-                    UserTrait::store_data($this->forms, $this->id_edit);
+                    AppUserTrait::store_data($this->forms, $this->id_edit);
                 } else {
-                    UserTrait::store_data($this->forms);
+                    AppUserTrait::store_data($this->forms);
                 }
 
                 $this->emit('modalAdd', 'hide');
 
-                $this->forms = UserTrait::firstForm();
+                $this->forms = AppUserTrait::firstForm();
                 $this->emit('pesanSukses', 'Store Success..');
                 $this->reset(['is_edit', 'id_edit']);
             }
@@ -118,7 +118,7 @@ class Index extends Component
     public function destroy($id)
     {
         try {
-            UserTrait::destroy($id);
+            AppUserTrait::destroy($id);
             $this->emit('pesanSukses', 'Success..');
         } catch (\Exception $th) {
             //throw $th;
@@ -130,17 +130,17 @@ class Index extends Component
     public function render()
     {
         $q = $this->search;
-        $data = User::filter($q)->latest()->paginate($this->paging);
+        $data = AppUser::filter($q)->latest()->paginate($this->paging);
         $pagings = MasterData::list_pagings();
-        $roles = Role::active()->get();
+        
 
         return view('appuser::livewire.users.index', compact(
             'data',
             'pagings',
-            'roles'
+            
         ))
-            ->layout('layouts.main', [
-                'title' => 'Manage Users'
-            ]);
+        ->layout('layouts.main', [
+                'title' => _lang('Manage App User')
+        ]);
     }
 }

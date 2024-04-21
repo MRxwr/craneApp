@@ -43,8 +43,8 @@ class Service extends Model
     public function scopeFilter($e, $q)
     {
         return $e->when($q, function ($ee, $q) {
-            return $ee->where('name', 'like', "%$q%")
-                ->orWhere('email', 'like', "%$q%");
+            return $ee->where('title', 'like', "%$q%")
+                ->orWhere('description', 'like', "%$q%");
         });
     }
 }

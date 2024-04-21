@@ -10,7 +10,9 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-Route::prefix('appuser')->group(function() {
-    Route::get('/', 'AppUserController@index');
+Route::middleware(['web', 'auth'])->group(function () {
+    Route::prefix('users')->group(function () {
+        Route::get('clients/index', 'users\index');
+        Route::get('drivers/index', 'users\index');
+    });
 });

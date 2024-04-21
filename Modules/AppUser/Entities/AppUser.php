@@ -9,10 +9,26 @@ class AppUser extends Model
 {
     use HasFactory;
 
-    protected $fillable = [];
-    
-    protected static function newFactory()
+    protected $fillable = [
+                'name',
+                'mobile',
+                'email',
+                'dob',
+                'is_active',
+                'user_type',
+                'avator'
+            ];
+    public function scopeActive($e)
     {
-        return \Modules\AppUser\Database\factories\AppUserFactory::new();
+        return $e->where('is_active', 1);
     }
+    public function scopeFilter($e, $q)
+    {
+        return $e->when($q, function ($ee, $q) {
+            return $ee->where('name', 'like', "%$q%")
+                ->orWhere('mobile', 'like', "%$q%")
+                ->orWhere('email', 'like', "%$q%");
+        });
+    }
+    
 }

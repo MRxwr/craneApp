@@ -14,7 +14,6 @@ trait AppUserTrait
         $a['is_active'] = '';
         $a['user_type'] = '';
         $a['avator'] = '';
-
         return $a;
     }
 

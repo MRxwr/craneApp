@@ -12,7 +12,7 @@
 */
 Route::middleware(['web', 'auth'])->group(function () {
     Route::prefix('users')->group(function () {
-        Route::get('clients/index', 'users\index');
-        Route::get('drivers/index', 'users\index');
+        Route::get('clients', 'users\clients');
+        Route::get('drivers', 'users\drivers');
     });
 });

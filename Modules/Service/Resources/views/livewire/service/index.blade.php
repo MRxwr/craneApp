@@ -121,9 +121,7 @@
                     <div class="card">
                         <div class="card-header">
                             {{-- <h4>Horizontal Form</h4> --}}
-                            <p style="color: red">
-                                <b><i>** Password default: 123</i></b>
-                            </p>
+                            
                         </div>
                         <form wire:submit.prevent="store">
                             <div class="card-body">
@@ -146,9 +144,10 @@
                                 @endforeach
 
                                 <div class="form-group row">
-                                    <div class="col-lg-3 col-12">{{_lang('Description')}} [{{$lang->code}}]</div>
+                                    <div class="col-lg-3 col-12">{{_lang('Image')}} </div>
                                     <div class="col-lg-9 col-12">
-                                    <input type="file" class="form-control"  wire:model="forms.image">
+                                    <img src="{{ asset('storage/' . $image) }}" alt="Uploaded Image">
+                                        <input type="file" class="form-control"  wire:model="forms.image">
                                     </div>
                                 </div>
 

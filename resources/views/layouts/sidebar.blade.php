@@ -43,10 +43,14 @@
                 @endif
             </ul>
         </li>
-
-
-
-
+        @if (akses('view-language'))
+          <li class="nav-item">
+             <a href="{{ url('services/index') }}" class="nav-link">
+                <i class="nav-icon fas fa-notes"></i>
+                <p>{{_lang('Services')}}</p>
+             </a>
+          </li> 
+        @endif
         <!-- Settings -->
 
         <li class="nav-item {{ request()->segment(1) == 'settings' ? 'menu-open' : '' }}">

@@ -3,6 +3,7 @@
 use App\Models\User;
 use App\Models\Locale;
 use App\Models\Language;
+use App\Models\Setting;
 use Modules\Roles\Entities\Role;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Model;
@@ -56,4 +57,17 @@ function getActiveLanguages(){
 
 function getLocale(){
    return app()->getLocale();
+}
+function getSetting($slug){
+   $locale = app()->getLocale();
+   $setting = Setting::find(1);
+   if($slug=='sitetitle'){
+     return $setting->sitetitle[$locale];
+   }elseif($slug=='sitedesc'){
+    return $setting->sitedesc[$locale];
+   }elseif($slug=='logo'){
+    return $setting->logo;
+   }elseif($slug=='favicon'){
+    return $setting->favicon;
+   }
 }

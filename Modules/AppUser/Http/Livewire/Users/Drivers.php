@@ -22,7 +22,7 @@ class Drivers extends Component
     {
         $this->paging = 25;
         //$this->forms = AppUserTrait::firstForm();
-        $this->forms = AppUserTrait::where('user_type', 2)->firstForm();
+        $this->forms = AppUserTrait::driversForms();
         // dd($this->forms);
 
     }

@@ -138,6 +138,55 @@ trait PermissionTrait
                 'type' => 'manage-service',
                 'title' => 'change-status-service'
             ],
+
+
+            // Manage client
+            [
+                'type' => 'manage-client',
+                'title' => 'view-client'
+            ],
+            
+            [
+                'type' => 'manage-client',
+                'title' => 'create-client'
+            ],
+            [
+                'type' => 'manage-client',
+                'title' => 'edit-client'
+            ],
+            [
+                'type' => 'manage-client',
+                'title' => 'delete-client'
+            ],
+
+            [
+                'type' => 'manage-client',
+                'title' => 'change-status-client'
+            ],
+
+            // Manage client
+            [
+                'type' => 'manage-driver',
+                'title' => 'view-driver'
+            ],
+            
+            [
+                'type' => 'manage-driver',
+                'title' => 'create-driver'
+            ],
+            [
+                'type' => 'manage-driver',
+                'title' => 'edit-driver'
+            ],
+            [
+                'type' => 'manage-driver',
+                'title' => 'delete-driver'
+            ],
+
+            [
+                'type' => 'manage-driver',
+                'title' => 'change-status-driver'
+            ],
             
         ]);
     }

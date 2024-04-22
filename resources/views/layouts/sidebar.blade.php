@@ -32,6 +32,26 @@
                     </li>
                 @endif
 
+                @if (akses('view-client'))
+                    <li class="nav-item">
+                        <a href="{{ url('users/clients') }}"
+                            class="nav-link {{ request()->segment(1) == 'users' && request()->segment(2) == 'clients' ? 'active' : '' }}">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>{{_lang('Manage Clients')}}</p>
+                        </a>
+                    </li>
+                @endif
+
+                @if (akses('view-driver'))
+                    <li class="nav-item">
+                        <a href="{{ url('users/drivers') }}"
+                            class="nav-link {{ request()->segment(1) == 'users' && request()->segment(2) == 'drivers' ? 'active' : '' }}">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>{{_lang('Manage Drivers')}}</p>
+                        </a>
+                    </li>
+                @endif
+
                 @if (akses('view-roles'))
                     <li class="nav-item">
                         <a href="{{ url('users/roles') }}"
@@ -54,7 +74,7 @@
         <!-- Settings -->
 
         <li class="nav-item {{ request()->segment(1) == 'settings' ? 'menu-open' : '' }}">
-            <a href="#" class="nav-link {{ request()->segment(1) == 'users' ? 'active' : '' }}">
+            <a href="#" class="nav-link {{ request()->segment(1) == 'settings' ? 'active' : '' }}">
                 <i class="nav-icon fas fa-cog "></i>
                 <p>{{_lang('Settings')}}
                     <i class="right fas fa-angle-left"></i>

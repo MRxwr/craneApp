@@ -17,6 +17,52 @@ trait AppUserTrait
         return $a;
     }
 
+    public static function clientsForms(){
+        // Retrieve forms based on the user_type
+        $userForms = AppUser::where('user_type', 1)->get();
+
+        // If forms are found, return them
+        if ($userForms->isNotEmpty()) {
+            return $userForms->map(function ($form) {
+                return [
+                    'name' => $form->name,
+                    'email' => $form->email,
+                    'mobile' => $form->mobile,
+                    'dob' => $form->dob,
+                    'is_active' => $form->is_active,
+                    'user_type' => $form->user_type,
+                    'avator' => $form->avator
+                ];
+            });
+        }
+
+        // If no forms are found, return an empty array
+        return [];
+    }
+
+    public static function driversForms(){
+        // Retrieve forms based on the user_type
+        $userForms = AppUser::where('user_type', 1)->get();
+
+        // If forms are found, return them
+        if ($userForms->isNotEmpty()) {
+            return $userForms->map(function ($form) {
+                return [
+                    'name' => $form->name,
+                    'email' => $form->email,
+                    'mobile' => $form->mobile,
+                    'dob' => $form->dob,
+                    'is_active' => $form->is_active,
+                    'user_type' => $form->user_type,
+                    'avator' => $form->avator
+                ];
+            });
+        }
+
+        // If no forms are found, return an empty array
+        return [];
+    }
+
     public static function store_validation($data, $id_edit = null)
     {
         // dd($data);

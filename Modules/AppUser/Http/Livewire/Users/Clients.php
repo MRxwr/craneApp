@@ -21,7 +21,7 @@ class Clients extends Component
     public function mount()
     {
         $this->paging = 25;
-        $this->forms = AppUserTrait::where('user_type', 1)->firstForm();
+        $this->forms = AppUserTrait::clientsForms();
         // dd($this->forms);
 
     }

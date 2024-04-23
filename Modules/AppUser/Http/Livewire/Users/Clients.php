@@ -5,6 +5,7 @@ namespace Modules\AppUser\Http\Livewire\Users;
 use Livewire\Component;
 use App\Traits\MasterData;
 use Livewire\WithPagination;
+use Livewire\WithFileUploads;
 use Modules\AppUser\Entities\AppUser;
 use Modules\AppUser\Http\Traits\AppUserTrait;
 
@@ -12,11 +13,13 @@ use Modules\AppUser\Http\Traits\AppUserTrait;
 class Clients extends Component
 {
     use WithPagination;
+    use WithFileUploads;
+
     protected $paginationTheme = 'bootstrap';
 
     public $paging, $search;
     public $forms = [];
-    public $id_edit, $is_edit,$avator ;
+    public $id_edit, $is_edit,$avator,$imageUrl ;
 
     public function mount()
     {
@@ -87,6 +90,13 @@ class Clients extends Component
         try {
 
             // dd($this->forms);
+            if ($this->avator) {
+                $imageName = $this->avator->store('public/avators');
+                // Get the URL for the uploaded image
+                $this->imageUrl = asset('storage/' . $imageName);
+                $this->forms['avator']=$this->imageUrl;
+            }
+
             if ($this->id_edit) {
                 $validasi = AppUserTrait::store_validation($this->forms, $this->id_edit);
             } else {

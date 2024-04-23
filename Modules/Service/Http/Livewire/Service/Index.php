@@ -89,7 +89,7 @@ class Index extends Component
         try {
 
             if ($this->image) {
-                $imageName = $this->image->store('public/images');
+                $imageName =  $this->image->store('uploads', 'public');;
                 // Get the URL for the uploaded image
                 $this->imageUrl = asset('storage/' . $imageName);
                 $this->forms['image']=$this->imageUrl;

@@ -89,12 +89,13 @@ class Index extends Component
         try {
 
             if ($this->image) {
-                $imageName =  $this->image->store('uploads', 'public');;
+                $imageName =   $this->image->store('uploads', 'public');
                 // Get the URL for the uploaded image
-                $this->imageUrl = asset('storage/' . $imageName);
+                $this->imageUrl = asset($imageName);
                 $this->forms['image']=$this->imageUrl;
+                $this->image = null;
             }
-            // dd($this->forms);
+            dd($this->forms);
             if ($this->id_edit) {
                 $validasi = ServiceTrait::store_validation($this->forms, $this->id_edit);
             } else {

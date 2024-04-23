@@ -8,6 +8,7 @@ use App\Http\Livewire\Settings;
 use App\Http\Controllers\Login_controller;
 use App\Http\Livewire\Languages\Index as LanguagesIndex;
 use App\Http\Livewire\Locales\Index as LocalesIndex;
+use Illuminate\Support\Facades\Artisan;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -20,11 +21,17 @@ use App\Http\Livewire\Locales\Index as LocalesIndex;
 */
 
 Route::get('/', function () {
-    // return view('welcome');
-    // return view('layouts.main', [
-    //     'title' => 'Blank Page | sangcahaya.id'
-    // ]);
     return redirect('dashboard');
+});
+
+
+Route::get('/create-storage-link', function () {
+    try {
+        Artisan::call('storage:link');
+        return 'Storage link created successfully!';
+    } catch (\Exception $e) {
+        return 'Error creating storage link: ' . $e->getMessage();
+    }
 });
 
 Route::middleware(['web', 'auth'])->group(function () {

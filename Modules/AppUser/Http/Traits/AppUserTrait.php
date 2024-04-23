@@ -70,7 +70,7 @@ trait AppUserTrait
             // $this->emit('pesanGagal', 'Name Required');
             return [
                 'success' => false,
-                'message' => 'name Required'
+                'message' => 'Name Required'
             ];
         } elseif (!$data['email']) {
             // $this->emit('pesanGagal', 'email Required');
@@ -78,27 +78,45 @@ trait AppUserTrait
                 'success' => false,
                 'message' => 'email Required'
             ];
-        } else {
+        } elseif (!$data['mobile']) {
+            // $this->emit('pesanGagal', 'email Required');
+            return [
+                'success' => false,
+                'message' => 'mobile Required'
+            ];
+        }else {
 
             if ($id_edit) {
-                $cek = AppUser::where('mobile', $data['mobile'])->where('id', '!=', $id_edit)->exists();
-
-                if ($cek) {
+               
+                if (User::where('email', $data['email'])->where('id', '!=', $id_edit)->exists()) {
                     return [
                         'success' => false,
-                        'message' => 'mobile already exist.'
+                        'message' => 'This email already exist..'
+                    ];
+                }
+                if (User::where('mobile', $data['mobile'])->where('id', '!=', $id_edit)->exists()) {
+                    return [
+                        'success' => false,
+                        'message' => 'This email already exist..'
                     ];
                 }
             } else {
-                $cek = AppUser::where('mobile', $data['mobile'])->exists();
-
-                if ($cek) {
+            
+                if (User::where('email', $data['email'])->exists()) {
                     return [
                         'success' => false,
-                        'message' => 'Maaf email sudah digunakan..'
+                        'message' => 'This email already exist..'
+                    ];
+                }
+                if (User::where('mobile', $data['mobile'])->exists()) {
+                    return [
+                        'success' => false,
+                        'message' => 'This mobile already exist..'
                     ];
                 }
             }
+
+
 
             return [
                 'success' => true,

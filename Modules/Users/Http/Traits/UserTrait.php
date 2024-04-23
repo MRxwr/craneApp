@@ -38,7 +38,7 @@ trait UserTrait
                 if ($cek) {
                     return [
                         'success' => false,
-                        'message' => 'Maaf email sudah digunakan..'
+                        'message' => 'This email already exist..'
                     ];
                 }
             } else {
@@ -47,7 +47,7 @@ trait UserTrait
                 if ($cek) {
                     return [
                         'success' => false,
-                        'message' => 'Maaf email sudah digunakan..'
+                        'message' => 'This email already exist..'
                     ];
                 }
             }
@@ -61,14 +61,9 @@ trait UserTrait
 
     public static function store_data($data, $id = null)
     {
-        // dd($data);
         if ($id) {
-            // $data['password'] = bcrypt($data['password']);
-
             User::find($id)->update($data);
         } else {
-            $data['password'] = bcrypt('123');
-
             User::create($data);
         }
     }
@@ -81,7 +76,6 @@ trait UserTrait
     public static function find_data($id)
     {
         $dt = User::find($id);
-
         return [
             'name' => $dt->name,
             'email' => $dt->email,

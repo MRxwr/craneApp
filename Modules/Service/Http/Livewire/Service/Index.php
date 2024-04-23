@@ -95,7 +95,8 @@ class Index extends Component
                 // Get the URL for the uploaded image
                 $this->imageUrl = asset($imageName);
                 $this->forms['image_path']=$this->imageUrl;
-                $this->image = null;
+                
+                
             }
             dd($this->forms);
             if ($this->id_edit) {

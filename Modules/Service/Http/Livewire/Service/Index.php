@@ -88,8 +88,16 @@ class Index extends Component
         ]);
         try {
 
-            
-            //dd($this->forms);
+            if ($this->image) {
+                $originalName = $this->image->getClientOriginalName();
+                $mimeType = $this->image->getMimeType();
+                $imageName =   $this->image->store('uploads', 'public');
+                // Get the URL for the uploaded image
+                $this->imageUrl = asset($imageName);
+                $this->forms['image_path']=$this->imageUrl;
+                $this->image = null;
+            }
+            dd($this->forms);
             if ($this->id_edit) {
                 $validasi = ServiceTrait::store_validation($this->forms, $this->id_edit);
             } else {

@@ -9,7 +9,7 @@ trait ServiceTrait
     {
         $a['title'] = '';
         $a['description'] = '';
-        $a['image'] = '';
+        $a['image_path'] = '';
 
         return $a;
     }

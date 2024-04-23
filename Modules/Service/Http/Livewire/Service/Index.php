@@ -18,7 +18,7 @@ class Index extends Component
 
     public $paging, $search;
     public $forms = [];
-    public $id_edit, $is_edit,$image;
+    public $id_edit, $is_edit,$image,$imageUrl;
 
     public function mount()
     {
@@ -89,7 +89,10 @@ class Index extends Component
         try {
 
             if ($this->image) {
-                $this->forms->image_path = $this->image->store('services');
+                $imageName = $this->image->store('public/images');
+                // Get the URL for the uploaded image
+                $this->imageUrl = asset('storage/' . $imageName);
+                $this->forms['image']=$this->imageUrl;
             }
             // dd($this->forms);
             if ($this->id_edit) {

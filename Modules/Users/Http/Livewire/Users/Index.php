@@ -17,7 +17,7 @@ class Index extends Component
 
     public $paging, $search;
     public $forms = [];
-    public $id_edit, $is_edit;
+    public $id_edit,$is_edit,$image,$imageUrl;
 
     public function mount()
     {
@@ -86,7 +86,8 @@ class Index extends Component
             'forms.*' => 'required'
         ]);
         try {
-
+             // dd($this->forms);
+             
             // dd($this->forms);
             if ($this->id_edit) {
                 $validasi = UserTrait::store_validation($this->forms, $this->id_edit);

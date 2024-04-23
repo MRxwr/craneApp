@@ -80,7 +80,7 @@ trait ServiceTrait
         return [
             'title' => $dt->title,
             'description' => $dt->description,
-            'image' => $dt->role_id
+            'image_path' => $dt->role_id
         ];
     }
 }

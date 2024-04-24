@@ -94,9 +94,7 @@ class Index extends Component
                 $imageName =   $this->image->store('uploads', 'public');
                 // Get the URL for the uploaded image
                 $this->imageUrl = asset($imageName);
-                $this->forms['image_path']=$this->imageUrl;
-                
-                
+                $this->forms['image']=asset($imageName); 
             }
            
             if ($this->id_edit) {

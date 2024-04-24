@@ -67,7 +67,6 @@
                                 <div class="form-group row">
                                     <div class="col-lg-3 col-12">{{_lang('Avator')}} </div>
                                     <div class="col-lg-9 col-12">
-                                    <img src="{{ asset('storage/' . $avator) }}" alt="Uploaded avator">
                                         <input type="file" class="form-control"  wire:model="forms.avator">
                                     </div>
                                 </div>

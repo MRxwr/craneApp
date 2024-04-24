@@ -16,7 +16,7 @@
                                 <div class="form-group row">
                                     <div class="col-lg-3 col-12"> {{_lang('Title')}} [{{$lang->code}}]</div>
                                     <div class="col-lg-9 col-12">
-                                        <input type="text" class="form-control" placeholder="Site Title.." value="{{$service->title[$lang->code]}}" name="title[{{ $lang->code }}"]">
+                                        <input type="text" class="form-control" placeholder="Site Title.." value="{{$service->title[$lang->code]}}" name="title[{{ $lang->code }}]">
                                     </div>
                                 </div>
                                 @endforeach
@@ -24,7 +24,7 @@
                                 <div class="form-group row">
                                     <div class="col-lg-3 col-12">{{_lang('Description')}} [{{$lang->code}}]</div>
                                     <div class="col-lg-9 col-12">
-                                        <textarea  class="form-control" placeholder="Description.." wire:model="description[{{ $lang->code }}]">{{$service->description[$lang->code]}}</textarea>
+                                        <textarea  class="form-control" placeholder="Description.." name="description[{{ $lang->code }}]">{{$service->description[$lang->code]}}</textarea>
                                     </div>
                                 </div>
                                 @endforeach

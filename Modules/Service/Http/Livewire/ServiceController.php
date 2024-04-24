@@ -89,7 +89,6 @@ class ServiceController extends Controller
         //dd($request->all());
         $service = Service::findOrFail($id);
         if( $service){
-            dd($service);
             $service->title = $request->title;
             $service->description = $request->description;
             if ($request->hasFile('image')) {

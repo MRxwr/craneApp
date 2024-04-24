@@ -100,8 +100,20 @@ class Index extends Component
                 $this->emit('pesanGagal', $validasi['message']);
             } else {
                 if ($this->id_edit) {
+                    if ($this->image) {
+                        // Store the uploaded file in the storage directory
+                        $imageName = $this->image->store('services', 'public');
+                        // Get the URL for the uploaded image
+                        $this->forms['image'] = Storage::url($imageName);
+                    }
                     ServiceTrait::store_data($this->forms, $this->id_edit);
                 } else {
+                    if ($this->image) {
+                        // Store the uploaded file in the storage directory
+                        $imageName = $this->image->store('services', 'public');
+                        // Get the URL for the uploaded image
+                        $this->forms['image'] = Storage::url($imageName);
+                    }
                     ServiceTrait::store_data($this->forms);
                 }
 

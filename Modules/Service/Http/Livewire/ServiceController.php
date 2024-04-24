@@ -39,8 +39,7 @@ class ServiceController extends Controller
             'description' => 'required|string',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
-       
-        
+
         $service = new Service();
         $service->name = $validatedData['name'];
         $service->description = $validatedData['description'];

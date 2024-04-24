@@ -43,7 +43,7 @@
                                 <div class="form-group row">
                                     <div class="col-lg-3 col-12">{{_lang('Image')}} </div>
                                     <div class="col-lg-9 col-12">
-                                    <img src="{{ asset('storage/' . $image) }}" alt="Uploaded Image">
+                                    <img src="{{ asset('storage/' . '') }}" alt="Uploaded Image">
                                         <input type="file" class="form-control"  wire:model="forms.image">
                                     </div>
                                 </div>

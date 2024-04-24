@@ -9,7 +9,7 @@ trait ServiceTrait
     {
         $a['title'] = '';
         $a['description'] = '';
-        $a['image_path'] = '';
+        $a['image'] = '';
 
         return $a;
     }
@@ -70,7 +70,7 @@ trait ServiceTrait
 
     public static function destroy($id)
     {
-        Service::find($id)->delete();
+        //Service::find($id)->delete();
     }
 
     public static function find_data($id)
@@ -80,7 +80,7 @@ trait ServiceTrait
         return [
             'title' => $dt->title,
             'description' => $dt->description,
-            'image_path' => $dt->role_id
+            'image' => $dt->image
         ];
     }
 }

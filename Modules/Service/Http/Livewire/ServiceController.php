@@ -85,11 +85,12 @@ class ServiceController extends Controller
         $validatedData = $request->validate([
             'title' => 'required|string|max:255',
             'description' => 'required|string',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif',
         ]);
         //dd($request->all());
         $service = Service::findOrFail($id);
         if( $service){
+            dd($service);
             $service->title = $request->title;
             $service->description = $request->description;
             if ($request->hasFile('image')) {

@@ -148,7 +148,7 @@
                                     <div class="col-lg-9 col-12">
                                    
                                     <img src="{{ $image }}" alt="Uploaded Image">
-                                        <input type="file" class="form-control"  wire:model="forms.image">
+                                        <input type="file" class="form-control" id="image"  wire:change="$emit('fileChoosen)">
                                     </div>
                                 </div>
 
@@ -180,6 +180,9 @@
                     // $('#modalAdd').find('.close').click();
                 }
 
+            })
+            window.livewire.on('fileChoosen',postId=>{
+                alert('okkkkk')
             })
         </script>
     @endsection

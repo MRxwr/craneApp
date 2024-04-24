@@ -7,7 +7,8 @@
         <div class="card-body row">
 
             <div class=" col-md-6 modal-content">
-                  <form wire:submit.prevent="store">
+            <form action="{{ route('services.store') }}" method="POST" enctype="multipart/form-data">
+                @csrf <!-- CSRF protection -->
                             <div class="card-body">
                                 {{ $message ?? '' }}
                                 @foreach (getActiveLanguages()  as $lang)

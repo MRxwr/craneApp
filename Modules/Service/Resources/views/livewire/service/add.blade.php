@@ -7,8 +7,9 @@
         <div class="card-body row">
 
             <div class=" col-md-6 modal-content">
-                
-                  <form wire:submit.prevent="store">
+              <form action="{{ route('services.update', $service->id) }}" method="POST" enctype="multipart/form-data">
+                    @csrf
+                    @method('PUT') <!-- Use PUT method for updating -->
                             <div class="card-body">
                                 {{ $message ?? '' }}
                                 @foreach (getActiveLanguages()  as $lang)
@@ -20,14 +21,13 @@
                                 </div>
                                 @endforeach
                                 @foreach (getActiveLanguages()  as $lang)
-                                <div class="form-group row">
-                                    <div class="col-lg-3 col-12">{{_lang('Description')}} [{{$lang->code}}]</div>
-                                    <div class="col-lg-9 col-12">
-                                        <input type="text" class="form-control" placeholder="Description.." wire:model="forms.description.{{ $lang->code }}">
+                                    <div class="form-group row">
+                                        <div class="col-lg-3 col-12">{{_lang('Description')}} [{{$lang->code}}]</div>
+                                        <div class="col-lg-9 col-12">
+                                            <input type="text" class="form-control" placeholder="Description.." wire:model="forms.description.{{ $lang->code }}">
+                                        </div>
                                     </div>
-                                </div>
                                 @endforeach
-
                                 <div class="form-group row">
                                     <div class="col-lg-3 col-12"><img src="{{ asset('storage/' . '') }}" alt="Uploaded Image"></div>
                                     <div class="col-lg-9 col-12">
@@ -35,8 +35,6 @@
                                         <input type="file" class="form-control"  wire:model="forms.image">
                                     </div>
                                 </div>
-
-                                
                             </div>
                             <div class="card-footer">
                                 <button type="submit" class="btn btn-primary">{{_lang('Submit')}}</button>

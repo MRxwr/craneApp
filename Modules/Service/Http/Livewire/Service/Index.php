@@ -18,7 +18,7 @@ class Index extends Component
 
     public $paging, $search;
     public $forms = [];
-    public $id_edit, $is_edit,$image,$imageUrl;
+    public $id_edit, $is_edit,$image;
 
     public function mount()
     {
@@ -89,16 +89,10 @@ class Index extends Component
         try {
 
             if ($this->image) {
-                $originalName = $this->image->getClientOriginalName();
-                $mimeType = $this->image->getMimeType();
-                $imageName =   $this->image->store('uploads', 'public');
-                // Get the URL for the uploaded image
-                $this->imageUrl = asset($imageName);
-                $this->forms->image=asset($imageName); 
+                $this->forms->image= $this->image->store('services');
             }
-           
+            // dd($this->forms);
             if ($this->id_edit) {
-                
                 $validasi = ServiceTrait::store_validation($this->forms, $this->id_edit);
             } else {
                 $validasi = ServiceTrait::store_validation($this->forms);
@@ -108,9 +102,7 @@ class Index extends Component
                 $this->emit('pesanGagal', $validasi['message']);
             } else {
                 if ($this->id_edit) {
-                    dd($this->forms);
                     ServiceTrait::store_data($this->forms, $this->id_edit);
-
                 } else {
                     ServiceTrait::store_data($this->forms);
                 }

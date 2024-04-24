@@ -6,29 +6,6 @@
     <div class="card">
         <div class="card-body">
 
-            <div class="row">
-                <div class="col-md-1">
-                    <div class="form-group">
-                        {{-- <label>Text</label> --}}
-                        <select class="form-control" wire:model="paging">
-                            @foreach ($pagings as $e => $pg)
-                                <option value="{{ $e }}">{{ $pg }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="form-group">
-                        {{-- <label>Text</label> --}}
-                        <input type="text" class="form-control" placeholder="Search Data.." wire:model="search">
-                        {{-- {{ $search }} --}}
-                    </div>
-                </div>
-
-            </div>
-            <div class="row">
-                <img src="{{ asset('loading-bar.gif') }}" alt="" wire:loading wire:target="paging,search">
-            </div>
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">{{_lang('Add Service')}}</h5>

@@ -24,7 +24,7 @@ class ServiceController extends Controller
      */
     public function create()
     {
-        return view('service::liveware.service.add');
+        return view('service::livewire.service.add');
     }
 
     /**

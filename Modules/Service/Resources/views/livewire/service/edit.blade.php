@@ -7,8 +7,9 @@
         <div class="card-body row">
 
             <div class=" col-md-6 modal-content">
-            <form action="{{ route('services.store') }}" method="POST" enctype="multipart/form-data">
-                @csrf <!-- CSRF protection -->
+            <form action="{{ route('services.update', $service->id) }}" method="POST" enctype="multipart/form-data">
+                    @csrf
+                    @method('PUT') <!-- Use PUT method for updating -->
                             <div class="card-body">
                                 {{ $message ?? '' }}
                                 @foreach (getActiveLanguages()  as $lang)

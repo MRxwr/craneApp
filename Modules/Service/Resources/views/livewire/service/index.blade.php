@@ -42,7 +42,7 @@
                     <tbody>
                         <tr>
                             <th>ID</th>
-                            <th>{{_lang('image')}}</th>
+                            
                             <th>{{_lang('Title')}}</th>
                             <th>{{_lang('Description')}}</th>
                             <th>{{_lang('Status')}}</th>
@@ -51,7 +51,7 @@
                         @foreach ($data as $e => $dt)
                             <tr>
                                 <td>{{ $dt->id }}</td>
-                                <td> <img src="{{ $dt->image->temporaryUrl() }}" width="250" height="300"></td>
+                                
                                 <td>{{ $dt->title[getLocale()] }}</td>
                                 <td>{{ $dt->description[getLocale()] }}</td>
                                 
@@ -146,8 +146,7 @@
                                 <div class="form-group row">
                                     <div class="col-lg-3 col-12">{{_lang('Image')}} </div>
                                     <div class="col-lg-9 col-12">
-                                       
-                                    <img src=" {{ $forms.description->temporaryUrl() }}" alt="Uploaded Image">
+                                    <img src="{{ asset('storage/' . $image) }}" alt="Uploaded Image">
                                         <input type="file" class="form-control"  wire:model="forms.image">
                                     </div>
                                 </div>

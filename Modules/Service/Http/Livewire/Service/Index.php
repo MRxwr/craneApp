@@ -110,6 +110,7 @@ class Index extends Component
                 $this->emit('modalAdd', 'hide');
 
                 $this->forms = ServiceTrait::firstForm();
+                dd($this->forms);
                 $this->emit('pesanSukses', 'Store Success..');
                 $this->reset(['is_edit', 'id_edit']);
             }

@@ -98,7 +98,7 @@ class Index extends Component
                 
                 
             }
-            dd($this->forms);
+           
             if ($this->id_edit) {
                 $validasi = ServiceTrait::store_validation($this->forms, $this->id_edit);
             } else {
@@ -109,7 +109,9 @@ class Index extends Component
                 $this->emit('pesanGagal', $validasi['message']);
             } else {
                 if ($this->id_edit) {
+                    dd($this->forms);
                     ServiceTrait::store_data($this->forms, $this->id_edit);
+
                 } else {
                     ServiceTrait::store_data($this->forms);
                 }

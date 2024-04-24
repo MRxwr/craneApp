@@ -82,8 +82,12 @@ class ServiceController extends Controller
      */
     public function update(Request $request, $id)
     {
-        
-        dd($request->all());
+        $validatedData = $request->validate([
+            'title' => 'required|string|max:255',
+            'description' => 'required|string',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+        ]);
+        //dd($request->all());
         $service = Service::findOrFail($id);
         $service->name = $request->title;
         $service->description = $request->description;

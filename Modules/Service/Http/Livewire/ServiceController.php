@@ -96,8 +96,10 @@ class ServiceController extends Controller
                 $request->image->move(public_path('services'), $imageName);
                 $service->image = $imageName;
             }
-        
             $service->save();
+            return redirect()->back()->with('success', 'Service created successfully!');
+        }else{
+            return redirect()->back()->with('error', 'Service Not exist!');
         }
         
     

@@ -7,7 +7,6 @@
         <div class="card-body row">
 
             <div class=" col-md-6 modal-content">
-                @dd($service)
                   <form wire:submit.prevent="store">
                             <div class="card-body">
                                 {{ $message ?? '' }}

@@ -7,7 +7,7 @@
         <div class="card-body row">
 
             <div class=" col-md-6 modal-content">
-                
+                @dd($service)
                   <form wire:submit.prevent="store">
                             <div class="card-body">
                                 {{ $message ?? '' }}
@@ -15,7 +15,7 @@
                                 <div class="form-group row">
                                     <div class="col-lg-3 col-12"> {{_lang('Title')}} [{{$lang->code}}]</div>
                                     <div class="col-lg-9 col-12">
-                                        <input type="text" class="form-control" placeholder="Site Title.." wire:model="forms.title.{{ $lang->code }}">
+                                        <input type="text" class="form-control" placeholder="Site Title.." value="{{$service->title[$lang->code]}}" wire:model="forms.title.{{ $lang->code }}">
                                     </div>
                                 </div>
                                 @endforeach

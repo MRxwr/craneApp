@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\AppUser\Http\Controllers;
+namespace Modules\AppUser\Http\Livewire;
 
 use Illuminate\Contracts\Support\Renderable;
 use Modules\Service\Entities\AppUser;

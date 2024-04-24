@@ -88,9 +88,7 @@ class Index extends Component
         ]);
         try {
 
-            if ($this->image) {
-                $this->forms->image= $this->image->store('services');
-            }
+           
             // dd($this->forms);
             if ($this->id_edit) {
                 $validasi = ServiceTrait::store_validation($this->forms, $this->id_edit);
@@ -110,7 +108,7 @@ class Index extends Component
                 $this->emit('modalAdd', 'hide');
 
                 $this->forms = ServiceTrait::firstForm();
-                dd($this->forms);
+               
                 $this->emit('pesanSukses', 'Store Success..');
                 $this->reset(['is_edit', 'id_edit']);
             }

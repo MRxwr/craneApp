@@ -8,7 +8,7 @@
 
             <div class=" col-md-6 modal-content">
                 
-            <form wire:submit.prevent="store">
+                  <form wire:submit.prevent="store">
                             <div class="card-body">
                                 {{ $message ?? '' }}
                                 @foreach (getActiveLanguages()  as $lang)
@@ -29,9 +29,9 @@
                                 @endforeach
 
                                 <div class="form-group row">
-                                    <div class="col-lg-3 col-12">{{_lang('Image')}} </div>
+                                    <div class="col-lg-3 col-12"><img src="{{ asset('storage/' . '') }}" alt="Uploaded Image"></div>
                                     <div class="col-lg-9 col-12">
-                                    <img src="{{ asset('storage/' . '') }}" alt="Uploaded Image">
+                                    
                                         <input type="file" class="form-control"  wire:model="forms.image">
                                     </div>
                                 </div>

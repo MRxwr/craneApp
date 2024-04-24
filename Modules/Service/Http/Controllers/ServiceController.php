@@ -3,6 +3,7 @@
 namespace Modules\Service\Http\Controllers;
 
 use Illuminate\Contracts\Support\Renderable;
+use Modules\Service\Entities\Service;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 
@@ -14,7 +15,7 @@ class ServiceController extends Controller
      */
     public function index()
     {
-        return view('service::index');
+        //return view('service::index');
     }
 
     /**
@@ -23,7 +24,7 @@ class ServiceController extends Controller
      */
     public function create()
     {
-        return view('service::create');
+        return view('service::liveware.add');
     }
 
     /**
@@ -33,7 +34,24 @@ class ServiceController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validatedData = $request->validate([
+            'title' => 'required|string|max:255',
+            'description' => 'required|string',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+        ]);
+       
+        
+        $service = new Service();
+        $service->name = $validatedData['name'];
+        $service->description = $validatedData['description'];
+        if ($request->hasFile('image')) {
+            $imageName = time().'.'.$request->image->extension();  
+            $request->image->move(public_path('services'), $imageName);
+            $service->image = $imageName;
+        }
+        $service->save();
+    
+        // Redirect or return response as needed
     }
 
     /**
@@ -51,10 +69,11 @@ class ServiceController extends Controller
      * @param int $id
      * @return Renderable
      */
-    public function edit($id)
-    {
-        return view('service::edit');
+    public function edit($id){
+        $service = Service::findOrFail($id);
+        return view('service::liveware.edit', compact('service'));
     }
+
 
     /**
      * Update the specified resource in storage.

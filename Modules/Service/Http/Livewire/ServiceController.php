@@ -42,7 +42,7 @@ class ServiceController extends Controller
         ]);
 
         $service = new Service();
-        if( $service){
+        
             $service->title = $request->title;
             $service->description = $request->description;
             if ($request->hasFile('image')) {
@@ -54,7 +54,7 @@ class ServiceController extends Controller
             }
             $service->save();
             return redirect()->back()->with('success', 'Service created successfully!');
-        }
+       
     
         // Redirect or return response as needed
     }

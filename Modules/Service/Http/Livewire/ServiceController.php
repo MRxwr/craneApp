@@ -6,6 +6,7 @@ use Illuminate\Contracts\Support\Renderable;
 use Modules\Service\Entities\Service;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Storage;
 
 class ServiceController extends Controller
 {
@@ -92,9 +93,11 @@ class ServiceController extends Controller
             $service->title = $request->title;
             $service->description = $request->description;
             if ($request->hasFile('image')) {
-                $imageName = time().'.'.$request->image->extension();  
-                $request->image->move(public_path('services'), $imageName);
-                $service->image = $imageName;
+                
+                $imageName = 'img-'.time().'.'.$request->image->extension();
+               // Save the file to the 'public' disk
+                $request->image->storeAs('services', $imageName, 'public');
+                $service->image = 'services/'.$imageName;
             }
             $service->save();
             return redirect()->back()->with('success', 'Service created successfully!');

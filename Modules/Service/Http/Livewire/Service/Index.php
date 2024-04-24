@@ -21,6 +21,11 @@ class Index extends Component
     public $forms = [];
     public $id_edit, $is_edit,$image;
 
+    protected $listeners =['fileUpload'=>'handleFileUpload'];
+    
+    public function handleFileUpload ($imageData){
+        $this->image = $imageData;
+    }
     public function mount()
     {
         $this->paging = 25;

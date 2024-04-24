@@ -94,10 +94,11 @@ class Index extends Component
                 $imageName =   $this->image->store('uploads', 'public');
                 // Get the URL for the uploaded image
                 $this->imageUrl = asset($imageName);
-                $this->forms['image']=asset($imageName); 
+                $this->forms->image=asset($imageName); 
             }
            
             if ($this->id_edit) {
+                
                 $validasi = ServiceTrait::store_validation($this->forms, $this->id_edit);
             } else {
                 $validasi = ServiceTrait::store_validation($this->forms);

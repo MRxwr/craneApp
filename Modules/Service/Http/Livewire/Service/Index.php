@@ -9,6 +9,7 @@ use Livewire\WithFileUploads;
 use Livewire\WithPagination;
 use Modules\Service\Http\Traits\ServiceTrait;
 use Modules\Roles\Http\Traits\PermissionTrait;
+use Illuminate\Support\Facades\Storage;
 
 class Index extends Component
 {
@@ -102,10 +103,10 @@ class Index extends Component
                 if ($this->id_edit) {
                     if ($this->image) {
                         // Store the uploaded file in the storage directory
-                        $imageName = $this->image->store('services', 'public');
-                        // Get the URL for the uploaded image
-                        $this->forms['image'] = Storage::url($imageName);
+                        $image = $this->image->store('services', 'public');
+                        $this->forms['image'] = Storage::url($image);
                     }
+                    
                     ServiceTrait::store_data($this->forms, $this->id_edit);
                 } else {
                     if ($this->image) {

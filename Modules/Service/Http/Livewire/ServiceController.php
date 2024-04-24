@@ -89,15 +89,18 @@ class ServiceController extends Controller
         ]);
         //dd($request->all());
         $service = Service::findOrFail($id);
-        $service->name = $request->title;
-        $service->description = $request->description;
-        if ($request->hasFile('image')) {
-            $imageName = time().'.'.$request->image->extension();  
-            $request->image->move(public_path('services'), $imageName);
-            $service->image = $imageName;
+        if( $service){
+            $service->title = $request->title;
+            $service->description = $request->description;
+            if ($request->hasFile('image')) {
+                $imageName = time().'.'.$request->image->extension();  
+                $request->image->move(public_path('services'), $imageName);
+                $service->image = $imageName;
+            }
+        
+            $service->save();
         }
-    
-        $service->save();
+        
     
         // Redirect or return response as needed
     }

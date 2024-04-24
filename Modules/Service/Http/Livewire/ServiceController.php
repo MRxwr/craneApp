@@ -82,16 +82,11 @@ class ServiceController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $validatedData = $request->validate([
-            'name' => 'required|string|max:255',
-            'description' => 'required|string',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-        ]);
-    
+        
+        dd($request->all);
         $service = Service::findOrFail($id);
-        $service->name = $validatedData['name'];
-        $service->description = $validatedData['description'];
-    
+        $service->name = $request->title;
+        $service->description = $request->description;
         if ($request->hasFile('image')) {
             $imageName = time().'.'.$request->image->extension();  
             $request->image->move(public_path('services'), $imageName);

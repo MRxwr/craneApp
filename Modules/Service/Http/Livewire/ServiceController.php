@@ -82,7 +82,10 @@ class ServiceController extends Controller
      */
     public function update(Request $request, $id)
     {
-       
+        $validatedData = $request->validate([
+            'title.*' => 'required|string|max:255',
+            'description.*' => 'required|string',
+        ]);
         //dd($request->all());
         $service = Service::findOrFail($id);
         if( $service){

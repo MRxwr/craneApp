@@ -70,7 +70,7 @@ class ServiceController extends Controller
      */
     public function edit($id){
         $service = Service::findOrFail($id);
-        return view('service::liveware.service.edit', compact('service'));
+        return view('service::livewire.service.edit', compact('service'));
     }
 
 

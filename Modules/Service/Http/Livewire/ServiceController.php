@@ -36,20 +36,25 @@ class ServiceController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request->validate([
-            'title' => 'required|string|max:255',
-            'description' => 'required|string',
+            'title.*' => 'required|string|max:255',
+            'description.*' => 'required|string',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
         $service = new Service();
-        $service->name = $validatedData['name'];
-        $service->description = $validatedData['description'];
-        if ($request->hasFile('image')) {
-            $imageName = time().'.'.$request->image->extension();  
-            $request->image->move(public_path('services'), $imageName);
-            $service->image = $imageName;
+        if( $service){
+            $service->title = $request->title;
+            $service->description = $request->description;
+            if ($request->hasFile('image')) {
+                
+                $imageName = 'img-'.time().'.'.$request->image->extension();
+               // Save the file to the 'public' disk
+                $request->image->storeAs('services', $imageName, 'public');
+                $service->image = 'services/'.$imageName;
+            }
+            $service->save();
+            return redirect()->back()->with('success', 'Service created successfully!');
         }
-        $service->save();
     
         // Redirect or return response as needed
     }
@@ -86,6 +91,7 @@ class ServiceController extends Controller
         $validatedData = $request->validate([
             'title.*' => 'required|string|max:255',
             'description.*' => 'required|string',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
         //dd($request->all());
         $service = Service::findOrFail($id);
@@ -100,7 +106,7 @@ class ServiceController extends Controller
                 $service->image = 'services/'.$imageName;
             }
             $service->save();
-            return redirect()->back()->with('success', 'Service created successfully!');
+            return redirect()->back()->with('success', 'Service Saved successfully!');
         }else{
             return redirect()->back()->with('error', 'Service Not exist!');
         }

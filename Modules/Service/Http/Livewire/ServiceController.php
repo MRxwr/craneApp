@@ -24,7 +24,7 @@ class ServiceController extends Controller
      */
     public function create()
     {
-        return view('service::liveware.add');
+        return view('service::liveware.service.add');
     }
 
     /**
@@ -71,7 +71,7 @@ class ServiceController extends Controller
      */
     public function edit($id){
         $service = Service::findOrFail($id);
-        return view('service::liveware.edit', compact('service'));
+        return view('service::liveware.service.edit', compact('service'));
     }
 
 

@@ -30,7 +30,7 @@
                                 @endforeach
 
                                 <div class="form-group row">
-                                    <div class="col-lg-3 col-12"><img src="{{ asset($service->image) }}" class="img-rounded" alt="Uploaded Image"></div>
+                                    <div class="col-lg-3 col-12" style="height:250px;"><img src="{{ asset($service->image) }}" class="img-rounded" alt="Uploaded Image"></div>
                                     <div class="col-lg-9 col-12">
                                         <input type="file" class="form-control" name="image" >
                                     </div>

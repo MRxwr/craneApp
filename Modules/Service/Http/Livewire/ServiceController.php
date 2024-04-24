@@ -50,7 +50,7 @@ class ServiceController extends Controller
                 $imageName = 'img-'.time().'.'.$request->image->extension();
                // Save the file to the 'public' disk
                 $request->image->storeAs('services', $imageName, 'public');
-                $service->image = 'services/'.$imageName;
+                $service->image = 'storage/services/'.$imageName;
             }
             $service->save();
             return redirect()->back()->with('success', 'Service created successfully!');
@@ -103,7 +103,7 @@ class ServiceController extends Controller
                 $imageName = 'img-'.time().'.'.$request->image->extension();
                // Save the file to the 'public' disk
                 $request->image->storeAs('services', $imageName, 'public');
-                $service->image = 'services/'.$imageName;
+                $service->image = 'storage/services/'.$imageName;
             }
             $service->save();
             return redirect()->back()->with('success', 'Service Saved successfully!');

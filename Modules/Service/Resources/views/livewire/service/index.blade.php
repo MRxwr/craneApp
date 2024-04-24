@@ -181,8 +181,16 @@
                 }
 
             })
-            window.livewire.on('fileChoosen',postId=>{
-                alert('okkkkk')
+            window.livewire.on('fileChoosen',()=>{
+                
+                let inputFIeld= document.getElementById('image');
+                let file = inputFIeld.files[0];
+                let reader = new FileReader();
+                reader.onloadend=()=>{
+                    window.liveware.emit('fileUpload',reader.result);
+                }
+                reader.readAsDataURL(file);
+                
             })
         </script>
     @endsection

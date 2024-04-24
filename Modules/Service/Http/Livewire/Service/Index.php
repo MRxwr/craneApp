@@ -22,8 +22,9 @@ class Index extends Component
     public $id_edit, $is_edit,$image;
 
     protected $listeners =['fileUpload'=>'handleFileUpload'];
-    
+
     public function handleFileUpload ($imageData){
+        dd($imageData);
         $this->image = $imageData;
     }
     public function mount()

@@ -5,7 +5,7 @@
             {{-- <h4>Simple Table</h4> --}}
             @if (akses('create-user'))
                 <div class="buttons float-right">
-                    <a wire:click.prevent="tambah_data" href="#" class="btn btn-icon icon-left btn-primary"><i
+                    <a  href="{{ route('appuser.create') }}" class="btn btn-icon icon-left btn-primary"><i
                             class="bi bi-clipboard-plus"></i>
                         {{_lang('Add new')}}</a>
                 </div>
@@ -82,8 +82,7 @@
                                         <div class="dropdown-menu" x-placement="bottom-start"
                                             style="position: absolute; transform: translate3d(0px, 28px, 0px); top: 0px; left: 0px; will-change: transform;">
                                             @if (akses('edit-user'))
-                                                <a class="dropdown-item has-icon" href="#"
-                                                    wire:click.prevent="edit_data({{ $dt->id }})"><i
+                                                <a class="dropdown-item has-icon" href="{{ route('appuser.edit', $dt->id) }}"><i
                                                         class="bi bi-pencil-square"></i>
                                                     Edit</a>
                                             @endif
@@ -122,9 +121,7 @@
                     <div class="card">
                         <div class="card-header">
                             {{-- <h4>Horizontal Form</h4> --}}
-                            <p style="color: red">
-                                <b><i>** Password default: 123</i></b>
-                            </p>
+                            
                         </div>
                         <form wire:submit.prevent="store">
                             <div class="card-body">
@@ -189,6 +186,7 @@
                                         <input type="file" class="form-control"  wire:model="forms.avator">
                                     </div>
                                 </div>
+
                             </div>
                             <div class="card-footer">
                                 <button type="submit" class="btn btn-primary">Submit</button>

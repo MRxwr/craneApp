@@ -5,7 +5,7 @@
             {{-- <h4>Simple Table</h4> --}}
             @if (akses('create-service'))
                 <div class="buttons float-right">
-                    <a wire:click.prevent="tambah_data" href="#" class="btn btn-icon icon-left btn-primary"><i
+                    <a  href="{{ route('services.create') }}" class="btn btn-icon icon-left btn-primary"><i
                             class="bi bi-clipboard-plus"></i>
                             {{_lang('Add New')}}</a>
                 </div>

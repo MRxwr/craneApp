@@ -4,23 +4,11 @@
 @section('content')
 <div>
     <div class="card">
-        <div class="card-body">
+        <div class="card-body row">
 
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">{{_lang('Add Service')}}</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-
-                    <div class="card">
-                        <div class="card-header">
-                            <!-- {{-- <h4>Horizontal Form</h4> --}} -->
-                            
-                        </div>
-                        <form wire:submit.prevent="store">
+            <div class=" col-md-6 modal-content">
+                
+            <form wire:submit.prevent="store">
                             <div class="card-body">
                                 {{ $message ?? '' }}
                                 @foreach (getActiveLanguages()  as $lang)
@@ -55,9 +43,6 @@
                                 <img src="{{ asset('loading-bar.gif') }}" alt="" wire:loading wire:target="store">
                             </div>
                         </form>
-                    </div>
-
-                </div>
                
             </div>
             

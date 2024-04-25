@@ -113,7 +113,7 @@ class UsersController extends Controller
             }
             
             if ($request->hasFile('avator')) {
-                $imageName = 'img-'.time().'.'.$request->image->extension();
+                $imageName = 'img-'.time().'.'.$request->avator->extension();
                // Save the file to the 'public' disk
                 $request->avator->storeAs('avators', $imageName, 'public');
                 $user->avator = 'storage/avators/'.$imageName;

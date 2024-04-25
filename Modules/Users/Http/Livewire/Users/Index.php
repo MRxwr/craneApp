@@ -140,8 +140,7 @@ class Index extends Component
             'data',
             'pagings',
             'roles'
-        ))
-            ->layout('layouts.main', [
+        ))->layout('layouts.main', [
                 'title' => 'Manage Users'
             ]);
     }

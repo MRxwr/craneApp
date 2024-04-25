@@ -141,7 +141,7 @@ class Drivers extends Component
             
         ))
         ->layout('layouts.main', [
-                'title' => _lang('Manage App User')
+                'title' => _lang('Manage Drivers')
         ]);
     }
 }

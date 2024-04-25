@@ -53,7 +53,7 @@
                         @foreach ($data as $e => $dt)
                             <tr>
                                 <td>{{ $dt->id }}</td>
-                                <td><img src="{{ asset($dt->avator) }}" style="width:75px; height:75px" alt="Uploaded Image"></td>
+                                <td><img src="{{ asset($dt->avator) }}" style="width:60px; height:60px" alt="Uploaded Image"></td>
                                 <td>{{ $dt->name }}</td>
                                 <td>{{ $dt->mobile }}</td>
                                 <td>{{ $dt->email }}</td>

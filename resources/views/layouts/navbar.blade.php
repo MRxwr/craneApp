@@ -35,7 +35,8 @@
     </li>
     --}}
     <!-- Messages Dropdown Menu -->
-    
+    <!-- Notifications Dropdown Menu -->
+    {!! LanguagesDropdown() !!} 
     
     <!-- Notifications Dropdown Menu -->
     <li class="nav-item dropdown">

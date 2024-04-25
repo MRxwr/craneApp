@@ -71,3 +71,21 @@ function getSetting($slug){
     return $setting->favicon;
    }
 }
+function LanguagesDropdown(){
+    $html='';
+    if(getActiveLanguages()){
+        $html .='<!-- Notifications Dropdown Menu -->
+        <li class="nav-item dropdown">
+            <a class="nav-link" data-toggle="dropdown" href="#">
+               '._lang('Language').'
+                
+            </a>
+            <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">';
+             foreach(getActiveLanguages as $language){
+               $html .='<a href="#" class="dropdown-item"> '._lang($language->title).'</a>';
+                }
+         $html .='</div>
+        </li>';
+    }
+    return $html;
+}

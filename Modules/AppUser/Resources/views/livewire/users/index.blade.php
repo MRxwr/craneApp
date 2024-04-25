@@ -42,6 +42,7 @@
                     <tbody>
                         <tr>
                             <th>ID</th>
+                            <th>{{_lang('Image')}}</th>
                             <th>{{_lang('Name')}}</th>
                             <th>{{_lang('Mobile')}}</th>
                             <th>{{_lang('Email')}}</th>
@@ -52,6 +53,7 @@
                         @foreach ($data as $e => $dt)
                             <tr>
                                 <td>{{ $dt->id }}</td>
+                                <td><img src="{{ asset($dt->avator) }}" alt="Uploaded Image"></td>
                                 <td>{{ $dt->name }}</td>
                                 <td>{{ $dt->mobile }}</td>
                                 <td>{{ $dt->email }}</td>

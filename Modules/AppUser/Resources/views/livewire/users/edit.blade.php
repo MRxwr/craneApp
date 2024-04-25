@@ -67,7 +67,7 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <div class="col-lg-3 col-12">{{_lang('Avator')}} </div>
+                                    <div class="col-lg-3 col-12"><img src="{{ asset($user->avator) }}" alt="Uploaded Image"></div>
                                     <div class="col-lg-9 col-12">
                                         <input type="file" class="form-control"  name="avator">
                                     </div>

@@ -153,7 +153,7 @@ class Index extends Component
     public function render()
     {
         $q = $this->search;
-        $data = Service::filter($q)->latest()->paginate($this->paging);
+        $data = Service::where('is_deleted',0)->filter($q)->latest()->paginate($this->paging);
         $pagings = MasterData::list_pagings();
        
         return view('service::livewire.service.index', compact(

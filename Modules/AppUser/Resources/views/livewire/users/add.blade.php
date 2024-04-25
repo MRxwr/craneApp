@@ -1,5 +1,5 @@
 @extends('layouts.main',[
-    'title'=>_lang('Add User')
+    'title'=>_lang('Edit Client/Driver')
 ])
 @section('content')
 <div>

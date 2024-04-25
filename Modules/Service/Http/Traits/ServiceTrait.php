@@ -70,7 +70,9 @@ trait ServiceTrait
 
     public static function destroy($id)
     {
-        //Service::find($id)->delete();
+        $service= Service::find($id);
+        $service->is_deleted = 0;
+        $service->save();
     }
 
     public static function find_data($id)

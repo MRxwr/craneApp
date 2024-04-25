@@ -19,7 +19,7 @@ trait AppUserTrait
 
     public static function clientsForms(){
         // Retrieve forms based on the user_type
-        $userForms = AppUser::where('user_type', 1)->get();
+        $userForms = AppUser::where('user_type', 1)->where('is_deleted', 0)->get();
 
         // If forms are found, return them
         if ($userForms->isNotEmpty()) {
@@ -42,7 +42,7 @@ trait AppUserTrait
 
     public static function driversForms(){
         // Retrieve forms based on the user_type
-        $userForms = AppUser::where('user_type', 2)->get();
+        $userForms = AppUser::where('user_type', 2)->where('is_deleted', 0)->get();
 
         // If forms are found, return them
         if ($userForms->isNotEmpty()) {
@@ -88,13 +88,13 @@ trait AppUserTrait
 
             if ($id_edit) {
                
-                if (User::where('email', $data['email'])->where('id', '!=', $id_edit)->exists()) {
+                if (AppUser::where('email', $data['email'])->where('id', '!=', $id_edit)->exists()) {
                     return [
                         'success' => false,
                         'message' => 'This email already exist..'
                     ];
                 }
-                if (User::where('mobile', $data['mobile'])->where('id', '!=', $id_edit)->exists()) {
+                if (AppUser::where('mobile', $data['mobile'])->where('id', '!=', $id_edit)->exists()) {
                     return [
                         'success' => false,
                         'message' => 'This email already exist..'
@@ -102,13 +102,13 @@ trait AppUserTrait
                 }
             } else {
             
-                if (User::where('email', $data['email'])->exists()) {
+                if (AppUser::where('email', $data['email'])->exists()) {
                     return [
                         'success' => false,
                         'message' => 'This email already exist..'
                     ];
                 }
-                if (User::where('mobile', $data['mobile'])->exists()) {
+                if (AppUser::where('mobile', $data['mobile'])->exists()) {
                     return [
                         'success' => false,
                         'message' => 'This mobile already exist..'
@@ -129,20 +129,22 @@ trait AppUserTrait
     {
         // dd($data);
         if ($id) {
-            Service::find($id)->update($data);
+            AppUser::find($id)->update($data);
         } else {
-            Service::create($data);
+            AppUser::create($data);
         }
     }
 
     public static function destroy($id)
     {
-        Service::find($id)->delete();
+       $user= AppUser::find($id);
+       $user->is_deleted = 1;
+       $user->save();
     }
 
     public static function find_data($id)
     {
-        $dt = Service::find($id);
+        $dt = AppUser::find($id);
 
         return [
             'name' => $dt->name,

@@ -17,14 +17,7 @@ class Settings extends Component
     public $favicon;
     
     protected $rules = [
-        'row.sitetitle.en' => 'required|string|max:255',
-        'row.sitedesc.en' => 'required|string|max:255',
-        'row.sitetitle.ar' => 'required|string|max:255',
-        'row.sitedesc.ar' => 'required|string|max:255',
-        'row.adminlang' => 'required',
-        'row.frontlang' => 'required',
-        'row.logo' => 'required',
-        'row.favicon' => 'required',
+        'row.*' => 'required|string|max:255',
         // Add validation rules for other properties as needed
     ];
 

@@ -81,7 +81,7 @@ function LanguagesDropdown(){
                 
             </a>
             <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">';
-             foreach(getActiveLanguages as $language){
+             foreach(getActiveLanguages() as $language){
                $html .='<a href="#" class="dropdown-item"> '._lang($language->title).'</a>';
                 }
          $html .='</div>

@@ -1,5 +1,5 @@
 @extends('layouts.main',[
-'title'=>'Dashboard'
+'title'=>_lang('Add Service')
 ])
 @section('content')
 <div>

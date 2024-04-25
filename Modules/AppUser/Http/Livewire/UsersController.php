@@ -6,6 +6,7 @@ use Illuminate\Contracts\Support\Renderable;
 use Modules\Service\Entities\AppUser;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Hash;
 
 class UsersController extends Controller
 {
@@ -45,12 +46,17 @@ class UsersController extends Controller
        
         
         $user = new AppUser();
-        $user->name = $validatedData['name'];
-        $user->description = $validatedData['description'];
-        if ($request->hasFile('image')) {
-            $imageName = time().'.'.$request->image->extension();  
-            $request->image->move(public_path('services'), $imageName);
-            $user->image = $imageName;
+        $user->name = $request->name;
+        $user->mobile = $request->mobile;
+        $user->email = $request->email;
+        $user->dob = $request->dob;
+        $user->user_type = $request->user_type;
+        $user->password = Hash::make($request->password); // bcrypt hashing
+  
+        if ($request->hasFile('avatar')) {
+            $imageName = time().'.'.$request->avatar->extension();  
+            $request->avatar->move(public_path('avatars'), $imageName);
+            $user->avatar = $imageName;
         }
         $user->save();
         return redirect()->back()->with('success', 'User Saved successfully!');
@@ -97,8 +103,15 @@ class UsersController extends Controller
         //dd($request->all());
         $user = AppUser::findOrFail($id);
         if( $user){
-            $user->title = $request->title;
-            $user->description = $request->description;
+            $user->name = $request->name;
+            $user->mobile = $request->mobile;
+            $user->email = $request->email;
+            $user->dob = $request->dob;
+            $user->user_type = $request->user_type;
+            if($request->password){
+                $user->password = Hash::make($request->password); // bcrypt hashing
+            }
+            
             if ($request->hasFile('avator')) {
                 
                 $imageName = 'img-'.time().'.'.$request->image->extension();

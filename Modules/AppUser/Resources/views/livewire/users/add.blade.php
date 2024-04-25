@@ -1,5 +1,5 @@
 @extends('layouts.main',[
-'title'=>'Dashboard'
+    'title'=>_lang('Add User')
 ])
 @section('content')
 <div>
@@ -13,19 +13,19 @@
                                 {{ $message ?? '' }}
                                 <div class="form-group">
                                     <label for="name">{{ _lang('Name') }}</label>
-                                    <input wire:model="forms.name" type="text" class="form-control" id="name"
+                                    <input name="name" type="text" class="form-control" id="name"
                                         placeholder="{{ _lang('Name') }}">
-                                    {{-- {{ $forms['name'] }} --}}
-                                    @error('forms.name')
+                                    
+                                    @error('name')
                                         <span style="color: red;" class="error">{{ $message }}</span>
                                     @enderror
                                 </div>
                                 <div class="form-row">
                                     <div class="form-group col-md-12">
                                         <label for="inputmobile4">{{ _lang('Mobile') }}</label>
-                                        <input wire:model="forms.mobile" type="text" class="form-control"
+                                        <input name="mobile" type="text" class="form-control"
                                             id="inputmobile4" placeholder="{{ _lang('Mobile') }} ">
-                                        @error('forms.mobile')
+                                        @error('mobile')
                                             <span style="color: red;" class="error">{{ $message }}</span>
                                         @enderror
                                     </div>
@@ -33,9 +33,9 @@
                                 <div class="form-row">
                                     <div class="form-group col-md-12">
                                         <label for="inputEmail4">{{ _lang('Email') }} </label>
-                                        <input wire:model="forms.email" type="text" class="form-control"
+                                        <input name="email" type="text" class="form-control"
                                             id="inputEmail4" placeholder="{{ _lang('Email') }} ">
-                                        @error('forms.email')
+                                        @error('email')
                                             <span style="color: red;" class="error">{{ $message }}</span>
                                         @enderror
                                     </div>
@@ -43,9 +43,9 @@
                                 <div class="form-row">
                                     <div class="form-group col-md-12">
                                         <label for="inputDob4">{{ _lang('DOB') }} </label>
-                                        <input wire:model="forms.dob" type="date" class="form-control"
+                                        <input name="dob" type="date" class="form-control"
                                             id="inputDob4" placeholder="{{ _lang('Date of Birth') }} ">
-                                        @error('forms.dob')
+                                        @error('dob')
                                             <span style="color: red;" class="error">{{ $message }}</span>
                                         @enderror
                                     </div>
@@ -53,13 +53,12 @@
                                 <div class="form-row">
                                     <div class="form-group col-md-12">
                                         <label for="role_id">{{ _lang('User Type') }}</label>
-                                        <select class="form-control" wire:model="forms.user_type">
-                                            <option value="">Select Type</option>
-                                            
+                                        <select class="form-control" name="user_type">
+                                                <option value="">Select Type</option>
                                                 <option value="1">{{ _lang('Client') }}</option>
                                                 <option value="2">{{ _lang('Driver') }}</option>
                                         </select>
-                                        @error('forms.user_type')
+                                        @error('user_type')
                                             <span style="color: red;" class="error">{{ $message }}</span>
                                         @enderror
                                     </div>
@@ -67,7 +66,7 @@
                                 <div class="form-group row">
                                     <div class="col-lg-3 col-12">{{_lang('Avator')}} </div>
                                     <div class="col-lg-9 col-12">
-                                        <input type="file" class="form-control"  wire:model="forms.avator">
+                                        <input type="file" class="form-control"  name="avator">
                                     </div>
                                 </div>
                             </div>

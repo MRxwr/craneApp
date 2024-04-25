@@ -43,7 +43,7 @@ function akses($str)
     }
 }
 function _lang($slug){
-    $code=app()->getLocale();
+    $code=  Session::get('locale');;
     $lang = Locale::where('slug',$slug)->first();
    if($lang ){
      return $lang->locales[$code];
@@ -56,7 +56,7 @@ function getActiveLanguages(){
 }
 
 function getLocale(){
-   return app()->getLocale();
+   return $lang = Session::get('locale');
 }
 function getSetting($slug){
    $locale = app()->getLocale();
@@ -73,11 +73,12 @@ function getSetting($slug){
 }
 function LanguagesDropdown(){
     $html='';
+    $lang = Session::get('locale');
     if(getActiveLanguages()){
         $html .='<!-- Notifications Dropdown Menu -->
         <li class="nav-item dropdown">
             <a class="nav-link" data-toggle="dropdown" href="#">
-               '.app()->getLocale().'
+               '.$lang.'
                 
             </a>
             <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">';

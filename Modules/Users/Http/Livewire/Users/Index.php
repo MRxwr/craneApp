@@ -132,7 +132,7 @@ class Index extends Component
     public function render()
     {
         $q = $this->search;
-        $data = User::filter($q)->latest()->paginate($this->paging);
+        $data = User::where('is_deleted',0)->filter($q)->latest()->paginate($this->paging);
         $pagings = MasterData::list_pagings();
         $roles = Role::active()->get();
 

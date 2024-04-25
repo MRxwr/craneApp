@@ -70,7 +70,9 @@ trait UserTrait
 
     public static function destroy($id)
     {
-        User::find($id)->delete();
+        $user=User::find($id);
+        $user->is_deleted = 1;
+        $user->save();
     }
 
     public static function find_data($id)

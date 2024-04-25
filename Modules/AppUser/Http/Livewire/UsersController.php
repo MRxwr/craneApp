@@ -53,10 +53,10 @@ class UsersController extends Controller
         $user->user_type = $request->user_type;
         $user->password = Hash::make($request->password); // bcrypt hashing
   
-        if ($request->hasFile('avatar')) {
-            $imageName = time().'.'.$request->avatar->extension();  
-            $request->avatar->move(public_path('avatars'), $imageName);
-            $user->avatar = $imageName;
+        if ($request->hasFile('avator')) {
+            $imageName = time().'.'.$request->avator->extension();  
+            $request->avator->move(public_path('avators'), $imageName);
+            $user->avator = $imageName;
         }
         $user->save();
         return redirect()->back()->with('success', 'User Saved successfully!');
@@ -113,11 +113,10 @@ class UsersController extends Controller
             }
             
             if ($request->hasFile('avator')) {
-                
                 $imageName = 'img-'.time().'.'.$request->image->extension();
                // Save the file to the 'public' disk
-                $request->image->storeAs('avators', $imageName, 'public');
-                $user->image = 'storage/avators/'.$imageName;
+                $request->avator->storeAs('avators', $imageName, 'public');
+                $user->avator = 'storage/avators/'.$imageName;
             }
             $user->save();
             return redirect()->back()->with('success', 'User Saved successfully!');

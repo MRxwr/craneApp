@@ -9,6 +9,7 @@ use App\Http\Controllers\Login_controller;
 use App\Http\Livewire\Languages\Index as LanguagesIndex;
 use App\Http\Livewire\Locales\Index as LocalesIndex;
 use Illuminate\Support\Facades\Artisan;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -22,6 +23,11 @@ use Illuminate\Support\Facades\Artisan;
 
 Route::get('/', function () {
     return redirect('dashboard');
+});
+Route::get('/language/{lang}', function ($lang) {
+    session(['setlang' => $lang]);
+    app()->setLocale($lang);
+    return redirect()->back();
 });
 
 

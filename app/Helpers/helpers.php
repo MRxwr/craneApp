@@ -77,12 +77,12 @@ function LanguagesDropdown(){
         $html .='<!-- Notifications Dropdown Menu -->
         <li class="nav-item dropdown">
             <a class="nav-link" data-toggle="dropdown" href="#">
-               '._lang('Language').'
+               '.app()->getLocale().'
                 
             </a>
             <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">';
              foreach(getActiveLanguages() as $language){
-               $html .='<a href="'.asset('changelang/'.$language->code).'" class="dropdown-item"> '._lang($language->title).'</a>';
+               $html .='<a href="'.asset('language/'.$language->code).'" class="dropdown-item"> '._lang($language->title).'</a>';
                 }
          $html .='</div>
         </li>';

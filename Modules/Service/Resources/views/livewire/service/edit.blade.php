@@ -30,13 +30,11 @@
                                 @endforeach
 
                                 <div class="form-group row">
-                                    <div class="col-lg-3 col-12" style="height:250px;"><img src="{{ asset($service->image) }}" class="img-rounded" alt="Uploaded Image"></div>
+                                    <div class="col-lg-3 col-12" style="height:250px;"><img src="{{ asset($service->image) }}" class="img-rounded" alt="Uploaded Image" style="width: 100%;"></div>
                                     <div class="col-lg-9 col-12">
                                         <input type="file" class="form-control" name="image" >
                                     </div>
                                 </div>
-
-                                
                             </div>
                             <div class="card-footer">
                                 <button type="submit" class="btn btn-primary">{{_lang('Submit')}}</button>

@@ -3,7 +3,7 @@
 namespace Modules\AppUser\Http\Livewire;
 
 use Illuminate\Contracts\Support\Renderable;
-use Modules\Service\Entities\AppUser;
+use Modules\AppUser\Entities\AppUser;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Hash;

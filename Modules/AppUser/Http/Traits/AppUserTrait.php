@@ -42,7 +42,7 @@ trait AppUserTrait
 
     public static function driversForms(){
         // Retrieve forms based on the user_type
-        $userForms = AppUser::where('user_type', 1)->get();
+        $userForms = AppUser::where('user_type', 2)->get();
 
         // If forms are found, return them
         if ($userForms->isNotEmpty()) {

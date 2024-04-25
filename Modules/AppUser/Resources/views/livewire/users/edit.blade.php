@@ -59,7 +59,7 @@
                                         <select class="form-control" name="user_type">
                                                 <option value="">Select Type</option>
                                                 <option value="1" @if($user->user_type==1) selected @endif >{{ _lang('Client') }}</option>
-                                                <option value="2" @if(@user->user_type==2) selected @endif >{{ _lang('Driver') }}</option>
+                                                <option value="2" @if($user->user_type==2) selected @endif >{{ _lang('Driver') }}</option>
                                         </select>
                                         @error('user_type')
                                             <span style="color: red;" class="error">{{ $message }}</span>

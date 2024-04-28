@@ -1,6 +1,7 @@
 <?php
 namespace Modules\AppUser\Http\Livewire\Api;
 
+
 use Illuminate\Contracts\Support\Renderable;
 use Modules\AppUser\Entities\AppUser;
 use Illuminate\Routing\Controller;
@@ -14,9 +15,6 @@ class OTPController extends Controller
     {
         $otp = mt_rand(1000, 9999); // Generate a random OTP
         $mobileNumber = $request->input('mobile_number');
-
-        // Save the OTP to the database
-        // Send the OTP to the user's mobile number using an SMS gateway
 
         return response()->json(['otp' => $otp], 200);
     }

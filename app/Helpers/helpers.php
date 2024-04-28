@@ -80,7 +80,7 @@ function LanguagesDropdown(){
                 '.$lang.'  
                 </a>
             <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">';
-             foreach(getActiveLanguages() as $language){
+               foreach(getActiveLanguages() as $language){
                   $html .='<a href="'.asset('language/'.$language->code).'" class="dropdown-item"> '._lang($language->title).'</a>';
                 }
          $html .='</div>

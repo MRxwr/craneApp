@@ -9,10 +9,7 @@ class OtpUser extends Model
 {
     use HasFactory;
 
-    protected $fillable = [];
+    protected $fillable = ['otp','mobile'];
     
-    protected static function newFactory()
-    {
-        return \Modules\AppUser\Database\factories\OtpUserFactory::new();
-    }
+    
 }

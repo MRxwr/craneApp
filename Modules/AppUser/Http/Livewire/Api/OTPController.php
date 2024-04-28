@@ -17,6 +17,7 @@ class OTPController extends Controller
         $data=array();
         $otp = mt_rand(1000, 9999); // Generate a random OTP
         $mobileNumber = $request->input('mobile_number');
+        $mobileNumber = str_replace('+', '', $mobileNumber);
         $user = OtpUser::where('mobile', $mobileNumber)->first();
         $data['otp'] = $otp;
         if ($user) {
@@ -37,8 +38,8 @@ class OTPController extends Controller
         $data=array();
         $otp = $request->input('otp');
         $mobileNumber = $request->input('mobile_number');
+        $mobileNumber = str_replace('+', '', $mobileNumber);
         $storedOTP = OtpUser::where('mobile', $mobileNumber)->first();
-        dd($storedOTP);
         if (!$storedOTP) {
             $data['message']=_lang('Mobile not found');
             return outputError($data);

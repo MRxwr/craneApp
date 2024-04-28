@@ -43,7 +43,10 @@ Route::get('/create-storage-link', function () {
         return 'Error creating storage link: ' . $e->getMessage();
     }
 });
-
+Route::get('/migrate', function () {
+    Artisan::call('migrate');
+    return 'Migration completed';
+});
 Route::middleware(['web', 'auth'])->group(function () {
     Route::get('/dashboard', [HomeController::class, 'index']);
     Route::get('/settings/languages/index', LanguagesIndex::class)->name('languages.index');

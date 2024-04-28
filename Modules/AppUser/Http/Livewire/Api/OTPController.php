@@ -22,6 +22,7 @@ class OTPController extends Controller
         if ($user) {
             $user->otp = $otp;
             $user->save();
+            return outputSuccess($data);
         } else {
            // Create a new OtpUser
             $otpUser = OtpUser::create([
@@ -29,7 +30,7 @@ class OTPController extends Controller
                 'mobile' => $mobileNumber,
             ]);
         }
-        outputSuccess($data);
+        return outputSuccess($data);
     }
 
     public function verifyOTP(Request $request){ 
@@ -40,17 +41,17 @@ class OTPController extends Controller
         if (!$storedOTP) {
             return response()->json(['error' => 'OTP not found'], 404);
             $data['message']=_lang('OTP not found');
-            outputError($data);
+            return outputError($data);
         }
         if ($otp == $storedOTP->otp) {
             // OTP matched, mark it as verified in the database
             OtpUser::where('mobile', $mobileNumber)->update(['verified' => true]);
             $data['mobile']=$mobileNumber;
             $data['message']=_lang('OTP verified successfully');
-            outputSuccess($data);
+            return outputSuccess($data);
         } else {
             $data['message']=_lang('Invalid OTP');
-            outputError($data);
+            return outputError($data);
         }
     }
 }

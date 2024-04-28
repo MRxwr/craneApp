@@ -4,6 +4,7 @@ namespace Modules\AppUser\Http\Livewire\Api;
 
 use Illuminate\Contracts\Support\Renderable;
 use Modules\AppUser\Entities\AppUser;
+use Modules\AppUser\Entities\OtpUser;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Http;
@@ -13,30 +14,43 @@ class OTPController extends Controller
 {
     public function sendOTP(Request $request)
     {
+        $data=array();
         $otp = mt_rand(1000, 9999); // Generate a random OTP
         $mobileNumber = $request->input('mobile_number');
-
-        return response()->json(['otp' => $otp], 200);
+        $user = OtpUser::where('mobile_number', $mobileNumber)->first();
+        $data['otp'] = $otp;
+        if ($user) {
+            $user->otp = $otp;
+            $user->save();
+        } else {
+           // Create a new OtpUser
+            $otpUser = OtpUser::create([
+                'otp' => $otp,
+                'mobile' => $mobileNumber,
+            ]);
+        }
+        outputSuccess($data);
     }
 
-    public function verifyOTP(Request $request)
-    {
+    public function verifyOTP(Request $request){ 
+        $data=array();
         $otp = $request->input('otp');
         $mobileNumber = $request->input('mobile_number');
-
-        // Retrieve the OTP from the database based on the mobile number
-        $storedOTP = DB::table('otp_codes')->where('mobile_number', $mobileNumber)->first();
-
+        $storedOTP = OtpUser::where('mobile_number', $mobileNumber)->first();
         if (!$storedOTP) {
             return response()->json(['error' => 'OTP not found'], 404);
+            $data['message']=_lang('OTP not found');
+            outputError($data);
         }
-
         if ($otp == $storedOTP->otp) {
             // OTP matched, mark it as verified in the database
-            DB::table('otp_codes')->where('mobile_number', $mobileNumber)->update(['verified' => true]);
-            return response()->json(['message' => 'OTP verified successfully'], 200);
+            OtpUser::where('mobile_number', $mobileNumber)->update(['verified' => true]);
+            $data['mobile']=$mobileNumber;
+            $data['message']=_lang('OTP verified successfully');
+            outputSuccess($data);
         } else {
-            return response()->json(['error' => 'Invalid OTP'], 400);
+            $data['message']=_lang('Invalid OTP');
+            outputError($data);
         }
     }
 }

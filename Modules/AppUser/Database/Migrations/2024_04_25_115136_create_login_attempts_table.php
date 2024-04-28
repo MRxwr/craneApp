@@ -15,9 +15,9 @@ class CreateLoginAttemptsTable extends Migration
     {
         Schema::create('login_attempts', function (Blueprint $table) {
             $table->id();
-            $table->integer('app_user_id');
-            $table->timestamp('attempt_time ');
-            $table->string('success ');
+            $table->unsignedBigInteger('app_user_id');
+            $table->timestamp('attempt_time')->nullable();
+            $table->string('success', 191);
             $table->timestamps();
         });
     }

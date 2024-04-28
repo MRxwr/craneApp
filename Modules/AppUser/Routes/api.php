@@ -22,8 +22,8 @@ use Illuminate\Http\Request;
 // API Version 1 routes
 Route::prefix('v1')->group(function () {
     // Route for registering a new user with OTP verification
-    Route::post('/register', [RegisterController::class, 'registerWithOtp']);
+    Route::post('/sendotp', [OTPController::class, 'sendOTP']);
 
     // Route for verifying OTP
-    Route::post('/verify-otp', [RegisterController::class, 'verifyOtp']);
+    Route::post('/verify-otp', [OTPController::class, 'verifyOTP']);
 });

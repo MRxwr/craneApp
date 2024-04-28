@@ -72,7 +72,7 @@ function getSetting($slug){
 }
 function LanguagesDropdown(){
     $html='';
-    $lang = (Session::get('locale')?ession::get('locale'):'en');
+    $lang = (Session::get('locale')?Session::get('locale'):'en');
     if(getActiveLanguages()){
         $html .='<!-- Notifications Dropdown Menu -->
             <li class="nav-item dropdown">

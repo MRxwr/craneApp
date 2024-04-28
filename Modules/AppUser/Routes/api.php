@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Auth\RegisterController;
 use Illuminate\Http\Request;
+use Modules\AppUser\Http\Livewire\Api\OTPController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,7 +24,6 @@ use Illuminate\Http\Request;
 Route::prefix('v1')->group(function () {
     // Route for registering a new user with OTP verification
     Route::post('/sendotp', [OTPController::class, 'sendOTP']);
-
     // Route for verifying OTP
     Route::post('/verify-otp', [OTPController::class, 'verifyOTP']);
 });

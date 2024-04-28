@@ -30,8 +30,9 @@ class OTPController extends Controller
                 'otp' => $otp,
                 'mobile' => $mobileNumber,
             ]);
+            return outputSuccess($data);
         }
-        return outputSuccess($data);
+        
     }
 
     public function verifyOTP(Request $request){ 
@@ -55,38 +56,5 @@ class OTPController extends Controller
             return outputError($data);
         }
     }
-    public function register(Request $request){
-        $mobileNumber = $request->input('mobile_number');
-        $mobileNumber = str_replace('+', '', $mobileNumber);
-        $name = $request->input('name');
-        $email = $request->input('email');
-        $dob = $request->input('dob');
-        $appuser = AppUser::where('mobile', $mobileNumber)->first();
-       
-        if ($appuser) {
-            $appuser->name = $name;
-            $appuser->email = $email;
-            $appuser->mobile = $mobileNumber;
-            $appuser->dob = $dob;
-            $appuser->password = '';
-            $appuser->email_verified_at = now();
-            $appuser->save();
-            $data['user']= $appuser->toArray();
-            $data['message']=_lang('Mobile not found');
-            return outputSuccess($data);
-        }else{
-            $appuser = new AppUser;
-            $appuser->name = $name;
-            $appuser->email = $email;
-            $appuser->mobile = $mobileNumber;
-            $appuser->dob = $dob;
-            $appuser->password = '';
-            $appuser->email_verified_at = now();
-            $appuser->save();
-            $data['user']= $appuser->toArray();
-            $data['message']=_lang('Regiter Successfully');
-            return outputSuccess($data);
-        }
-
-    }
+    
 }

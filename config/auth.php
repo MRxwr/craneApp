@@ -40,6 +40,10 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
+        'api' => [
+            'driver' => 'custom',
+            'provider' => 'app_users',
+        ],
     ],
 
     /*
@@ -63,6 +67,10 @@ return [
         'users' => [
             'driver' => 'eloquent',
             'model' => App\Models\User::class,
+        ],
+        'app_users' => [
+            'driver' => 'eloquent',
+            'model' => Modules\AppUser\Entities\AppUser::class,
         ],
 
         // 'users' => [

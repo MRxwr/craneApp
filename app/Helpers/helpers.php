@@ -43,7 +43,7 @@ function akses($str)
     }
 }
 function _lang($slug){
-    $code=  Session::get('locale');;
+    $code=  (Session::get('locale')?ession::get('locale'):'en');
     $lang = Locale::where('slug',$slug)->first();
    if($lang ){
      return $lang->locales[$code];
@@ -56,10 +56,10 @@ function getActiveLanguages(){
 }
 
 function getLocale(){
-   return $lang = Session::get('locale');
+   return $lang = (Session::get('locale')?ession::get('locale'):'en');
 }
 function getSetting($slug){
-   $locale = app()->getLocale();
+   $locale = (Session::get('locale')?ession::get('locale'):'en');
    $setting = Setting::find(1);
    if($slug=='sitetitle'){
      return $setting->sitetitle[$locale];
@@ -73,20 +73,34 @@ function getSetting($slug){
 }
 function LanguagesDropdown(){
     $html='';
-    $lang = Session::get('locale');
+    $lang = (Session::get('locale')?ession::get('locale'):'en');
     if(getActiveLanguages()){
         $html .='<!-- Notifications Dropdown Menu -->
-        <li class="nav-item dropdown">
-            <a class="nav-link" data-toggle="dropdown" href="#">
-               '.$lang.'
-                
-            </a>
+            <li class="nav-item dropdown">
+                <a class="nav-link" data-toggle="dropdown" href="#">
+                '.$lang.'  
+                </a>
             <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">';
              foreach(getActiveLanguages() as $language){
-               $html .='<a href="'.asset('language/'.$language->code).'" class="dropdown-item"> '._lang($language->title).'</a>';
+                  $html .='<a href="'.asset('language/'.$language->code).'" class="dropdown-item"> '._lang($language->title).'</a>';
                 }
          $html .='</div>
         </li>';
     }
     return $html;
+}
+function outputSuccess($data){
+	$response["ok"] = true;
+	$response["error"] = "0";
+	$response["status"] = "successful";
+	$response["data"] = $data;
+	return json_encode($response);
+}
+
+function outputError($data){
+	$response["ok"] = false;
+	$response["error"] = "1";
+	$response["status"] = "Error";
+	$response["data"] = $data;
+	return json_encode($response);
 }

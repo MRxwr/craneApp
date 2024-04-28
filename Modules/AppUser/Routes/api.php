@@ -1,8 +1,7 @@
 <?php
-
-use App\Http\Controllers\Auth\RegisterController;
 use Illuminate\Http\Request;
 use Modules\AppUser\Http\Livewire\Api\OTPController;
+use Modules\AppUser\Http\Livewire\Api\RegisterController;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,6 +25,7 @@ Route::prefix('v1')->group(function () {
     Route::post('/sendotp', [OTPController::class, 'sendOTP']);
     // Route for verifying OTP
     Route::post('/verify-otp', [OTPController::class, 'verifyOTP']);
+    Route::post('/register/client', [OTPController::class, 'verifyOTP']);
    
     Route::middleware('auth:app_user')->get('/profile', function (Request $request) {
         return $request->user();

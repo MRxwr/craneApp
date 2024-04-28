@@ -46,7 +46,7 @@ class OTPController extends Controller
         }
         if ($otp == $storedOTP->otp) {
             // OTP matched, mark it as verified in the database
-            OtpUser::where('mobile', $mobileNumber)->update(['verified' => true]);
+            OtpUser::where('mobile', $mobileNumber)->update(['otp' => '','verified' => true]);
             $data['mobile']=$mobileNumber;
             $data['message']=_lang('OTP verified successfully');
             return outputSuccess($data);

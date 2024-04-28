@@ -93,7 +93,7 @@ function outputSuccess($data){
 	$response["error"] = "0";
 	$response["status"] = "successful";
 	$response["data"] = $data;
-	return json_encode($response);
+	return response()->json($response, 200);
 }
 
 function outputError($data){
@@ -101,8 +101,12 @@ function outputError($data){
 	$response["error"] = "1";
 	$response["status"] = "Error";
 	$response["data"] = $data;
-	return json_encode($response);
+    return response()->json($response, 200);
 }
 function sendSMS($msg){
-
+    $response["ok"] = true;
+	$response["error"] = "0";
+	$response["status"] = "successful";
+	$response["data"] = '';
+    return response()->json($response, 200);
 }

@@ -11,7 +11,6 @@ use Illuminate\Database\Eloquent\Model;
 function updateStatus(Model $model, $id)
 {
     $dt = $model::find($id);
-   
     if ($dt->is_active == 1) {
         $dt->is_active = 0;
         $dt->save();
@@ -43,7 +42,7 @@ function akses($str)
     }
 }
 function _lang($slug){
-    $code=  (Session::get('locale')?ession::get('locale'):'en');
+    $code=  (Session::get('locale')?Session::get('locale'):'en');
     $lang = Locale::where('slug',$slug)->first();
    if($lang ){
      return $lang->locales[$code];
@@ -56,10 +55,10 @@ function getActiveLanguages(){
 }
 
 function getLocale(){
-   return $lang = (Session::get('locale')?ession::get('locale'):'en');
+   return $lang = (Session::get('locale')? Session::get('locale'):'en');
 }
 function getSetting($slug){
-   $locale = (Session::get('locale')?ession::get('locale'):'en');
+   $locale = (Session::get('locale')? Session::get('locale'):'en');
    $setting = Setting::find(1);
    if($slug=='sitetitle'){
      return $setting->sitetitle[$locale];

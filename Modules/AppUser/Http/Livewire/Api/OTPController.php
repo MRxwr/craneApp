@@ -39,7 +39,6 @@ class OTPController extends Controller
         $mobileNumber = $request->input('mobile_number');
         $storedOTP = OtpUser::where('mobile', $mobileNumber)->first();
         if (!$storedOTP) {
-            return response()->json(['error' => 'OTP not found'], 404);
             $data['message']=_lang('OTP not found');
             return outputError($data);
         }

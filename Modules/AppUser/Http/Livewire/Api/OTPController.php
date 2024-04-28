@@ -17,7 +17,7 @@ class OTPController extends Controller
         $data=array();
         $otp = mt_rand(1000, 9999); // Generate a random OTP
         $mobileNumber = $request->input('mobile_number');
-        $user = OtpUser::where('mobile_number', $mobileNumber)->first();
+        $user = OtpUser::where('mobile', $mobileNumber)->first();
         $data['otp'] = $otp;
         if ($user) {
             $user->otp = $otp;
@@ -36,7 +36,7 @@ class OTPController extends Controller
         $data=array();
         $otp = $request->input('otp');
         $mobileNumber = $request->input('mobile_number');
-        $storedOTP = OtpUser::where('mobile_number', $mobileNumber)->first();
+        $storedOTP = OtpUser::where('mobile', $mobileNumber)->first();
         if (!$storedOTP) {
             return response()->json(['error' => 'OTP not found'], 404);
             $data['message']=_lang('OTP not found');
@@ -44,7 +44,7 @@ class OTPController extends Controller
         }
         if ($otp == $storedOTP->otp) {
             // OTP matched, mark it as verified in the database
-            OtpUser::where('mobile_number', $mobileNumber)->update(['verified' => true]);
+            OtpUser::where('mobile', $mobileNumber)->update(['verified' => true]);
             $data['mobile']=$mobileNumber;
             $data['message']=_lang('OTP verified successfully');
             outputSuccess($data);

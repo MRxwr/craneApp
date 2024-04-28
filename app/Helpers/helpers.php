@@ -103,3 +103,6 @@ function outputError($data){
 	$response["data"] = $data;
 	return json_encode($response);
 }
+function sendSMS($msg){
+
+}

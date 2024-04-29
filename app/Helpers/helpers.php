@@ -7,6 +7,7 @@ use App\Models\Setting;
 use Modules\Roles\Entities\Role;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 
 function updateStatus(Model $model, $id)
 {
@@ -109,4 +110,22 @@ function sendSMS($msg){
 	$response["status"] = "successful";
 	$response["data"] = '';
     return response()->json($response, 200);
+}
+function GenerateApiToken($user){
+    if($user){
+        // Generate a token for the user
+        $token = Str::random(60);
+        $user->api_token = hash('sha256', $token);
+        $user->save();
+        if($user->save()){
+            return $token;
+        }  
+    }
+function getHashToken($token){
+        if($token){
+          return  hash('sha256', $token);
+        }
+}
+
+
 }

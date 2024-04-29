@@ -2,6 +2,7 @@
 use Illuminate\Http\Request;
 use Modules\AppUser\Http\Livewire\Api\OTPController;
 use Modules\AppUser\Http\Livewire\Api\RegisterController;
+use Modules\AppUser\Http\Livewire\Api\LoginController;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,6 +28,7 @@ Route::prefix('v1')->group(function () {
     Route::post('/verify-otp', [OTPController::class, 'verifyOTP']);
     Route::post('/register/client', [RegisterController::class, 'registerClient']);
     Route::post('/register/driver', [RegisterController::class, 'registerDriver']);
+    Route::post('/login', [LoginController::class, 'AppUserLogin']);
 
     Route::middleware('auth:app_user')->group(function () {
         //Route::post('/profile', [ServiceController::class, 'getServices']);

@@ -51,7 +51,7 @@ class OTPController extends Controller
     public function verifyOTP(Request $request){ 
         $data=array();
         $otp = $request->input('otp');
-        $mobileNumber = $request->input('mobile_number');
+        $mobileNumber = $request->input('mobile');
         $mobileNumber = str_replace('+', '', $mobileNumber);
         $storedOTP = OtpUser::where('mobile', $mobileNumber)->first();
         if (!$storedOTP) {

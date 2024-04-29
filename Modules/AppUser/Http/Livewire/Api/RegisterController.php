@@ -53,7 +53,7 @@ class RegisterController extends Controller
                 $appuser->save();
                 $data['user']= $appuser->toArray();
                 $data['message']=_lang('Mobile not found');
-                if (Auth::guard('custom')->attempt($request->only('mobile', 'password'))) {
+                if (Auth::guard('api')->attempt($request->only('mobile', 'password'))) {
                     // Authentication successful
                     // Generate token if needed
                     $data['token'] = $request->user()->createToken('API Token')->plainTextToken;
@@ -74,7 +74,7 @@ class RegisterController extends Controller
                 $appuser->save();
                 $data['user']= $appuser->toArray();
                 $data['message']=_lang('Successfully Regiter'); 
-                if (Auth::guard('custom')->attempt($request->only('mobile', 'password'))) {
+                if (Auth::guard('api')->attempt($request->only('mobile', 'password'))) {
                     // Authentication successful
                     // Generate token if needed
                     $data['token'] = $request->user()->createToken('API Token')->plainTextToken;
@@ -128,7 +128,7 @@ class RegisterController extends Controller
             $appuser->save();
             $data['user']= $appuser->toArray();
             $data['message']=_lang('Successfully Regiter');
-            if (Auth::guard('custom')->attempt($request->only('mobile', 'password'))) {
+            if (Auth::guard('api')->attempt($request->only('mobile', 'password'))) {
                 // Authentication successful
                 $data['token'] = $request->user()->createToken('API Token')->plainTextToken;
                 return outputSuccess($data);
@@ -148,7 +148,7 @@ class RegisterController extends Controller
             $appuser->save();
             $data['user']= $appuser->toArray();
             $data['message']=_lang('Successfully Regiter'); 
-            if (Auth::guard('custom')->attempt($request->only('mobile', 'password'))) {
+            if (Auth::guard('api')->attempt($request->only('mobile', 'password'))) {
                 // Authentication successful
                 $data['token'] = $request->user()->createToken('API Token')->plainTextToken;
                 return outputSuccess($data);

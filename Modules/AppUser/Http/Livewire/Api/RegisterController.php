@@ -13,7 +13,7 @@ use Illuminate\Http\Request;
 class RegisterController extends Controller
 {
     
-    public function register_client(Request $request){
+    public function registerClient(Request $request){
         $data = array();
         $mobileNumber = $request->input('mobile_number');
         $mobileNumber = str_replace('+', '', $mobileNumber);
@@ -54,7 +54,7 @@ class RegisterController extends Controller
 
     }
 
-    public function register_driver(Request $request){
+    public function registerDriver(Request $request){
         $data = array();
         $mobileNumber = $request->input('mobile_number');
         $mobileNumber = str_replace('+', '', $mobileNumber);

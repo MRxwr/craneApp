@@ -25,8 +25,9 @@ Route::prefix('v1')->group(function () {
     Route::post('/sendotp', [OTPController::class, 'sendOTP']);
     // Route for verifying OTP
     Route::post('/verify-otp', [OTPController::class, 'verifyOTP']);
-    Route::post('/register/client', [OTPController::class, 'verifyOTP']);
-   
+    Route::post('/register/client', [RegisterController::class, 'registerClient']);
+    Route::post('/register/driver', [RegisterController::class, 'registerDriver']);
+
     Route::middleware('auth:app_user')->get('/profile', function (Request $request) {
         return $request->user();
     });

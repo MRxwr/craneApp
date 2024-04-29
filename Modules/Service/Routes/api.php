@@ -13,6 +13,12 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/service', function (Request $request) {
-    return $request->user();
+// API Version 1 routes
+Route::prefix('v1')->group(function () {
+    // Route for registering a new user with OTP verification
+    //Route::post('/sendotp', [OTPController::class, 'sendOTP']);
+  
+    Route::middleware('auth:app_user')->group(function () {
+        Route::post('/getservice', [ServiceController::class, 'getServices']);
+    });
 });

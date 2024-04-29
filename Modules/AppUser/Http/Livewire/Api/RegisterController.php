@@ -54,7 +54,7 @@ class RegisterController extends Controller
                 
                 $data['message']=_lang('Successful loggedin');
                 $credentials = $request->only('mobile', 'password');
-                if (Auth::guard('api')->attempt($credentials)) {
+                if (Auth::guard('api')->validate($credentials)) {
                     $user = Auth::guard('api')->user();
                     if($token=GenerateApiToken($user)){
                         Auth::guard('api')->setToken($token);

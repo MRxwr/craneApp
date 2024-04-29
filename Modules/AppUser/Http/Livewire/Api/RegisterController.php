@@ -53,7 +53,7 @@ class RegisterController extends Controller
                 $appuser->save();
                 $data['user']= $appuser->toArray();
                 $data['message']=_lang('Mobile not found');
-                if (Auth::guard('app_user')->attempt($request->only('mobile', 'password'))) {
+                if (Auth::guard('custom')->attempt($request->only('mobile', 'password'))) {
                     // Authentication successful
                     // Generate token if needed
                     $data['token'] = $request->user()->createToken('API Token')->plainTextToken;
@@ -62,7 +62,7 @@ class RegisterController extends Controller
                     $data['message']=_lang('login faild Regiter');
                     return outputError($data);
                 }
-                return outputSuccess($data);
+                
             }else{
                 $appuser = new AppUser;
                 $appuser->name = $name;
@@ -74,7 +74,7 @@ class RegisterController extends Controller
                 $appuser->save();
                 $data['user']= $appuser->toArray();
                 $data['message']=_lang('Successfully Regiter'); 
-                if (Auth::guard('app_user')->attempt($request->only('mobile', 'password'))) {
+                if (Auth::guard('custom')->attempt($request->only('mobile', 'password'))) {
                     // Authentication successful
                     // Generate token if needed
                     $data['token'] = $request->user()->createToken('API Token')->plainTextToken;
@@ -128,7 +128,14 @@ class RegisterController extends Controller
             $appuser->save();
             $data['user']= $appuser->toArray();
             $data['message']=_lang('Successfully Regiter');
-            return outputSuccess($data);
+            if (Auth::guard('custom')->attempt($request->only('mobile', 'password'))) {
+                // Authentication successful
+                $data['token'] = $request->user()->createToken('API Token')->plainTextToken;
+                return outputSuccess($data);
+            } else {
+                $data['message']=_lang('login faild Regiter');
+                return outputError($data);
+            }
         }else{
             $appuser = new AppUser;
             $appuser->name = $name;
@@ -141,15 +148,16 @@ class RegisterController extends Controller
             $appuser->save();
             $data['user']= $appuser->toArray();
             $data['message']=_lang('Successfully Regiter'); 
+            if (Auth::guard('custom')->attempt($request->only('mobile', 'password'))) {
+                // Authentication successful
+                $data['token'] = $request->user()->createToken('API Token')->plainTextToken;
+                return outputSuccess($data);
+            } else {
+                $data['message']=_lang('login faild Regiter');
+                return outputError($data);
+            }
         }
-        if (Auth::guard('app_user')->attempt($request->only('mobile', 'password'))) {
-            // Authentication successful
-            $data['token'] = $request->user()->createToken('API Token')->plainTextToken;
-            return outputSuccess($data);
-        } else {
-            $data['message']=_lang('login faild Regiter');
-            return outputError($data);
-        }
+       
 
     }
 }

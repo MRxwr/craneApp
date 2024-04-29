@@ -57,7 +57,8 @@ class RegisterController extends Controller
                 if (Auth::guard('api')->attempt($credentials)) {
                     $user = Auth::guard('api')->user();
                     if($token=GenerateApiToken($user)){
-                        Auth::guard('api')->setToken($token);
+                       // Auth::guard('api')->setToken($token);
+                        $token = $user->createToken('AuthToken')->plainTextToken;
                         $data['user']= $user->toArray();
                         $data['token']= $token;
                         return outputSuccess($data);

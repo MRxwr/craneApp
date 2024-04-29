@@ -74,16 +74,17 @@ class RegisterController extends Controller
                 $appuser->save();
                 $data['user']= $appuser->toArray();
                 $data['message']=_lang('Successfully Regiter'); 
+                if (Auth::guard('app_user')->attempt($request->only('mobile', 'password'))) {
+                    // Authentication successful
+                    // Generate token if needed
+                    $data['token'] = $request->user()->createToken('API Token')->plainTextToken;
+                    return outputSuccess($data);
+                } else {
+                    $data['message']=_lang('login faild Regiter');
+                    return outputError($data);
+                }
             }
-            if (Auth::guard('app_user')->attempt($request->only('mobile', 'password'))) {
-                // Authentication successful
-                // Generate token if needed
-                $data['token'] = $request->user()->createToken('API Token')->plainTextToken;
-                return outputSuccess($data);
-            } else {
-                $data['message']=_lang('login faild Regiter');
-                return outputError($data);
-            }
+            
         }else{
             $data['message']=_lang('mobile not  verified');
             return outputError($data); 

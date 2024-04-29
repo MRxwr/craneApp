@@ -49,8 +49,11 @@ Route::get('/migrate', function () {
 });
 Route::get('/install', function () {
     Artisan::call('passport:install');
-    Artisan::call('config:cache');
     return 'install/cache completed';
+});
+Route::get('/config', function () {
+    Artisan::call('config:cache');
+    return 'config cache completed';
 });
 Route::middleware(['web', 'auth'])->group(function () {
     Route::get('/dashboard', [HomeController::class, 'index']);

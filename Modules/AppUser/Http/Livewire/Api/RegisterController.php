@@ -19,8 +19,6 @@ class RegisterController extends Controller
         $data = array();
         $rules = [
             'name' => 'required|string|max:255',
-            'email' => 'required|email|unique:app_users|max:255',
-            'mobile' => 'required|unique:app_users|max:12',
             'dob' => 'required|string|min:8',
             'password' => 'required|string|min:8',
             // Add more rules as needed
@@ -88,6 +86,8 @@ class RegisterController extends Controller
         $data = array();
         $rules = [
             'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:app_users|max:255',
+            'mobile' => 'required|unique:app_users|max:12',
             'dob' => 'required|string|min:8',
             'password' => 'required|string|min:8',
         ];

@@ -52,9 +52,10 @@ class RegisterController extends Controller
                 $appuser->email_verified_at = now();
                 $appuser->save();
                 
-                $data['message']=_lang('Mobile not found');
-                if (Auth::guard('api')->validate($request->only('mobile', 'password'))) {
-                    $user = Auth::guard('api')->getProvider()->retrieveByCredentials($request->only('mobile', 'password'));
+                $data['message']=_lang('Successful loggedin');
+                $credentials = $request->only('mobile', 'password');
+                if (Auth::guard('api')->attempt($credentials)) {
+                    $user = Auth::guard('api')->user();
                     if($token=GenerateApiToken($user)){
                         Auth::guard('api')->setToken($token);
                         $data['user']= $user->toArray();
@@ -78,8 +79,9 @@ class RegisterController extends Controller
                 $appuser->save();
                 
                 $data['message']=_lang('Successfully Regiter'); 
-                if (Auth::guard('api')->validate($request->only('mobile', 'password'))) {
-                    $user = Auth::guard('api')->getProvider()->retrieveByCredentials($request->only('mobile', 'password'));
+                $credentials = $request->only('mobile', 'password');
+                if (Auth::guard('api')->attempt($credentials)) {
+                    $user = Auth::guard('api')->user();
                     if($token=GenerateApiToken($user)){
                         Auth::guard('api')->setToken($token);
                         $data['user']= $user->toArray();
@@ -135,9 +137,10 @@ class RegisterController extends Controller
             $appuser->save();
             $data['user']= $appuser->toArray();
             $data['message']=_lang('Successfully Regiter');
-            if (Auth::guard('api')->validate($request->only('mobile', 'password'))) {
-                $user = Auth::guard('api')->getProvider()->retrieveByCredentials($request->only('mobile', 'password'));
-                    if($token=GenerateApiToken($user)){
+            $credentials = $request->only('mobile', 'password');
+            if (Auth::guard('api')->attempt($credentials)) {
+                $user = Auth::guard('api')->user();
+                if($token=GenerateApiToken($user)){
                         Auth::guard('api')->setToken($token);
                         $data['user']= $user->toArray();
                         $data['token']= $token;
@@ -159,8 +162,9 @@ class RegisterController extends Controller
             $appuser->save();
             $data['user']= $appuser->toArray();
             $data['message']=_lang('Successfully Regiter'); 
-            if (Auth::guard('api')->validate($request->only('mobile', 'password'))) {
-                $user = Auth::guard('api')->getProvider()->retrieveByCredentials($request->only('mobile', 'password'));
+            $credentials = $request->only('mobile', 'password');
+            if (Auth::guard('api')->attempt($credentials)) {
+                $user = Auth::guard('api')->user();
                     if($token=GenerateApiToken($user)){
                         Auth::guard('api')->setToken($token);
                         $data['user']= $user->toArray();

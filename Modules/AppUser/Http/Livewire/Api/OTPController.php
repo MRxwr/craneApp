@@ -35,6 +35,8 @@ class OTPController extends Controller
         $data['otp'] = $otp;
         if ($user) {
             $user->otp = $otp;
+            $user->mobile = $mobileNumber;
+            $user->verified = true;
             $user->save();
             return outputSuccess($data);
         } else {
@@ -42,6 +44,7 @@ class OTPController extends Controller
             $otpUser = OtpUser::create([
                 'otp' => $otp,
                 'mobile' => $mobileNumber,
+                'verified' => true,
             ]);
             return outputSuccess($data);
         }

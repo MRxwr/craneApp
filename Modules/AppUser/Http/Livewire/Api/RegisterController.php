@@ -48,7 +48,7 @@ class RegisterController extends Controller
                 $appuser->email = $email;
                 $appuser->mobile = $mobileNumber;
                 $appuser->dob = $dob;
-                $appuser->password = bcrypt($request->password);
+                $appuser->password = Hash::make($password);
                 $appuser->email_verified_at = now();
                 $appuser->save();
                 
@@ -74,7 +74,7 @@ class RegisterController extends Controller
                 $appuser->email = $email;
                 $appuser->mobile = $mobileNumber;
                 $appuser->dob = $dob;
-                $appuser->password = bcrypt($request->password);
+                $appuser->password = Hash::make($password);
                 $appuser->email_verified_at = now();
                 $appuser->save();
                 
@@ -131,7 +131,7 @@ class RegisterController extends Controller
             $appuser->email = $email;
             $appuser->mobile = $mobileNumber;
             $appuser->dob = $dob;
-            $appuser->password = bcrypt($request->password);
+            $appuser->password = Hash::make($password);
             $appuser->email_verified_at = now();
             $appuser->user_type = 2;
             $appuser->save();
@@ -156,7 +156,7 @@ class RegisterController extends Controller
             $appuser->email = $email;
             $appuser->mobile = $mobileNumber;
             $appuser->dob = $dob;
-            $appuser->password = bcrypt($request->password);
+            $appuser->password = Hash::make($password);
             $appuser->email_verified_at = now();
             $appuser->user_type = 2;
             $appuser->save();

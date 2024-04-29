@@ -77,6 +77,7 @@ class AppUser extends Authenticatable implements AuthenticatableContract
      */
     public function validatePassword($password)
     {
+        dd($password);
         return Hash::check($password, $this->getAuthPassword());
     }
     

@@ -82,7 +82,24 @@ class RegisterController extends Controller
 
     public function registerDriver(Request $request){
         $data = array();
-        $mobileNumber = $request->input('mobile_number');
+        $rules = [
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:app_users|max:255',
+            'mobile' => 'required|unique:app_users|max:12',
+            'dob' => 'required|string|min:8',
+            'password' => 'required|string|min:8',
+            // Add more rules as needed
+        ];
+
+        // Perform validation
+        $validator = Validator::make($request->all(), $rules);
+        // Check if validation fails
+        if ($validator->fails()) {
+            $data['message']=_lang('validation error');
+            $data['errors'] = $validator->errors();
+            return outputError($data);
+        }
+        $mobileNumber = $request->input('mobile');
         $mobileNumber = str_replace('+', '', $mobileNumber);
         $name = $request->input('name');
         $email = $request->input('email');

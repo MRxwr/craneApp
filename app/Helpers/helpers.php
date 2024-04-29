@@ -115,7 +115,7 @@ function GenerateApiToken($user){
     if($user){
         // Generate a token for the user
         $token = Str::random(60);
-        $user->api_token = hash('sha256', $token);
+        $user->token = hash('sha256', $token);
         $user->save();
         if($user->save()){
             return $token;

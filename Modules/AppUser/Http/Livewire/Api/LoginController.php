@@ -33,14 +33,12 @@ class LoginController extends Controller
         }
         $mobileNumber = $request->input('mobile');
         $mobileNumber = str_replace('+', '', $mobileNumber);
-
-        $password =$request->password;
         $isverified = OtpUser::where('mobile', $mobileNumber)->where('verified', 1)->first();
         if($isverified){
             $appuser = AppUser::where('mobile', $mobileNumber)->first();
             if ($appuser){
                 $data['message']=_lang('Successful loggedin');
-                    if ($request->input('password')){
+                if ($request->has('password')) {
                         // Password is provided, attempt to authenticate with password
                         $credentials = $request->only('mobile', 'password');
                         if (Auth::guard('api')->attempt($credentials)) {

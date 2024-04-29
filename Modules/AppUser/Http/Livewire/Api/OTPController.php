@@ -9,14 +9,27 @@ use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class OTPController extends Controller
 {
     public function sendOTP(Request $request)
     {
         $data=array();
+        $rules = [
+            'mobile' => 'required|unique:app_users|max:12',
+        ];
+
+        // Perform validation
+        $validator = Validator::make($request->all(), $rules);
+        // Check if validation fails
+        if ($validator->fails()) {
+            $data['message']=_lang('validation error');
+            $data['errors'] = $validator->errors();
+            return outputError($data);
+        }
         $otp = mt_rand(1000, 9999); // Generate a random OTP
-        $mobileNumber = $request->input('mobile_number');
+        $mobileNumber = $request->input('mobile');
         $mobileNumber = str_replace('+', '', $mobileNumber);
         $user = OtpUser::where('mobile', $mobileNumber)->first();
         $data['otp'] = $otp;

@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Auth;
 
 class RegisterController extends Controller
 {
@@ -67,7 +68,10 @@ class RegisterController extends Controller
                 $data['user']= $appuser->toArray();
                 $data['message']=_lang('Successfully Regiter'); 
             }
-            if (auth()->attempt($mobile, $password)) {
+            if (Auth::guard('app_user')->attempt($request->only('mobile', 'password'))) {
+                // Authentication successful
+                // Generate token if needed
+                $data['token'] = $request->user()->createToken('API Token')->plainTextToken;
                 return outputSuccess($data);
             } else {
                 $data['message']=_lang('login faild Regiter');
@@ -84,11 +88,8 @@ class RegisterController extends Controller
         $data = array();
         $rules = [
             'name' => 'required|string|max:255',
-            'email' => 'required|email|unique:app_users|max:255',
-            'mobile' => 'required|unique:app_users|max:12',
             'dob' => 'required|string|min:8',
             'password' => 'required|string|min:8',
-            // Add more rules as needed
         ];
 
         // Perform validation
@@ -131,7 +132,9 @@ class RegisterController extends Controller
             $data['user']= $appuser->toArray();
             $data['message']=_lang('Successfully Regiter'); 
         }
-        if (auth()->attempt($mobile, $password)) {
+        if (Auth::guard('app_user')->attempt($request->only('mobile', 'password'))) {
+            // Authentication successful
+            $data['token'] = $request->user()->createToken('API Token')->plainTextToken;
             return outputSuccess($data);
         } else {
             $data['message']=_lang('login faild Regiter');

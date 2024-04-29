@@ -9,13 +9,14 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Support\Facades\Hash;
 
-class AppUser extends Model
+class AppUser extends Authenticatable implements AuthenticatableContract
 {
     use HasFactory;
     protected $table = 'app_users';
     protected $fillable = [
                 'name',
                 'mobile',
+                'password',
                 'email',
                 'dob',
                 'is_active',

@@ -19,8 +19,8 @@ class CreateSettingsTable extends Migration
             $table->longText('sitedesc');
             $table->string('adminlang');
             $table->string('frontlang');
-            $table->string('logo')->nullable();
-            $table->string('favicon')->nullable();
+            $table->longText('logo')->nullable();
+            $table->longText('favicon')->nullable();
             $table->timestamps();
         });
     }

@@ -31,7 +31,7 @@ Route::prefix('v1')->group(function () {
     Route::post('/register/driver', [RegisterController::class, 'registerDriver']);
     Route::post('/login', [LoginController::class, 'AppUserLogin']);
 
-    Route::middleware('auth:app_users')->group(function () {
+    Route::middleware('auth:api')->group(function () {
         Route::post('/profile', [UserController::class, 'userProfile']);
         //Route::post('/profile/update', [ServiceController::class, 'getServices']);
     });

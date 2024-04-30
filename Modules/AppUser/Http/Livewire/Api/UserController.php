@@ -27,9 +27,9 @@ class UserController extends Controller
         }
         $token = str_replace('Bearer ', '', $token);
         try {
-            if (Auth::guard('api')->onceUsingId($token)) {
+            $user = AppUser::findToken($token);
+            if ($user) {
                 // Authentication successful
-                $user = Auth::guard('api')->user();
                 $data['message']=_lang('Profile');
                 $data['user']= $user->toArray();
                 return outputSuccess($data);
@@ -46,15 +46,7 @@ class UserController extends Controller
             return outputError($data);
            
         }
-        if (Auth::guard('api')->onceUsingId($token)) {
-                $user = Auth::guard('api')->user();
-                $data['message']=_lang('Profile');
-                $data['user']= $user->toArray();
-                return outputSuccess($data);
-        }else{
-                $data['message']=_lang('Authorization faild');
-                return outputError($data); 
-        }
+        
 
     }
 

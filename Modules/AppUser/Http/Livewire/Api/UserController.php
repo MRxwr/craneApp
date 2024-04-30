@@ -66,10 +66,10 @@ class UserController extends Controller
             $appuser->name = $name;
             $appuser->dob = $dob;
             $appuser->save();
+            $data['token']= $token;
             $data['user']= $appuser->toArray();
             $data['message']=_lang('Successfully Update');
-            $data['user']= $user->toArray();
-            $data['token']= $token;
+
             return outputSuccess($data);
         }
     }

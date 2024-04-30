@@ -23,9 +23,7 @@ use Modules\AppUser\Http\Livewire\Api\UserController;
 
 // API Version 1 routes
 Route::prefix('v1')->group(function () {
-    // Route for registering a new user with OTP verification
     Route::post('/sendotp', [OTPController::class, 'sendOTP']);
-    // Route for verifying OTP
     Route::post('/verify-otp', [OTPController::class, 'verifyOTP']);
     Route::post('/register/client', [RegisterController::class, 'registerClient']);
     Route::post('/register/driver', [RegisterController::class, 'registerDriver']);

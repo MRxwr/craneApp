@@ -30,9 +30,7 @@ Route::prefix('v1')->group(function () {
     Route::post('/register/client', [RegisterController::class, 'registerClient']);
     Route::post('/register/driver', [RegisterController::class, 'registerDriver']);
     Route::post('/login', [LoginController::class, 'AppUserLogin']);
-
-    
-        Route::post('/profile', [UserController::class, 'userProfile']);
-        Route::post('/profile/update', [UserController::class, 'updateProfile']);
+    Route::post('/profile', [UserController::class, 'userProfile']);
+    Route::post('/profile/update', [UserController::class, 'updateProfile']);
 
 });

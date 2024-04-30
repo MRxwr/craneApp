@@ -60,10 +60,12 @@ class UserController extends Controller
         }
         $token = str_replace('Bearer ', '', $token);
         $name = $request->input('name');
+        $email = $request->input('email');
         $dob = $request->input('dob');
         $appuser =  AppUser::where('token',$token)->first();
         if ($appuser){
             $appuser->name = $name;
+            $appuser->email = $email;
             $appuser->dob = $dob;
 
             if ($request->hasFile('avator')) {
@@ -71,6 +73,7 @@ class UserController extends Controller
                 $request->avator->move(public_path('avators'), $imageName);
                 $appuser->avator = 'storage/avators/'.$imageName;
             }
+            
             if ($request->hasFile('licence')) {
                 $imageName = 'LNC'.time().'.'.$request->licence->extension();  
                 $request->licence->move(public_path('drivers'), $imageName);

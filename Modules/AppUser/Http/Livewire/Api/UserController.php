@@ -26,6 +26,26 @@ class UserController extends Controller
             return outputError($data);
         }
         $token = str_replace('Bearer ', '', $token);
+        try {
+            if (Auth::guard('api')->onceUsingId($token)) {
+                // Authentication successful
+                $user = Auth::guard('api')->user();
+                $data['message']=_lang('Profile');
+                $data['user']= $user->toArray();
+                return outputSuccess($data);
+                // Proceed with authenticated user logic
+            } else {
+                // Authentication failed
+                $data['message']=_lang('Unauthorized');
+                return outputError($data); 
+                
+            }
+        } catch (\Exception $e) {
+            // Log or handle the exception
+            $data['message']=_lang('Authentication error');
+            return outputError($data);
+           
+        }
         if (Auth::guard('api')->onceUsingId($token)) {
                 $user = Auth::guard('api')->user();
                 $data['message']=_lang('Profile');

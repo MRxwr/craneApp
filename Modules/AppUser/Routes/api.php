@@ -33,6 +33,6 @@ Route::prefix('v1')->group(function () {
 
     
         Route::post('/profile', [UserController::class, 'userProfile']);
-        //Route::post('/profile/update', [ServiceController::class, 'getServices']);
+        Route::post('/profile/update', [UserController::class, 'updateProfile']);
 
 });

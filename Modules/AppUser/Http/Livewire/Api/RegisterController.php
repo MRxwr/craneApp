@@ -147,6 +147,21 @@ class RegisterController extends Controller
                 $request->avator->move(public_path('avators'), $imageName);
                 $appuser->avator = $imageName;
             }
+            if ($request->hasFile('licence')) {
+                $imageName = 'LNC'.time().'.'.$request->licence->extension();  
+                $request->licence->move(public_path('drivers'), $imageName);
+                $appuser->licence = 'storage/drivers/'.$imageName;
+            }
+            if ($request->hasFile('idfront')) {
+                $imageName = 'IDF'.time().'.'.$request->idfront->extension();  
+                $request->idfront->move(public_path('drivers'), $imageName);
+                $appuser->idfront = 'storage/drivers/'.$imageName;
+            }
+            if ($request->hasFile('idback')) {
+                $imageName = 'IDB'.time().'.'.$request->idback->extension();  
+                $request->idback->move(public_path('drivers'), $imageName);
+                $appuser->idback = 'storage/drivers/'.$imageName;
+            }
             $appuser->save();
             $data['user']= $appuser->toArray();
             $data['message']=_lang('Successfully Regiter');
@@ -175,6 +190,22 @@ class RegisterController extends Controller
                 $imageName = time().'.'.$request->avator->extension();  
                 $request->avator->move(public_path('avators'), $imageName);
                 $appuser->avator = $imageName;
+            }
+            
+            if ($request->hasFile('licence')) {
+                $imageName = 'LNC'.time().'.'.$request->licence->extension();  
+                $request->licence->move(public_path('drivers'), $imageName);
+                $appuser->licence = 'storage/drivers/'.$imageName;
+            }
+            if ($request->hasFile('idfront')) {
+                $imageName = 'IDF'.time().'.'.$request->idfront->extension();  
+                $request->idfront->move(public_path('drivers'), $imageName);
+                $appuser->idfront = 'storage/drivers/'.$imageName;
+            }
+            if ($request->hasFile('idback')) {
+                $imageName = 'IDB'.time().'.'.$request->idback->extension();  
+                $request->idback->move(public_path('drivers'), $imageName);
+                $appuser->idback = 'storage/drivers/'.$imageName;
             }
             $appuser->save();
             $data['user']= $appuser->toArray();

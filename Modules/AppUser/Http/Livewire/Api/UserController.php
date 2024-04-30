@@ -21,8 +21,8 @@ class UserController extends Controller
         // Check if validation fails
         if (!$token) {
             // If validation fails, return response with validation errors
-            $data['message']=_lang('Authorize token is requred');
-            $data['errors'] = ['token'=>'header Authorize token is requred'];
+            $data['message']=_lang('Authorization token is requred');
+            $data['errors'] = ['token'=>'header Authorization token is requred'];
             return outputError($data);
         }
         $token = str_replace('Bearer ', '', $token);
@@ -31,8 +31,8 @@ class UserController extends Controller
                 $data['message']=_lang('Profile');
                 $data['user']= $user->toArray();
                 return outputSuccess($data);
-            }else{
-                $data['message']=_lang('mobile not  verified');
+        }else{
+                $data['message']=_lang('Authorization faild');
                 return outputError($data); 
         }
 

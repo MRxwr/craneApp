@@ -27,7 +27,7 @@ class UserController extends Controller
         }
         $token = str_replace('Bearer ', '', $token);
         try {
-            $user = AppUser::findToken($token);
+            $user = AppUser::where('token',$token)->first();
             if ($user) {
                 // Authentication successful
                 $data['message']=_lang('Profile');

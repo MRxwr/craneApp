@@ -1,8 +1,8 @@
 <?php
 
 use Illuminate\Http\Request;
-
-/*
+use Modules\Service\Http\Livewire\Api\ServiceController;
+/*Modules\Service\Http\Livewire\Api
 |--------------------------------------------------------------------------
 | API Routes
 |--------------------------------------------------------------------------

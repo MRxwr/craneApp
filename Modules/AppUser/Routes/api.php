@@ -3,7 +3,7 @@ use Illuminate\Http\Request;
 use Modules\AppUser\Http\Livewire\Api\OTPController;
 use Modules\AppUser\Http\Livewire\Api\RegisterController;
 use Modules\AppUser\Http\Livewire\Api\LoginController;
-use Modules\AppUser\Http\Livewire\Api\LoginController;
+use Modules\AppUser\Http\Livewire\Api\UserController;
 
 /*
 |--------------------------------------------------------------------------

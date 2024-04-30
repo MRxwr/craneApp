@@ -3,6 +3,7 @@ use Illuminate\Http\Request;
 use Modules\AppUser\Http\Livewire\Api\OTPController;
 use Modules\AppUser\Http\Livewire\Api\RegisterController;
 use Modules\AppUser\Http\Livewire\Api\LoginController;
+use Modules\AppUser\Http\Livewire\Api\LoginController;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,7 +32,7 @@ Route::prefix('v1')->group(function () {
     Route::post('/login', [LoginController::class, 'AppUserLogin']);
 
     Route::middleware('auth:app_user')->group(function () {
-        //Route::post('/profile', [ServiceController::class, 'getServices']);
+        Route::post('/profile', [UserController::class, 'userProfile']);
         //Route::post('/profile/update', [ServiceController::class, 'getServices']);
     });
 

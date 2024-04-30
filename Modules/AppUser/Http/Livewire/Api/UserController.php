@@ -14,29 +14,24 @@ use Illuminate\Support\Facades\Auth;
 class UserController extends Controller
 {
     
-    public function getProfile(Request $request){
+    public function userProfile(Request $request){
         $data = array();
-        $rules = [
-            'token' => 'required',
-            // Add more rules as needed
-        ];
-
-        // Perform validation
-        $validator = Validator::make($request->all(), $rules);
+        $token = $request->header('Authorization');
 
         // Check if validation fails
-        if ($validator->fails()) {
+        if (!$token) {
             // If validation fails, return response with validation errors
-            $data['message']=_lang('validation error');
-            $data['errors'] = $validator->errors();
+            $data['message']=_lang('Authorize token is requred');
+            $data['errors'] = ['token'=>'header Authorize token is requred'];
             return outputError($data);
         }
-        $appuser = AppUser::where('mobile', $mobileNumber)->first();
-            if ($appuser){
-                    $data['message']=_lang('Profile');
-                    $data['user']= $appuser->toArray();
-                    return outputSuccess($data);
-                }else{
+        $token = str_replace('Bearer ', '', $token);
+        if (Auth::guard('api')->onceUsingId($token)) {
+                $user = Auth::guard('api')->user();
+                $data['message']=_lang('Profile');
+                $data['user']= $user->toArray();
+                return outputSuccess($data);
+            }else{
                 $data['message']=_lang('mobile not  verified');
                 return outputError($data); 
         }

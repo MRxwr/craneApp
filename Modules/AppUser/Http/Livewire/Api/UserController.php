@@ -65,11 +65,17 @@ class UserController extends Controller
         if ($appuser){
             $appuser->name = $name;
             $appuser->dob = $dob;
+            
+            if ($request->hasFile('avator')) {
+                $imageName = time().'.'.$request->avator->extension();  
+                $request->avator->move(public_path('avators'), $imageName);
+                $appuser->avator = $imageName;
+            }
+
             $appuser->save();
             $data['token']= $token;
             $data['user']= $appuser->toArray();
             $data['message']=_lang('Successfully Update');
-
             return outputSuccess($data);
         }
     }

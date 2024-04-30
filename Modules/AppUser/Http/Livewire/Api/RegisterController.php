@@ -50,6 +50,11 @@ class RegisterController extends Controller
                 $appuser->dob = $dob;
                 $appuser->password = Hash::make($password);
                 $appuser->email_verified_at = now();
+                if ($request->hasFile('avator')) {
+                    $imageName = time().'.'.$request->avator->extension();  
+                    $request->avator->move(public_path('avators'), $imageName);
+                    $appuser->avator = $imageName;
+                }
                 $appuser->save();
                 
                 $data['message']=_lang('Successful loggedin');
@@ -75,6 +80,11 @@ class RegisterController extends Controller
                 $appuser->dob = $dob;
                 $appuser->password = Hash::make($password);
                 $appuser->email_verified_at = now();
+                if ($request->hasFile('avator')) {
+                    $imageName = time().'.'.$request->avator->extension();  
+                    $request->avator->move(public_path('avators'), $imageName);
+                    $appuser->avator = $imageName;
+                }
                 $appuser->save();
                 
                 $data['message']=_lang('Successfully Regiter'); 
@@ -132,6 +142,11 @@ class RegisterController extends Controller
             $appuser->password = Hash::make($password);
             $appuser->email_verified_at = now();
             $appuser->user_type = 2;
+            if ($request->hasFile('avator')) {
+                $imageName = time().'.'.$request->avator->extension();  
+                $request->avator->move(public_path('avators'), $imageName);
+                $appuser->avator = $imageName;
+            }
             $appuser->save();
             $data['user']= $appuser->toArray();
             $data['message']=_lang('Successfully Regiter');
@@ -156,6 +171,11 @@ class RegisterController extends Controller
             $appuser->password = Hash::make($password);
             $appuser->email_verified_at = now();
             $appuser->user_type = 2;
+            if ($request->hasFile('avator')) {
+                $imageName = time().'.'.$request->avator->extension();  
+                $request->avator->move(public_path('avators'), $imageName);
+                $appuser->avator = $imageName;
+            }
             $appuser->save();
             $data['user']= $appuser->toArray();
             $data['message']=_lang('Successfully Regiter'); 

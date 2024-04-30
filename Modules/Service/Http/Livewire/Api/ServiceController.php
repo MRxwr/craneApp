@@ -18,7 +18,7 @@ class ServiceController extends Controller
     {
         $services= Service::where('is_deleted',0)->get()->toArray();
         $data['message']=_lang('Sevices');
-        $data['sevices']= $services->toArray();
+        $data['sevices']= $services;
         return outputSuccess($data);
     }
 

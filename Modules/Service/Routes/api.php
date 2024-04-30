@@ -15,5 +15,5 @@ use Illuminate\Http\Request;
 
 // API Version 1 routes
 Route::prefix('v1')->group(function () {
-    Route::get('/getservice', [ServiceController::class, 'getServices']);
+    Route::get('/services', [ServiceController::class, 'getServices']);
 });

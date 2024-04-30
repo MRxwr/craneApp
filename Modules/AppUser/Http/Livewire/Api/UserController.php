@@ -46,8 +46,32 @@ class UserController extends Controller
             return outputError($data);
            
         }
-        
+    }
 
+    public function updateProfile(Request $request){
+        $data = array();
+        $token = $request->header('Authorization');
+        // Check if validation fails
+        if (!$token) {
+            // If validation fails, return response with validation errors
+            $data['message']=_lang('Authorization token is requred');
+            $data['errors'] = ['token'=>'header Authorization token is requred'];
+            return outputError($data);
+        }
+        $token = str_replace('Bearer ', '', $token);
+        $name = $request->input('name');
+        $dob = $request->input('dob');
+        $appuser =  AppUser::where('token',$token)->first();
+        if ($appuser){
+            $appuser->name = $name;
+            $appuser->dob = $dob;
+            $appuser->save();
+            $data['user']= $appuser->toArray();
+            $data['message']=_lang('Successfully Update');
+            $data['user']= $user->toArray();
+            $data['token']= $token;
+            return outputSuccess($data);
+        }
     }
 
     

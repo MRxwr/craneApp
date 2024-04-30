@@ -14,9 +14,12 @@ class ServiceController extends Controller
      * Display a listing of the resource.
      * @return Renderable
      */
-    public function index()
+    public function getServices()
     {
-        $service= Service::where('is_deleted',0)->get();
+        $services= Service::where('is_deleted',0)->get()->toArray();
+        $data['message']=_lang('Sevices');
+        $data['sevices']= $services->toArray();
+        return outputSuccess($data);
     }
 
    

@@ -15,10 +15,5 @@ use Illuminate\Http\Request;
 
 // API Version 1 routes
 Route::prefix('v1')->group(function () {
-    // Route for registering a new user with OTP verification
-    //Route::post('/sendotp', [OTPController::class, 'sendOTP']);
-  
-    Route::middleware('auth:app_user')->group(function () {
-        Route::post('/getservice', [ServiceController::class, 'getServices']);
-    });
+    Route::get('/getservice', [ServiceController::class, 'getServices']);
 });

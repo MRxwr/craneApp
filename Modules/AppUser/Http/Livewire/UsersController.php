@@ -56,7 +56,7 @@ class UsersController extends Controller
         if ($request->hasFile('avator')) {
             $imageName = time().'.'.$request->avator->extension();  
             $request->avator->move(public_path('avators'), $imageName);
-            $user->avator = $imageName;
+            $user->avator = 'storage/avators/'.$imageName;
         }
         $user->save();
         return redirect()->back()->with('success', 'User Saved successfully!');

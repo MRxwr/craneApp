@@ -65,11 +65,26 @@ class UserController extends Controller
         if ($appuser){
             $appuser->name = $name;
             $appuser->dob = $dob;
-            
+
             if ($request->hasFile('avator')) {
                 $imageName = time().'.'.$request->avator->extension();  
                 $request->avator->move(public_path('avators'), $imageName);
                 $appuser->avator = $imageName;
+            }
+            if ($request->hasFile('licence')) {
+                $imageName = 'LNC'.time().'.'.$request->licence->extension();  
+                $request->licence->move(public_path('drivers'), $imageName);
+                $appuser->licence = $imageName;
+            }
+            if ($request->hasFile('idfront')) {
+                $imageName = 'IDF'.time().'.'.$request->idfront->extension();  
+                $request->idfront->move(public_path('drivers'), $imageName);
+                $appuser->idfront = $imageName;
+            }
+            if ($request->hasFile('idback')) {
+                $imageName = 'IDB'.time().'.'.$request->idback->extension();  
+                $request->idback->move(public_path('drivers'), $imageName);
+                $appuser->idback = $imageName;
             }
 
             $appuser->save();

@@ -9,10 +9,42 @@ class Page extends Model
 {
     use HasFactory;
 
-    protected $fillable = [];
+    protected $fillable = [
+        'title',
+        'description',
+        'image',
+    ];
+    protected $casts = [
+        'title' => 'array',
+        'description' => 'array',
+    ];
     
-    protected static function newFactory()
+    public function setTitleAttribute($value)
     {
-        return \Modules\Pages\Database\factories\PageFactory::new();
+        $this->attributes['title'] = json_encode($value);
+    }
+    public function getTitleAttribute($value)
+    {
+        return json_decode($value, true);
+    }
+
+    public function setDescriptionAttribute($value)
+    {
+        $this->attributes['description'] = json_encode($value);
+    }
+    public function getDescriptionAttribute($value)
+    {
+        return json_decode($value, true);
+    }
+    public function scopeActive($e)
+    {
+        return $e->where('is_active', 1);
+    }
+    public function scopeFilter($e, $q)
+    {
+        return $e->when($q, function ($ee, $q) {
+            return $ee->where('title', 'like', "%$q%")
+                ->orWhere('description', 'like', "%$q%");
+        });
     }
 }

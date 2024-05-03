@@ -63,11 +63,20 @@
                 @endif
             </ul>
         </li>
-        @if (akses('view-language'))
+        @if (akses('view-service'))
           <li class="nav-item">
              <a href="{{ url('services/index') }}" class="nav-link">
                 <i class="nav-icon fas fa-th"></i>
                 <p>{{_lang('Services')}}</p>
+             </a>
+          </li> 
+        @endif
+
+        @if (akses('view-pages'))
+          <li class="nav-item">
+             <a href="{{ url('pages/index') }}" class="nav-link">
+                <i class="nav-icon fas fa-th"></i>
+                <p>{{_lang('Pages')}}</p>
              </a>
           </li> 
         @endif

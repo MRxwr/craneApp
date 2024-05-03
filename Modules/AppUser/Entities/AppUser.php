@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Support\Facades\Hash;
+use Modules\AppUser\Entities\AppUserMeta;
 
 class AppUser extends Authenticatable implements AuthenticatableContract
 {
@@ -77,8 +78,21 @@ class AppUser extends Authenticatable implements AuthenticatableContract
      */
     public function validatePassword($password)
     {
-        dd($password);
+        
         return Hash::check($password, $this->getAuthPassword());
     }
+
+    public function getUserMetas(){
+        $metas = AppUserMeta::where('app_user_id',$this->id)->get();
+        if($metas){
+            $usermeta=[];
+            foreach($metas as $meta){
+                $usermeta[$meta->key] = $meta->value;
+            }
+            return $usermeta;
+        }
+
+    }
+
     
 }

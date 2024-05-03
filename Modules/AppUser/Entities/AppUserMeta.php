@@ -9,10 +9,12 @@ class AppUserMeta extends Model
 {
     use HasFactory;
 
-    protected $fillable = [];
+
+    protected $table = 'app_user_metas';
+    protected $fillable = [
+                'app_user_id',
+                'key',
+                'value',
+            ];
     
-    protected static function newFactory()
-    {
-        return \Modules\AppUser\Database\factories\AppUserMetaFactory::new();
-    }
 }

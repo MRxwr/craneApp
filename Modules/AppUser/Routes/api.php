@@ -30,5 +30,4 @@ Route::prefix('v1')->group(function () {
     Route::post('/login', [LoginController::class, 'AppUserLogin']);
     Route::post('/profile', [UserController::class, 'userProfile']);
     Route::post('/profile/update', [UserController::class, 'updateProfile']);
-
 });

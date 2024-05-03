@@ -4,5 +4,6 @@
     "AppUser": true,
     "Service": true,
     "BookingRequest": true,
-    "BookingLogs": true
+    "BookingLogs": true,
+    "Pages": true
 }

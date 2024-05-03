@@ -97,6 +97,8 @@ class UserController extends Controller
             return outputSuccess($data);
         }
     }
-
+    public function updateProfileSetting(Request $request){
+        
+    }
     
 }

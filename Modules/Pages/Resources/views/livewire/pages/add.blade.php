@@ -1,5 +1,5 @@
 @extends('layouts.main',[
-'title'=>_lang('Add Service')
+'title'=>_lang('Add Page')
 ])
 @section('content')
 <div>
@@ -7,7 +7,7 @@
         <div class="card-body row">
 
             <div class=" col-md-6 modal-content">
-            <form action="{{ route('services.store') }}" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('pages.store') }}" method="POST" enctype="multipart/form-data">
                  @csrf <!-- CSRF protection -->
                             <div class="card-body">
                                 {{ $message ?? '' }}

@@ -89,6 +89,7 @@
                     <i class="right fas fa-angle-left"></i>
                 </p>
             </a>
+            
             <ul class="nav nav-treeview">
               @if (akses('view-setting'))
                     <li class="nav-item">

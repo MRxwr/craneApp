@@ -1,5 +1,5 @@
 @extends('layouts.main',[
-    'title'=>_lang('Edit Service')
+    'title'=>_lang('Edit Page')
 ])
 @section('content')
 <div>
@@ -7,7 +7,7 @@
         <div class="card-body row">
 
             <div class=" col-md-6 modal-content">
-            <form action="{{ route('services.update', $service->id) }}" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('Pages.update', $service->id) }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     @method('PUT') <!-- Use PUT method for updating -->
                             <div class="card-body">

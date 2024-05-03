@@ -3,9 +3,9 @@
     <div class="card">
         <div class="card-header">
             
-            @if (akses('create-service'))
+            @if (akses('create-page'))
                 <div class="buttons float-right">
-                    <a  href="{{ route('services.create') }}" class="btn btn-icon icon-left btn-primary"><i
+                    <a  href="{{ route('pages.create') }}" class="btn btn-icon icon-left btn-primary"><i
                             class="bi bi-clipboard-plus"></i>
                             {{_lang('Add New')}}</a>
                 </div>
@@ -56,7 +56,7 @@
                                 <td>{{ $dt->description[getLocale()] }}</td>
                                 
                                 <td>
-                                    @if (akses('edit-user'))
+                                    @if (akses('edit-page'))
                                         @if ($dt->is_active == 1)
                                             <div style="cursor: pointer;"
                                                 wire:click.prevent="update_status({{ $dt->id }})"
@@ -80,14 +80,14 @@
                                         </button>
                                         <div class="dropdown-menu" x-placement="bottom-start"
                                             style="position: absolute; transform: translate3d(0px, 28px, 0px); top: 0px; left: 0px; will-change: transform;">
-                                            @if (akses('edit-service'))
-                                                <a class="dropdown-item has-icon" href="{{ route('services.edit', $dt->id) }}"
+                                            @if (akses('edit-page'))
+                                                <a class="dropdown-item has-icon" href="{{ route('pages.edit', $dt->id) }}"
                                                     ><i
                                                         class="bi bi-pencil-square"></i>
                                                     Edit</a>
                                             @endif
 
-                                            @if (akses('delete-service'))
+                                            @if (akses('delete-page'))
                                                 <a class="dropdown-item has-icon"
                                                     onclick="return confirm('Confirm delete?') || event.stopImmediatePropagation()"
                                                     href="#" wire:click.prevent="destroy({{ $dt->id }})"><i

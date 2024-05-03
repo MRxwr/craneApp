@@ -187,7 +187,30 @@ trait PermissionTrait
                 'type' => 'manage-driver',
                 'title' => 'change-status-driver'
             ],
+
+            // Manage page
+            [
+                'type' => 'manage-page',
+                'title' => 'view-pages'
+            ],
             
+            [
+                'type' => 'manage-page',
+                'title' => 'create-page'
+            ],
+            [
+                'type' => 'manage-page',
+                'title' => 'edit-page'
+            ],
+            [
+                'type' => 'manage-page',
+                'title' => 'delete-page'
+            ],
+
+            [
+                'type' => 'manage-page',
+                'title' => 'change-status-page'
+            ],
         ]);
     }
 }

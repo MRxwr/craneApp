@@ -24,7 +24,7 @@
                                 <div class="form-group row">
                                     <div class="col-lg-3 col-12">{{_lang('Description')}} [{{$lang->code}}]</div>
                                     <div class="col-lg-9 col-12">
-                                        <textarea  class="form-control" placeholder="Description.." name="description[{{ $lang->code }}]">{{$service->description[$lang->code]}}</textarea>
+                                        <textarea  class="form-control summernote" placeholder="Description.." name="description[{{ $lang->code }}]">{{$service->description[$lang->code]}}</textarea>
                                     </div>
                                 </div>
                                 @endforeach

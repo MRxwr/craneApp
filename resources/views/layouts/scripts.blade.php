@@ -21,7 +21,9 @@
             e.preventDefault();
             $('#modalContact').appendTo('body').modal();
         })
-        $('.summernote').summernote();
+        $('.summernote').each(function() {
+                $(this).summernote();
+        });
     })
 </script>
 

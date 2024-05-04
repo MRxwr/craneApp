@@ -10,7 +10,7 @@
 <script src="{{ asset('adminlte/plugins/sweetalert2/sweetalert2.min.js') }}"></script>
 
 <script src="{{ asset('adminlte/plugins/toastr/toastr.min.js') }}"></script>
-<script src="{{ asset('adminlte/plugins/summernote/dist/summernote-bs4.min.js') }}"></script>
+<script src="{{ asset('adminlte/plugins/summernote/summernote-bs4.min.js') }}"></script>
 
 @livewireScripts
 @yield('scripts')

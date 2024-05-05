@@ -9,8 +9,6 @@ trait FaqTrait
     {
         $a['title'] = '';
         $a['description'] = '';
-       
-
         return $a;
     }
 
@@ -32,7 +30,7 @@ trait FaqTrait
         } else {
 
             if ($id_edit) {
-                $cek = Service::where('title', $data['title'])->where('id', '!=', $id_edit)->exists();
+                $cek = Faq::where('title', $data['title'])->where('id', '!=', $id_edit)->exists();
 
                 if ($cek) {
                     return [
@@ -41,7 +39,7 @@ trait FaqTrait
                     ];
                 }
             } else {
-                $cek = Service::where('title', $data['title'])->exists();
+                $cek = Faq::where('title', $data['title'])->exists();
 
                 if ($cek) {
                     return [

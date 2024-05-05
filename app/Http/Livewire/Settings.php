@@ -41,7 +41,7 @@ class Settings extends Component
             $row->contact = $request->contact;
             $row->email = $request->email;
             $row->address = $request->address;
-            
+
             if ($request->hasFile('logo')) {
                 $imageName = 'logo-'.time().'.'.$request->logo->extension();
                // Save the file to the 'public' disk
@@ -55,7 +55,7 @@ class Settings extends Component
                 $row->favicons = 'storage/site/'.$imageName;
             }
             $row->save();
-            return redirect()->back()->with('success', 'Service created successfully!');
+            return redirect()->back()->with('success', 'Settings successfully updated!');
         // Redirect or emit event if needed
     }
 

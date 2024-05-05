@@ -57,22 +57,18 @@
                                   </select>
                                </div>
                             </div>
-
                         <div class="form-group row">
                             <div class="col-lg-3 col-12"> {{_lang('Contact Number')}}</div>
                             <div class="col-lg-9 col-12">
                                 <input type="text" class="form-control" placeholder="Contact " wire:model="row.contact">
                             </div>
                         </div>
-                       
-                       
                         <div class="form-group row">
                             <div class="col-lg-3 col-12">{{_lang('Site email')}} </div>
                             <div class="col-lg-9 col-12">
                             <input type="text" class="form-control" placeholder="email" wire:model="row.email">
                             </div>
                         </div>
-                       
                         <div class="form-group row">
                             <div class="col-lg-3 col-12"> {{_lang('Address')}}</div>
                             <div class="col-lg-9 col-12">
@@ -80,10 +76,7 @@
                             </div>
                         </div>
                     </div>
-
-                   
                 </div>
-              
             </div>
         </div>
         <div class="card-footer">

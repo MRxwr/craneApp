@@ -47,14 +47,9 @@ class Index extends Component
 
         try {
             $dt = Language::find($id);
-
-            // if ($dt->is_paten == 1) {
-            //     $this->emit('pesanGagal', 'Sorry, this user can not edited..');
-            // } else {
             updateStatus(new Language, $id);
-
             $this->emit('pesanSukses', 'Sucess..');
-            // }
+
         } catch (\Exception $th) {
             //throw $th;
             $pesan = MasterData::pesan_gagal($th);

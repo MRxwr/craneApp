@@ -32,23 +32,24 @@ class Settings extends Component
    
     public function update(Request $request, $rowId)
     {
-        // Validation logic if needed
-       
-        dd($request->all());
-        
-        $this->validate();
-        $row = Setting::find($rowId);
-        
-        if ($this->logo) {
-            $this->row->logo_path = $this->logo->store('logos');
-        }
-
-        if ($this->favicon) {
-            $this->row->favicon_path = $this->favicon->store('favicons');
-        }
-
-        $this->row->save();
-
+           $this->validate();
+            $row = Setting::find($rowId);
+            $row->sitetitle = $request->sitetitle;
+            $row->sitedesc = $request->sitedesc;
+            if ($request->hasFile('logo')) {
+                $imageName = 'logo-'.time().'.'.$request->logo->extension();
+               // Save the file to the 'public' disk
+                $request->logo->storeAs('site', $imageName, 'public');
+                $row->logo = 'storage/site/'.$imageName;
+            }
+            if ($request->hasFile('favicons')) {
+                $imageName = 'favicons-'.time().'.'.$request->favicons->extension();
+               // Save the file to the 'public' disk
+                $request->favicons->storeAs('site', $imageName, 'public');
+                $row->favicons = 'storage/site/'.$imageName;
+            }
+            $row->save();
+            return redirect()->back()->with('success', 'Service created successfully!');
         // Redirect or emit event if needed
     }
 

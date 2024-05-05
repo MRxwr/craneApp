@@ -36,6 +36,12 @@ class Settings extends Component
             $row = Setting::find($rowId);
             $row->sitetitle = $request->sitetitle;
             $row->sitedesc = $request->sitedesc;
+            $row->adminlang = $request->adminlang;
+            $row->frontlang = $request->frontlang;
+            $row->contact = $request->contact;
+            $row->email = $request->email;
+            $row->address = $request->address;
+            
             if ($request->hasFile('logo')) {
                 $imageName = 'logo-'.time().'.'.$request->logo->extension();
                // Save the file to the 'public' disk

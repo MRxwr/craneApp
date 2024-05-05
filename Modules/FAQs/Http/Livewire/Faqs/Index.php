@@ -26,7 +26,7 @@ class Index extends Component
     public function mount()
     {
         $this->paging = 25;
-        $this->forms = ServiceTrait::firstForm();
+        $this->forms = FaqTrait::firstForm();
         // dd($this->forms);
 
     }
@@ -137,15 +137,14 @@ class Index extends Component
     public function render()
     {
         $q = $this->search;
-        $data = Service::where('is_deleted',0)->filter($q)->latest()->paginate($this->paging);
+        $data = Faq::where('is_deleted',0)->filter($q)->latest()->paginate($this->paging);
         $pagings = MasterData::list_pagings();
        
-        return view('service::livewire.service.index', compact(
+        return view('faqs::livewire.faq.index', compact(
             'data',
             'pagings',
-        ))
-            ->layout('layouts.main', [
-                'title' => 'Manage Service'
+            ))->layout('layouts.main',[
+                'title' => 'Manage Faqs'
             ]);
     }
 }

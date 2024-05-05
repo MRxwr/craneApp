@@ -2,7 +2,7 @@
 
 namespace Modules\FAQs\Http\Livewire\Faq;
 
-use Modules\FAQs\Entities\Service;
+use Modules\FAQs\Entities\Faq;
 use Livewire\Component;
 use App\Traits\MasterData;
 use Livewire\WithFileUploads;
@@ -23,10 +23,6 @@ class Index extends Component
 
     protected $listeners =['fileUpload'=>'handleFileUpload'];
 
-    public function handleFileUpload ($imageData){
-        dd($imageData);
-        $this->image = $imageData;
-    }
     public function mount()
     {
         $this->paging = 25;
@@ -54,12 +50,12 @@ class Index extends Component
         }
 
         try {
-            $dt = Service::find($id);
+            $dt = Faq::find($id);
 
             // if ($dt->is_paten == 1) {
             //     $this->emit('pesanGagal', 'Sorry, this user can not edited..');
             // } else {
-            updateStatus(new Service, $id);
+            updateStatus(new Faq, $id);
 
             $this->emit('pesanSukses', 'Sucess..');
             // }
@@ -74,7 +70,7 @@ class Index extends Component
     public function tambah_data()
     {
         $this->reset(['is_edit', 'id_edit']);
-        $this->forms = ServiceTrait::firstForm();
+        $this->forms = FaqTrait::firstForm();
         $this->emit('modalAdd', 'show');
     }
 
@@ -83,7 +79,7 @@ class Index extends Component
         $this->is_edit = 1;
         $this->id_edit = $id;
 
-        $this->forms = ServiceTrait::find_data($id);
+        $this->forms = FaqTrait::find_data($id);
 
         $this->emit('modalAdd', 'show');
     }
@@ -98,35 +94,23 @@ class Index extends Component
            
             // dd($this->forms);
             if ($this->id_edit) {
-                $validasi = ServiceTrait::store_validation($this->forms, $this->id_edit);
+                $validasi = FaqTrait::store_validation($this->forms, $this->id_edit);
             } else {
-                $validasi = ServiceTrait::store_validation($this->forms);
+                $validasi = FaqTrait::store_validation($this->forms);
             }
             // dd($validasi);
             if (!$validasi['success']) {
                 $this->emit('pesanGagal', $validasi['message']);
             } else {
                 if ($this->id_edit) {
-                    if ($this->image) {
-                        // Store the uploaded file in the storage directory
-                        $image = $this->image->store('services', 'public');
-                        $this->forms['image'] = Storage::url($image);
-                    }
-                    
-                    ServiceTrait::store_data($this->forms, $this->id_edit);
+                    FaqTrait::store_data($this->forms, $this->id_edit);
                 } else {
-                    if ($this->image) {
-                        // Store the uploaded file in the storage directory
-                        $imageName = $this->image->store('services', 'public');
-                        // Get the URL for the uploaded image
-                        $this->forms['image'] = Storage::url($imageName);
-                    }
-                    ServiceTrait::store_data($this->forms);
+                    FaqTrait::store_data($this->forms);
                 }
 
                 $this->emit('modalAdd', 'hide');
 
-                $this->forms = ServiceTrait::firstForm();
+                $this->forms = FaqTrait::firstForm();
                
                 $this->emit('pesanSukses', 'Store Success..');
                 $this->reset(['is_edit', 'id_edit']);
@@ -141,7 +125,7 @@ class Index extends Component
     public function destroy($id)
     {
         try {
-            ServiceTrait::destroy($id);
+            FaqTrait::destroy($id);
             $this->emit('pesanSukses', 'Success..');
         } catch (\Exception $th) {
             //throw $th;

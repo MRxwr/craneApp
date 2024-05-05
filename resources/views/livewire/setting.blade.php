@@ -2,7 +2,7 @@
 <div>
     <form wire:submit.prevent="update">
     <div class="card">
-        @dd($row)
+        
         <div class="card-body"> 
             <div class="row">
                 <div class="col-lg-6 col-6"> 
@@ -10,7 +10,7 @@
                         <div class="form-group row">
                             <div class="col-lg-3 col-12"> {{_lang('Site Title')}} [{{$lang->code}}]</div>
                             <div class="col-lg-9 col-12">
-                                <input type="text" class="form-control" placeholder="Site Title.." wire:model="row.sitetitle.{{ $lang->code }}">
+                                <input type="text" class="form-control" placeholder="Site Title.." name="sitetitle[{{ $lang->code }}]" value="{{$row->sitetitle[$lang->code]}}">
                             </div>
                         </div>
                         @endforeach
@@ -18,20 +18,20 @@
                         <div class="form-group row">
                             <div class="col-lg-3 col-12">{{_lang('Site description')}} [{{$lang->code}}]</div>
                             <div class="col-lg-9 col-12">
-                                <input type="text" class="form-control" placeholder="Site description.." wire:model="row.sitedesc.{{ $lang->code }}">
+                                <input type="text" class="form-control" placeholder="Site description.." name="sitedesc[{{ $lang->code }}]" value="{{$row->sitedesc[$lang->code]}}">
                             </div>
                         </div>
                         @endforeach
                         <div class="form-group row">
                             <div class="col-lg-3 col-12"> {{_lang('Site Logo')}}</div>
                             <div class="col-lg-9 col-12">
-                                <input type="file" class="form-control"  wire:model="row.logo">
+                                <input type="file" class="form-control"  name="logo">
                             </div>
                         </div>
                         <div class="form-group row">
                             <div class="col-lg-3 col-12">{{_lang('Site Favicon')}} </div>
                             <div class="col-lg-9 col-12">
-                                <input type="file" class="form-control"  wire:model="row.favicon">
+                                <input type="file" class="form-control"  name="favicon">
                             </div>
                         </div>
 
@@ -41,7 +41,7 @@
                             <div class="form-group row">
                                 <div class="col-lg-3 col-12">{{_lang('Admin language')}}</div>
                                 <div class="col-lg-9 col-12">
-                                   <select class="form-control"  wire:model="row.adminlang">
+                                   <select class="form-control"  name="adminlang">
                                     @foreach ($languages as $lang)
                                         <option value="{{ $lang->code }}">{{ $lang->title }}</option>
                                     @endforeach
@@ -51,7 +51,7 @@
                             <div class="form-group row">
                                 <div class="col-lg-3 col-12">{{_lang('Front language')}}</div>
                                 <div class="col-lg-9 col-12">
-                                   <select  class="form-control" wire:model="row.frontlang" >
+                                   <select  class="form-control" name="frontlang" >
                                    @foreach (getActiveLanguages() as $lang)
                                         <option value="{{ $lang->code }}">{{ $lang->title }}</option>
                                     @endforeach
@@ -61,19 +61,19 @@
                         <div class="form-group row">
                             <div class="col-lg-3 col-12"> {{_lang('Contact Number')}}</div>
                             <div class="col-lg-9 col-12">
-                                <input type="text" class="form-control" placeholder="Contact " name="contact" value="">
+                                <input type="text" class="form-control" placeholder="Contact " name="contact" value="{{$row->contact}}">
                             </div>
                         </div>
                         <div class="form-group row">
                             <div class="col-lg-3 col-12">{{_lang('Site email')}} </div>
                             <div class="col-lg-9 col-12">
-                            <input type="text" class="form-control" placeholder="email" name="email">
+                            <input type="text" class="form-control" placeholder="email" name="email" value="{{$row->email}}">
                             </div>
                         </div>
                         <div class="form-group row">
                             <div class="col-lg-3 col-12"> {{_lang('Address')}}</div>
                             <div class="col-lg-9 col-12">
-                             <input type="text" class="form-control" placeholder="Address" name="address">
+                             <input type="text" class="form-control" placeholder="Address" name="address" value="{{$row->address}}">
                             </div>
                         </div>
                     </div>

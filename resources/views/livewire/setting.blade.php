@@ -57,10 +57,7 @@
                                   </select>
                                </div>
                             </div>
-                    </div>
 
-                    <div class="col-lg-6 col-6"> 
-                      
                         <div class="form-group row">
                             <div class="col-lg-3 col-12"> {{_lang('Contact Number')}}</div>
                             <div class="col-lg-9 col-12">
@@ -72,17 +69,19 @@
                         <div class="form-group row">
                             <div class="col-lg-3 col-12">{{_lang('Site email')}} </div>
                             <div class="col-lg-9 col-12">
-                                <input type="text" class="form-control" placeholder="email" wire:model="row.email">
+                                
                             </div>
                         </div>
                        
                         <div class="form-group row">
                             <div class="col-lg-3 col-12"> {{_lang('Address')}}</div>
                             <div class="col-lg-9 col-12">
-                                <input type="file" class="form-control"  wire:model="row.address">
+                             <input type="text" class="form-control" placeholder="email" wire:model="row.address">
                             </div>
                         </div>
                     </div>
+
+                   
                 </div>
               
             </div>

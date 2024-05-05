@@ -37,7 +37,7 @@ class FAQsController extends Controller
     {
         $validatedData = $request->validate([
             'title.*' => 'required|string|max:255',
-            'description.*' => 'required|string',
+            'description.*' => 'nullable|string',
         ]);
 
         $faq = new Faq();
@@ -82,7 +82,7 @@ class FAQsController extends Controller
     {
         $validatedData = $request->validate([
             'title.*' => 'required|string|max:255',
-            'description.*' => 'required|string',
+            'description.*' => 'nullable',
            
         ]);
         //dd($request->all());

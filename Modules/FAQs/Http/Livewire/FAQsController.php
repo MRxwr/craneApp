@@ -3,7 +3,7 @@
 namespace Modules\FAQs\Http\Livewire;
 
 use Illuminate\Contracts\Support\Renderable;
-use Modules\Service\Entities\Service;
+use Modules\FAQs\Entities\Faq;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Storage;
@@ -25,7 +25,7 @@ class FAQsController extends Controller
      */
     public function create()
     {
-        return view('service::livewire.service.add');
+        return view('FAQs::livewire.faq.add');
     }
 
     /**
@@ -38,22 +38,15 @@ class FAQsController extends Controller
         $validatedData = $request->validate([
             'title.*' => 'required|string|max:255',
             'description.*' => 'required|string',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
-        $service = new Service();
+        $faq = new Faq();
         
-            $service->title = $request->title;
-            $service->description = $request->description;
-            if ($request->hasFile('image')) {
-                
-                $imageName = 'img-'.time().'.'.$request->image->extension();
-               // Save the file to the 'public' disk
-                $request->image->storeAs('services', $imageName, 'public');
-                $service->image = 'storage/services/'.$imageName;
-            }
-            $service->save();
-            return redirect()->back()->with('success', 'Service created successfully!');
+            $faq->title = $request->title;
+            $faq->description = $request->description;
+            
+            $faq->save();
+            return redirect()->back()->with('success', 'FAQs created successfully!');
        
     
         // Redirect or return response as needed
@@ -75,8 +68,8 @@ class FAQsController extends Controller
      * @return Renderable
      */
     public function edit($id){
-        $service = Service::findOrFail($id);
-        return view('service::livewire.service.edit', compact('service'));
+        $service = Faq::findOrFail($id);
+        return view('FAQs::livewire.faq.edit', compact('service'));
     }
 
 
@@ -91,24 +84,17 @@ class FAQsController extends Controller
         $validatedData = $request->validate([
             'title.*' => 'required|string|max:255',
             'description.*' => 'required|string',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+           
         ]);
         //dd($request->all());
-        $service = Service::findOrFail($id);
-        if( $service){
-            $service->title = $request->title;
-            $service->description = $request->description;
-            if ($request->hasFile('image')) {
-                
-                $imageName = 'img-'.time().'.'.$request->image->extension();
-               // Save the file to the 'public' disk
-                $request->image->storeAs('services', $imageName, 'public');
-                $service->image = 'storage/services/'.$imageName;
-            }
-            $service->save();
-            return redirect()->back()->with('success', 'Service Saved successfully!');
+        $faq = Faq::findOrFail($id);
+        if( $faq){
+            $faq->title = $request->title;
+            $faq->description = $request->description;
+            $faq->save();
+            return redirect()->back()->with('success', 'FAQ Saved successfully!');
         }else{
-            return redirect()->back()->with('error', 'Service Not exist!');
+            return redirect()->back()->with('error', 'FAQ Not exist!');
         }
         
     

@@ -7,7 +7,7 @@
         <div class="card-body row">
 
             <div class=" col-md-6 modal-content">
-            <form action="{{ route('services.store') }}" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('faqs.store') }}" method="POST" enctype="multipart/form-data">
                  @csrf <!-- CSRF protection -->
                             <div class="card-body">
                                 {{ $message ?? '' }}
@@ -27,13 +27,7 @@
                                         </div>
                                     </div>
                                 @endforeach
-                                <div class="form-group row">
-                                    <div class="col-lg-3 col-12"><img src="{{ asset('storage/' . '') }}" alt="Uploaded Image"></div>
-                                    <div class="col-lg-9 col-12">
-                                    
-                                        <input type="file" class="form-control"  wire:model="forms.image">
-                                    </div>
-                                </div>
+                                
                             </div>
                             <div class="card-footer">
                                 <button type="submit" class="btn btn-primary">{{_lang('Submit')}}</button>

@@ -7,7 +7,7 @@
         <div class="card-body row">
 
             <div class=" col-md-6 modal-content">
-            <form action="{{ route('services.update', $service->id) }}" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('faqs.update', $service->id) }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     @method('PUT') <!-- Use PUT method for updating -->
                             <div class="card-body">
@@ -28,13 +28,6 @@
                                     </div>
                                 </div>
                                 @endforeach
-
-                                <div class="form-group row">
-                                    <div class="col-lg-3 col-12" style="height:250px;"><img src="{{ asset($service->image) }}" class="img-rounded" alt="Uploaded Image" style="width: 100%;"></div>
-                                    <div class="col-lg-9 col-12">
-                                        <input type="file" class="form-control" name="image" >
-                                    </div>
-                                </div>
                             </div>
                             <div class="card-footer">
                                 <button type="submit" class="btn btn-primary">{{_lang('Submit')}}</button>

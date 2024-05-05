@@ -30,12 +30,15 @@ class Settings extends Component
 
    
    
-    public function update()
+    public function update(Request $request, $rowId)
     {
         // Validation logic if needed
-
+       
+        dd($request->all());
         
         $this->validate();
+        $row = Setting::find($rowId);
+        
         if ($this->logo) {
             $this->row->logo_path = $this->logo->store('logos');
         }

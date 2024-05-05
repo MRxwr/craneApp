@@ -1,6 +1,7 @@
 
 <div>
-    <form wire:submit.prevent="update">
+<form action="{{ route('settings.update', $row->id) }}" method="POST" enctype="multipart/form-data">
+    @csrf
     <div class="card">
         <div class="card-body"> 
             <div class="row">

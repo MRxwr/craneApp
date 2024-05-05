@@ -11,6 +11,13 @@
 |
 */
 
-Route::prefix('faqs')->group(function() {
-    Route::get('/', 'FAQsController@index');
+
+Route::middleware(['web', 'auth'])->group(function () {
+    Route::prefix('faqs')->group(function () {
+        Route::get('/index', 'faqs\index');
+        Route::get('/create', 'FAQsController@create')->name('services.create');
+        Route::post('/store', 'FAQsController@store')->name('services.store');
+        Route::get('/{id}/edit', 'FAQsController@edit')->name('services.edit');
+        Route::put('/{id}', 'FAQsController@update')->name('services.update');
+    });
 });

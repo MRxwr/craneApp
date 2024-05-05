@@ -125,11 +125,11 @@ function GenerateApiToken($user){
             return $token;
         }  
     }
-function getHashToken($token){
+function getHashToken($token){  
         if($token){
           return  hash('sha256', $token);
         }  
-}
+    }
 function getAllUserMeta($key,$app_user_id){
     $usermeta= AppUserMeta::where('app_user_id',$app_user_id)->get();
     if($usermeta){

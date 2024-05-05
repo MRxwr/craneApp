@@ -73,7 +73,7 @@
         @endif
         <li class="nav-item {{ in_array(request()->segment(1),['pages','faqs']) ? 'menu-open' : '' }}">
             <a href="#" class="nav-link {{ request()->segment(1) == 'users' ? 'active' : '' }}">
-                <i class="nav-icon fas fa-file-text"></i>
+            <i class="nav-icon fa-solid fa-file-pen"></i>
                 <p>
                 {{_lang('CMS')}}
                     <i class="right fas fa-angle-left"></i>
@@ -83,7 +83,8 @@
             @if (akses('view-pages'))
             <li class="nav-item">
                 <a href="{{ url('pages/index') }}" class="nav-link">
-                    <i class="nav-icon fas fa-file"></i>
+                <i class="nav-icon fa-solid fa-file-pen"></i>
+                    <!-- <i class="nav-icon fas fa-file"></i> -->
                     <p>{{_lang('Pages')}}</p>
                 </a>
             </li> 
@@ -91,7 +92,7 @@
             @if (akses('view-faqs'))
             <li class="nav-item">
                 <a href="{{ url('faqs/index') }}" class="nav-link">
-                    <i class="nav-icon fas fa-question"></i>
+                    <i class="nav-icon fa-regular fa-circle-question"></i>
                     <p>{{_lang('Pages')}}</p>
                 </a>
             </li> 

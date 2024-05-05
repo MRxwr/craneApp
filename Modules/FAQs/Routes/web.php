@@ -15,9 +15,9 @@
 Route::middleware(['web', 'auth'])->group(function () {
     Route::prefix('faqs')->group(function () {
         Route::get('/index', 'faqs\index');
-        Route::get('/create', 'FAQsController@create')->name('services.create');
-        Route::post('/store', 'FAQsController@store')->name('services.store');
-        Route::get('/{id}/edit', 'FAQsController@edit')->name('services.edit');
-        Route::put('/{id}', 'FAQsController@update')->name('services.update');
+        Route::get('/create', 'FAQsController@create')->name('faqs.create');
+        Route::post('/store', 'FAQsController@store')->name('faqs.store');
+        Route::get('/{id}/edit', 'FAQsController@edit')->name('faqs.edit');
+        Route::put('/{id}', 'FAQsController@update')->name('faqs.update');
     });
 });

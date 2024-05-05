@@ -5,9 +5,13 @@ use App\Models\Locale;
 use App\Models\Language;
 use App\Models\Setting;
 use Modules\Roles\Entities\Role;
+use Modules\AppUser\Entities\AppUser;
+use Modules\AppUser\Entities\AppUserMeta;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
+
+//AppUserMeta
 
 function updateStatus(Model $model, $id)
 {
@@ -124,8 +128,35 @@ function GenerateApiToken($user){
 function getHashToken($token){
         if($token){
           return  hash('sha256', $token);
-        }
+        }  
 }
-
+function getAllUserMeta($key,$app_user_id){
+    $usermeta= AppUserMeta::where('app_user_id',$app_user_id)->get();
+    if($usermeta){
+        $metas=[];
+        foreach($usermeta as $meta){
+            $metas[$meta->key] = $meta->value;
+        }
+        return $metas;
+      }
+   } 
+function getUserMeta($key,$app_user_id){
+    $usermeta= AppUserMeta::where('key',$key)->where('app_user_id',$app_user_id)->first();
+    if($usermeta){
+        return $usermeta->value;
+      }
+   } 
+ function upadteUserMeta($key,$value,$app_user_id){
+   $usermeta= AppUserMeta::where('key',$key)->where('app_user_id',$app_user_id)->first();
+   if($usermeta){
+     $usermeta->value = $value;
+     $usermeta->save();
+   }else{
+    $usermeta = new AppUserMeta;
+    $usermeta->app_user_id = $app_user_id;
+    $usermeta->key = $key;
+    $usermeta->value = $value;
+   }
+ } 
 
 }

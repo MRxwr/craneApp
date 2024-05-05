@@ -98,7 +98,37 @@ class UserController extends Controller
         }
     }
     public function updateProfileSetting(Request $request){
-        
+        $data = array();
+        $token = $request->header('Authorization');
+
+        // Check if validation fails
+        if (!$token) {
+            // If validation fails, return response with validation errors
+            $data['message']=_lang('Authorization token is requred');
+            $data['errors'] = ['token'=>'header Authorization token is requred'];
+            return outputError($data);
+        }
+        $token = str_replace('Bearer ', '', $token);
+        try {
+            $user = AppUser::where('token',$token)->first();
+            if ($user) {
+                // Authentication successful
+                $data['message']=_lang('Profile');
+                $data['user']= $user->toArray();
+                return outputSuccess($data);
+                // Proceed with authenticated user logic
+            } else {
+                // Authentication failed
+                $data['message']=_lang('Unauthorized');
+                return outputError($data); 
+                
+            }
+        } catch (\Exception $e) {
+            // Log or handle the exception
+            $data['message']=_lang('Authentication error');
+            return outputError($data);
+           
+        }
     }
     
 }

@@ -60,7 +60,7 @@ Route::middleware(['web', 'auth'])->group(function () {
     Route::get('/settings/languages/index', LanguagesIndex::class)->name('languages.index');
     Route::get('/settings/locales/index', LocalesIndex::class)->name('locales.index');
     Route::get('/settings/index/{rowId}', Settings::class)->name('settings.index');
-    Route::post('/settings/update/{rowId}',[HomeController::class, 'update'])->name('settings.update');
+    Route::post('/settings/update/{rowId}',[Settings::class, 'update'])->name('settings.update');
 });
 Route::post('/login', [Login_controller::class, 'authenticate']);
 Route::get('/login', [Login_controller::class, 'index'])->name('login');

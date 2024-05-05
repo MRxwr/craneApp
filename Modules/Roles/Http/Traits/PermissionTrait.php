@@ -211,6 +211,29 @@ trait PermissionTrait
                 'type' => 'manage-page',
                 'title' => 'change-status-page'
             ],
+
+            // Manage faq
+            
+            [
+                'type' => 'manage-faq',
+                'title' => 'view-faqs'
+            ],
+            [
+                'type' => 'manage-faq',
+                'title' => 'create-faq'
+            ],
+            [
+                'type' => 'manage-faq',
+                'title' => 'edit-faq'
+            ],
+            [
+                'type' => 'manage-faq',
+                'title' => 'delete-faq'
+            ],
+            [
+                'type' => 'manage-faq',
+                'title' => 'change-status-faq'
+            ],
         ]);
     }
 }

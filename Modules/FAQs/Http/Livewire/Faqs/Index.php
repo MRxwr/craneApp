@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\FAQs\Http\Livewire\Faq;
+namespace Modules\FAQs\Http\Livewire\Faqs;
 
 use Modules\FAQs\Entities\Faq;
 use Livewire\Component;

@@ -71,15 +71,33 @@
              </a>
           </li> 
         @endif
-
-        @if (akses('view-pages'))
-          <li class="nav-item">
-             <a href="{{ url('pages/index') }}" class="nav-link">
-                <i class="nav-icon fas fa-th"></i>
-                <p>{{_lang('Pages')}}</p>
-             </a>
-          </li> 
-        @endif
+        <li class="nav-item {{ in_array(request()->segment(1),['pages','faqs']) ? 'menu-open' : '' }}">
+            <a href="#" class="nav-link {{ request()->segment(1) == 'users' ? 'active' : '' }}">
+                <i class="nav-icon fas fa-notes"></i>
+                <p>
+                {{_lang('CMS')}}
+                    <i class="right fas fa-angle-left"></i>
+                </p>
+            </a>
+            <ul class="nav nav-treeview">
+            @if (akses('view-pages'))
+            <li class="nav-item">
+                <a href="{{ url('pages/index') }}" class="nav-link">
+                    <i class="nav-icon fas fa-th"></i>
+                    <p>{{_lang('Pages')}}</p>
+                </a>
+            </li> 
+            @endif
+            @if (akses('view-faqs'))
+            <li class="nav-item">
+                <a href="{{ url('faqs/index') }}" class="nav-link">
+                    <i class="nav-icon fas fa-th"></i>
+                    <p>{{_lang('Pages')}}</p>
+                </a>
+            </li> 
+            @endif
+        </ul>
+        </li>
         <!-- Settings -->
 
         <li class="nav-item {{ request()->segment(1) == 'settings' ? 'menu-open' : '' }}">
@@ -89,7 +107,7 @@
                     <i class="right fas fa-angle-left"></i>
                 </p>
             </a>
-            
+
             <ul class="nav nav-treeview">
               @if (akses('view-setting'))
                     <li class="nav-item">

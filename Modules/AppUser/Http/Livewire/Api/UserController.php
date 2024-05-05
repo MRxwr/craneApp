@@ -97,7 +97,7 @@ class UserController extends Controller
             return outputSuccess($data);
         }
     }
-    public function updateProfileSetting(Request $request){
+    public function getProfileSetting(Request $request){
         $data = array();
         $token = $request->header('Authorization');
 
@@ -114,7 +114,7 @@ class UserController extends Controller
             if ($user) {
                 // Authentication successful
                 $data['message']=_lang('Profile');
-                $data['user']= $user->toArray();
+                $data['meta']['language']= $user->language;
                 return outputSuccess($data);
                 // Proceed with authenticated user logic
             } else {
@@ -128,6 +128,29 @@ class UserController extends Controller
             $data['message']=_lang('Authentication error');
             return outputError($data);
            
+        }
+    }
+    public function updateProfileSetting(Request $request){
+        $data = array();
+        $token = $request->header('Authorization');
+        // Check if validation fails
+        if (!$token) {
+            // If validation fails, return response with validation errors
+            $data['message']=_lang('Authorization token is requred');
+            $data['errors'] = ['token'=>'header Authorization token is requred'];
+            return outputError($data);
+        }
+        $token = str_replace('Bearer ', '', $token);
+
+        $language = $request->input('language');
+        $appuser =  AppUser::where('token',$token)->first();
+        if ($appuser){
+            $appuser->language = $language;
+            $appuser->save();
+            $data['token']= $token;
+            $data['user']= $appuser->toArray();
+            $data['message']=_lang('Successfully Update');
+            return outputSuccess($data);
         }
     }
     

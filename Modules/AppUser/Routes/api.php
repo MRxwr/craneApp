@@ -30,4 +30,6 @@ Route::prefix('v1')->group(function () {
     Route::post('/login', [LoginController::class, 'AppUserLogin']);
     Route::post('/profile', [UserController::class, 'userProfile']);
     Route::post('/profile/update', [UserController::class, 'updateProfile']);
+    Route::post('/profile/settings', [UserController::class, 'getProfileSetting']);
+    Route::post('/profile/settings/update', [UserController::class, 'updateProfileSetting']);
 });

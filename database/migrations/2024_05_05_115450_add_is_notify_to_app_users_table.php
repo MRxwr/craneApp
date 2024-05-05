@@ -14,7 +14,7 @@ class AddIsNotifyToAppUsersTable extends Migration
     public function up()
     {
         Schema::table('app_users', function (Blueprint $table) {
-            $table->string('language');
+            $table->string('language')->default('en');
         });
     }
 

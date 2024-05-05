@@ -25,7 +25,7 @@ class FAQsController extends Controller
      */
     public function create()
     {
-        return view('FAQs::livewire.faq.add');
+        return view('faqs::livewire.faq.add');
     }
 
     /**
@@ -44,7 +44,6 @@ class FAQsController extends Controller
         
             $faq->title = $request->title;
             $faq->description = $request->description;
-            
             $faq->save();
             return redirect()->back()->with('success', 'FAQs created successfully!');
        
@@ -69,7 +68,7 @@ class FAQsController extends Controller
      */
     public function edit($id){
         $service = Faq::findOrFail($id);
-        return view('FAQs::livewire.faq.edit', compact('service'));
+        return view('faqs::livewire.faq.edit', compact('service'));
     }
 
 

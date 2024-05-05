@@ -17,7 +17,7 @@ class Settings extends Component
     public $favicon;
     
     protected $rules = [
-        //'row.*' => 'required|string|max:255',
+        'row.*' => 'required|string|max:255',
         // Add validation rules for other properties as needed
     ];
 

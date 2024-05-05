@@ -12,7 +12,10 @@ class Setting extends Model
         'sitetitle',
         'sitedesc',
         'adminlang',
-        'frontlang',
+        'contact',
+        'adminlang',
+        'email',
+        'address',
         'logo',
         'favicon'
     ];
@@ -34,4 +37,13 @@ class Setting extends Model
     {
         return json_decode($value, true);
     }
+
+    // public function setAddressAttribute($value)
+    // {
+    //     $this->attributes['sitedesc'] = json_encode($value);
+    // }
+    // public function getAddressAttribute($value)
+    // {
+    //     return json_decode($value, true);
+    // }
 }

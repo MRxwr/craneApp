@@ -2,7 +2,6 @@
 <div>
     <form wire:submit.prevent="update">
     <div class="card">
-        
         <div class="card-body"> 
             <div class="row">
                 <div class="col-lg-6 col-6"> 

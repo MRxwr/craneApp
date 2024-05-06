@@ -52,7 +52,7 @@ class PagesController extends Controller
                 $request->image->storeAs('pages', $imageName, 'public');
                 $page->image = 'storage/pages/'.$imageName;
             }
-            $Page->save();
+            $page->save();
             return redirect()->back()->with('success', 'Page created successfully!');
        
     

@@ -128,11 +128,12 @@ function GenerateApiToken($user){
             return $token;
         }  
     }
+}   
 function getHashToken($token){  
         if($token){
           return  hash('sha256', $token);
         }  
-    }
+}
 function getAllUserMeta($key,$app_user_id){
     $usermeta= AppUserMeta::where('app_user_id',$app_user_id)->get();
     if($usermeta){
@@ -142,14 +143,14 @@ function getAllUserMeta($key,$app_user_id){
         }
         return $metas;
       }
-   } 
+} 
 function getUserMeta($key,$app_user_id){
     $usermeta= AppUserMeta::where('key',$key)->where('app_user_id',$app_user_id)->first();
     if($usermeta){
         return $usermeta->value;
       }
-   } 
- function upadteUserMeta($key,$value,$app_user_id){
+} 
+function upadteUserMeta($key,$value,$app_user_id){
    $usermeta= AppUserMeta::where('key',$key)->where('app_user_id',$app_user_id)->first();
    if($usermeta){
      $usermeta->value = $value;
@@ -166,4 +167,3 @@ function getUserMeta($key,$app_user_id){
        return Page::find($id)->toArray();
     }
   }
-}

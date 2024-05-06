@@ -7,6 +7,7 @@ use App\Models\Setting;
 use Modules\Roles\Entities\Role;
 use Modules\AppUser\Entities\AppUser;
 use Modules\AppUser\Entities\AppUserMeta;
+use Modules\Pages\Entities\Page;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
@@ -73,6 +74,8 @@ function getSetting($slug){
     return $setting->logo;
    }elseif($slug=='favicon'){
     return $setting->favicon;
+   }else{
+    return $setting->$slug;
    }
 }
 function LanguagesDropdown(){
@@ -158,5 +161,9 @@ function getUserMeta($key,$app_user_id){
     $usermeta->value = $value;
    }
  } 
-
+ function getPage($id=0){
+    if($id>0){
+       return Page::find($id)->toArray();
+    }
+  }
 }

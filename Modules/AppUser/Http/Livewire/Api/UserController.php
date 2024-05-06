@@ -5,6 +5,7 @@ use Illuminate\Contracts\Support\Renderable;
 use Modules\AppUser\Entities\AppUser;
 use Modules\AppUser\Entities\OtpUser;
 use Illuminate\Routing\Controller;
+use Modules\Pages\Entities\Page;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Http\Request;
@@ -113,8 +114,18 @@ class UserController extends Controller
             $user = AppUser::where('token',$token)->first();
             if ($user) {
                 // Authentication successful
+                if(!getUserMeta('is_notify',$user->id)){
+                    upadteUserMeta('is_notify',1,$user->id);
+                }
                 $data['message']=_lang('Profile');
                 $data['meta']['language']= $user->language;
+                $data['meta']['is_notify']= getUserMeta('is_notify',$user->id);
+                $data['about']= Page::find(1)->toArray();
+                $data['terms']= Page::find(2)->toArray();
+                $data['policy']= Page::find(3)->toArray();
+                $data['contact']['number']= getSetting('contact');
+                $data['contact']['email']= getSetting('email');
+                $data['contact']['address']= getSetting('address');
                 return outputSuccess($data);
                 // Proceed with authenticated user logic
             } else {

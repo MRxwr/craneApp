@@ -23,7 +23,7 @@
                                     <div class="form-group row">
                                         <div class="col-lg-3 col-12">{{_lang('Description')}} [{{$lang->code}}]</div>
                                         <div class="col-lg-9 col-12">
-                                            <input type="text" class="form-control summernote" placeholder="Description.." name="description[{{ $lang->code }}]">
+                                        <textarea  class="form-control summernote" placeholder="Description.." name="description[{{ $lang->code }}]"> </textarea>
                                         </div>
                                     </div>
                                 @endforeach

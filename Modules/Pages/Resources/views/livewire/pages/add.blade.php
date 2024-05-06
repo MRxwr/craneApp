@@ -23,15 +23,14 @@
                                     <div class="form-group row">
                                         <div class="col-lg-3 col-12">{{_lang('Description')}} [{{$lang->code}}]</div>
                                         <div class="col-lg-9 col-12">
-                                            <input type="text" class="form-control summernote" placeholder="Description.." name="description[{{ $lang->code }}]">
+                                            <textarea  class="form-control summernote" placeholder="Description.." name="description[{{ $lang->code }}]"></textarea>
                                         </div>
                                     </div>
                                 @endforeach
                                 <div class="form-group row">
                                     <div class="col-lg-3 col-12"><img src="{{ asset('storage/' . '') }}" alt="Uploaded Image"></div>
                                     <div class="col-lg-9 col-12">
-                                    
-                                        <input type="file" class="form-control"  wire:model="forms.image">
+                                        <input type="file" class="form-control"  name="image">
                                     </div>
                                 </div>
                             </div>

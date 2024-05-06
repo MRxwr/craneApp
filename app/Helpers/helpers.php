@@ -156,10 +156,11 @@ function upadteUserMeta($key,$value,$app_user_id){
      $usermeta->value = $value;
      $usermeta->save();
    }else{
-    $usermeta = new AppUserMeta;
+    $usermeta = new AppUserMeta();
     $usermeta->app_user_id = $app_user_id;
     $usermeta->key = $key;
     $usermeta->value = $value;
+    $usermeta->save();
    }
  } 
  function getPage($id=0){

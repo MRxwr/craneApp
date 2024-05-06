@@ -37,18 +37,12 @@ class FAQsController extends Controller
     {
         $validatedData = $request->validate([
             'title.*' => 'required|string|max:255',
-            'description.*' => 'nullable|string',
-        ]);
-
-        $faq = new Faq();
-        
-            $faq->title = $request->title;
-            $faq->description = $request->description;
-            $faq->save();
-            return redirect()->back()->with('success', 'FAQs created successfully!');
-       
-    
-        // Redirect or return response as needed
+         ]);
+         $faq = new Faq();
+         $faq->title = $request->title;
+         $faq->description = $request->description;
+         $faq->save();
+         return redirect()->back()->with('success', 'FAQs created successfully!');
     }
 
     /**
@@ -58,7 +52,7 @@ class FAQsController extends Controller
      */
     public function show($id)
     {
-        return view('service::show');
+        //return view('service::show');
     }
 
     /**
@@ -70,8 +64,6 @@ class FAQsController extends Controller
         $service = Faq::findOrFail($id);
         return view('faqs::livewire.faq.edit', compact('service'));
     }
-
-
     /**
      * Update the specified resource in storage.
      * @param Request $request
@@ -83,9 +75,7 @@ class FAQsController extends Controller
         $validatedData = $request->validate([
             'title.*' => 'required|string|max:255',
             'description.*' => 'nullable',
-           
         ]);
-        //dd($request->all());
         $faq = Faq::findOrFail($id);
         if( $faq){
             $faq->title = $request->title;

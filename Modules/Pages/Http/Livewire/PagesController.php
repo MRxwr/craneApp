@@ -25,7 +25,7 @@ class PagesController extends Controller
      */
     public function create()
     {
-        return view('service::livewire.service.add');
+        return view('pages::livewire.pages.add');
     }
 
     /**
@@ -41,19 +41,19 @@ class PagesController extends Controller
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
-        $service = new Service();
+        $page = new Page();
         
-            $service->title = $request->title;
-            $service->description = $request->description;
+            $page->title = $request->title;
+            $page->description = $request->description;
             if ($request->hasFile('image')) {
                 
                 $imageName = 'img-'.time().'.'.$request->image->extension();
                // Save the file to the 'public' disk
-                $request->image->storeAs('services', $imageName, 'public');
-                $service->image = 'storage/services/'.$imageName;
+                $request->image->storeAs('pages', $imageName, 'public');
+                $page->image = 'storage/pages/'.$imageName;
             }
-            $service->save();
-            return redirect()->back()->with('success', 'Service created successfully!');
+            $Page->save();
+            return redirect()->back()->with('success', 'Page created successfully!');
        
     
         // Redirect or return response as needed
@@ -75,8 +75,8 @@ class PagesController extends Controller
      * @return Renderable
      */
     public function edit($id){
-        $service = Service::findOrFail($id);
-        return view('service::livewire.service.edit', compact('service'));
+        $service = Page::findOrFail($id);
+        return view('pages::livewire.pages.edit', compact('service'));
     }
 
 
@@ -94,21 +94,21 @@ class PagesController extends Controller
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
         //dd($request->all());
-        $service = Service::findOrFail($id);
-        if( $service){
-            $service->title = $request->title;
-            $service->description = $request->description;
+        $page = Page::findOrFail($id);
+        if( $page){
+            $page->title = $request->title;
+            $page->description = $request->description;
             if ($request->hasFile('image')) {
                 
                 $imageName = 'img-'.time().'.'.$request->image->extension();
                // Save the file to the 'public' disk
-                $request->image->storeAs('services', $imageName, 'public');
-                $service->image = 'storage/services/'.$imageName;
+                $request->image->storeAs('pages', $imageName, 'public');
+                $page->image = 'storage/pages/'.$imageName;
             }
-            $service->save();
-            return redirect()->back()->with('success', 'Service Saved successfully!');
+            $page->save();
+            return redirect()->back()->with('success', 'Page Saved successfully!');
         }else{
-            return redirect()->back()->with('error', 'Service Not exist!');
+            return redirect()->back()->with('error', 'Page Not exist!');
         }
         
     

@@ -1,15 +1,15 @@
 <?php
 
-namespace Modules\AppUser\Http\Livewire\Users;
+namespace Modules\BookingRequest\Http\Livewire\Requests;
 
 use Livewire\Component;
 use App\Traits\MasterData;
 use Livewire\WithPagination;
-use Modules\AppUser\Entities\AppUser;
-use Modules\AppUser\Http\Traits\AppUserTrait;
+use Modules\BookingRequest\Entities\BookingRequest;
+use Modules\BookingRequest\Http\Traits\BookingRequestTrait;
 
 
-class Drivers extends Component
+class Index extends Component
 {
     use WithPagination;
     protected $paginationTheme = 'bootstrap';
@@ -21,8 +21,7 @@ class Drivers extends Component
     public function mount()
     {
         $this->paging = 25;
-        //$this->forms = AppUserTrait::firstForm();
-        $this->forms = AppUserTrait::driversForms();
+        $this->forms = BookingRequestTrait::firstForm();
         // dd($this->forms);
 
     }
@@ -46,12 +45,12 @@ class Drivers extends Component
         }
 
         try {
-            $dt = AppUser::find($id);
+            $dt = BookingRequest::find($id);
 
             // if ($dt->is_paten == 1) {
             //     $this->emit('pesanGagal', 'Sorry, this user can not edited..');
             // } else {
-            updateStatus(new AppUser, $id);
+            updateStatus(new BookingRequest, $id);
 
             $this->emit('pesanSukses', 'Sucess..');
             // }
@@ -66,7 +65,7 @@ class Drivers extends Component
     public function tambah_data()
     {
         $this->reset(['is_edit', 'id_edit']);
-        $this->forms = AppUserTrait::firstForm();
+        $this->forms = BookingRequestTrait::firstForm();
         $this->emit('modalAdd', 'show');
     }
 
@@ -89,23 +88,23 @@ class Drivers extends Component
 
             // dd($this->forms);
             if ($this->id_edit) {
-                $validasi = AppUserTrait::store_validation($this->forms, $this->id_edit);
+                $validasi = BookingRequestTrait::store_validation($this->forms, $this->id_edit);
             } else {
-                $validasi = AppUserTrait::store_validation($this->forms);
+                $validasi = BookingRequestTrait::store_validation($this->forms);
             }
             // dd($validasi);
             if (!$validasi['success']) {
                 $this->emit('pesanGagal', $validasi['message']);
             } else {
                 if ($this->id_edit) {
-                    AppUserTrait::store_data($this->forms, $this->id_edit);
+                    BookingRequestTrait::store_data($this->forms, $this->id_edit);
                 } else {
-                    AppUserTrait::store_data($this->forms);
+                    BookingRequestTrait::store_data($this->forms);
                 }
 
                 $this->emit('modalAdd', 'hide');
 
-                $this->forms = AppUserTrait::firstForm();
+                $this->forms = BookingRequestTrait::firstForm();
                 $this->emit('pesanSukses', 'Store Success..');
                 $this->reset(['is_edit', 'id_edit']);
             }
@@ -119,7 +118,7 @@ class Drivers extends Component
     public function destroy($id)
     {
         try {
-            AppUserTrait::destroy($id);
+            BookingRequestTrait::destroy($id);
             $this->emit('pesanSukses', 'Success..');
         } catch (\Exception $th) {
             //throw $th;
@@ -131,17 +130,17 @@ class Drivers extends Component
     public function render()
     {
         $q = $this->search;
-        $data = AppUser::where('user_type', 2)->where('is_deleted',0)->filter($q)->latest()->paginate($this->paging);
+        $data = BookingRequest::filter($q)->latest()->paginate($this->paging);
         $pagings = MasterData::list_pagings();
         
 
-        return view('appuser::livewire.users.index', compact(
+        return view('BookingRequest::livewire.requests.index', compact(
             'data',
             'pagings',
             
         ))
         ->layout('layouts.main', [
-                'title' => _lang('Manage Drivers')
+                'title' => _lang('Manage App User')
         ]);
     }
 }

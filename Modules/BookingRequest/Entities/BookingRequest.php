@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Modules\AppUser\Entities\AppUser;
 use Modules\BookingRequest\Entities\BookingPrice;
 
+
 class BookingRequest extends Model
 {
     protected $table = 'booking_requests';
@@ -29,10 +30,10 @@ class BookingRequest extends Model
     {
         return $this->belongsTo(AppUser::class, 'client_id', 'id');
     }
-    public function driver()
-    {
-        return $this->belongsTo(AppUser::class, 'driver_id', 'id');
-    }
+    // public function driver()
+    // {
+    //     return $this->belongsTo(AppUser::class, 'driver_id', 'id');
+    // }
 
     public function prices()
     {

@@ -11,6 +11,9 @@
 |
 */
 
-Route::prefix('bookingrequest')->group(function() {
-    Route::get('/', 'BookingRequestController@index');
+
+Route::middleware(['web', 'auth'])->group(function () {
+    Route::prefix('booking')->group(function () {
+        Route::get('requests', 'requests\index');
+    });
 });

@@ -9,10 +9,6 @@ class BookingLog extends Model
 {
     use HasFactory;
 
+    protected $table = 'booking_logs';
     protected $fillable = [];
-    
-    protected static function newFactory()
-    {
-        return \Modules\BookingRequest\Database\factories\BookingLogFactory::new();
-    }
-}
+  

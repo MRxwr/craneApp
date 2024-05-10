@@ -9,10 +9,8 @@ class BookingPrice extends Model
 {
     use HasFactory;
 
+    protected $table = 'booking_prices';
     protected $fillable = [];
+  
     
-    protected static function newFactory()
-    {
-        return \Modules\BookingRequest\Database\factories\BookingPriceFactory::new();
-    }
 }

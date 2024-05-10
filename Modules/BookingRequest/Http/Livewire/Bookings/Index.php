@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\BookingRequest\Http\Livewire\Requests;
+namespace Modules\BookingRequest\Http\Livewire\Bookings;
 
 use Livewire\Component;
 use App\Traits\MasterData;
@@ -134,7 +134,7 @@ class Index extends Component
         $pagings = MasterData::list_pagings();
         
 
-        return view('BookingRequest::livewire.requests.index', compact(
+        return view('bookingrequest::livewire.requests.index', compact(
             'data',
             'pagings',
             

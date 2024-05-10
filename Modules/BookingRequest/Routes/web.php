@@ -13,7 +13,7 @@
 
 
 Route::middleware(['web', 'auth'])->group(function () {
-    Route::prefix('booking')->group(function () {
-        Route::get('requests', 'requests\index');
+    Route::prefix('bookings')->group(function () {
+        Route::get('request', 'bookings\index');
     });
 });

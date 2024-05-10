@@ -18,7 +18,6 @@ class UserController extends Controller
     public function userProfile(Request $request){
         $data = array();
         $token = $request->header('Authorization');
-
         // Check if validation fails
         if (!$token) {
             // If validation fails, return response with validation errors
@@ -154,13 +153,23 @@ class UserController extends Controller
         $token = str_replace('Bearer ', '', $token);
 
         $language = $request->input('language');
+        $is_notify = $request->input('is_notify');
         $appuser =  AppUser::where('token',$token)->first();
         if ($appuser){
             $appuser->language = $language;
             $appuser->save();
-            $data['token']= $token;
-            $data['user']= $appuser->toArray();
-            $data['message']=_lang('Successfully Update');
+            if(!getUserMeta('is_notify',$user->id)){
+                upadteUserMeta('is_notify',$is_notify,$user->id);
+            }
+            $data['message']=_lang('Profile');
+            $data['meta']['language']= $user->language;
+            $data['meta']['is_notify']= getUserMeta('is_notify',$user->id);
+            $data['about']= Page::find(1)->toArray();
+            $data['terms']= Page::find(2)->toArray();
+            $data['policy']= Page::find(3)->toArray();
+            $data['contact']['number']= getSetting('contact');
+            $data['contact']['email']= getSetting('email');
+            $data['contact']['address']= getSetting('address');
             return outputSuccess($data);
         }
     }

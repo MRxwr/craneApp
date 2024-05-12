@@ -234,6 +234,21 @@ trait PermissionTrait
                 'type' => 'manage-faq',
                 'title' => 'change-status-faq'
             ],
+
+            // Manage faq
+            
+            [
+                'type' => 'manage-bid',
+                'title' => 'view-request'
+            ],
+            [
+                'type' => 'manage-bid',
+                'title' => 'view-cancel'
+            ],
+            [
+                'type' => 'manage-bid',
+                'title' => 'view-wallet'
+            ],  
         ]);
     }
 }

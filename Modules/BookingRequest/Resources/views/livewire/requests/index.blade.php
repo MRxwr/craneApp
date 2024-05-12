@@ -60,11 +60,12 @@
                                         @if ($dt->is_active == 1)
                                             <div style="cursor: pointer;"
                                                 wire:click.prevent="update_status({{ $dt->id }})"
-                                                class="badge badge-success">Active</div>
+                                                class="badge badge-success">{{_lang('Active')}} </div>
                                         @else
                                             <div style="cursor: pointer;"
                                                 wire:click.prevent="update_status({{ $dt->id }})"
-                                                class="badge badge-danger">Not Active</div>
+                                                class="badge badge-danger">{{_lang('Not Active')}}
+                                            </div>
                                         @endif
                                     @endif
 

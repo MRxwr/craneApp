@@ -13,8 +13,8 @@ class AddDistanceTable extends Migration
      */
     public function up()
     {
-        Schema::table('', function (Blueprint $table) {
-
+        Schema::table('booking_requests', function (Blueprint $table) {
+          $table->string('distances')->nullable();
         });
     }
 
@@ -25,8 +25,8 @@ class AddDistanceTable extends Migration
      */
     public function down()
     {
-        Schema::table('', function (Blueprint $table) {
-
+        Schema::table('booking_requests', function (Blueprint $table) {
+            $table->dropColumn('distances');
         });
     }
 }

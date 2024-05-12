@@ -39,7 +39,9 @@
                             <th>{{_lang('Request ID')}}</th>
                             <th>{{_lang('Name')}}</th>
                             <th>{{_lang('Mobile')}}</th>
-
+                            <th>{{_lang('Distance')}}</th>
+                            <th>{{_lang('From')}}</th>
+                            <th>{{_lang('To')}}</th>
                             <th>{{_lang('Status')}}</th>
                             <th>{{_lang('Action')}}  </th>
                         </tr>
@@ -49,6 +51,10 @@
                                 <td>{{ $dt->request_id }}</td>
                                 <td>{{ $dt->client->name }}</td>
                                 <td>{{ $dt->client->mobile }}</td>
+                                <td>{{ $dt->client->mobile }}</td>
+                                <td>{{ $dt->from_location }}</td>
+                                <td>{{ $dt->to_location }}</td>
+                                <td>{{ $dt->to_location }}</td>
                                 <td>
                                     @if (akses('edit-user'))
                                         @if ($dt->is_active == 1)
@@ -74,12 +80,11 @@
                                         </button>
                                         <div class="dropdown-menu" x-placement="bottom-start"
                                             style="position: absolute; transform: translate3d(0px, 28px, 0px); top: 0px; left: 0px; will-change: transform;">
-                                            @if (akses('edit-user'))
-                                                <a class="dropdown-item has-icon" href="{{ route('appuser.edit', $dt->id) }}"><i
-                                                        class="bi bi-pencil-square"></i>
-                                                    Edit</a>
-                                            @endif
-
+                                                @if (akses('edit-user'))
+                                                    <a class="dropdown-item has-icon" href="{{ route('appuser.edit', $dt->id) }}"><i
+                                                            class="bi bi-pencil-square"></i>
+                                                        Edit</a>
+                                                @endif
                                             @if (akses('delete-user'))
                                                 <a class="dropdown-item has-icon"
                                                     onclick="return confirm('Confirm delete?') || event.stopImmediatePropagation()"

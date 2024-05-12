@@ -36,7 +36,7 @@
                     <tbody>
                         <tr>
                             <th>ID</th>
-                            <th>{{_lang('Image')}}</th>
+                            <th>{{_lang('Request ID')}}</th>
                             <th>{{_lang('Name')}}</th>
                             <th>{{_lang('Mobile')}}</th>
 
@@ -46,10 +46,9 @@
                         @foreach ($data as $e => $dt)
                             <tr>
                                 <td>{{ $dt->id }}</td>
-                                <td><img src="{{ asset($dt->avator) }}" style="width:60px; height:60px" class="img-circle" alt="Uploaded Image"></td>
-                                <td>{{ $dt->name }}</td>
-                                <td>{{ $dt->mobile }}</td>
-
+                                <td>{{ $dt->request_id }}</td>
+                                <td>{{ $dt->client->name }}</td>
+                                <td>{{ $dt->client->mobile }}</td>
                                 <td>
                                     @if (akses('edit-user'))
                                         @if ($dt->is_active == 1)

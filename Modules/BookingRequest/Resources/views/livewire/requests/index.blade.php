@@ -82,7 +82,7 @@
                                             style="position: absolute; transform: translate3d(0px, 28px, 0px); top: 0px; left: 0px; will-change: transform;">
                                                 @if (akses('edit-user'))
                                                     <a class="dropdown-item has-icon" href="{{ route('appuser.edit', $dt->id) }}">
-                                                        <i class="bi bi-list-square"></i>
+                                                    <i class="bi bi-card-list"></i>
                                                         Log</a>
                                                 @endif
                                             @if (akses('delete-user'))

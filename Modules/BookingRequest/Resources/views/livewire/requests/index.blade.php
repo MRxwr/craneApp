@@ -51,10 +51,9 @@
                                 <td>{{ $dt->request_id }}</td>
                                 <td>{{ $dt->client->name }}</td>
                                 <td>{{ $dt->client->mobile }}</td>
-                                <td>{{ $dt->distances }}</td>
+                                <td>{{ $dt->distances }}KM</td>
                                 <td>{{ $dt->from_location }}</td>
                                 <td>{{ $dt->to_location }}</td>
-                                
                                 <td>
                                     @if (akses('edit-user'))
                                         @if ($dt->is_active == 1)

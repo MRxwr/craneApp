@@ -3,13 +3,7 @@
     <div class="card">
         <div class="card-header">
             {{-- <h4>Simple Table</h4> --}}
-            @if (akses('create-user'))
-                <div class="buttons float-right">
-                    <a  href="{{ route('appuser.create') }}" class="btn btn-icon icon-left btn-primary"><i
-                            class="bi bi-clipboard-plus"></i>
-                        {{_lang('Add new')}}</a>
-                </div>
-            @endif
+            
         </div>
         <div class="card-body">
 
@@ -45,8 +39,7 @@
                             <th>{{_lang('Image')}}</th>
                             <th>{{_lang('Name')}}</th>
                             <th>{{_lang('Mobile')}}</th>
-                            <th>{{_lang('Email')}}</th>
-                            <th>{{_lang('DOB')}}</th>
+
                             <th>{{_lang('Status')}}</th>
                             <th>{{_lang('Action')}}  </th>
                         </tr>
@@ -56,8 +49,7 @@
                                 <td><img src="{{ asset($dt->avator) }}" style="width:60px; height:60px" class="img-circle" alt="Uploaded Image"></td>
                                 <td>{{ $dt->name }}</td>
                                 <td>{{ $dt->mobile }}</td>
-                                <td>{{ $dt->email }}</td>
-                                <td>{{ $dt->dob }}</td>
+
                                 <td>
                                     @if (akses('edit-user'))
                                         @if ($dt->is_active == 1)

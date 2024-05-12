@@ -132,15 +132,13 @@ class Index extends Component
         $q = $this->search;
         $data = BookingRequest::filter($q)->latest()->paginate($this->paging);
         $pagings = MasterData::list_pagings();
-        
-
         return view('bookingrequest::livewire.requests.index', compact(
             'data',
             'pagings',
             
         ))
         ->layout('layouts.main', [
-                'title' => _lang('Manage App User')
+                'title' => _lang('Manage Booking Request ')
         ]);
     }
 }

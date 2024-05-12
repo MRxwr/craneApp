@@ -71,6 +71,28 @@
              </a>
           </li> 
         @endif
+
+        <li class="nav-item {{ in_array(request()->segment(1),['bookings']) ? 'menu-open' : '' }}">
+            <a href="#" class="nav-link {{ request()->segment(1) == 'bookings' ? 'active' : '' }}">
+            <i class="nav-icon fas fa-file"></i>
+                <p>
+                {{_lang('Booking')}}
+                    <i class="right fas fa-angle-left"></i>
+                </p>
+            </a>
+            <ul class="nav nav-treeview">
+            @if (akses('view-request'))
+            <li class="nav-item">
+                <a href="{{ url('bookings/request') }}" class="nav-link">
+                <i class="nav-icon fas fa-file"></i>
+                    <!-- <i class="nav-icon fas fa-file"></i> -->
+                    <p>{{_lang('Requests')}}</p>
+                </a>
+            </li> 
+            @endif
+            
+        </ul>
+        </li>
         <li class="nav-item {{ in_array(request()->segment(1),['pages','faqs']) ? 'menu-open' : '' }}">
             <a href="#" class="nav-link {{ request()->segment(1) == 'users' ? 'active' : '' }}">
             <i class="nav-icon fas fa-file"></i>
@@ -92,13 +114,14 @@
             @if (akses('view-faqs'))
             <li class="nav-item">
                 <a href="{{ url('faqs/index') }}" class="nav-link">
-                    <i class="nav-icon fa-regular fa-circle-question"></i>
+                    <i class="nav-icon fas fa-circle-question">Q</i>
                     <p>{{_lang('Faqs')}}</p>
                 </a>
             </li> 
             @endif
         </ul>
         </li>
+
         <!-- Settings -->
 
         <li class="nav-item {{ request()->segment(1) == 'settings' ? 'menu-open' : '' }}">

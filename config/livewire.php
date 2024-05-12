@@ -68,7 +68,7 @@ return [
     |
     */
 
-    'app_url' => 'https://cp.withcrane.com',
+    'app_url' => 'https://admincp.trycraneapp.com',
 
     /*
     |--------------------------------------------------------------------------

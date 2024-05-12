@@ -81,9 +81,9 @@
                                         <div class="dropdown-menu" x-placement="bottom-start"
                                             style="position: absolute; transform: translate3d(0px, 28px, 0px); top: 0px; left: 0px; will-change: transform;">
                                                 @if (akses('edit-user'))
-                                                    <a class="dropdown-item has-icon" href="{{ route('appuser.edit', $dt->id) }}"><i
-                                                            class="bi bi-pencil-square"></i>
-                                                        Edit</a>
+                                                    <a class="dropdown-item has-icon" href="{{ route('appuser.edit', $dt->id) }}">
+                                                        <i class="bi bi-list-square"></i>
+                                                        Log</a>
                                                 @endif
                                             @if (akses('delete-user'))
                                                 <a class="dropdown-item has-icon"

@@ -120,17 +120,14 @@
                             <div class="card-body">
                                 {{ $message ?? '' }}
                                 <div class="form-group">
-                                    <label for="name" wire:model="forms.client_name">{{ _lang('ID') }}</label >
+                                    <label for="name">{{ _lang('ID') }}</label>
                                     
                                 </div>
                                 <div class="form-row">
                                     <div class="form-group col-md-12">
                                         <label for="inputmobile4">{{ _lang('From Location') }}</label>
-                                        <input type="text" class="form-control"
-                                            id="inputmobile4" placeholder="{{ _lang('Mobile') }} ">
-                                        @error('forms.from_location')
-                                            <span style="color: red;" class="error">{{ $message }}</span>
-                                        @enderror
+                                        <input wire:model="forms.client_name">
+                                        
                                     </div>
                                 </div>
                                 <div class="form-row">

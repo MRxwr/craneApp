@@ -19,21 +19,7 @@ trait BookingRequestTrait
             'is_active' => '',
             ];
     }
-    public function getRequestsPriceById($id)
-    {
-        $bid = BookingRequest::find(id);
-        // dd($permissions);
-        $role = Role::find($id);
-        $data = $role->permissions;
-        $data = json_decode($data);
-        // dd($data);
-        foreach ($data as $key => $value) {
-            # code...
-            $permissions[$value] = true;
-        }
-        // dd($permissions);
-        return $permissions;
-    }
+   
 
 
 
@@ -66,7 +52,7 @@ trait BookingRequestTrait
 
     public static function find_data($id)
     {
-        $dt = BookingRequest::find($id);
+        $dt = BookingRequest::with('prices')->with('logs')->find($id);
        
         return [
             'request_id' => $dt->request_id,

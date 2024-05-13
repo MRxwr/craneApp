@@ -105,7 +105,7 @@
             {{ $data->links() }}
         </div>
     </div>
-
+@dd($forms)
     <div class="modal fade" tabindex="-1" role="dialog" id="modalAdd" wire:ignore.self>
         <div class="modal-dialog" role="document">
             <div class="modal-content">

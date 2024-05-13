@@ -75,7 +75,7 @@ class Index extends Component
         $this->id_edit = $id;
 
         $this->forms = $dt =BookingRequestTrait::find_data($id);
-        dd($dt);
+        
         $this->emit('modalAdd', 'show');
     }
 

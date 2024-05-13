@@ -125,8 +125,7 @@
                                     </div>
                                     <div class="form-group col-md-4">
                                          {{$forms['request_id']}}
-                                    </div>
-                                    
+                                    </div> 
                                 </div>
                                 <div class="form-row">
                                     <div class="form-group col-md-4">
@@ -136,40 +135,34 @@
                                          {{$forms['from_location']}}
                                     </div>
                                 </div>
+
                                 <div class="form-row">
-                                    <div class="form-group col-md-12">
-                                        <label for="inputEmail4">{{ _lang('Email') }} </label>
-                                        <input wire:model="forms.email" type="text" class="form-control"
-                                            id="inputEmail4" placeholder="{{ _lang('Email') }} ">
-                                        @error('forms.email')
-                                            <span style="color: red;" class="error">{{ $message }}</span>
-                                        @enderror
+                                    <div class="form-group col-md-4">
+                                        <label for="inputmobile4">{{ _lang('To Location') }} </label>
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                         {{$forms['to_location']}}
+                                    </div>
+                                </div>
+
+                                <div class="form-row">
+                                    <div class="form-group col-md-4">
+                                        <label for="inputmobile4">{{ _lang('Distance') }} </label>
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                         {{$forms['distances']}}{{ _lang('Km') }}
                                     </div>
                                 </div>
                                 <div class="form-row">
-                                    <div class="form-group col-md-12">
-                                        <label for="inputDob4">{{ _lang('DOB') }} </label>
-                                        <input wire:model="forms.dob" type="date" class="form-control"
-                                            id="inputDob4" placeholder="{{ _lang('Date of Birth') }} ">
-                                        @error('forms.dob')
-                                            <span style="color: red;" class="error">{{ $message }}</span>
-                                        @enderror
+                                    <div class="form-group col-md-4">
+                                        <label for="inputmobile4">{{ _lang('Client') }} </label>
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                         <p>{{$forms['client_name']}}</p>
+                                         <p>{{$forms['client_mobile']}}</p>
                                     </div>
                                 </div>
-                                <div class="form-row">
-                                    <div class="form-group col-md-12">
-                                        <label for="role_id">{{ _lang('User Type') }}</label>
-                                        <select class="form-control" wire:model="forms.user_type">
-                                            <option value="">Select Type</option>
-                                            
-                                                <option value="1">{{ _lang('Client') }}</option>
-                                                <option value="2">{{ _lang('Driver') }}</option>
-                                        </select>
-                                        @error('forms.user_type')
-                                            <span style="color: red;" class="error">{{ $message }}</span>
-                                        @enderror
-                                    </div>
-                                </div>
+
                                 <div class="form-group row">
                                     <div class="col-lg-3 col-12">{{_lang('Avator')}} </div>
                                     <div class="col-lg-9 col-12">
@@ -179,10 +172,7 @@
                                 </div>
 
                             </div>
-                            <div class="card-footer">
-                                <button type="submit" class="btn btn-primary">Submit</button>
-                                <img src="{{ asset('loading-bar.gif') }}" alt="" wire:loading wire:target="store">
-                            </div>
+                            
                         </form>
                     </div>
 

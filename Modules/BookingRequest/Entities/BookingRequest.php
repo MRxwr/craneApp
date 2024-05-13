@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Modules\AppUser\Entities\AppUser;
 use Modules\BookingRequest\Entities\BookingPrice;
+use Modules\BookingRequest\Entities\BookingLog;
 
 
 class BookingRequest extends Model
@@ -38,5 +39,9 @@ class BookingRequest extends Model
     public function prices()
     {
         return $this->hasMany(BookingPrice::class, 'request_id', 'id');
+    }
+    public function logs()
+    {
+        return $this->hasMany(BookingLog::class, 'request_id', 'id');
     }
 }

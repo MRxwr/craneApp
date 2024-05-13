@@ -292,7 +292,7 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Add User</h5>
+                    <h5 class="modal-title">{{ _lang('Booking Price with driver') }}</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -300,13 +300,11 @@
                 <div class="modal-body">
 
                     <div class="card">
-                        <div class="card-header">
-                            {{-- <h4>Horizontal Form</h4> --}}
-                            
-                        </div>
+                        
                         <form wire:submit.prevent="store">
                             <div class="card-body">
                                 {{ $message ?? '' }}
+                                @dd($forms['prices'])
                                 <div class="form-group">
                                     <label for="name">{{ _lang('Name') }}</label>
                                     <input wire:model="forms.name" type="text" class="form-control" id="name"
@@ -316,63 +314,10 @@
                                         <span style="color: red;" class="error">{{ $message }}</span>
                                     @enderror
                                 </div>
-                                <div class="form-row">
-                                    <div class="form-group col-md-12">
-                                        <label for="inputmobile4">{{ _lang('Mobile') }}</label>
-                                        <input wire:model="forms.mobile" type="text" class="form-control"
-                                            id="inputmobile4" placeholder="{{ _lang('Mobile') }} ">
-                                        @error('forms.mobile')
-                                            <span style="color: red;" class="error">{{ $message }}</span>
-                                        @enderror
-                                    </div>
-                                </div>
-                                <div class="form-row">
-                                    <div class="form-group col-md-12">
-                                        <label for="inputEmail4">{{ _lang('Email') }} </label>
-                                        <input wire:model="forms.email" type="text" class="form-control"
-                                            id="inputEmail4" placeholder="{{ _lang('Email') }} ">
-                                        @error('forms.email')
-                                            <span style="color: red;" class="error">{{ $message }}</span>
-                                        @enderror
-                                    </div>
-                                </div>
-                                <div class="form-row">
-                                    <div class="form-group col-md-12">
-                                        <label for="inputDob4">{{ _lang('DOB') }} </label>
-                                        <input wire:model="forms.dob" type="date" class="form-control"
-                                            id="inputDob4" placeholder="{{ _lang('Date of Birth') }} ">
-                                        @error('forms.dob')
-                                            <span style="color: red;" class="error">{{ $message }}</span>
-                                        @enderror
-                                    </div>
-                                </div>
-                                <div class="form-row">
-                                    <div class="form-group col-md-12">
-                                        <label for="role_id">{{ _lang('User Type') }}</label>
-                                        <select class="form-control" wire:model="forms.user_type">
-                                            <option value="">Select Type</option>
-                                            
-                                                <option value="1">{{ _lang('Client') }}</option>
-                                                <option value="2">{{ _lang('Driver') }}</option>
-                                        </select>
-                                        @error('forms.user_type')
-                                            <span style="color: red;" class="error">{{ $message }}</span>
-                                        @enderror
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <div class="col-lg-3 col-12">{{_lang('Avator')}} </div>
-                                    <div class="col-lg-9 col-12">
-                                    <img src="{{ asset('storage/' . $avator) }}" alt="Uploaded avator">
-                                        <input type="file" class="form-control"  wire:model="forms.avator">
-                                    </div>
-                                </div>
+                                
 
                             </div>
-                            <div class="card-footer">
-                                <button type="submit" class="btn btn-primary">Submit</button>
-                                <img src="{{ asset('loading-bar.gif') }}" alt="" wire:loading wire:target="store">
-                            </div>
+                            
                         </form>
                     </div>
 

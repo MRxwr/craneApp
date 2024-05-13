@@ -10,7 +10,21 @@ trait BookingRequestTrait
         
         return [];
     }
-
+    public function getRequestsPriceById($id)
+    {
+        $bid = BookingRequest::find(id);
+        // dd($permissions);
+        $role = Role::find($id);
+        $data = $role->permissions;
+        $data = json_decode($data);
+        // dd($data);
+        foreach ($data as $key => $value) {
+            # code...
+            $permissions[$value] = true;
+        }
+        // dd($permissions);
+        return $permissions;
+    }
 
 
 

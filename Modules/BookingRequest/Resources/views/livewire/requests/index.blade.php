@@ -1,10 +1,7 @@
 <div>
 
     <div class="card">
-        <div class="card-header">
-            {{-- <h4>Simple Table</h4> --}}
-            
-        </div>
+        
         <div class="card-body">
 
             <div class="row">
@@ -105,7 +102,7 @@
             {{ $data->links() }}
         </div>
     </div>
-@dd($forms)
+
     <div class="modal fade" tabindex="-1" role="dialog" id="modalAdd" wire:ignore.self>
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -131,7 +128,7 @@
                                         <label for="inputmobile4">{{ _lang('Mobile') }}</label>
                                         <input wire:model="forms.mobile" type="text" class="form-control"
                                             id="inputmobile4" placeholder="{{ _lang('Mobile') }} ">
-                                        @error('forms.mobile')
+                                        @error('forms.from_location')
                                             <span style="color: red;" class="error">{{ $message }}</span>
                                         @enderror
                                     </div>

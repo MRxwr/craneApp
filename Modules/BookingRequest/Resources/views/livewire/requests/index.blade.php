@@ -83,7 +83,7 @@
                                             @if (akses('view-request'))
                                             <a class="dropdown-item has-icon" href="#"
                                                 wire:click.prevent="edit_data({{ $dt->id }})"><i
-                                                    class="bi bi-eye-square"></i>
+                                                    class="bi bi-eye"></i>
                                                 Show</a>
                                         @endif
                                             @if (akses('delete-user'))

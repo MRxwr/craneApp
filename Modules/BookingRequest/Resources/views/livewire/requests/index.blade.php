@@ -110,7 +110,7 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Add User</h5>
+                    <h5 class="modal-title">{{ _lang('Booking Request') }} # {{forms.request_id}}</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -118,21 +118,13 @@
                 <div class="modal-body">
 
                     <div class="card">
-                        <div class="card-header">
-                            {{-- <h4>Horizontal Form</h4> --}}
-                            
-                        </div>
+                        
                         <form wire:submit.prevent="store">
                             <div class="card-body">
                                 {{ $message ?? '' }}
                                 <div class="form-group">
-                                    <label for="name">{{ _lang('Name') }}</label>
-                                    <input wire:model="forms.name" type="text" class="form-control" id="name"
-                                        placeholder="{{ _lang('Name') }}">
-                                    {{-- {{ $forms['name'] }} --}}
-                                    @error('forms.name')
-                                        <span style="color: red;" class="error">{{ $message }}</span>
-                                    @enderror
+                                    <label for="name">{{ _lang('ID') }}</label>
+                                    {{forms.request_id}}
                                 </div>
                                 <div class="form-row">
                                     <div class="form-group col-md-12">

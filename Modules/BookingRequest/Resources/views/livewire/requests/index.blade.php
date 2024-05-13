@@ -84,7 +84,7 @@
                                             <a class="dropdown-item has-icon" href="#"
                                                 wire:click.prevent="edit_data({{ $dt->id }})"><i
                                                     class="bi bi-pencil-square"></i>
-                                                Edit</a>
+                                                Show</a>
                                         @endif
                                             @if (akses('delete-user'))
                                                 <a class="dropdown-item has-icon"

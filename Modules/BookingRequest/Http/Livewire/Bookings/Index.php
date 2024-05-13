@@ -79,6 +79,26 @@ class Index extends Component
         $this->emit('modalAdd', 'show');
     }
 
+    public function logs_data($id)
+    {
+        $this->is_edit = 1;
+        $this->id_edit = $id;
+
+        $this->forms = BookingRequestTrait::find_data($id);
+
+        $this->emit('modalLogs', 'show');
+    }
+
+    public function price_data($id)
+    {
+        $this->is_edit = 1;
+        $this->id_edit = $id;
+
+        $this->forms = BookingRequestTrait::find_data($id);
+
+        $this->emit('modalPrice', 'show');
+    }
+
     public function store()
     {
         $this->validate([

@@ -121,7 +121,7 @@
                                 {{ $message ?? '' }}
                                 <div class="form-group">
                                     <label for="name">{{ _lang('ID') }}</label>
-                                    {{$forms['from_location']}}
+                                    
                                 </div>
                                 <div class="form-row">
                                     <div class="form-group col-md-12">

@@ -126,7 +126,8 @@
                                 <div class="form-row">
                                     <div class="form-group col-md-12">
                                         <label for="inputmobile4">{{ _lang('From Location') }}</label>
-                                        <input wire:model="forms.client_name">
+                                        <input wire:model="forms.client_name" type="text" class="form-control"
+                                            id="inputmobile4">
                                         
                                     </div>
                                 </div>

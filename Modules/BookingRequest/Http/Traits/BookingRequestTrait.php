@@ -11,10 +11,11 @@ trait BookingRequestTrait
         return [
             'request_id' => '',
             'from_location' => '',
-            'from_latlong' =>'',
+            'to_location' =>'',
             'distances' => '',
             'client_name' => '',
             'client_mobile' => '',
+            'prices' => '',
             'is_active' => '',
             ];
     }
@@ -70,10 +71,11 @@ trait BookingRequestTrait
         return [
             'request_id' => $dt->request_id,
             'from_location' => $dt->from_location,
-            'from_latlong' => $dt->from_latlong,
+            'to_location' => $dt->to_location,
             'distances' => $dt->distances,
             'client_name' => $dt->client->name,
             'client_mobile' => $dt->client->mobile,
+            'prices' => $dt->prices,
             'is_active' => $dt->is_active,
             ];
     }

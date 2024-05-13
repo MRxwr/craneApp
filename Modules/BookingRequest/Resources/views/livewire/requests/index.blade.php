@@ -162,7 +162,6 @@
                                          <p>{{$forms['client_mobile']}}</p>
                                     </div>
                                 </div>
-
                                 <div class="form-group row">
                                     <div class="col-lg-3 col-12">{{_lang('Avator')}} </div>
                                     <div class="col-lg-9 col-12">

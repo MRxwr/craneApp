@@ -120,7 +120,7 @@
                             <div class="card-body">
                                 {{ $message ?? '' }}
                                 <div class="form-group">
-                                    <label for="name">{{ _lang('ID') }}{{forms.client_name}}</label>
+                                    <label for="name">{{ _lang('ID') }}{{$forms.client_name}}</label>
                                     
                                 </div>
                                 <div class="form-row">

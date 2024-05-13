@@ -120,7 +120,7 @@
                             <div class="card-body">
                                 {{ $message ?? '' }}
                                 <div class="form-group">
-                                    <label for="name">{{ _lang('ID') }}</label  wire:model="forms.client_name">
+                                    <label for="name" wire:model="forms.client_name">{{ _lang('ID') }}</label >
                                     
                                 </div>
                                 <div class="form-row">

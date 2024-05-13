@@ -61,7 +61,7 @@ trait BookingRequestTrait
             'distances' => $dt->distances,
             'client_name' => $dt->client->name,
             'client_mobile' => $dt->client->mobile,
-            'prices' => $dt->prices,
+            'prices' => $dt->prices(),
             'is_active' => $dt->is_active,
             ];
     }

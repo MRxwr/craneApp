@@ -119,8 +119,8 @@
                         <form wire:submit.prevent="store">
                             <div class="card-body">
                                 {{ $message ?? '' }}
-                                <div class="form-group">
-                                <div class="form-group col-md-4">
+                                <div class="form-row">
+                                     <div class="form-group col-md-4">
                                         <label for="inputmobile4">{{ _lang('Id') }} </label>
                                     </div>
                                     <div class="form-group col-md-4">
@@ -131,7 +131,7 @@
                                     <div class="form-group col-md-4">
                                         <label for="inputmobile4">{{ _lang('From Location') }} </label>
                                     </div>
-                                    <div class="form-group col-md-4">
+                                    <div class="form-group col-md-6">
                                          {{$forms['from_location']}}
                                     </div>
                                 </div>

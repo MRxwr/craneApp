@@ -8,7 +8,15 @@ trait BookingRequestTrait
     public static function firstForm()
     {
         
-        return [];
+        return [
+            'request_id' => '',
+            'from_location' => '',
+            'from_latlong' =>'',
+            'distances' => '',
+            'client_name' => '',
+            'client_mobile' => '',
+            'is_active' => '',
+            ];
     }
     public function getRequestsPriceById($id)
     {

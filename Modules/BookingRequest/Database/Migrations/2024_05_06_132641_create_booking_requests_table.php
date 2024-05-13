@@ -35,7 +35,7 @@ class CreateBookingRequestsTable extends Migration
             $table->integer('flag');
             $table->timestamps();
         });
-        Schema::create('request_prices', function (Blueprint $table) {
+        Schema::create('booking_prices', function (Blueprint $table) {
             $table->id();
             $table->string('request_id');
             $table->integer('client_id');

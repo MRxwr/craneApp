@@ -83,7 +83,7 @@
                                             @if (akses('view-request'))
                                             <a class="dropdown-item has-icon" href="#"
                                                 wire:click.prevent="edit_data({{ $dt->id }})"><i
-                                                    class="bi bi-pencil-square"></i>
+                                                    class="bi bi-eye-square"></i>
                                                 Show</a>
                                         @endif
                                             @if (akses('delete-user'))
@@ -404,10 +404,22 @@
                 } else {
                     // alert(aksi);
                     $('#modalAdd').modal('hide');
-                    // $('#modalAdd').hide();
-                    // $('#modalAdd').find('.close').click();
                 }
 
+            })
+            Livewire.on('modalPrice', aksi => {
+                if (aksi == 'show') {
+                    $('#modalPrice').modal('show');
+                } else {
+                    $('#modalPrice').modal('hide');
+                }
+            })
+            Livewire.on('modalLogs', aksi => {
+                if (aksi == 'show') {
+                    $('#modalLogs').modal('show');
+                } else {
+                    $('#modalLogs').modal('hide');
+                }
             })
         </script>
     @endsection

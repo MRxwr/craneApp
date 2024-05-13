@@ -93,7 +93,6 @@ class Index extends Component
     {
         $this->is_edit = 1;
         $this->id_edit = $id;
-
         $this->forms = BookingRequestTrait::find_data($id);
 
         $this->emit('modalPrice', 'show');
@@ -123,7 +122,6 @@ class Index extends Component
                 }
 
                 $this->emit('modalAdd', 'hide');
-
                 $this->forms = BookingRequestTrait::firstForm();
                 $this->emit('pesanSukses', 'Store Success..');
                 $this->reset(['is_edit', 'id_edit']);

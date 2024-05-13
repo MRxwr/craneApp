@@ -81,13 +81,19 @@
                                             <a class="dropdown-item has-icon" href="#"
                                                 wire:click.prevent="edit_data({{ $dt->id }})"><i
                                                     class="bi bi-eye"></i>
-                                                Show</a>
+                                                    {{_lang('Booking View')}}</a>
                                             @endif
                                             @if (akses('view-request'))
                                             <a class="dropdown-item has-icon" href="#"
                                                 wire:click.prevent="logs_data({{ $dt->id }})"><i
                                                     class="bi bi-list"></i>
-                                                Show</a>
+                                                    {{_lang('Booking Logs')}}</a>
+                                            @endif
+                                            @if (akses('view-request'))
+                                            <a class="dropdown-item has-icon" href="#"
+                                                wire:click.prevent="prices_data({{ $dt->id }})"><i
+                                                    class="bi bi-list"></i>
+                                                    {{_lang('Booking Prices')}}</a>
                                             @endif
                                             @if (akses('delete-user'))
                                                 <a class="dropdown-item has-icon"

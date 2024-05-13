@@ -89,7 +89,7 @@ class Index extends Component
         $this->emit('modalLogs', 'show');
     }
 
-    public function price_data($id)
+    public function prices_data($id)
     {
         $this->is_edit = 1;
         $this->id_edit = $id;

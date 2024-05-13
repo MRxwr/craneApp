@@ -82,7 +82,13 @@
                                                 wire:click.prevent="edit_data({{ $dt->id }})"><i
                                                     class="bi bi-eye"></i>
                                                 Show</a>
-                                        @endif
+                                            @endif
+                                            @if (akses('view-request'))
+                                            <a class="dropdown-item has-icon" href="#"
+                                                wire:click.prevent="logs_data({{ $dt->id }})"><i
+                                                    class="bi bi-list"></i>
+                                                Show</a>
+                                            @endif
                                             @if (akses('delete-user'))
                                                 <a class="dropdown-item has-icon"
                                                     onclick="return confirm('Confirm delete?') || event.stopImmediatePropagation()"
@@ -162,13 +168,13 @@
                                          <p>{{$forms['client_mobile']}}</p>
                                     </div>
                                 </div>
-                                <div class="form-group row">
+                                <!-- <div class="form-group row">
                                     <div class="col-lg-3 col-12">{{_lang('Avator')}} </div>
                                     <div class="col-lg-9 col-12">
                                     <img src="{{ asset('storage/' . $avator) }}" alt="Uploaded avator">
                                         <input type="file" class="form-control"  wire:model="forms.avator">
                                     </div>
-                                </div>
+                                </div> -->
 
                             </div>
                             
@@ -176,10 +182,7 @@
                     </div>
 
                 </div>
-                {{-- <div class="modal-footer">
-                    <button type="button" class="btn btn-primary">Save changes</button>
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                </div> --}}
+                
             </div>
         </div>
     </div>
@@ -187,7 +190,7 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Add User</h5>
+                    <h5 class="modal-title">Booking Logs</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>

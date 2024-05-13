@@ -126,7 +126,7 @@
                                 <div class="form-row">
                                     <div class="form-group col-md-12">
                                         <label for="inputmobile4">{{ _lang('From Location') }}</label>
-                                        <input wire:model="forms.from_location" type="text" class="form-control"
+                                        <input wire:model="forms.client_name" type="text" class="form-control"
                                             id="inputmobile4" placeholder="{{ _lang('Mobile') }} ">
                                         @error('forms.from_location')
                                             <span style="color: red;" class="error">{{ $message }}</span>

@@ -60,8 +60,13 @@ trait BookingRequestTrait
         $dt = BookingRequest::find($id);
 
         return [
+            'request_id' => $dt->request_id,
+            'from_location' => $dt->from_location,
+            'from_latlong' => $dt->from_latlong,
+            'distances' => $dt->distances,
             'client_name' => $dt->client->name,
+            'client_mobile' => $dt->client->mobile,
             'is_active' => $dt->is_active,
-                  ];
+            ];
     }
 }

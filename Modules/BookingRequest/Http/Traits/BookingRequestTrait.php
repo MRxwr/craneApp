@@ -54,6 +54,7 @@ trait BookingRequestTrait
     public static function find_data($id)
     {
         $dt = BookingRequest::with('prices', 'logs')->find($id);
+        dd($dt);
       
         return [
             'request_id' => $dt->request_id,

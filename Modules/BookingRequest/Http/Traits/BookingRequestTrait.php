@@ -58,9 +58,9 @@ trait BookingRequestTrait
         $prices=[];
         if($dt->prices){
             foreach($dt->prices as $price){
-                $prices[$price->id]['client'] = $price->client->name;
                 $prices[$price->id]['driver'] = $price->driver->name;
-                $prices[$price->id]['price'] = $price->price;
+                $prices[$price->id]['mobile'] = $price->driver->mobile;
+                $prices[$price->id]['price'] =  $price->price;
                 $prices[$price->id]['is_accepted'] = $price->is_accepted;
             }
         }

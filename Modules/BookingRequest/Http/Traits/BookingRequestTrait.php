@@ -16,6 +16,7 @@ trait BookingRequestTrait
             'client_name' => '',
             'client_mobile' => '',
             'prices' => '',
+            'logs' => '',
             'is_active' => '',
             ];
     }
@@ -62,6 +63,7 @@ trait BookingRequestTrait
             'client_name' => $dt->client->name,
             'client_mobile' => $dt->client->mobile,
             'prices' => $dt->prices()->get()->toArray(),
+            'logs' => $dt->logs()->get()->toArray(),
             'is_active' => $dt->is_active,
             ];
     }

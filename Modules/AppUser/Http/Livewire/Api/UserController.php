@@ -113,12 +113,16 @@ class UserController extends Controller
             $user = AppUser::where('token',$token)->first();
             if ($user) {
                 // Authentication successful
+                if(!getUserMeta('wallet',$user->id)){
+                    upadteUserMeta('wallet',0.00,$user->id);
+                }
                 if(!getUserMeta('is_notify',$user->id)){
                     upadteUserMeta('is_notify',1,$user->id);
                 }
                 $data['message']=_lang('Profile');
                 $data['meta']['language']= $user->language;
                 $data['meta']['is_notify']= getUserMeta('is_notify',$user->id);
+                $data['meta']['wallet']= getUserMeta('wallet',$user->id);
                 $data['about']= Page::find(1)->toArray();
                 $data['terms']= Page::find(2)->toArray();
                 $data['policy']= Page::find(3)->toArray();
@@ -164,6 +168,7 @@ class UserController extends Controller
             $data['message']=_lang('Profile');
             $data['meta']['language']= $user->language;
             $data['meta']['is_notify']= getUserMeta('is_notify',$user->id);
+            $data['meta']['wallet']= getUserMeta('wallet',$user->id);
             $data['about']= Page::find(1)->toArray();
             $data['terms']= Page::find(2)->toArray();
             $data['policy']= Page::find(3)->toArray();

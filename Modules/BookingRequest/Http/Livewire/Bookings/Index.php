@@ -17,6 +17,8 @@ class Index extends Component
     public $paging, $search;
     public $forms = [];
     public $id_edit, $is_edit,$avator ;
+    public $prices ;
+    public $logs ;
 
     public function mount()
     {
@@ -75,7 +77,8 @@ class Index extends Component
         $this->id_edit = $id;
 
         $this->forms = BookingRequestTrait::find_data($id);
-        
+        $prices = $this->forms->prices;
+        dd($prices);
         $this->emit('modalAdd', 'show');
     }
 

@@ -7,6 +7,9 @@ use App\Models\Setting;
 use Modules\Roles\Entities\Role;
 use Modules\AppUser\Entities\AppUser;
 use Modules\AppUser\Entities\AppUserMeta;
+use Modules\BookingRequest\Entities\BookingRequest;
+use Modules\BookingRequest\Entities\BookingLog;
+use Modules\BookingRequest\Entities\BookingPrice;
 use Modules\Pages\Entities\Page;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Model;
@@ -179,4 +182,19 @@ function upadteUserMeta($key,$value,$app_user_id){
         $angle = 2 * asin(sqrt(pow(sin($latDelta / 2), 2) +
         cos($latFrom) * cos($latTo) * pow(sin($lonDelta / 2), 2)));
        return $angle * $earthRadius;
+  }
+
+  function AddBookingLog($bid,$activity){
+    $log = new  BookingLog();
+    $log->request_id = $bid->id;
+    $log->client_id  = $bid->client_id;
+    $log->driver_id  = ($bid->driver_id>0?$bid->driver_id:0);
+    $log->activity   = $activity;
+    $log->flag =1; 
+    $log->save();
+
+  }
+
+  function firebaseNotification($user){
+
   }

@@ -296,32 +296,21 @@
                     </button>
                 </div>
                 <div class="modal-body">
-
-                    <div class="card">
-                        
-                        <form wire:submit.prevent="store">
-                            <div class="card-body">
-                                {{ $message ?? '' }}
-                                 @if($forms['prices'])
-                                    <div class="form-group col-md-12 table-responsive">
-                                    <table class="table table-bordered table-md">
-                                            @foreach($forms['prices'] as $price)
-                                                <tr> 
-                                                    <td>{{$price['driver']}}</td>
-                                                    <td>{{$price['mobile']}}</td>
-                                                    <td>{{$price['price']}}KD</td>
-                                                    <td>{{$price['is_accepted']}}</td>
-                                                </tr>
-                                            @endforeach
-                                        </table>
-                                    </div>
-                                @endif
-
-                            </div>
-                            
-                        </form>
-                    </div>
-
+                    {{ $message ?? '' }}
+                        @if($forms['prices'])
+                        <div class="form-group col-md-12 table-responsive">
+                        <table class="table table-bordered table-md">
+                                @foreach($forms['prices'] as $price)
+                                    <tr> 
+                                        <td>{{$price['driver']}}</td>
+                                        <td>{{$price['mobile']}}</td>
+                                        <td>{{$price['price']}}KD</td>
+                                        <td>{{($price['is_accepted']?'Yes':'No')}}</td>
+                                    </tr>
+                                @endforeach
+                            </table>
+                        </div>
+                    @endif
                 </div>
                
             </div>

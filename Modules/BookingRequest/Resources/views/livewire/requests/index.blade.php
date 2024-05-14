@@ -302,14 +302,7 @@
                         <form wire:submit.prevent="store">
                             <div class="card-body">
                                 {{ $message ?? '' }}
-                               @foreach($forms['prices'] as $price)
-                                <div class="form-group">
-                                    <label for="name">{{ _lang('Name') }}</label>
-                                    <input wire:model="forms.name" type="text" class="form-control" id="name"
-                                        placeholder="{{ _lang('Name') }}">
-                                   
-                                </div>
-                                @endforeach
+                               
 
                             </div>
                             

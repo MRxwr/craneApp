@@ -204,7 +204,7 @@
                 <div class="modal-body">
 
                     <div class="card">
-                    @dd($forms)
+                    @dd($forms['request_id'])
                         <form wire:submit.prevent="store">
                             <div class="card-body">
                                 {{ $message ?? '' }}

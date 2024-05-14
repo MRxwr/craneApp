@@ -204,10 +204,7 @@
                 <div class="modal-body">
 
                     <div class="card">
-                        <div class="card-header">
-                            {{-- <h4>Horizontal Form</h4> --}}
-                            
-                        </div>
+                        
                         <form wire:submit.prevent="store">
                             <div class="card-body">
                                 {{ $message ?? '' }}
@@ -288,6 +285,7 @@
             </div>
         </div>
     </div>
+
     <div class="modal fade" tabindex="-1" role="dialog" id="modalPrice" wire:ignore.self>
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -304,7 +302,7 @@
                         <form wire:submit.prevent="store">
                             <div class="card-body">
                                 {{ $message ?? '' }}
-                                @dd($forms['prices'])
+                               
                                 <div class="form-group">
                                     <label for="name">{{ _lang('Name') }}</label>
                                     <input wire:model="forms.name" type="text" class="form-control" id="name"
@@ -322,10 +320,7 @@
                     </div>
 
                 </div>
-                {{-- <div class="modal-footer">
-                    <button type="button" class="btn btn-primary">Save changes</button>
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                </div> --}}
+               
             </div>
         </div>
     </div>

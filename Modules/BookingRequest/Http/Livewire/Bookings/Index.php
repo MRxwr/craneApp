@@ -75,10 +75,7 @@ class Index extends Component
     {
         $this->is_edit = 1;
         $this->id_edit = $id;
-
-        $this->forms = BookingRequestTrait::find_data($id);
-        $prices = $this->forms->prices;
-        dd($prices);
+        $this->forms = BookingRequestTrait::find_data($id); 
         $this->emit('modalAdd', 'show');
     }
 

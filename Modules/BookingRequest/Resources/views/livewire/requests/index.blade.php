@@ -302,7 +302,12 @@
                         <form wire:submit.prevent="store">
                             <div class="card-body">
                                 {{ $message ?? '' }}
-                               
+                               @foreach($forms['prices'] as $price)
+                               <div class="form-group col-md-4">
+                                         <p>{{$price['client']}}</p>
+                                         <p>{{$price['price']}}KD</p>
+                                    </div>
+                               @endforeach
 
                             </div>
                             

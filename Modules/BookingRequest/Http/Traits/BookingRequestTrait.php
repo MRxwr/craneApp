@@ -64,7 +64,7 @@ trait BookingRequestTrait
                 $prices[$price->id]['is_accepted'] = $price->is_accepted;
             }
         }
-        dd($prices);
+        //dd($prices);
         return [
             'request_id' => $dt->request_id,
             'from_location' => $dt->from_location,

@@ -54,7 +54,17 @@ trait BookingRequestTrait
     public static function find_data($id)
     {
         $dt = BookingRequest::with('prices', 'logs')->find($id);
-        dd($dt->prices);
+        //dd($dt->prices);
+        $prices=[];
+        if($dt->prices){
+            foreach($dt->prices as $price){
+                $prices[$price->id]['client'] = $price->client->name;
+                $prices[$price->id]['driver'] = $price->driver->name;
+                $prices[$price->id]['price'] = $price->price;
+                $prices[$price->id]['is_accepted'] = $price->is_accepted;
+            }
+        }
+        dd($prices);
         return [
             'request_id' => $dt->request_id,
             'from_location' => $dt->from_location,
@@ -62,7 +72,7 @@ trait BookingRequestTrait
             'distances' => $dt->distances,
             'client_name' => $dt->client->name,
             'client_mobile' => $dt->client->mobile,
-            'prices' => $dt->prices,
+            'prices' => $prices,
             'logs' => $dt->logs,
             'is_active' => $dt->is_active,
             ];

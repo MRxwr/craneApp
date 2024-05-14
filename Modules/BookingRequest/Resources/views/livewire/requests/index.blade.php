@@ -307,10 +307,7 @@
                                     <label for="name">{{ _lang('Name') }}</label>
                                     <input wire:model="forms.name" type="text" class="form-control" id="name"
                                         placeholder="{{ _lang('Name') }}">
-                                    {{-- {{ $forms['name'] }} --}}
-                                    @error('forms.name')
-                                        <span style="color: red;" class="error">{{ $message }}</span>
-                                    @enderror
+                                   
                                 </div>
                                 @endforeach
 

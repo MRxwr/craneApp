@@ -125,68 +125,20 @@
                     </button>
                 </div>
                 <div class="modal-body">
-
-                    <div class="card">
-                   
-                        <form wire:submit.prevent="store">
-                            <div class="card-body">
-                                {{ $message ?? '' }}
-                                <div class="form-row">
-                                     <div class="form-group col-md-4">
-                                        <label for="inputmobile4">{{ _lang('Id') }} </label>
-                                    </div>
-                                    <div class="form-group col-md-4">
-                                         {{$forms['request_id']}}
-                                    </div> 
-                                </div>
-                                <div class="form-row">
-                                    <div class="form-group col-md-4">
-                                        <label for="inputmobile4">{{ _lang('From Location') }} </label>
-                                    </div>
-                                    <div class="form-group col-md-6">
-                                         {{$forms['from_location']}}
-                                    </div>
-                                </div>
-
-                                <div class="form-row">
-                                    <div class="form-group col-md-4">
-                                        <label for="inputmobile4">{{ _lang('To Location') }} </label>
-                                    </div>
-                                    <div class="form-group col-md-4">
-                                         {{$forms['to_location']}}
-                                    </div>
-                                </div>
-
-                                <div class="form-row">
-                                    <div class="form-group col-md-4">
-                                        <label for="inputmobile4">{{ _lang('Distance') }} </label>
-                                    </div>
-                                    <div class="form-group col-md-4">
-                                         {{$forms['distances']}}{{ _lang('Km') }}
-                                    </div>
-                                </div>
-                                <div class="form-row">
-                                    <div class="form-group col-md-4">
-                                        <label for="inputmobile4">{{ _lang('Client') }} </label>
-                                    </div>
-                                    <div class="form-group col-md-4">
-                                         <p>{{$forms['client_name']}}</p>
-                                         <p>{{$forms['client_mobile']}}</p>
-                                    </div>
-                                </div>
-                                <!-- <div class="form-group row">
-                                    <div class="col-lg-3 col-12">{{_lang('Avator')}} </div>
-                                    <div class="col-lg-9 col-12">
-                                    <img src="{{ asset('storage/' . $avator) }}" alt="Uploaded avator">
-                                        <input type="file" class="form-control"  wire:model="forms.avator">
-                                    </div>
-                                </div> -->
-
-                            </div>
-                            
-                        </form>
-                    </div>
-
+                    @if($forms['logs'])
+                        <div class="form-group col-md-12 table-responsive">
+                        <table class="table table-bordered table-md">
+                                @foreach($forms['logs'] as $log)
+                                    <tr> 
+                                        <td>{{$log['driver']}}</td>
+                                        <td>{{$log['mobile']}}</td>
+                                        <td>{{$log['activity']}}</td>
+                                        
+                                    </tr>
+                                @endforeach
+                            </table>
+                        </div>
+                    @endif
                 </div>
                 
             </div>

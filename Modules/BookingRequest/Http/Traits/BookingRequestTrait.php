@@ -64,6 +64,14 @@ trait BookingRequestTrait
                 $prices[$price->id]['is_accepted'] = $price->is_accepted;
             }
         }
+        $logs=[];
+        if($dt->logs){
+            foreach($dt->logs as $log){
+                $logs[$logs->id]['driver'] = $log->driver->name;
+                $logs[$logs->id]['client'] = $log->client->name;
+                $logs[$logs->id]['activity'] =  $log->activity; 
+            }
+        }
         //dd($prices);
         return [
             'request_id' => $dt->request_id,
@@ -73,7 +81,7 @@ trait BookingRequestTrait
             'client_name' => $dt->client->name,
             'client_mobile' => $dt->client->mobile,
             'prices' => $prices,
-            'logs' => $dt->logs,
+            'logs' => $logs,
             'is_active' => $dt->is_active,
             ];
     }

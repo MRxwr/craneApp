@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Http\Request;
+use Modules\BookingRequest\Http\Livewire\Api\BookingController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,3 +14,16 @@ use Illuminate\Http\Request;
 |
 */
 
+// API Version 1 routes
+Route::prefix('v1')->group(function () {
+    //Client
+    Route::post('/sent/order/request', [BookingController::class, 'sendRequest']);
+    Route::post('/get/driver/list', [BookingController::class, 'getDriverListRequest']);
+    Route::post('/place/order/request', [BookingController::class, 'saveDriverRequest']);
+
+    Route::post('/change/order/status', [BookingController::class, 'saveDriverRequest']);
+
+    // Driver
+    Route::post('/get/order/request', [BookingController::class, 'getOrdersRequest']);
+    Route::post('/save/order/request', [BookingController::class, 'saveOrderRequest']);
+});

@@ -122,7 +122,7 @@ class BookingController extends Controller
         }
     }
 
-    public function saveDriverRequest(Request $request){
+    public function saveOrderRequest(Request $request){
         $data = array();
         $token = $request->header('Authorization');
         // Check if validation fails
@@ -168,6 +168,94 @@ class BookingController extends Controller
         }
     }
 
-   
+    public function getDriverListRequest(Request $request){
+        $data = array();
+        $token = $request->header('Authorization');
+        // Check if validation fails
+        if (!$token) {
+            // If validation fails, return response with validation errors
+            $data['message']=_lang('Authorization token is requred');
+            $data['errors'] = ['token'=>'header Authorization token is requred'];
+            return outputError($data);
+        }
+        $token = str_replace('Bearer ', '', $token);
+        try {
+            $user = AppUser::where('token',$token)->first();
+            if ($user) {
+               $bidid= $request->input('request_id');
+               $data['message']=_lang('Send Crane Request');
+               $dt = BookingRequest::with('prices')->find($bidid);
+               $bdprices = $dt->prices()->where('is_accepted','!=', 2)->get();
+               $prices=[];
+                if($bdprices){
+                    foreach($bdprices as $price){
+                        $prices[$price->id]['driver_name'] = $price->driver->name;
+                        $prices[$price->id]['mobile'] = $price->driver->mobile;
+                        $prices[$price->id]['price'] =  $price->price;
+                        $prices[$price->id]['is_accepted'] = $price->is_accepted;
+                    }   
+                }
+               $data['driver_list']= $prices;
+               return outputSuccess($data);
+                // Proceed with authenticated user logic
+            } else {
+                // Authentication failed
+                $data['message']=_lang('Unauthorized');
+                return outputError($data); 
+                
+            }
+        } catch (\Exception $e) {
+            // Log or handle the exception
+            $data['message']=_lang('Authentication error');
+            return outputError($data);
+           
+        }
+    }
+
+    public function saveDriverRequest(Request $request){
+        $data = array();
+        $token = $request->header('Authorization');
+        // Check if validation fails
+        if (!$token) {
+            // If validation fails, return response with validation errors
+            $data['message']=_lang('Authorization token is requred');
+            $data['errors'] = ['token'=>'header Authorization token is requred'];
+            return outputError($data);
+        }
+        $token = str_replace('Bearer ', '', $token);
+        try {
+            $user = AppUser::where('token',$token)->first();
+
+            if ($user) {
+               $bidid= $request->input('request_id');
+               $price= $request->input('price');
+               $data['message']=_lang('get Driver Request');
+               $dt = BookingRequest::with('prices')->find($bidid);
+               $bidprice = $dt->prices()->where('driver_id', $user->id)->first();
+               $prices=[];
+                if($bidprice){
+                    $bidprice->price = $price;
+                    $bidprice->save();
+                    $activity = _lang('Added crane service price by Driver ').$user->name;
+                    AddBookingLog($dt,$activity);
+                    $prices[$bidprice->id]['client_name'] = $bidprice->client->name;
+                    $prices[$bidprice->id]['mobile'] = $bidprice->client->mobile;
+                    $prices[$bidprice->id]['price'] =  $bidprice->price;
+                    $prices[$bidprice->id]['is_accepted'] = $bidprice->is_accepted;
+                }
+                // Proceed with authenticated user logic
+            } else {
+                // Authentication failed
+                $data['message']=_lang('Unauthorized');
+                return outputError($data); 
+                
+            }
+        } catch (\Exception $e) {
+            // Log or handle the exception
+            $data['message']=_lang('Authentication error');
+            return outputError($data);
+           
+        }
+    }
     
 }

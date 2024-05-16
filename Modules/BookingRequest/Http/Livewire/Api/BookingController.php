@@ -212,7 +212,7 @@ class BookingController extends Controller
         }
     }
 
-    public function saveDriverRequest(Request $request){
+    public function placeOrderRequest(Request $request){
         $data = array();
         $token = $request->header('Authorization');
         // Check if validation fails
@@ -228,20 +228,23 @@ class BookingController extends Controller
 
             if ($user) {
                $bidid= $request->input('request_id');
-               $price= $request->input('price');
-               $data['message']=_lang('get Driver Request');
+               $payment_method=$request->input('payment_method');
+               $data['message']=_lang('Place Order Request');
                $dt = BookingRequest::with('prices')->find($bidid);
                $bidprice = $dt->prices()->where('driver_id', $user->id)->first();
                $prices=[];
                 if($bidprice){
-                    $bidprice->price = $price;
+                    if($payment_method=0){
+                        $price = $bidprice->price;
+                    }else {
+                        $price = $bidprice->price;
+                    }
+                    
+
+                    $bidprice->is_accepted = 1;
                     $bidprice->save();
                     $activity = _lang('Added crane service price by Driver ').$user->name;
-                    AddBookingLog($dt,$activity);
-                    $prices[$bidprice->id]['client_name'] = $bidprice->client->name;
-                    $prices[$bidprice->id]['mobile'] = $bidprice->client->mobile;
-                    $prices[$bidprice->id]['price'] =  $bidprice->price;
-                    $prices[$bidprice->id]['is_accepted'] = $bidprice->is_accepted;
+                    AddBookingLog($dt,$activity);  
                 }
                 // Proceed with authenticated user logic
             } else {

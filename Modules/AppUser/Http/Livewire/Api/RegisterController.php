@@ -39,6 +39,8 @@ class RegisterController extends Controller
         $name = $request->input('name');
         $email = $request->input('email');
         $dob = $request->input('dob');
+        $device_type = $request->input('device_type');
+        $device_token = $request->input('device_token');
         $password =$request->password;
         $isverified = OtpUser::where('mobile', $mobileNumber)->where('verified', 1)->first();
         if($isverified){
@@ -48,6 +50,9 @@ class RegisterController extends Controller
                 $appuser->email = $email;
                 $appuser->mobile = $mobileNumber;
                 $appuser->dob = $dob;
+                $appuser->device_type = $device_type;
+                $appuser->device_token = $device_token;
+
                 $appuser->password = Hash::make($password);
                 $appuser->email_verified_at = now();
                 if ($request->hasFile('avator')) {
@@ -78,6 +83,8 @@ class RegisterController extends Controller
                 $appuser->email = $email;
                 $appuser->mobile = $mobileNumber;
                 $appuser->dob = $dob;
+                $appuser->device_type = $device_type;
+                $appuser->device_token = $device_token;
                 $appuser->password = Hash::make($password);
                 $appuser->email_verified_at = now();
                 if ($request->hasFile('avator')) {
@@ -132,6 +139,8 @@ class RegisterController extends Controller
         $name = $request->input('name');
         $email = $request->input('email');
         $dob = $request->input('dob');
+        $device_type = $request->input('device_type');
+        $device_token = $request->input('device_token');
         $password =$request->password;
         $appuser = AppUser::where('mobile', $mobileNumber)->first();
         if ($appuser){
@@ -139,6 +148,8 @@ class RegisterController extends Controller
             $appuser->email = $email;
             $appuser->mobile = $mobileNumber;
             $appuser->dob = $dob;
+            $appuser->device_type = $device_type;
+            $appuser->device_token = $device_token;
             $appuser->password = Hash::make($password);
             $appuser->email_verified_at = now();
             $appuser->user_type = 2;
@@ -183,6 +194,8 @@ class RegisterController extends Controller
             $appuser->email = $email;
             $appuser->mobile = $mobileNumber;
             $appuser->dob = $dob;
+            $appuser->device_type = $device_type;
+            $appuser->device_token = $device_token;
             $appuser->password = Hash::make($password);
             $appuser->email_verified_at = now();
             $appuser->user_type = 2;

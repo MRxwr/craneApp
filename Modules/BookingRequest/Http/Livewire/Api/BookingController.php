@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Http;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
+use App\Services\FCMService;
 
 class BookingController extends Controller
 {
@@ -41,6 +42,7 @@ class BookingController extends Controller
                 $bidr->to_location = $request->input('to_location');
                 $bidr->from_latlong = $request->input('from_latlong');
                 $bidr->to_latlong = $request->input('to_latlong');
+                $bidr->service_id = $request->input('service_id');
                 $bidr->distances = $request->input('distances');
                 if($bidr->save()){
                     $drivers = AppUser::where('user_type', 2)->where('is_active',0)->where('is_deleted',0)->get();
@@ -89,7 +91,6 @@ class BookingController extends Controller
         $token = str_replace('Bearer ', '', $token);
         try {
             $user = AppUser::where('token',$token)->first();
-
             if ($user) {
                $bidid= $request->input('request_id');
                $data['message']=_lang('Send Crane Request');
@@ -98,6 +99,7 @@ class BookingController extends Controller
                $prices=[];
                 if($bdprices){
                     foreach($bdprices as $price){
+                        $prices[$price->id]['price_id'] = $price->id;
                         $prices[$price->id]['client_name'] = $price->client->name;
                         $prices[$price->id]['mobile'] = $price->client->mobile;
                         $prices[$price->id]['price'] =  $price->price;
@@ -148,6 +150,7 @@ class BookingController extends Controller
                     $bidprice->save();
                     $activity = _lang('Added crane service price by Driver ').$user->name;
                     AddBookingLog($dt,$activity);
+                    $prices[$bidprice->id]['price_id'] = $bidprice->id;
                     $prices[$bidprice->id]['client_name'] = $bidprice->client->name;
                     $prices[$bidprice->id]['mobile'] = $bidprice->client->mobile;
                     $prices[$bidprice->id]['price'] =  $bidprice->price;
@@ -189,6 +192,7 @@ class BookingController extends Controller
                $prices=[];
                 if($bdprices){
                     foreach($bdprices as $price){
+                        $prices[$price->id]['price_id'] = $price->id;
                         $prices[$price->id]['driver_name'] = $price->driver->name;
                         $prices[$price->id]['mobile'] = $price->driver->mobile;
                         $prices[$price->id]['price'] =  $price->price;
@@ -239,8 +243,6 @@ class BookingController extends Controller
                     }else {
                         $price = $bidprice->price;
                     }
-                    
-
                     $bidprice->is_accepted = 1;
                     $bidprice->save();
                     $activity = _lang('Added crane service price by Driver ').$user->name;

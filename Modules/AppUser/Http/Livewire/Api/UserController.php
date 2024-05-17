@@ -27,7 +27,9 @@ class UserController extends Controller
         }
         $token = str_replace('Bearer ', '', $token);
         try {
-            $user = AppUser::where('token',$token)->first();
+            $user = AppUser::where('token',$token)
+            ->select('id', 'name', 'email','mobile','dob','token','avator','language') // Specify the fields you want to include
+            ->first();
             if ($user) {
                 // Authentication successful
                 $data['message']=_lang('Profile');
@@ -62,7 +64,9 @@ class UserController extends Controller
         $name = $request->input('name');
         $email = $request->input('email');
         $dob = $request->input('dob');
-        $appuser =  AppUser::where('token',$token)->first();
+        $appuser =  AppUser::where('token',$token)
+            ->select('id', 'name', 'email','mobile','dob','token','avator','language') // Specify the fields you want to include
+            ->first();
         if ($appuser){
             $appuser->name = $name;
             $appuser->email = $email;

@@ -21,7 +21,6 @@ Route::prefix('v1')->group(function () {
     Route::post('/get/driver/list', [BookingController::class, 'getDriverListRequest']);
     Route::post('/place/order/request', [BookingController::class, 'placeOrderRequest']);
     
-
     Route::post('/change/order/status', [BookingController::class, 'saveDriverRequest']);
 
     // Driver

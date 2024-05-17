@@ -156,6 +156,8 @@ class BookingController extends Controller
                     $prices[$bidprice->id]['price'] =  $bidprice->price;
                     $prices[$bidprice->id]['is_accepted'] = $bidprice->is_accepted;
                 }
+                $data['order_request']= $prices;
+                return outputSuccess($data);
                 // Proceed with authenticated user logic
             } else {
                 // Authentication failed

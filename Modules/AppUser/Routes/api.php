@@ -4,7 +4,7 @@ use Modules\AppUser\Http\Livewire\Api\OTPController;
 use Modules\AppUser\Http\Livewire\Api\RegisterController;
 use Modules\AppUser\Http\Livewire\Api\LoginController;
 use Modules\AppUser\Http\Livewire\Api\UserController;
-
+use Modules\AppUser\Http\Livewire\Api\DriverController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -28,8 +28,12 @@ Route::prefix('v1')->group(function () {
     Route::post('/register/client', [RegisterController::class, 'registerClient']);
     Route::post('/register/driver', [RegisterController::class, 'registerDriver']);
     Route::post('/login', [LoginController::class, 'AppUserLogin']);
-    Route::post('/profile', [UserController::class, 'userProfile']);
-    Route::post('/profile/update', [UserController::class, 'updateProfile']);
+   
+    Route::post('/client/profile', [UserController::class, 'userProfile']);
+    Route::post('/client/profile/update', [UserController::class, 'updateProfile']);
     Route::post('/profile/settings', [UserController::class, 'getProfileSetting']);
     Route::post('/profile/settings/update', [UserController::class, 'updateProfileSetting']);
+
+    Route::post('/driver/profile', [DriverController::class, 'userProfile']);
+    Route::post('/driver/profile/update', [DriverController::class, 'updateProfile']);
 });

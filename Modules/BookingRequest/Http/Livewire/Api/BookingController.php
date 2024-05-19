@@ -45,7 +45,7 @@ class BookingController extends Controller
                 $bidr->service_id = $request->input('service_id');
                 $bidr->distances = $request->input('distances');
                 if($bidr->save()){
-                    $drivers = AppUser::where('user_type', 2)->where('is_active',0)->where('is_deleted',0)->get();
+                    $drivers = AppUser::where('user_type', 2)->where('is_active',1)->where('is_deleted',0)->get();
                      if($drivers->count()>0){
                         foreach($drivers as $driver){
                           $price = new  BookingPrice();
@@ -93,7 +93,7 @@ class BookingController extends Controller
             $user = AppUser::where('token',$token)->first();
             if ($user) {
                $bidid= $request->input('request_id');
-               $data['message']=_lang('Send Crane Request');
+               $data['message']=_lang('get Order request');
                $dt = BookingRequest::with('prices')->where('status',0);
                $bdprices = $dt->prices()->where('driver_id', $user->id)->where('is_accepted','!=', 2)->get();
                $prices=[];
@@ -140,11 +140,11 @@ class BookingController extends Controller
 
             if ($user) {
                $bidid= $request->input('request_id');
-               $price= $request->input('price');
-               $data['message']=_lang('get Driver Request');
-               $dt = BookingRequest::with('prices')->find($bidid);
-               $bidprice = $dt->prices()->where('driver_id', $user->id)->first();
-               $prices=[];
+                    $price= $request->input('price');
+                    $data['message']=_lang('get Driver Request');
+                    $dt = BookingRequest::with('prices')->find($bidid);
+                    $bidprice = $dt->prices()->where('driver_id', $user->id)->first();
+                    $prices=[];
                 if($bidprice){
                     $bidprice->price = $price;
                     $bidprice->save();

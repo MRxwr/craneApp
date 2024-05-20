@@ -12,12 +12,12 @@ class HomeController extends Controller
     }
     public function Success()
     {
-
         return view('page');
     }
     public function Failed()
     {
-
         return view('page');
     }
+
+    
 }

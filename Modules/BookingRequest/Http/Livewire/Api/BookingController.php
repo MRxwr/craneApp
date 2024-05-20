@@ -115,7 +115,7 @@ class BookingController extends Controller
                         }
                     }
                 
-                $data['order_request']= $orderRequest;
+                $data['orderRequest']= $orderRequest;
                return outputSuccess($data);
                 // Proceed with authenticated user logic
             } else {
@@ -206,6 +206,11 @@ class BookingController extends Controller
                $dt = BookingRequest::with('prices')->find($bidid);
                $bdprices = $dt->prices()->where('is_accepted','!=', 2)->get();
                $prices=[];
+               $driverList[$bidid]['bidid']=$bidid;
+               $driverList[$bidid]['request_id']=$dt->request_id;
+               $driverList[$bidid]['from_location']=$dt->from_location;
+               $driverList[$bidid]['to_location']=$dt->to_location;
+               $driverList[$bidid]['status']=$dt->status;
                 if($bdprices){
                     foreach($bdprices as $price){
                         $prices[$price->id]['price_id'] = $price->id;
@@ -215,7 +220,8 @@ class BookingController extends Controller
                         $prices[$price->id]['is_accepted'] = $price->is_accepted;
                     }   
                 }
-               $data['driver_list']= $prices;
+                $driverList[$bidid]['prices']=$prices;
+               $data['driverList']= $driverList;
                return outputSuccess($data);
                 // Proceed with authenticated user logic
             } else {
@@ -227,6 +233,12 @@ class BookingController extends Controller
         } catch (\Exception $e) {
             // Log or handle the exception
             $data['message']=_lang('Authentication error');
+            $data['errors'] = [
+                'message' => $e->getMessage(),
+                'code' => $e->getCode(),
+                'file' => $e->getFile(),
+                'line' => $e->getLine()
+            ];
             return outputError($data);
            
         }

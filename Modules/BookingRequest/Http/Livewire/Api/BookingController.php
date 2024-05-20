@@ -95,23 +95,27 @@ class BookingController extends Controller
                $bidid= $request->input('request_id');
                $data['message']=_lang('get Order request');
                $dt = BookingRequest::with(['prices' => function($query) use ($user) {
-                $query->where('driver_id', $user->id)
-                      ->where('is_accepted', '!=', 2);
+                        $query->where('driver_id', $user->id)->where('is_accepted', '!=', 2);
                 }])->where('status', 0)->get();
+                $orderRequest =[];
                $prices=[];
                 foreach ($dt as $bookingRequest) {
-                    
+                        $orderRequest[$bookingRequest->id]['bidid']=$bookingRequest->id;
+                        $orderRequest[$bookingRequest->id]['request_id']=$bookingRequest->request_id;
+                        $orderRequest[$bookingRequest->id]['from_location']=$bookingRequest->from_location;
+                        $orderRequest[$bookingRequest->id]['to_location']=$bookingRequest->to_location;
                         foreach ($bookingRequest->prices as $price) {
+                            $prices=[];
                             $prices[$price->id]['price_id'] = $price->id;
                             $prices[$price->id]['client_name'] = $price->client->name;
                             $prices[$price->id]['mobile'] = $price->client->mobile;
                             $prices[$price->id]['price'] =  $price->price;
                             $prices[$price->id]['is_accepted'] = $price->is_accepted;
+                            $orderRequest[$bookingRequest->id]['prices']= $prices;
                         }
-                    
                     }
                 
-                $data['order_request']= $prices;
+                $data['order_request']= $orderRequest;
                return outputSuccess($data);
                 // Proceed with authenticated user logic
             } else {

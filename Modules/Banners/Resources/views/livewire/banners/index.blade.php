@@ -5,7 +5,7 @@
             
             @if (akses('create-banner'))
                 <div class="buttons float-right">
-                    <a  href="{{ route('pages.create') }}" class="btn btn-icon icon-left btn-primary"><i
+                    <a  href="{{ route('banners.create') }}" class="btn btn-icon icon-left btn-primary"><i
                             class="bi bi-clipboard-plus"></i>
                             {{_lang('Add New')}}</a>
                 </div>

@@ -19,7 +19,6 @@ class HomeController extends Controller
         $data['message']=_lang('Get Home Data');
         $data['sevices']= $services;
         $data['banners']= $banners;
-        return outputSuccess($data);
-        
+        return outputSuccess($data);  
     }
 }

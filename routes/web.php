@@ -55,6 +55,8 @@ Route::get('/config', function () {
     Artisan::call('config:cache');
     return 'config cache completed';
 });
+Route::get('/success', [HomeController::class, 'success'])->name('success');
+Route::get('/failed', [HomeController::class, 'Failed'])->name('failed');
 Route::middleware(['web', 'auth'])->group(function () {
     Route::get('/dashboard', [HomeController::class, 'index']);
     Route::get('/settings/languages/index', LanguagesIndex::class)->name('languages.index');

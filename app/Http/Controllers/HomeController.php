@@ -10,4 +10,14 @@ class HomeController extends Controller
     {
         return view('home');
     }
+    public function Success()
+    {
+
+        return view('page');
+    }
+    public function Failed()
+    {
+
+        return view('page');
+    }
 }

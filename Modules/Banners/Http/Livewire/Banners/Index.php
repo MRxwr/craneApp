@@ -1,13 +1,13 @@
 <?php
 
-namespace Modules\Pages\Http\Livewire\Pages;
+namespace Modules\Banners\Http\Livewire\Banners;
 
-use Modules\Pages\Entities\Page;
+use Modules\Banners\Entities\Banner;
 use Livewire\Component;
 use App\Traits\MasterData;
 use Livewire\WithFileUploads;
 use Livewire\WithPagination;
-use Modules\Pages\Http\Traits\PageTrait;
+use Modules\Banners\Http\Traits\BannerTrait;
 use Modules\Roles\Http\Traits\PermissionTrait;
 use Illuminate\Support\Facades\Storage;
 
@@ -30,7 +30,7 @@ class Index extends Component
     public function mount()
     {
         $this->paging = 25;
-        $this->forms = PageTrait::firstForm();
+        $this->forms = BannerTrait::firstForm();
         // dd($this->forms);
 
     }
@@ -54,12 +54,12 @@ class Index extends Component
         }
 
         try {
-            $dt = Page::find($id);
+            $dt = Banner::find($id);
 
             // if ($dt->is_paten == 1) {
             //     $this->emit('pesanGagal', 'Sorry, this user can not edited..');
             // } else {
-            updateStatus(new Page, $id);
+            updateStatus(new Banner, $id);
 
             $this->emit('pesanSukses', 'Sucess..');
             // }
@@ -74,7 +74,7 @@ class Index extends Component
     public function tambah_data()
     {
         $this->reset(['is_edit', 'id_edit']);
-        $this->forms = PageTrait::firstForm();
+        $this->forms = BannerTrait::firstForm();
         $this->emit('modalAdd', 'show');
     }
 
@@ -83,7 +83,7 @@ class Index extends Component
         $this->is_edit = 1;
         $this->id_edit = $id;
 
-        $this->forms = PageTrait::find_data($id);
+        $this->forms = BannerTrait::find_data($id);
 
         $this->emit('modalAdd', 'show');
     }
@@ -98,9 +98,9 @@ class Index extends Component
            
             // dd($this->forms);
             if ($this->id_edit) {
-                $validasi = PageTrait::store_validation($this->forms, $this->id_edit);
+                $validasi = BannerTrait::store_validation($this->forms, $this->id_edit);
             } else {
-                $validasi = PageTrait::store_validation($this->forms);
+                $validasi = BannerTrait::store_validation($this->forms);
             }
             // dd($validasi);
             if (!$validasi['success']) {
@@ -109,24 +109,24 @@ class Index extends Component
                 if ($this->id_edit) {
                     if ($this->image) {
                         // Store the uploaded file in the storage directory
-                        $image = $this->image->store('services', 'public');
+                        $image = $this->image->store('banners', 'public');
                         $this->forms['image'] = Storage::url($image);
                     }
                     
-                    PageTrait::store_data($this->forms, $this->id_edit);
+                    BannerTrait::store_data($this->forms, $this->id_edit);
                 } else {
                     if ($this->image) {
                         // Store the uploaded file in the storage directory
-                        $imageName = $this->image->store('services', 'public');
+                        $imageName = $this->image->store('banners', 'public');
                         // Get the URL for the uploaded image
                         $this->forms['image'] = Storage::url($imageName);
                     }
-                    PageTrait::store_data($this->forms);
+                    BannerTrait::store_data($this->forms);
                 }
 
                 $this->emit('modalAdd', 'hide');
 
-                $this->forms = PageTrait::firstForm();
+                $this->forms = BannerTrait::firstForm();
                
                 $this->emit('pesanSukses', 'Store Success..');
                 $this->reset(['is_edit', 'id_edit']);
@@ -141,7 +141,7 @@ class Index extends Component
     public function destroy($id)
     {
         try {
-            PageTrait::destroy($id);
+            BannerTrait::destroy($id);
             $this->emit('pesanSukses', 'Success..');
         } catch (\Exception $th) {
             //throw $th;
@@ -153,15 +153,15 @@ class Index extends Component
     public function render()
     {
         $q = $this->search;
-        $data = Page::where('is_deleted',0)->filter($q)->latest()->paginate($this->paging);
+        $data = Banner::where('is_deleted',0)->filter($q)->latest()->paginate($this->paging);
         $pagings = MasterData::list_pagings();
        
-        return view('pages::livewire.pages.index', compact(
+        return view('banners::livewire.banners.index', compact(
             'data',
             'pagings',
         ))
             ->layout('layouts.main', [
-                'title' => 'Manage Pages'
+                'title' => 'Manage Banners'
             ]);
     }
 }

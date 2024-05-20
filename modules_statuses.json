@@ -6,5 +6,6 @@
     "BookingRequest": true,
     "BookingLogs": true,
     "Pages": true,
-    "FAQs": true
+    "FAQs": true,
+    "Banners": true
 }

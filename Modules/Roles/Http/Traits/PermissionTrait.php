@@ -249,6 +249,32 @@ trait PermissionTrait
                 'type' => 'manage-bid',
                 'title' => 'view-wallet'
             ],  
+
+            
+            // Manage page
+            [
+                'type' => 'manage-banner',
+                'title' => 'view-banners'
+            ],
+            
+            [
+                'type' => 'manage-banner',
+                'title' => 'create-banner'
+            ],
+            [
+                'type' => 'manage-banner',
+                'title' => 'edit-banner'
+            ],
+            [
+                'type' => 'manage-banner',
+                'title' => 'delete-banner'
+            ],
+
+            [
+                'type' => 'manage-banner',
+                'title' => 'change-status-banner'
+            ],
+
         ]);
     }
 }

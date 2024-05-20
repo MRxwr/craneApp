@@ -1,9 +1,9 @@
 <?php
-namespace Modules\Pages\Http\Traits;
+namespace Modules\Banners\Http\Traits;
 
-use Modules\Pages\Entities\Page;
+use Modules\Banners\Entities\Banner;
 
-trait PageTrait
+trait BannerTrait
 {
     public static function firstForm()
     {
@@ -32,7 +32,7 @@ trait PageTrait
         } else {
 
             if ($id_edit) {
-                $cek = Page::where('title', $data['title'])->where('id', '!=', $id_edit)->exists();
+                $cek = Banner::where('title', $data['title'])->where('id', '!=', $id_edit)->exists();
 
                 if ($cek) {
                     return [
@@ -41,7 +41,7 @@ trait PageTrait
                     ];
                 }
             } else {
-                $cek = Page::where('title', $data['title'])->exists();
+                $cek = Banner::where('title', $data['title'])->exists();
 
                 if ($cek) {
                     return [
@@ -62,22 +62,22 @@ trait PageTrait
     {
         // dd($data);
         if ($id) {
-            Page::find($id)->update($data);
+            Banner::find($id)->update($data);
         } else {
-            Page::create($data);
+            Banner::create($data);
         }
     }
 
     public static function destroy($id)
     {
-        $page= Page::find($id);
+        $page= Banner::find($id);
         $page->is_deleted = 1;
         $page->save();
     }
 
     public static function find_data($id)
     {
-        $dt = Page::find($id);
+        $dt = Banner::find($id);
 
         return [
             'title' => $dt->title,

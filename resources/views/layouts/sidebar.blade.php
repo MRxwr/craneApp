@@ -111,6 +111,18 @@
                 </a>
             </li> 
             @endif
+
+
+            @if (akses('view-banners'))
+            <li class="nav-item">
+                <a href="{{ url('banners/index') }}" class="nav-link">
+                <i class="nav-icon fas fa-image"></i>
+                    <!-- <i class="nav-icon fas fa-file"></i> -->
+                    <p>{{_lang('Banners')}}</p>
+                </a>
+            </li> 
+            @endif
+
             @if (akses('view-faqs'))
             <li class="nav-item">
                 <a href="{{ url('faqs/index') }}" class="nav-link">

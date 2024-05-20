@@ -51,7 +51,7 @@ class LoginController extends Controller
                         }
                     } else {
                         $mobile = $request->only('mobile');
-                        $user = User::where('mobile', $mobile)->first();
+                        $user = AppUser::where('mobile', $mobile)->first();
                         if ($user) {
                             Auth::guard('api')->user();
                             if($token=GenerateApiToken($user)){

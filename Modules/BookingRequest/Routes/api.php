@@ -18,7 +18,7 @@ use Modules\BookingRequest\Http\Livewire\Api\BookingController;
 Route::prefix('v1')->group(function () {
     //Client
     Route::post('/sent/order/request', [BookingController::class, 'sendRequest']);
-    Route::post('/get/driver/list', function () {
+    Route::post('get_driver_list', function () {
         echo 'sdasdasdasd';
     });
     Route::post('/place/order/request', [BookingController::class, 'placeOrderRequest']);

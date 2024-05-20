@@ -197,8 +197,8 @@ class BookingController extends Controller
             $data['errors'] = ['token'=>'header Authorization token is requred'];
             return outputError($data);
         }
-        $token = str_replace('Bearer ', '', $token);
         try {
+            $token = str_replace('Bearer ', '', $token);
             $user = AppUser::where('token',$token)->first();
             if ($user) {
                $bidid= $request->input('request_id');

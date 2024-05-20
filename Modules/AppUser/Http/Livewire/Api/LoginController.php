@@ -56,7 +56,7 @@ class LoginController extends Controller
                             Auth::guard('api')->user();
                             if($token=GenerateApiToken($user)){
                                 $data['user']= $user->toArray();
-                                $data['token']= $token;
+                                $data['token']= $user->api_token;
                                 return outputSuccess($data);
                             }
                         }else {

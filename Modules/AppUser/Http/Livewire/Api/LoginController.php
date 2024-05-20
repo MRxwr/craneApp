@@ -50,14 +50,18 @@ class LoginController extends Controller
                             }
                         }
                     } else {
-                        $credentials = $request->only('mobile');
-                        if (Auth::guard('api')->attempt($credentials)) {
-                            $user = Auth::guard('api')->user();
+                        $mobile = $request->only('mobile');
+                        $user = User::where('mobile', $mobile)->first();
+                        if ($user) {
+                            Auth::guard('api')->user();
                             if($token=GenerateApiToken($user)){
                                 $data['user']= $user->toArray();
                                 $data['token']= $token;
                                 return outputSuccess($data);
                             }
+                        }else {
+                            $data['message']=_lang('Authentication failed: mobile number not found');
+                            return outputError($data);
                         }
                      } 
                 } else {

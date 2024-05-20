@@ -94,20 +94,21 @@ class BookingController extends Controller
             if ($user) {
                $bidid= $request->input('request_id');
                $data['message']=_lang('get Order request');
-               $dt = BookingRequest::with('prices')->where('status',0);
-               $bdprices = $dt->prices()->where('driver_id', $user->id)->where('is_accepted','!=', 2)->get();
-               $prices=[];
-                if($bdprices){
-                    foreach($bdprices as $price){
-                        $prices[$price->id]['price_id'] = $price->id;
-                        $prices[$price->id]['client_name'] = $price->client->name;
-                        $prices[$price->id]['mobile'] = $price->client->mobile;
-                        $prices[$price->id]['price'] =  $price->price;
-                        $prices[$price->id]['is_accepted'] = $price->is_accepted;
-                    }   
-                }
+
+            //    $dt = BookingRequest::with('prices')->where('status',0);
+            //    $bdprices = $dt->prices()->where('driver_id', $user->id)->where('is_accepted','!=', 2)->get();
+            //    $prices=[];
+            //     if($bdprices){
+            //         foreach($bdprices as $price){
+            //             $prices[$price->id]['price_id'] = $price->id;
+            //             $prices[$price->id]['client_name'] = $price->client->name;
+            //             $prices[$price->id]['mobile'] = $price->client->mobile;
+            //             $prices[$price->id]['price'] =  $price->price;
+            //             $prices[$price->id]['is_accepted'] = $price->is_accepted;
+            //         }   
+            //     }
                 
-                $data['order_request']= $prices;
+            //     $data['order_request']= $prices;
                return outputSuccess($data);
                 // Proceed with authenticated user logic
             } else {

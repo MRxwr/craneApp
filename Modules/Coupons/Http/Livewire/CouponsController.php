@@ -3,7 +3,7 @@
 namespace Modules\Coupons\Http\Livewire;
 
 use Illuminate\Contracts\Support\Renderable;
-use Modules\Coupons\Entities\Banner;
+use Modules\Coupons\Entities\Coupon;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Storage;

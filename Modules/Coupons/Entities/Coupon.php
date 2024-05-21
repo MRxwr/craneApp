@@ -40,5 +40,8 @@ class Coupon extends Model
                 ->orWhere('description', 'like', "%$q%");
         });
     }
-    
+    public function isExpired()
+    {
+        return $this->expiry_date < now();
+    }
 }

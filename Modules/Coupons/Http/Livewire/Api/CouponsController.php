@@ -39,11 +39,29 @@ class CouponsController extends Controller
             $user = AppUser::where('token',$token)->first();
             if ($user) {
                 $coupon_code= $request->input('coupon_code');
+                $booking_amount= $request->input('amount');
                 $data['message']=_lang('Send Crane Request');
                 $coupon= Coupon::where('coupon_code',$coupon_code)->where('is_deleted',0)->first();
                 if($coupon){
                     if($coupon->is_active==1){
-                        
+                        if ($coupon->isExpired()) {
+                            $data['message']=_lang('Coupon has expired');
+                            return outputError($data);
+                        }else{
+                            if($coupon->coupon_type==1){
+                              $discount = $coupon->coupon_value;
+                              $new_price =  $booking_amount - $discount; 
+                            }else{
+                                $discount = ($booking_amount*$coupon->coupon_value/100);
+                                $new_price =  $booking_amount - $discount;  
+                            }
+                            $data['message']=_lang('Coupon successfully applied');
+                            $data['price_now'] =$new_price;
+                            $data['discount'] =$discount;
+                            $data['coupon_code'] =$coupon_code;
+                            $data['coupon_id'] =$coupon->id;
+                            return outputSuccess($data);
+                        }
 
                     }else{
                         $data['message']=_lang('Coupon Not Active');

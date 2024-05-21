@@ -20,14 +20,7 @@
                                     </div>
                                 </div>
                                 @endforeach
-                                @foreach (getActiveLanguages()  as $lang)
-                                <div class="form-group row">
-                                    <div class="col-lg-3 col-12">{{_lang('Description')}} [{{$lang->code}}]</div>
-                                    <div class="col-lg-9 col-12">
-                                        <textarea  class="form-control summernote" placeholder="Description.." name="description[{{ $lang->code }}]">{{$service->description[$lang->code]}}</textarea>
-                                    </div>
-                                </div>
-                                @endforeach
+                               
 
                                 <div class="form-group row">
                                     <div class="col-lg-3 col-12" style="height:250px;"><img src="{{ asset($service->image) }}" class="img-rounded" alt="Uploaded Image" style="width: 100%;"></div>

@@ -23,11 +23,35 @@
                                
 
                                 <div class="form-group row">
-                                    <div class="col-lg-3 col-12" style="height:250px;"><img src="{{ asset($service->image) }}" class="img-rounded" alt="Uploaded Image" style="width: 100%;"></div>
+                                    <div class="col-lg-3 col-12">{{_lang('Coupon Code')}}</div>
                                     <div class="col-lg-9 col-12">
-                                        <input type="file" class="form-control" name="image" >
+                                        <input type="text" class="form-control"  name="coupon_code" value="{{$service->coupon_code}}">
                                     </div>
                                 </div>
+
+                                <div class="form-group row">
+                                    <div class="col-lg-3 col-12">{{_lang('Coupon Value')}}</div>
+                                    <div class="col-lg-9 col-12">
+                                        <input type="text" class="form-control"  name="coupon_value" value="{{$service->coupon_value}}">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-lg-3 col-12">{{_lang('Coupon Type')}}</div>
+                                    <div class="col-lg-9 col-12">
+                                        <select class="form-control"  name="coupon_type">
+                                          <option value="1" @if($service->coupon_value=="1") selected="selected" @endif >{{_lang('Fixed')}}</option>
+                                          <option value="2" @if($service->coupon_value=="2") selected="selected" @endif >{{_lang('Percentage')}}</option>
+                                        <select>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <div class="col-lg-3 col-12">{{_lang('Coupon expiry date')}}</div>
+                                    <div class="col-lg-9 col-12">
+                                        <input type="date" class="form-control"  name="expiry_date" value="{{$service->expiry_date}}">
+                                    </div>
+                                </div>
+
                             </div>
                             <div class="card-footer">
                                 <button type="submit" class="btn btn-primary">{{_lang('Submit')}}</button>

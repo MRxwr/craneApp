@@ -251,7 +251,7 @@ class BookingController extends Controller
                         $prices[$price->id]['is_accepted'] = $price->is_accepted;
                     }   
                 }
-                $driverList[$bidid]['prices']=$prices;
+               $driverList[$bidid]['prices']=$prices;
                $data['driverList']= $driverList;
                return outputSuccess($data);
                 // Proceed with authenticated user logic
@@ -277,6 +277,7 @@ class BookingController extends Controller
 
     public function placeOrderRequest(Request $request){
         $data = array();
+        $payment_data=array();
         $token = $request->header('Authorization');
         // Check if validation fails
         if (!$token) {
@@ -292,20 +293,49 @@ class BookingController extends Controller
             if ($user) {
                $bidid= $request->input('request_id');
                $payment_method=$request->input('payment_method');
+               $is_wallet=$request->input('is_wallet');
                $data['message']=_lang('Place Order Request');
                $dt = BookingRequest::with('prices')->find($bidid);
-               $bidprice = $dt->prices()->where('driver_id', $user->id)->first();
-               $prices=[];
+                $bidprice = $dt->prices()->where('driver_id', $user->id)->first();
+                $prices=[];
                 if($bidprice){
-                    if($payment_method=0){
+                    if($is_wallet==1){
+                        $price = floatval($bidprice->price);
+                        $wallet= floatval(getUserMeta('wallet',$user->id));
+                        if($wallet>=$price){
+                            $newwalletValue=$wallet-$price;
+                            upadteUserMeta('wallet',$newwalletValue,$user->id);
+                            $data['payment_data']['payment_type']='wallet';
+                            $data['payment_data']['payment_status']='success';
+                            $activity = _lang('payment successfully done through wallet by ').$user->name;
+                            AddBookingLog($dt,$activity);  
+                            $driverList[$bidid]['prices']=$prices;
+                            $data['payment_data']= $pdata;
+
+                        }else{
+                            $data['message']=_lang('Insufficient funds in the wallet');
+                            return outputError($data); 
+                        }
+
+                    }else{
                         $price = $bidprice->price;
-                    }else {
-                        $price = $bidprice->price;
+                        $payment_data['booking_id']=$dt->id;
+                        $payment_data['price_id'] = $bidprice->id;
+                        $payment_data['customer_name']=$user->name;
+                        $payment_data['customer_mobile'] = $user->mobile;
+                        $payment_data['customer_email'] = $user->email;;
+                        $payment_data['paymentMethod'] = $payment_method;
+                        $payment_data['pay_amount']= $price;
+                        $pdata = $this->doPayment($payment_data);
+                        //$bidprice->is_accepted = 1;
+                        //$bidprice->save();
+                         $activity = _lang('payment successfully done through payapi by ').$user->name;
+                         AddBookingLog($dt,$activity);  
+                         $driverList[$bidid]['prices']=$prices;
+                         $data['payment_data']= $pdata;
+                        return outputSuccess($data);
                     }
-                    $bidprice->is_accepted = 1;
-                    $bidprice->save();
-                    $activity = _lang('Added crane service price by Driver ').$user->name;
-                    AddBookingLog($dt,$activity);  
+                    
                 }
                 // Proceed with authenticated user logic
             } else {
@@ -320,6 +350,78 @@ class BookingController extends Controller
             return outputError($data);
            
         }
+        
+    }
+
+    public function doPayment($payment_data){
+        $bsid=base64_encode($payment_data['booking_id'].'|'.$payment_data['price_id']);
+        $PaymentAPIKey = '';
+        $paymentMethod=$payment_data['paymentMethod'];
+        $name = $payment_data['customer_name'];
+        $phone1 = $payment_data['customer_mobile'];
+        $settingsEmail = $payment_data['customer_email'];
+        $totalPrice = $payment_data['pay_amount'];
+
+        $params = array(
+            "endpoint"                  => "PaymentRequestExicuteForStore",
+            "apikey"                    => "$PaymentAPIKey",
+            "PaymentMethodId"           => "$paymentMethod",
+            "CustomerName"              => "$name",
+            "DisplayCurrencyIso"        => "KWD", 
+            "MobileCountryCode"         => "+965", 
+            "CustomerMobile"            => substr($phone1,0,11),
+            "CustomerEmail"             => $settingsEmail,
+            "invoiceValue"              => $totalPrice,
+            "SourceInfo"                => '',
+            "CallBackUrl"               => url('success').'/?bsid='.$bsid,
+            "ErrorUrl"                  => url('failed').'/?bsid='.$bsid
+            );
+        $curl = curl_init();
+        // $certificate_location = 'C:\wamp64\bin\php\php7.2.33\extras\ssl\cacert.pem';
+        // curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, $certificate_location);
+        // curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, $certificate_location);
+        //dd($params);
+        curl_setopt_array($curl, array(
+            CURLOPT_URL => "https://createapi.link/api/v2/index.php",
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => "",
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 30000,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => "POST",
+            CURLOPT_POSTFIELDS => json_encode($params),
+            CURLOPT_HTTPHEADER => array(
+                // Set here requred headers
+                "accept: */*",
+                "accept-language: en-US,en;q=0.8",
+                "content-type: application/json",
+            ),
+        ));
+        $response = curl_exec($curl);
+        $data=array();
+        $err = curl_error($curl);
+            curl_close($curl);
+            if ($err) {
+                //echo "cURL Error #:" . $err;
+                $error_url = url('failed').'/?bsid='.$bsid.'&msg='. $err;
+                $data['payment_status']='error';
+                $data['error_url']= url('failed').'/?bsid='.$bsid.'&msg='. $err;
+            } else {
+                $res = json_decode($response);
+                if($res->type == 'success' && isset($res->data->InvoiceId)){
+                    $PaymentURL = $res->data->PaymentURL;
+                    $InvoiceId = $res->data->InvoiceId;
+                    $data['payment_status']='success';
+                    $data['payment_type']='knet/card';
+                    $data['payment_url'] = $PaymentURL;  
+                }else{
+                    $error_url = url('payment/failed').'/?bsid='.$bsid.'&msg='.$res->msg;
+                    $data['payment_status']='error';
+                    $data['error_url']= $error_url;
+                }
+            }
+
+       return $data;
     }
     
 }

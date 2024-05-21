@@ -72,8 +72,8 @@
           </li> 
         @endif
 
-        <li class="nav-item {{ in_array(request()->segment(1),['bookings']) ? 'menu-open' : '' }}">
-            <a href="#" class="nav-link {{ request()->segment(1) == 'bookings' ? 'active' : '' }}">
+        <li class="nav-item {{ in_array(request()->segment(1),['bookings','coupons']) ? 'menu-open' : '' }}">
+            <a href="#" class="nav-link {{ in_array(request()->segment(1),['bookings','coupons']) ? 'active' : '' }}">
             <i class="nav-icon fas fa-file"></i>
                 <p>
                 {{_lang('Booking')}}
@@ -81,20 +81,30 @@
                 </p>
             </a>
             <ul class="nav nav-treeview">
-            @if (akses('view-request'))
-            <li class="nav-item">
-                <a href="{{ url('bookings/request') }}" class="nav-link">
-                <i class="nav-icon fas fa-file"></i>
-                    <!-- <i class="nav-icon fas fa-file"></i> -->
-                    <p>{{_lang('Requests')}}</p>
-                </a>
-            </li> 
-            @endif
+                @if (akses('view-request'))
+                <li class="nav-item">
+                    <a href="{{ url('bookings/request') }}" class="nav-link">
+                    <i class="nav-icon fas fa-file"></i>
+                        <!-- <i class="nav-icon fas fa-file"></i> -->
+                        <p>{{_lang('Requests')}}</p>
+                    </a>
+                </li> 
+                @endif
+
+                @if (akses('view-coupons'))
+                <li class="nav-item">
+                    <a href="{{ url('coupons/index') }}" class="nav-link">
+                    <i class="nav-icon fas fa-percentage"></i>
+                        <!-- <i class="nav-icon fas fa-file"></i> -->
+                        <p>{{_lang('Coupons')}}</p>
+                    </a>
+                </li> 
+                @endif
             
         </ul>
         </li>
-        <li class="nav-item {{ in_array(request()->segment(1),['pages','faqs']) ? 'menu-open' : '' }}">
-            <a href="#" class="nav-link {{ request()->segment(1) == 'users' ? 'active' : '' }}">
+        <li class="nav-item {{ in_array(request()->segment(1),['pages','faqs','banners']) ? 'menu-open' : '' }}">
+            <a href="#" class="nav-link {{ in_array(request()->segment(1),['pages','faqs','banners']) ? 'active' : '' }}">
             <i class="nav-icon fas fa-file"></i>
                 <p>
                 {{_lang('CMS')}}

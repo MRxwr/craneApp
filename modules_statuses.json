@@ -7,5 +7,6 @@
     "BookingLogs": true,
     "Pages": true,
     "FAQs": true,
-    "Banners": true
+    "Banners": true,
+    "Coupons": true
 }

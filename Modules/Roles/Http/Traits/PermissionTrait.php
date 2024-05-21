@@ -275,6 +275,32 @@ trait PermissionTrait
                 'title' => 'change-status-banner'
             ],
 
+
+             // Manage page
+             [
+                'type' => 'manage-coupon',
+                'title' => 'view-coupons'
+            ],
+            
+            [
+                'type' => 'manage-coupon',
+                'title' => 'create-coupon'
+            ],
+            [
+                'type' => 'manage-coupon',
+                'title' => 'edit-coupon'
+            ],
+            [
+                'type' => 'manage-coupon',
+                'title' => 'delete-coupon'
+            ],
+
+            [
+                'type' => 'manage-coupon',
+                'title' => 'change-status-coupon'
+            ],
+
+
         ]);
     }
 }

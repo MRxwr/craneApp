@@ -8,6 +8,7 @@ use App\Services\FCMService;
 use Modules\Roles\Entities\Role;
 use Modules\AppUser\Entities\AppUser;
 use Modules\AppUser\Entities\AppUserMeta;
+use Modules\AppUser\Entities\Wallet;
 use Modules\BookingRequest\Entities\BookingRequest;
 use Modules\BookingRequest\Entities\BookingLog;
 use Modules\BookingRequest\Entities\BookingPrice;
@@ -197,5 +198,16 @@ function upadteUserMeta($key,$value,$app_user_id){
   }
 
   function firebaseNotification($user){
+
+  }
+  function walletTransaction($data){
+    $wallet = new Wallet();
+    $wallet->request_id=$data['request_id'];
+    $wallet->app_user_id=$data['app_user_id'];
+    $wallet->amount=$data['amount'];
+    $wallet->mode=$data['mode'];
+    $wallet->remark=$data['remark'];
+    $wallet->save();
+   
 
   }

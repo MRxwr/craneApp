@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\BookingRequest\Entities;
+namespace Modules\AppUser\Entities;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;

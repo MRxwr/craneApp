@@ -208,6 +208,4 @@ function upadteUserMeta($key,$value,$app_user_id){
     $wallet->mode=$data['mode'];
     $wallet->remark=$data['remark'];
     $wallet->save();
-   
-
   }

@@ -39,8 +39,8 @@
                                     <div class="col-lg-3 col-12">{{_lang('Coupon Type')}}</div>
                                     <div class="col-lg-9 col-12">
                                         <select class="form-control"  name="coupon_type">
-                                          <option value="1" @if($service->coupon_value=="1") selected="selected" @endif >{{_lang('Fixed')}}</option>
-                                          <option value="2" @if($service->coupon_value=="2") selected="selected" @endif >{{_lang('Percentage')}}</option>
+                                          <option value="1" @if($service->coupon_type=="1") selected="selected" @endif >{{_lang('Fixed')}}</option>
+                                          <option value="2" @if($service->coupon_type=="2") selected="selected" @endif >{{_lang('Percentage')}}</option>
                                         <select>
                                     </div>
                                 </div>

@@ -87,7 +87,7 @@ class CouponsController extends Controller
             'title.*' => 'required|string|max:255',
             
         ]);
-        dd($request->all());
+        //dd($request->all());
         $page = Coupon::findOrFail($id);
         if( $page){
             $page->title = $request->title;

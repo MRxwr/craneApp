@@ -7,7 +7,7 @@
         <div class="card-body row">
 
             <div class=" col-md-6 modal-content">
-            <form action="{{ route('banners.update', $service->id) }}" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('coupons.update', $service->id) }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     @method('PUT') <!-- Use PUT method for updating -->
                             <div class="card-body">

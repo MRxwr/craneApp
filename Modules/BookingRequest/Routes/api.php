@@ -16,13 +16,12 @@ use Modules\BookingRequest\Http\Livewire\Api\BookingController;
 
 // API Version 1 routes
 Route::prefix('v1')->group(function () {
+    
     //Client
     Route::post('sent_order_request', [BookingController::class, 'sendRequest']);
     Route::post('get_driver_list',[BookingController::class, 'getDriverListRequest']);
     Route::post('place_order_request', [BookingController::class, 'placeOrderRequest']);
-    
     Route::post('change_order_status', [BookingController::class, 'saveDriverRequest']);
-
     // Driver
     Route::post('get_order_request', [BookingController::class, 'getOrdersRequest']);
     Route::post('save_order_request', [BookingController::class, 'saveOrderRequest']);

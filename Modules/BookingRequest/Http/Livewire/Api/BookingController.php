@@ -186,7 +186,38 @@ class BookingController extends Controller
            
         }
     }
-
+    public function changeOrderStatus(Request $request){
+        $data = array();
+        $token = $request->header('Authorization');
+        // Check if validation fails
+        if (!$token) {
+            // If validation fails, return response with validation errors
+            $data['message']=_lang('Authorization token is requred');
+            $data['errors'] = ['token'=>'header Authorization token is requred'];
+            return outputError($data);
+        }
+        try {
+            $token = str_replace('Bearer ', '', $token);
+            $user = AppUser::where('token',$token)->first();
+            if ($user) {
+                $bidid= $request->input('request_id');
+                $data['message']=_lang('Send Crane Request');
+                $dt = BookingRequest::with('prices')->find($bidid);
+                $dt->status = $request->input('status');
+                $dt->save();
+            }
+        } catch (\Exception $e) {
+            $data['message']=_lang('Authentication error');
+            $data['errors'] = [
+                'message' => $e->getMessage(),
+                'code' => $e->getCode(),
+                'file' => $e->getFile(),
+                'line' => $e->getLine()
+            ];
+            return outputError($data);
+           
+        }
+    }
     public function getDriverListRequest(Request $request){
         $data = array();
         $token = $request->header('Authorization');

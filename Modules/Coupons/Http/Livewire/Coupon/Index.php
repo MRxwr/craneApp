@@ -2,7 +2,7 @@
 
 namespace Modules\Coupons\Http\Livewire\Coupon;
 
-use Modules\Couponrs\Entities\Coupon;
+use Modules\Coupons\Entities\Coupon;
 use Livewire\Component;
 use App\Traits\MasterData;
 use Livewire\WithFileUploads;

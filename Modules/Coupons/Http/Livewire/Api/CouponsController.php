@@ -34,11 +34,11 @@ class CouponsController extends Controller
             $data['message']=_lang('Authorization token is requred');
             $data['errors'] = ['token'=>'header Authorization token is requred'];
             return outputError($data);
-        }
+          }
         try {
             $token = str_replace('Bearer ', '', $token);
             $user = AppUser::where('token',$token)->first();
-            if ($user) {
+            if ($user){
                 $coupon_code= $request->input('coupon_code');
                 $booking_amount= $request->input('amount');
                 $data['message']=_lang('Send Crane Request');
@@ -72,9 +72,10 @@ class CouponsController extends Controller
                 }else{
                     $data['message']=_lang('Coupon Not exist');
                     return outputError($data);
-                }
-
-               
+                }  
+            }else{
+                $data['message']=_lang('Session out .. Please login ');
+                    return outputError($data);
             }
         } catch (\Exception $e) {
             $data['message']=_lang('Authentication error');

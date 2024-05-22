@@ -67,9 +67,9 @@ trait BookingRequestTrait
         $logs=[];
         if($dt->logs){
             foreach($dt->logs as $log){
-                $logs[$logs->id]['driver'] = $log->driver->name;
-                $logs[$logs->id]['client'] = $log->client->name;
-                $logs[$logs->id]['activity'] =  $log->activity; 
+                $logs[$log->id]['driver'] = $log->driver->name;
+                $logs[$log->id]['client'] = $log->client->name;
+                $logs[$log->id]['activity'] =  $log->activity; 
             }
         }
         //dd($prices);

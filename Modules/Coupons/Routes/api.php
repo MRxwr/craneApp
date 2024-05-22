@@ -16,5 +16,5 @@ use Modules\Coupons\Http\Livewire\Api\CouponsController;
 
 // API Version 1 routes
 Route::prefix('v1')->group(function () {
-    Route::get('/check_coupon', [CouponsController::class, 'checkCouponCode']);
+    Route::post('/check_coupon', [CouponsController::class, 'checkCouponCode']);
 });

@@ -11,6 +11,7 @@ use App\Traits\MasterData;
 use Modules\BookingRequest\Entities\BookingRequest;
 use Modules\BookingRequest\Entities\BookingLog;
 use Modules\BookingRequest\Entities\BookingPrice;
+use Modules\AppUser\Entities\AppUser;
 use Modules\Pages\Entities\Page;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Http;

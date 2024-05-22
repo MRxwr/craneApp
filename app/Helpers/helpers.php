@@ -55,6 +55,9 @@ function akses($str)
 }
 function _lang($slug){
     $token = Request::header('Authorization');
+    if($token){
+        dd($token);
+    }
     $code=  (Session::get('locale')?Session::get('locale'):'en');
     $lang = Locale::where('slug',$slug)->first();
    if($lang ){

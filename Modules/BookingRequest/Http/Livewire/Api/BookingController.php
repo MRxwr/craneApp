@@ -205,6 +205,8 @@ class BookingController extends Controller
                 $dt = BookingRequest::with('prices')->find($bidid);
                 $dt->status = $request->input('status');
                 $dt->save();
+                $data['message']=_lang('Successfuly change Status');
+                return outputSuccess($data);
             }
         } catch (\Exception $e) {
             $data['message']=_lang('Authentication error');
@@ -214,8 +216,7 @@ class BookingController extends Controller
                 'file' => $e->getFile(),
                 'line' => $e->getLine()
             ];
-            return outputError($data);
-           
+            return outputError($data); 
         }
     }
     public function getDriverListRequest(Request $request){

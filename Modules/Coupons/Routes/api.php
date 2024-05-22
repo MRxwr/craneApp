@@ -1,8 +1,9 @@
 <?php
 
-use Illuminate\Http\Request;
 
-/*
+use Illuminate\Http\Request;
+use Modules\Coupons\Http\Livewire\Api\CouponsController;
+/*Modules\Service\Http\Livewire\Api
 |--------------------------------------------------------------------------
 | API Routes
 |--------------------------------------------------------------------------
@@ -13,3 +14,7 @@ use Illuminate\Http\Request;
 |
 */
 
+// API Version 1 routes
+Route::prefix('v1')->group(function () {
+    Route::get('/check_coupon', [CouponsController::class, 'checkCouponCode']);
+});

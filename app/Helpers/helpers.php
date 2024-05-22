@@ -59,11 +59,10 @@ function _lang($slug){
         $token = str_replace('Bearer ', '', $token);
         $user = AppUser::where('token',$token)->first();
         if($user){
-            $code= $user->language; 
+            $code= $user->language?$user->language:'ar'; 
         }else{
             $code= 'ar';   
-        }
-        
+        } 
     }else{
         $code=  (Session::get('locale')?Session::get('locale'):'en');
     }

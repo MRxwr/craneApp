@@ -16,6 +16,7 @@ use Modules\Pages\Entities\Page;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
+use Illuminate\Http\Request;
 
 //AppUserMeta
 
@@ -52,7 +53,8 @@ function akses($str)
         return false;
     }
 }
-function _lang($slug){
+function _lang(Request $request,$slug){
+    $token = $request->header('Authorization');
     $code=  (Session::get('locale')?Session::get('locale'):'en');
     $lang = Locale::where('slug',$slug)->first();
    if($lang ){

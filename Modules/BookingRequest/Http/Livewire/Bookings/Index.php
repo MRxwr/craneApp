@@ -52,8 +52,7 @@ class Index extends Component
             // if ($dt->is_paten == 1) {
             //     $this->emit('pesanGagal', 'Sorry, this user can not edited..');
             // } else {
-            updateStatus(new BookingRequest, $id);
-
+            //updateStatus(new BookingRequest, $id);
             $this->emit('pesanSukses', 'Sucess..');
             // }
         } catch (\Exception $th) {

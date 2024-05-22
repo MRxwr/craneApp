@@ -53,8 +53,8 @@ function akses($str)
         return false;
     }
 }
-function _lang(Request $request,$slug){
-    $token = $request->header('Authorization');
+function _lang($slug){
+    $token = \Request->header('Authorization');
     $code=  (Session::get('locale')?Session::get('locale'):'en');
     $lang = Locale::where('slug',$slug)->first();
    if($lang ){

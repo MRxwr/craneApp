@@ -64,7 +64,7 @@ function _lang($slug){
             $code= 'ar';   
         } 
     }else{
-        $code=  (Session::get('locale')?Session::get('locale'):'en');
+        $code =  (Session::get('locale')?Session::get('locale'):'en');
     }
     $lang = Locale::where('slug',$slug)->first();
    if($lang ){
@@ -206,9 +206,7 @@ function upadteUserMeta($key,$value,$app_user_id){
     $log->activity   = $activity;
     $log->flag =1; 
     $log->save();
-
   }
-
   function firebaseNotification($user){
 
   }

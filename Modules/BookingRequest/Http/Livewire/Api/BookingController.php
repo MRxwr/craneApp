@@ -369,7 +369,7 @@ class BookingController extends Controller
                 'file' => $e->getFile(),
                 'line' => $e->getLine()
             ];
-           
+            return outputError($data);
         }
         
     }

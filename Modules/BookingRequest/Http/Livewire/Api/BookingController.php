@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
 use App\Services\FCMService;
 
-class UserBookingController extends Controller
+class BookingController extends Controller
 {
     
     public function sendRequest(Request $request){

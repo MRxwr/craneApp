@@ -54,20 +54,11 @@
                                 <td>
                                     @if (akses('edit-user'))
                                         @if ($dt->is_active == 1)
-                                            <div style="cursor: pointer;"
-                                                wire:click.prevent="update_status({{ $dt->id }})"
-                                                class="badge badge-success">{{_lang('Active')}} </div>
+                                            <div style="cursor: pointer;" wire:click.prevent="update_status({{ $dt->id }})" class="badge badge-success">{{ _lang('Active') }}</div>
                                         @elseif ($dt->is_active == 4)
-                                                <div style="cursor: pointer;"
-                                                    wire:click.prevent="update_status({{ $dt->id }})"
-                                                    class="badge badge-danger">{{_lang('Canceled')}}
-                                                </div>
-                                            @endif
-                                        @else 
-                                            <div style="cursor: pointer;"
-                                                wire:click.prevent="update_status({{ $dt->id }})"
-                                                class="badge badge-danger">{{_lang('Not Active')}}
-                                            </div>
+                                            <div style="cursor: pointer;" wire:click.prevent="update_status({{ $dt->id }})" class="badge badge-danger">{{ _lang('Canceled') }}</div>
+                                        @else
+                                            <div style="cursor: pointer;" wire:click.prevent="update_status({{ $dt->id }})" class="badge badge-danger">{{ _lang('Not Active') }}</div>
                                         @endif
                                     @endif
 

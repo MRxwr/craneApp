@@ -131,7 +131,7 @@
                                 @foreach($forms['logs'] as $log)
                                     <tr> 
                                         <td>{{$log['driver']}}</td>
-                                        <td>{{$log['mobile']}}</td>
+                                        <td>{{$log['client']}}</td>
                                         <td>{{$log['activity']}}</td>
                                         
                                     </tr>

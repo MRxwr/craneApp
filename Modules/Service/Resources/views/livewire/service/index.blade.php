@@ -41,7 +41,7 @@
                 <table class="table table-bordered table-md">
                     <tbody>
                         <tr>
-                            <th>ID</th>
+                            <th> {{_lang('ID')}}</th>
                             
                             <th>{{_lang('Title')}}</th>
                             <th>{{_lang('Description')}}</th>
@@ -60,11 +60,11 @@
                                         @if ($dt->is_active == 1)
                                             <div style="cursor: pointer;"
                                                 wire:click.prevent="update_status({{ $dt->id }})"
-                                                class="badge badge-success">Active</div>
+                                                class="badge badge-success"> {{_lang('Active')}}</div>
                                         @else
                                             <div style="cursor: pointer;"
                                                 wire:click.prevent="update_status({{ $dt->id }})"
-                                                class="badge badge-danger">Not Active</div>
+                                                class="badge badge-danger"> {{_lang('Not Active')}}</div>
                                         @endif
                                     @endif
 
@@ -76,7 +76,7 @@
                                     <div class="dropdown d-inline">
                                         <button class="btn btn-primary dropdown-toggle" type="button"
                                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            Action
+                                            {{_lang('Action')}}
                                         </button>
                                         <div class="dropdown-menu" x-placement="bottom-start"
                                             style="position: absolute; transform: translate3d(0px, 28px, 0px); top: 0px; left: 0px; will-change: transform;">
@@ -84,7 +84,7 @@
                                                 <a class="dropdown-item has-icon" href="{{ route('services.edit', $dt->id) }}"
                                                     ><i
                                                         class="bi bi-pencil-square"></i>
-                                                    Edit</a>
+                                                        {{_lang('Edit')}}</a>
                                             @endif
 
                                             @if (akses('delete-service'))
@@ -92,7 +92,7 @@
                                                     onclick="return confirm('Confirm delete?') || event.stopImmediatePropagation()"
                                                     href="#" wire:click.prevent="destroy({{ $dt->id }})"><i
                                                         class="bi bi-trash3"></i>
-                                                    Delete</a>
+                                                        {{_lang('Delete')}}</a>
                                             @endif
                                         </div>
                                     </div>

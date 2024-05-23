@@ -26,7 +26,10 @@ class HomeController extends Controller
     }
     public function Success(Request $request)
     {
-        dd($request->all());
+        
+        if($request->bsid){
+            dd($request->bsid);
+        }
         return view('page');
     }
     public function Failed(Request $request)

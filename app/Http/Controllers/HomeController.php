@@ -26,13 +26,26 @@ class HomeController extends Controller
     }
     public function Success(Request $request)
     {
-        
+        $data=[];
         if($request->bsid){
             $decodedData = base64_decode($request->bsid);
             $ids=explode('|',$decodedData);
-            dd($ids);
+            if(!empty($ids)){
+                $bidid = $ids[0];
+                $pid = $ids[1];
+                $dt = BookingRequest::with('prices')->find($bidid);
+                $price = BookingPrice::find($pid);
+                $payment=BookingPayment::where('request_id')->first();
+                $payment->driver_id=$price->driver_id;
+                $payment->transaction_id=$request->paymentId;
+                $payment->payment_status='success';
+                $payment->save();
+                $data['dt'] = $dt;
+                $data['price'] = $price;
+                $data['payment'] = $payment; 
+            }
         }
-        return view('page');
+        return view('page',compact('data'));
     }
     public function Failed(Request $request)
     { 

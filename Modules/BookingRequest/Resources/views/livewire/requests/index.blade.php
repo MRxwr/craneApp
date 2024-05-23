@@ -105,7 +105,7 @@
                                                     onclick="return confirm('Confirm cancel?') || event.stopImmediatePropagation()"
                                                     href="#" wire:click.prevent="Canceled({{ $dt->id }})"><i
                                                         class="bi bi-trash3"></i>
-                                                    Delete</a>
+                                                    Cancel</a>
                                             @endif
 
                                         </div>

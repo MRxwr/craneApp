@@ -135,7 +135,7 @@
 
             @if (akses('view-banners'))
             <li class="nav-item">
-                <a href="{{ url('banners/index') }}" class="nav-link">
+                <a href="{{ url('banners/index') }}" class="nav-link pl-4">
                 <i class="nav-icon fas fa-image"></i>
                     <!-- <i class="nav-icon fas fa-file"></i> -->
                     <p>{{_lang('Banners')}}</p>
@@ -145,7 +145,7 @@
 
             @if (akses('view-faqs'))
             <li class="nav-item">
-                <a href="{{ url('faqs/index') }}" class="nav-link">
+                <a href="{{ url('faqs/index') }}" class="nav-link pl-4">
                     <i class="nav-icon fas fa-circle-question">Q</i>
                     <p>{{_lang('Faqs')}}</p>
                 </a>

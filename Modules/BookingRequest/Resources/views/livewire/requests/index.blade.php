@@ -101,11 +101,13 @@
                                             @endif
 
                                             @if (akses('cancel-request'))
+                                              @if($dt->is_active!=4)
                                                 <a class="dropdown-item has-icon"
                                                     onclick="return confirm('Confirm cancel?') || event.stopImmediatePropagation()"
                                                     href="#" wire:click.prevent="canceled({{ $dt->id }})"><i
                                                         class="bi bi-trash3"></i>
                                                     Cancel</a>
+                                                @endif    
                                             @endif
 
                                         </div>

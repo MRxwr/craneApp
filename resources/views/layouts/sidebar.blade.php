@@ -24,8 +24,8 @@
             <ul class="nav nav-treeview">
                 @if (akses('view-users'))
                     <li class="nav-item">
-                        <a href="{{ url('users/index') }}"
-                            class="nav-link {{ request()->segment(1) == 'users' && request()->segment(2) == 'index' ? 'active' : '' }}">
+                        <a href="{{ url('users/index') }}" 
+                            class="nav-link pl-4 {{ request()->segment(1) == 'users' && request()->segment(2) == 'index' ? 'active' : '' }}">
                             <i class="far fa-circle nav-icon"></i>
                             <p>{{_lang('Manage Users')}}</p>
                         </a>
@@ -34,8 +34,8 @@
 
                 @if (akses('view-client'))
                     <li class="nav-item">
-                        <a href="{{ url('users/clients') }}"
-                            class="nav-link {{ request()->segment(1) == 'users' && request()->segment(2) == 'clients' ? 'active' : '' }}">
+                        <a href="{{ url('users/clients') }}" 
+                            class="nav-link pl-4 {{ request()->segment(1) == 'users' && request()->segment(2) == 'clients' ? 'active' : '' }}">
                             <i class="far fa-circle nav-icon"></i>
                             <p>{{_lang('Manage Clients')}}</p>
                         </a>
@@ -44,8 +44,8 @@
 
                 @if (akses('view-driver'))
                     <li class="nav-item">
-                        <a href="{{ url('users/drivers') }}"
-                            class="nav-link {{ request()->segment(1) == 'users' && request()->segment(2) == 'drivers' ? 'active' : '' }}">
+                        <a href="{{ url('users/drivers') }}" 
+                            class="nav-link pl-4 {{ request()->segment(1) == 'users' && request()->segment(2) == 'drivers' ? 'active' : '' }}">
                             <i class="far fa-circle nav-icon"></i>
                             <p>{{_lang('Manage Drivers')}}</p>
                         </a>
@@ -54,8 +54,8 @@
 
                 @if (akses('view-roles'))
                     <li class="nav-item">
-                        <a href="{{ url('users/roles') }}"
-                            class="nav-link {{ request()->segment(1) == 'users' && request()->segment(2) == 'roles' ? 'active' : '' }}">
+                        <a href="{{ url('users/roles') }}" 
+                            class="nav-link pl-4 {{ request()->segment(1) == 'users' && request()->segment(2) == 'roles' ? 'active' : '' }}">
                             <i class="far fa-circle nav-icon"></i>
                             <p>{{_lang('Manage Role')}}</p>
                         </a>
@@ -65,7 +65,7 @@
         </li>
         @if (akses('view-service'))
           <li class="nav-item">
-             <a href="{{ url('services/index') }}" class="nav-link">
+             <a href="{{ url('services/index') }}" class="nav-link pl-4">
                 <i class="nav-icon fas fa-th"></i>
                 <p>{{_lang('Services')}}</p>
              </a>
@@ -83,7 +83,7 @@
             <ul class="nav nav-treeview">
                 @if (akses('view-request'))
                 <li class="nav-item">
-                    <a href="{{ url('bookings/request') }}" class="nav-link">
+                    <a href="{{ url('bookings/request') }}" class="nav-link pl-4">
                     <i class="nav-icon fas fa-file"></i>
                         <!-- <i class="nav-icon fas fa-file"></i> -->
                         <p>{{_lang('Requests')}}</p>
@@ -91,9 +91,19 @@
                 </li> 
                 @endif
 
+                @if (akses('view-cancel'))
+                <li class="nav-item">
+                    <a href="{{ url('bookings/request') }}" class="nav-link pl-4">
+                    <i class="nav-icon fas fa-times"></i>
+                        <!-- <i class="nav-icon fas fa-file"></i> -->
+                        <p>{{_lang('Canceled Requests')}}</p>
+                    </a>
+                </li> 
+                @endif
+
                 @if (akses('view-coupons'))
                 <li class="nav-item">
-                    <a href="{{ url('coupons/index') }}" class="nav-link">
+                    <a href="{{ url('coupons/index') }}" class="nav-link pl-4">
                     <i class="nav-icon fas fa-percentage"></i>
                         <!-- <i class="nav-icon fas fa-file"></i> -->
                         <p>{{_lang('Coupons')}}</p>
@@ -114,7 +124,7 @@
             <ul class="nav nav-treeview">
             @if (akses('view-pages'))
             <li class="nav-item">
-                <a href="{{ url('pages/index') }}" class="nav-link">
+                <a href="{{ url('pages/index') }}" class="nav-link pl-4">
                 <i class="nav-icon fas fa-file"></i>
                     <!-- <i class="nav-icon fas fa-file"></i> -->
                     <p>{{_lang('Pages')}}</p>
@@ -147,7 +157,7 @@
         <!-- Settings -->
 
         <li class="nav-item {{ request()->segment(1) == 'settings' ? 'menu-open' : '' }}">
-            <a href="#" class="nav-link {{ request()->segment(1) == 'settings' ? 'active' : '' }}">
+            <a href="#" class="nav-link pl-4 {{ request()->segment(1) == 'settings' ? 'active' : '' }}">
                 <i class="nav-icon fas fa-cog "></i>
                 <p>{{_lang('Settings')}}
                     <i class="right fas fa-angle-left"></i>
@@ -158,7 +168,7 @@
               @if (akses('view-setting'))
                     <li class="nav-item">
                         <a href="{{ route('settings.index',['rowId'=>1]) }}"
-                            class="nav-link {{ request()->segment(1) == 'settings' && request()->segment(2) == 'index' ? 'active' : '' }}">
+                            class="nav-link pl-4 {{ request()->segment(1) == 'settings' && request()->segment(2) == 'index' ? 'active' : '' }}">
                             <i class="far fa-circle nav-icon"></i>
                             <p>{{_lang('Manage Settings')}}</p>
                         </a>
@@ -167,7 +177,7 @@
                 @if (akses('view-language'))
                     <li class="nav-item">
                         <a href="{{ route('languages.index') }}"
-                            class="nav-link {{ request()->segment(1) == 'settings' && request()->segment(2) == 'languages' ? 'active' : '' }}">
+                            class="nav-link pl-4 {{ request()->segment(1) == 'settings' && request()->segment(2) == 'languages' ? 'active' : '' }}">
                             <i class="far fa-circle nav-icon"></i>
                             <p>{{_lang('Manage Languages')}}</p>
                         </a>
@@ -177,7 +187,7 @@
                 @if (akses('view-locale'))
                     <li class="nav-item">
                         <a href="{{ route('locales.index') }}"
-                            class="nav-link {{ request()->segment(1) == 'settings' && request()->segment(2) == 'locales' ? 'active' : '' }}">
+                            class="nav-link pl-4 {{ request()->segment(1) == 'settings' && request()->segment(2) == 'locales' ? 'active' : '' }}">
                             <i class="far fa-circle nav-icon"></i>
                             <p>{{_lang('Manage locales')}}</p>
                         </a>

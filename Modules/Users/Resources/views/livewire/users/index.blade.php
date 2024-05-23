@@ -74,7 +74,7 @@
                                     <div class="dropdown d-inline">
                                         <button class="btn btn-primary dropdown-toggle" type="button"
                                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            Action
+                                            {{_lang('Action')}}
                                         </button>
                                         <div class="dropdown-menu" x-placement="bottom-start"
                                             style="position: absolute; transform: translate3d(0px, 28px, 0px); top: 0px; left: 0px; will-change: transform;">

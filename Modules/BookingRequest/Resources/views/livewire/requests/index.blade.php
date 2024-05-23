@@ -103,7 +103,7 @@
                                             @if (akses('cancel-request'))
                                                 <a class="dropdown-item has-icon"
                                                     onclick="return confirm('Confirm cancel?') || event.stopImmediatePropagation()"
-                                                    href="#" wire:click.prevent="Canceled({{ $dt->id }})"><i
+                                                    href="#" wire:click.prevent="canceled({{ $dt->id }})"><i
                                                         class="bi bi-trash3"></i>
                                                     Cancel</a>
                                             @endif

@@ -15,5 +15,6 @@
 Route::middleware(['web', 'auth'])->group(function () {
     Route::prefix('bookings')->group(function () {
         Route::get('request', 'bookings\index');
+        Route::get('request/canceled', 'bookings\canceled');
     });
 });

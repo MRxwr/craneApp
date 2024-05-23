@@ -40,12 +40,12 @@
                 <table class="table table-bordered table-md">
                     <tbody>
                         <tr>
-                            <th>ID</th>
-                            <th>Role</th>
-                            <th>Name</th>
-                            <th>Email</th>
-                            <th>Status</th>
-                            <th>Action</th>
+                            <th>{{_lang('ID')}}</th>
+                            <th>{{_lang('Role')}}</th>
+                            <th>{{_lang('Name')}}</th>
+                            <th>{{_lang('Email')}}</th>
+                            <th>{{_lang('Status')}}</th>
+                            <th>{{_lang('Action')}}</th>
                         </tr>
                         @foreach ($data as $e => $dt)
                             <tr>
@@ -58,11 +58,11 @@
                                         @if ($dt->is_active == 1)
                                             <div style="cursor: pointer;"
                                                 wire:click.prevent="update_status({{ $dt->id }})"
-                                                class="badge badge-success">Active</div>
+                                                class="badge badge-success">{{_lang('Active')}}</div>
                                         @else
                                             <div style="cursor: pointer;"
                                                 wire:click.prevent="update_status({{ $dt->id }})"
-                                                class="badge badge-danger">Not Active</div>
+                                                class="badge badge-danger">{{_lang('Not Active')}}</div>
                                         @endif
                                     @endif
 
@@ -82,7 +82,7 @@
                                                 <a class="dropdown-item has-icon" href="#"
                                                     wire:click.prevent="edit_data({{ $dt->id }})"><i
                                                         class="bi bi-pencil-square"></i>
-                                                    Edit</a>
+                                                        {{_lang('Edit')}}</a>
                                             @endif
 
                                             @if (akses('delete-user'))
@@ -90,7 +90,7 @@
                                                     onclick="return confirm('Confirm delete?') || event.stopImmediatePropagation()"
                                                     href="#" wire:click.prevent="destroy({{ $dt->id }})"><i
                                                         class="bi bi-trash3"></i>
-                                                    Delete</a>
+                                                        {{_lang('Delete')}}</a>
                                             @endif
                                         </div>
                                     </div>

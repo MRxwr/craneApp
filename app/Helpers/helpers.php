@@ -12,6 +12,8 @@ use Modules\AppUser\Entities\Wallet;
 use Modules\BookingRequest\Entities\BookingRequest;
 use Modules\BookingRequest\Entities\BookingLog;
 use Modules\BookingRequest\Entities\BookingPrice;
+use Modules\BookingRequest\Entities\BookingPayment;
+
 use Modules\Pages\Entities\Page;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Model;
@@ -218,4 +220,37 @@ function upadteUserMeta($key,$value,$app_user_id){
     $wallet->mode=$data['mode'];
     $wallet->remark=$data['remark'];
     $wallet->save();
+  }
+  function checkCoupon($price){
+    
+    if(Request::input('is_coupon') && Request::input('is_coupon')=='yes'){
+        $discount = Request::input('discount');
+        return $price = $price - $discount;
+    }else{
+        return $price; 
+    }
+  }
+
+  function DoBooking($dt,$transaction_id,$payment_type,$price,$remark){
+    $booking =  new BookingPayment();
+    $booking->request_id =$dt->id;
+    $booking->client_id =$dt->client_id;
+    $booking->transaction_id =$transaction_id;
+    $booking->payment_type =$payment_type;
+    if($payment_type=='wallet'){
+        $booking->payment_status ='success';
+    }else{
+        $booking->payment_status ='ongoing';
+    }
+    
+    if(Request::input('is_coupon') && Request::input('is_coupon')=='yes'){
+        $booking->is_coupon='yes';
+        $booking->coupon_code=Request::input('coupon_code');
+        $booking->coupon_code=Request::input('coupon_discount');
+     }
+    $booking->payment_amount =$price;
+    $booking->remark =$remark;
+    if($booking->save()){
+        return true;
+    }
   }

@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
 use App\Services\FCMService;
 
-class UserBookingController extends Controller
+class BookingController extends Controller
 {
     
     public function sendRequest(Request $request){
@@ -77,8 +77,8 @@ class UserBookingController extends Controller
            
         }
     }
-    //For driver :: single order for driver add price 
-    public function getOrdersRequest(Request $request){ 
+
+    public function getOrdersRequest(Request $request){
         $data = array();
         $token = $request->header('Authorization');
         // Check if validation fails
@@ -137,7 +137,7 @@ class UserBookingController extends Controller
            
         }
     }
-    //For driver :: single order for driver add price 
+
     public function saveOrderRequest(Request $request){
         $data = array();
         $token = $request->header('Authorization');
@@ -186,7 +186,6 @@ class UserBookingController extends Controller
            
         }
     }
-    //For driver/client :: just update order status like upcoming,ongoing,completed 
     public function changeOrderStatus(Request $request){
         $data = array();
         $token = $request->header('Authorization');
@@ -220,7 +219,6 @@ class UserBookingController extends Controller
             return outputError($data); 
         }
     }
-    //For client : return list driver of this order
     public function getDriverListRequest(Request $request){
         $data = array();
         $token = $request->header('Authorization');
@@ -277,7 +275,7 @@ class UserBookingController extends Controller
            
         }
     }
-    //For client : Place order with payment (knet/card/wallet)
+
     public function placeOrderRequest(Request $request){
         $data = array();
         $payment_data=array();
@@ -297,37 +295,24 @@ class UserBookingController extends Controller
                $bidid= $request->input('request_id');
                $payment_method=$request->input('payment_method');
                $is_wallet=$request->input('is_wallet');
-               $driver_id=$request->input('driver_id');
                $data['message']=_lang('Place Order Request');
                $dt = BookingRequest::with('prices')->find($bidid);
-                $bidprice = $dt->prices()->where('driver_id', $driver_id)->first();
+                $bidprice = $dt->prices()->where('driver_id', $user->id)->first();
                 $prices=[];
                 if($bidprice){
                     if($is_wallet==1){
                         $price = floatval($bidprice->price);
-                        if(checkCoupon($price)){
-                            $price = checkCoupon($price);
-                        }
                         $wallet= floatval(getUserMeta('wallet',$user->id));
                         if($wallet>=$price){
                             $newwalletValue=$wallet-$price;
                             upadteUserMeta('wallet',$newwalletValue,$user->id);
-                            $wdata['request_id']=$dt->id;
-                            $wdata['app_user_id']=$user->id;
-                            $wdata['amount']=$price;
-                            $wdata['mode']='debit';
-                            $wdata['remark']=_lang('payment successfully done through wallet by ').$user->name;
-                             walletTransaction($wdata);
                             $data['payment_data']['payment_type']='wallet';
                             $data['payment_data']['payment_status']='success';
                             $activity = _lang('payment successfully done through wallet by ').$user->name;
-                            $remark =_lang('payment successfully done through wallet by ').$user->name;
-                            $payment_type ='wallet';
-                            $transaction_id=time();
-                            if(DoBooking($dt,$transaction_id,$payment_type,$price,$remark)){
-                                AddBookingLog($dt,$activity);
-                                return outputSuccess($data);
-                            }
+                            AddBookingLog($dt,$activity);  
+                            $driverList[$bidid]['prices']=$prices;
+                            $data['payment_data']= $pdata;
+
                         }else{
                             $data['message']=_lang('Insufficient funds in the wallet');
                             return outputError($data); 
@@ -368,10 +353,10 @@ class UserBookingController extends Controller
         }
         
     }
-    //payment action 
+
     public function doPayment($payment_data){
         $bsid=base64_encode($payment_data['booking_id'].'|'.$payment_data['price_id']);
-        $PaymentAPIKey = 'CKW-1640114323-2537';
+        $PaymentAPIKey = '';
         $paymentMethod=$payment_data['paymentMethod'];
         $name = $payment_data['customer_name'];
         $phone1 = $payment_data['customer_mobile'];

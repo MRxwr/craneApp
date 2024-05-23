@@ -127,7 +127,7 @@
                             <div class="card-body">
                                 {{ $message ?? '' }}
                                 <div class="form-group">
-                                    <label for="name">Name</label>
+                                    <label for="name"> {{_lang('Name')}}</label>
                                     <input wire:model="forms.name" type="text" class="form-control" id="name"
                                         placeholder="Name">
                                     {{-- {{ $forms['name'] }} --}}
@@ -137,7 +137,7 @@
                                 </div>
                                 <div class="form-row">
                                     <div class="form-group col-md-12">
-                                        <label for="inputEmail4">Email</label>
+                                        <label for="inputEmail4"> {{_lang('Email')}}</label>
                                         <input wire:model="forms.email" type="text" class="form-control"
                                             id="inputEmail4" placeholder="Email">
                                         @error('forms.email')
@@ -147,7 +147,7 @@
                                 </div>
                                 <div class="form-row">
                                     <div class="form-group col-md-12">
-                                        <label for="role_id">Role</label>
+                                        <label for="role_id"> {{_lang('Role')}}</label>
                                         <select class="form-control" wire:model="forms.role_id">
                                             <option value="">Select Role</option>
                                             @foreach ($roles as $rl)
@@ -161,17 +161,14 @@
                                 </div>
                             </div>
                             <div class="card-footer">
-                                <button type="submit" class="btn btn-primary">Submit</button>
+                                <button type="submit" class="btn btn-primary"> {{_lang('Submit')}}</button>
                                 <img src="{{ asset('loading-bar.gif') }}" alt="" wire:loading wire:target="store">
                             </div>
                         </form>
                     </div>
 
                 </div>
-                {{-- <div class="modal-footer">
-                    <button type="button" class="btn btn-primary">Save changes</button>
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                </div> --}}
+                
             </div>
         </div>
     </div>

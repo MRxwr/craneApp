@@ -65,7 +65,7 @@
         </li>
         @if (akses('view-service'))
           <li class="nav-item">
-             <a href="{{ url('services/index') }}" class="nav-link pl-4">
+             <a href="{{ url('services/index') }}" class="nav-link">
                 <i class="nav-icon fas fa-th"></i>
                 <p>{{_lang('Services')}}</p>
              </a>
@@ -157,7 +157,7 @@
         <!-- Settings -->
 
         <li class="nav-item {{ request()->segment(1) == 'settings' ? 'menu-open' : '' }}">
-            <a href="#" class="nav-link pl-4 {{ request()->segment(1) == 'settings' ? 'active' : '' }}">
+            <a href="#" class="nav-link {{ request()->segment(1) == 'settings' ? 'active' : '' }}">
                 <i class="nav-icon fas fa-cog "></i>
                 <p>{{_lang('Settings')}}
                     <i class="right fas fa-angle-left"></i>

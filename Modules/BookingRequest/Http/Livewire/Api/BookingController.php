@@ -334,7 +334,10 @@ class BookingController extends Controller
                         }
 
                     }else{
-                        $price = $bidprice->price;
+                        $price = floatval($bidprice->price);
+                        if(checkCoupon($price)){
+                            $price = checkCoupon($price);
+                        }
                         $payment_data['booking_id']=$dt->id;
                         $payment_data['price_id'] = $bidprice->id;
                         $payment_data['customer_name']=$user->name;
@@ -343,13 +346,20 @@ class BookingController extends Controller
                         $payment_data['paymentMethod'] = $payment_method;
                         $payment_data['pay_amount']= $price;
                         $pdata = $this->doPayment($payment_data);
+                        $remark =_lang('payment successfully done through wallet by ').$user->name;
+                            $payment_type ='knet/card';
+                            $transaction_id='';
+                            if(DoBooking($dt,$transaction_id,$payment_type,$price,$remark)){
+                                AddBookingLog($dt,$activity);
+                                $activity = _lang('payment successfully done through payapi by ').$user->name;
+                                AddBookingLog($dt,$activity);  
+                                $driverList[$bidid]['prices']=$prices;
+                                $data['payment_data']= $pdata;
+                                return outputSuccess($data);
+                            }
                         //$bidprice->is_accepted = 1;
                         //$bidprice->save();
-                         $activity = _lang('payment successfully done through payapi by ').$user->name;
-                         AddBookingLog($dt,$activity);  
-                         $driverList[$bidid]['prices']=$prices;
-                         $data['payment_data']= $pdata;
-                        return outputSuccess($data);
+                         
                     }
                     
                 }
@@ -357,8 +367,7 @@ class BookingController extends Controller
             } else {
                 // Authentication failed
                 $data['message']=_lang('Unauthorized');
-                return outputError($data); 
-                
+                return outputError($data);   
             }
         } catch (\Exception $e) {
             // Log or handle the exception
@@ -369,7 +378,7 @@ class BookingController extends Controller
                 'file' => $e->getFile(),
                 'line' => $e->getLine()
             ];
-            return outputError($data);
+           return outputError($data);
         }
         
     }

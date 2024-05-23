@@ -2,7 +2,21 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Contracts\Support\Renderable;
+use App\Traits\MasterData;
+use Modules\BookingRequest\Entities\BookingRequest;
+use Modules\BookingRequest\Entities\BookingLog;
+use Modules\BookingRequest\Entities\BookingPrice;
+use Modules\BookingRequest\Entities\BookingPayment;
+use Modules\AppUser\Entities\AppUser;
+use Illuminate\Routing\Controller;
+use Modules\Pages\Entities\Page;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Auth;
+use App\Services\FCMService;
 
 class HomeController extends Controller
 {
@@ -10,14 +24,15 @@ class HomeController extends Controller
     {
         return view('home');
     }
-    public function Success()
+    public function Success(Request $request)
     {
+        dd($request->all());
         return view('page');
     }
-    public function Failed()
-    {
+    public function Failed(Request $request)
+    { 
         return view('page');
     }
 
-    
+
 }

@@ -116,7 +116,7 @@
     </div>
 
     <div class="modal fade" tabindex="-1" role="dialog" id="modalAdd" wire:ignore.self>
-        <div class="modal-dialog" role="document">
+        <div class="modal-dialog " role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">{{ _lang('Booking Request') }}  #{{$forms['request_id']}}</h5>
@@ -140,7 +140,7 @@
                             </table>
                         </div>
                     @endif
-                    
+
                     @if($forms['logs'])
                         <div class="form-group col-md-12 table-responsive">
                         <table class="table table-bordered table-md">

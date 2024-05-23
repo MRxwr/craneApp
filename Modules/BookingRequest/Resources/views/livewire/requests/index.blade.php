@@ -125,15 +125,35 @@
                     </button>
                 </div>
                 <div class="modal-body">
+
+                    @if($forms['prices'])
+                        <div class="form-group col-md-12 table-responsive">
+                        <table class="table table-bordered table-md">
+                                @foreach($forms['prices'] as $price)
+                                    <tr> 
+                                        <td>{{$price['driver']}}</td>
+                                        <td>{{$price['mobile']}}</td>
+                                        <td>{{$price['price']}}KD</td>
+                                        <td>{{($price['is_accepted']?'Yes':'No')}}</td>
+                                    </tr>
+                                @endforeach
+                            </table>
+                        </div>
+                    @endif
+                    
                     @if($forms['logs'])
                         <div class="form-group col-md-12 table-responsive">
                         <table class="table table-bordered table-md">
+                                    <tr> 
+                                        <th>{{ _lang('Client') }}</th>
+                                        <th>{{ _lang('Driver') }}</th>
+                                        <th>{{ _lang('Activity') }}</th>
+                                    </tr>
                                 @foreach($forms['logs'] as $log)
                                     <tr> 
-                                        <td>{{$log['driver']}}</td>
                                         <td>{{$log['client']}}</td>
+                                        <td>{{$log['driver']}}</td>
                                         <td>{{$log['activity']}}</td>
-                                        
                                     </tr>
                                 @endforeach
                             </table>

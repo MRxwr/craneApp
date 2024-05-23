@@ -18,8 +18,7 @@ use App\Services\FCMService;
 
 class UserBookingController extends Controller
 {
-    
-    public function sendRequest(Request $request){
+    public function GetClientHome(Request $request){
         $data = array();
         $token = $request->header('Authorization');
         // Check if validation fails

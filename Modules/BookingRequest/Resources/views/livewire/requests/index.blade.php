@@ -100,7 +100,7 @@
                                                     Delete</a>
                                             @endif
 
-                                            @if (akses('delete-request'))
+                                            @if (akses('cancel-request'))
                                                 <a class="dropdown-item has-icon"
                                                     onclick="return confirm('Confirm cancel?') || event.stopImmediatePropagation()"
                                                     href="#" wire:click.prevent="Canceled({{ $dt->id }})"><i

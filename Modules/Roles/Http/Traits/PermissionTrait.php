@@ -249,7 +249,14 @@ trait PermissionTrait
                 'type' => 'manage-bid',
                 'title' => 'view-wallet'
             ],  
-
+            [
+                'type' => 'manage-bid',
+                'title' => 'cancel-request'
+            ], 
+            [
+                'type' => 'manage-bid',
+                'title' => 'delete-request'
+            ],
             
             // Manage page
             [

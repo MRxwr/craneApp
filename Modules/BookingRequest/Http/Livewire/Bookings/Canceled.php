@@ -9,7 +9,7 @@ use Modules\BookingRequest\Entities\BookingRequest;
 use Modules\BookingRequest\Http\Traits\BookingRequestTrait;
 
 
-class Index extends Component
+class Canceled extends Component
 {
     use WithPagination;
     protected $paginationTheme = 'bootstrap';
@@ -63,27 +63,7 @@ class Index extends Component
         }
     }
 
-    public function canceled($id)
-    {
-        if (!akses('change-status-user')) {
-            $this->emit('pesanGagal', 'Access Denied..');
-            return false;
-        }
-
-        try {
-            $dt = BookingRequest::find($id);
-            $dt->is_active=4;
-            $dt->status=4;
-            $dt->save();
-            $this->emit('pesanSukses', 'Sucess..');
-            // }
-        } catch (\Exception $th) {
-            //throw $th;
-            $pesan = MasterData::pesan_gagal($th);
-
-            $this->emit('pesanGagal', $pesan);
-        }
-    }
+    
 
     public function tambah_data()
     {

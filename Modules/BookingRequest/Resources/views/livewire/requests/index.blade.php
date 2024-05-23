@@ -57,7 +57,13 @@
                                             <div style="cursor: pointer;"
                                                 wire:click.prevent="update_status({{ $dt->id }})"
                                                 class="badge badge-success">{{_lang('Active')}} </div>
-                                        @else
+                                        @else @if ($dt->is_active == 4)
+                                                <div style="cursor: pointer;"
+                                                    wire:click.prevent="update_status({{ $dt->id }})"
+                                                    class="badge badge-danger">{{_lang('Canceled')}}
+                                                </div>
+                                            @endif
+                                        @else 
                                             <div style="cursor: pointer;"
                                                 wire:click.prevent="update_status({{ $dt->id }})"
                                                 class="badge badge-danger">{{_lang('Not Active')}}

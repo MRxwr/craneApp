@@ -299,9 +299,9 @@ class BookingController extends Controller
                $is_wallet=$request->input('is_wallet');
                $driver_id=$request->input('driver_id');
                $dt = BookingRequest::with('prices')->find($bidid);
-                $bidprice = $dt->prices()->where('driver_id', $driver_id)->first();
-                $prices=[];
-                $data['message']=_lang('Place Order Request');
+               $bidprice = $dt->prices->where('driver_id', $driver_id)->first();
+               $prices=[];
+               $data['message']=_lang('Place Order Request');
                 if($bidprice){
                     if($is_wallet==1){
                         $price = floatval($bidprice->price);

@@ -92,13 +92,22 @@
                                                     class="bi bi-list"></i>
                                                     {{_lang('Booking Prices')}}</a>
                                             @endif
-                                            @if (akses('delete-user'))
+                                            @if (akses('delete-request'))
                                                 <a class="dropdown-item has-icon"
                                                     onclick="return confirm('Confirm delete?') || event.stopImmediatePropagation()"
                                                     href="#" wire:click.prevent="destroy({{ $dt->id }})"><i
                                                         class="bi bi-trash3"></i>
                                                     Delete</a>
                                             @endif
+
+                                            @if (akses('delete-request'))
+                                                <a class="dropdown-item has-icon"
+                                                    onclick="return confirm('Confirm cancel?') || event.stopImmediatePropagation()"
+                                                    href="#" wire:click.prevent="Canceled({{ $dt->id }})"><i
+                                                        class="bi bi-trash3"></i>
+                                                    Delete</a>
+                                            @endif
+
                                         </div>
                                     </div>
                                     {{-- @endif --}}

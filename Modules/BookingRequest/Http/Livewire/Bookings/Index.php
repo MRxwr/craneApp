@@ -170,7 +170,7 @@ class Index extends Component
     public function render()
     {
         $q = $this->search;
-        $data = BookingRequest::filter($q)->latest()->paginate($this->paging);
+        $data = BookingRequest::where('is_active','!=',4)->where('is_deleted',0)->filter($q)->latest()->paginate($this->paging);
         $pagings = MasterData::list_pagings();
         return view('bookingrequest::livewire.requests.index', compact(
             'data',

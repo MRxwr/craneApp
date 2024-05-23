@@ -357,18 +357,18 @@ class BookingController extends Controller
             } else {
                 // Authentication failed
                 $data['message']=_lang('Unauthorized');
-                $data['errors'] = [
-                    'message' => $e->getMessage(),
-                    'code' => $e->getCode(),
-                    'file' => $e->getFile(),
-                    'line' => $e->getLine()
-                ]; 
+                return outputError($data); 
                 
             }
         } catch (\Exception $e) {
             // Log or handle the exception
             $data['message']=_lang('Authentication error');
-            return outputError($data);
+            $data['errors'] = [
+                'message' => $e->getMessage(),
+                'code' => $e->getCode(),
+                'file' => $e->getFile(),
+                'line' => $e->getLine()
+            ];
            
         }
         

@@ -148,7 +148,7 @@ class Index extends Component
             'data_permissions' => $data_permissions
         ])
             ->layout('layouts.main', [
-                'title' => 'Roles'
+                'title' => _lang('Roles')
             ]);
     }
 }

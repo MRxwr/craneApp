@@ -131,8 +131,6 @@
                 </a>
             </li> 
             @endif
-
-
             @if (akses('view-banners'))
             <li class="nav-item">
                 <a href="{{ url('banners/index') }}" class="nav-link pl-4">

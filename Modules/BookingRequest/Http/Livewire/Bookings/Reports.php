@@ -1,28 +1,30 @@
 <?php
 
-namespace Modules\Users\Http\Livewire\Users;
+namespace Modules\BookingRequest\Http\Livewire\Bookings;
 
-use App\Models\User;
 use Livewire\Component;
 use App\Traits\MasterData;
 use Livewire\WithPagination;
-use Modules\Roles\Entities\Role;
-use Modules\Users\Http\Traits\UserTrait;
-use Modules\Roles\Http\Traits\PermissionTrait;
+use Modules\BookingRequest\Entities\BookingRequest;
+use Modules\BookingRequest\Entities\BookingPayment;
+use Modules\BookingRequest\Http\Traits\BookingRequestTrait;
 
-class Index extends Component
+
+class Reports extends Component
 {
     use WithPagination;
     protected $paginationTheme = 'bootstrap';
 
     public $paging, $search;
     public $forms = [];
-    public $id_edit,$is_edit,$image,$imageUrl;
+    public $id_edit, $is_edit,$avator ;
+    public $prices ;
+    public $logs ;
 
     public function mount()
     {
         $this->paging = 25;
-        $this->forms = UserTrait::firstForm();
+        $this->forms = BookingRequestTrait::firstForm();
         // dd($this->forms);
 
     }
@@ -46,13 +48,12 @@ class Index extends Component
         }
 
         try {
-            $dt = User::find($id);
+            $dt = BookingRequest::find($id);
 
             // if ($dt->is_paten == 1) {
             //     $this->emit('pesanGagal', 'Sorry, this user can not edited..');
             // } else {
-            updateStatus(new User, $id);
-
+            //updateStatus(new BookingRequest, $id);
             $this->emit('pesanSukses', 'Sucess..');
             // }
         } catch (\Exception $th) {
@@ -63,10 +64,12 @@ class Index extends Component
         }
     }
 
+    
+
     public function tambah_data()
     {
         $this->reset(['is_edit', 'id_edit']);
-        $this->forms = UserTrait::firstForm();
+        $this->forms = BookingRequestTrait::firstForm();
         $this->emit('modalAdd', 'show');
     }
 
@@ -74,10 +77,28 @@ class Index extends Component
     {
         $this->is_edit = 1;
         $this->id_edit = $id;
-
-        $this->forms = UserTrait::find_data($id);
-
+        $this->forms = BookingRequestTrait::find_data($id); 
+       
         $this->emit('modalAdd', 'show');
+    }
+
+    public function logs_data($id)
+    {
+        $this->is_edit = 1;
+        $this->id_edit = $id;
+
+        $this->forms = BookingRequestTrait::find_data($id);
+
+        $this->emit('modalLogs', 'show');
+    }
+
+    public function prices_data($id)
+    {
+        $this->is_edit = 1;
+        $this->id_edit = $id;
+        $this->forms = BookingRequestTrait::find_data($id);
+        //dd($this->forms['prices']);
+        $this->emit('modalPrice', 'show');
     }
 
     public function store()
@@ -86,27 +107,25 @@ class Index extends Component
             'forms.*' => 'required'
         ]);
         try {
-             // dd($this->forms);
-             
+
             // dd($this->forms);
             if ($this->id_edit) {
-                $validasi = UserTrait::store_validation($this->forms, $this->id_edit);
+                $validasi = BookingRequestTrait::store_validation($this->forms, $this->id_edit);
             } else {
-                $validasi = UserTrait::store_validation($this->forms);
+                $validasi = BookingRequestTrait::store_validation($this->forms);
             }
             // dd($validasi);
             if (!$validasi['success']) {
                 $this->emit('pesanGagal', $validasi['message']);
             } else {
                 if ($this->id_edit) {
-                    UserTrait::store_data($this->forms, $this->id_edit);
+                    BookingRequestTrait::store_data($this->forms, $this->id_edit);
                 } else {
-                    UserTrait::store_data($this->forms);
+                    BookingRequestTrait::store_data($this->forms);
                 }
 
                 $this->emit('modalAdd', 'hide');
-
-                $this->forms = UserTrait::firstForm();
+                $this->forms = BookingRequestTrait::firstForm();
                 $this->emit('pesanSukses', 'Store Success..');
                 $this->reset(['is_edit', 'id_edit']);
             }
@@ -120,7 +139,7 @@ class Index extends Component
     public function destroy($id)
     {
         try {
-            UserTrait::destroy($id);
+            BookingRequestTrait::destroy($id);
             $this->emit('pesanSukses', 'Success..');
         } catch (\Exception $th) {
             //throw $th;
@@ -132,16 +151,15 @@ class Index extends Component
     public function render()
     {
         $q = $this->search;
-        $data = User::where('is_deleted',0)->filter($q)->latest()->paginate($this->paging);
+        $data = BookingRequest::where('is_active',4)->where('is_deleted',0)->filter($q)->latest()->paginate($this->paging);
         $pagings = MasterData::list_pagings();
-        $roles = Role::active()->get();
-
-        return view('users::livewire.users.index', compact(
+        return view('bookingrequest::livewire.requests.index', compact(
             'data',
             'pagings',
-            'roles'
-        ))->layout('layouts.main', [
-                'title' => _lang('Manage Users')
-            ]);
+            
+        ))
+        ->layout('layouts.main', [
+                'title' => _lang('Manage Canceled Booking Request ')
+        ]);
     }
 }

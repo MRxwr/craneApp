@@ -28,7 +28,8 @@ class HomeController extends Controller
     {
         
         if($request->bsid){
-            dd($request->bsid);
+            $decodedData = base64_decode($request->bsid);
+            dd($decodedData);
         }
         return view('page');
     }

@@ -105,7 +105,7 @@
                                                 <a class="dropdown-item has-icon"
                                                     onclick="return confirm('Confirm cancel?') || event.stopImmediatePropagation()"
                                                     href="#" wire:click.prevent="canceled({{ $dt->id }})"><i
-                                                        class="bi bi-trash3"></i>
+                                                        class="bi bi-times"></i>
                                                     Cancel</a>
                                                 @endif    
                                             @endif

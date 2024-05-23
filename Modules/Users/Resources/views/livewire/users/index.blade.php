@@ -1,5 +1,4 @@
 <div>
-
     <div class="card">
         <div class="card-header">
             {{-- <h4>Simple Table</h4> --}}
@@ -7,7 +6,7 @@
                 <div class="buttons float-right">
                     <a wire:click.prevent="tambah_data" href="#" class="btn btn-icon icon-left btn-primary"><i
                             class="bi bi-clipboard-plus"></i>
-                        Add Data</a>
+                        {{_lang('Add new')}}</a>
                 </div>
             @endif
         </div>

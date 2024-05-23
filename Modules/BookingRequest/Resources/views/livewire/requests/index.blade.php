@@ -122,7 +122,7 @@
     </div>
 
     <div class="modal fade" tabindex="-1" role="dialog" id="modalAdd" wire:ignore.self>
-        <div class="modal-dialog " role="document">
+        <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">{{ _lang('Booking Request') }}  #{{$forms['request_id']}}</h5>
@@ -171,7 +171,7 @@
         </div>
     </div>
     <div class="modal fade" tabindex="-1" role="dialog" id="modalLogs" wire:ignore.self>
-        <div class="modal-dialog" role="document">
+        <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">Booking Logs</h5>
@@ -201,7 +201,7 @@
     </div>
 
     <div class="modal fade" tabindex="-1" role="dialog" id="modalPrice" wire:ignore.self>
-        <div class="modal-dialog" role="document">
+        <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">{{ _lang('Booking Price with driver') }}</h5>

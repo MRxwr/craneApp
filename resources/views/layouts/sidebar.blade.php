@@ -93,7 +93,7 @@
 
                 @if (akses('view-cancel'))
                 <li class="nav-item">
-                    <a href="{{ url('bookings/request') }}" class="nav-link pl-4">
+                    <a href="{{ url('bookings/request/canceled') }}" class="nav-link pl-4">
                     <i class="nav-icon fas fa-times"></i>
                         <!-- <i class="nav-icon fas fa-file"></i> -->
                         <p>{{_lang('Canceled Requests')}}</p>

@@ -256,7 +256,7 @@ class BookingController extends Controller
                         $prices[$key]['is_accepted'] = $price->is_accepted;
                     }   
                 }
-               $driverList[$bidid]['prices']=$prices;
+               $driverList['prices']=$prices;
                $data['driverList']= $driverList;
                return outputSuccess($data);
                 // Proceed with authenticated user logic

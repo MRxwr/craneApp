@@ -100,7 +100,6 @@ class BookingController extends Controller
                 $orderRequest =[];
                $prices=[];
                 foreach ($dt as $key=>$bookingRequest) {
-                    
                         $orderRequest[$key]['bidid']=$bookingRequest->id;
                         $orderRequest[$key]['request_id']=$bookingRequest->request_id;
                         $orderRequest[$key]['from_location']=$bookingRequest->from_location;
@@ -257,7 +256,7 @@ class BookingController extends Controller
                     }   
                 }
                $driverList['prices']=$prices;
-               $data['driverList']= $driverList;
+               $data['driverList']= [$driverList];
                return outputSuccess($data);
                 // Proceed with authenticated user logic
             } else {

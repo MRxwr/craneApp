@@ -99,20 +99,20 @@ class BookingController extends Controller
                 }])->where('status', 0)->get();
                 $orderRequest =[];
                $prices=[];
-                foreach ($dt as $bookingRequest) {
+                foreach ($dt as $key=>$bookingRequest) {
                     
-                        $orderRequest[$bookingRequest->id]['bidid']=$bookingRequest->id;
-                        $orderRequest[$bookingRequest->id]['request_id']=$bookingRequest->request_id;
-                        $orderRequest[$bookingRequest->id]['from_location']=$bookingRequest->from_location;
-                        $orderRequest[$bookingRequest->id]['to_location']=$bookingRequest->to_location;
-                        foreach ($bookingRequest->prices as $price) {
+                        $orderRequest[$key]['bidid']=$bookingRequest->id;
+                        $orderRequest[$key]['request_id']=$bookingRequest->request_id;
+                        $orderRequest[$key]['from_location']=$bookingRequest->from_location;
+                        $orderRequest[$key]['to_location']=$bookingRequest->to_location;
+                        foreach ($bookingRequest->prices as $keyr=>$price) {
                             $prices=[];
-                            $prices[$price->id]['price_id'] = $price->id;
-                            $prices[$price->id]['client_name'] = $price->client->name;
-                            $prices[$price->id]['mobile'] = $price->client->mobile;
-                            $prices[$price->id]['price'] =  $price->price;
-                            $prices[$price->id]['is_accepted'] = $price->is_accepted;
-                            $orderRequest[$bookingRequest->id]['prices']= $prices;
+                            $prices[$keyr]['price_id'] = $price->id;
+                            $prices[$keyr]['client_name'] = $price->client->name;
+                            $prices[$keyr]['mobile'] = $price->client->mobile;
+                            $prices[$keyr]['price'] =  $price->price;
+                            $prices[$keyr]['is_accepted'] = $price->is_accepted;
+                            $orderRequest[$key]['prices']= $prices;
                         }
                     }
                 

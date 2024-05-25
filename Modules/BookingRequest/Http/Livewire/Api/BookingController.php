@@ -100,21 +100,20 @@ class BookingController extends Controller
                 $orderRequest =[];
                $prices=[];
                 foreach ($dt as $bookingRequest) {
-                    $driverArr=[];
-                    $driverArr['bidid']=$bookingRequest->id;
-                    $driverArr['request_id']=$bookingRequest->request_id;
-                    $driverArr['from_location']=$bookingRequest->from_location;
-                    $driverArr['to_location']=$bookingRequest->to_location;
+                    
+                        $orderRequest[$bookingRequest->id]['bidid']=$bookingRequest->id;
+                        $orderRequest[$bookingRequest->id]['request_id']=$bookingRequest->request_id;
+                        $orderRequest[$bookingRequest->id]['from_location']=$bookingRequest->from_location;
+                        $orderRequest[$bookingRequest->id]['to_location']=$bookingRequest->to_location;
                         foreach ($bookingRequest->prices as $price) {
                             $prices=[];
-                            $prices['price_id'] = $price->id;
-                            $prices['client_name'] = $price->client->name;
-                            $prices['mobile'] = $price->client->mobile;
+                            $prices[$price->id]['price_id'] = $price->id;
+                            $prices[$price->id]['client_name'] = $price->client->name;
+                            $prices[$price->id]['mobile'] = $price->client->mobile;
                             $prices[$price->id]['price'] =  $price->price;
                             $prices[$price->id]['is_accepted'] = $price->is_accepted;
-                            $driverArr = $prices;
+                            $orderRequest[$bookingRequest->id]['prices']= $prices;
                         }
-                        array_push($orderRequest ,$driverArr);
                     }
                 
                 $data['orderRequest']= $orderRequest;
@@ -243,18 +242,18 @@ class BookingController extends Controller
                $dt = BookingRequest::with('prices')->find($bidid);
                $bdprices = $dt->prices()->where('is_accepted','!=', 2)->get();
                $prices=[];
-               $driverList[$bidid]['bidid']=$bidid;
-               $driverList[$bidid]['request_id']=$dt->request_id;
-               $driverList[$bidid]['from_location']=$dt->from_location;
-               $driverList[$bidid]['to_location']=$dt->to_location;
-               $driverList[$bidid]['status']=$dt->status;
+               $driverList['bidid']=$bidid;
+               $driverList['request_id']=$dt->request_id;
+               $driverList['from_location']=$dt->from_location;
+               $driverList['to_location']=$dt->to_location;
+               $driverList['status']=$dt->status;
                 if($bdprices){
-                    foreach($bdprices as $price){
-                        $prices[$price->id]['price_id'] = $price->id;
-                        $prices[$price->id]['driver_name'] = $price->driver->name;
-                        $prices[$price->id]['mobile'] = $price->driver->mobile;
-                        $prices[$price->id]['price'] =  $price->price;
-                        $prices[$price->id]['is_accepted'] = $price->is_accepted;
+                    foreach($bdprices as $key=>$price){
+                        $prices[$key]['price_id'] = $price->id;
+                        $prices[$key]['driver_name'] = $price->driver->name;
+                        $prices[$key]['mobile'] = $price->driver->mobile;
+                        $prices[$key]['price'] =  $price->price;
+                        $prices[$key]['is_accepted'] = $price->is_accepted;
                     }   
                 }
                $driverList[$bidid]['prices']=$prices;

@@ -44,4 +44,7 @@ class BookingRequest extends Model
     {
         return $this->hasMany(BookingLog::class, 'request_id', 'id');
     }
+    public function payment() {
+        return $this->hasOne(BookingPayment::class, 'request_id');
+    }
 }

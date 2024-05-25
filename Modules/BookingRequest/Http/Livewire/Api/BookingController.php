@@ -100,19 +100,21 @@ class BookingController extends Controller
                 $orderRequest =[];
                $prices=[];
                 foreach ($dt as $bookingRequest) {
-                        $orderRequest[$bookingRequest->id]['bidid']=$bookingRequest->id;
-                        $orderRequest[$bookingRequest->id]['request_id']=$bookingRequest->request_id;
-                        $orderRequest[$bookingRequest->id]['from_location']=$bookingRequest->from_location;
-                        $orderRequest[$bookingRequest->id]['to_location']=$bookingRequest->to_location;
+                    $driverArr=[];
+                    $driverArr['bidid']=$bookingRequest->id;
+                    $driverArr['request_id']=$bookingRequest->request_id;
+                    $driverArr['from_location']=$bookingRequest->from_location;
+                    $driverArr['to_location']=$bookingRequest->to_location;
                         foreach ($bookingRequest->prices as $price) {
                             $prices=[];
-                            $prices[$price->id]['price_id'] = $price->id;
-                            $prices[$price->id]['client_name'] = $price->client->name;
-                            $prices[$price->id]['mobile'] = $price->client->mobile;
+                            $prices['price_id'] = $price->id;
+                            $prices['client_name'] = $price->client->name;
+                            $prices['mobile'] = $price->client->mobile;
                             $prices[$price->id]['price'] =  $price->price;
                             $prices[$price->id]['is_accepted'] = $price->is_accepted;
-                            $orderRequest[$bookingRequest->id]['prices']= $prices;
+                            $driverArr = $prices;
                         }
+                        array_push($orderRequest ,$driverArr);
                     }
                 
                 $data['orderRequest']= $orderRequest;
@@ -206,6 +208,7 @@ class BookingController extends Controller
                 $dt = BookingRequest::with('prices')->find($bidid);
                 $dt->status = $request->input('status');
                 $dt->save();
+
                 $data['message']=_lang('Successfuly change Status');
                 return outputSuccess($data);
             }

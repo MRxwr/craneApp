@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Http\Request;
+use Modules\FAQs\Http\Livewire\Api\FaqController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,6 +14,7 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/faqs', function (Request $request) {
-    return $request->user();
+// API Version 1 routes
+Route::prefix('v1')->group(function () {
+    Route::get('/faqs', [FaqController::class, 'getFaqs']);
 });

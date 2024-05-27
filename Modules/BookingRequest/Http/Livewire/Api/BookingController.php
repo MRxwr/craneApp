@@ -183,7 +183,6 @@ class BookingController extends Controller
             // Log or handle the exception
             $data['message']=_lang('Authentication error');
             return outputError($data);
-           
         }
     }
     //For driver/client :: just update order status like upcoming,ongoing,completed 
@@ -205,10 +204,13 @@ class BookingController extends Controller
                 $data['message']=_lang('Send Crane Request');
                 $dt = BookingRequest::with('prices')->find($bidid);
                 $dt->status = $request->input('status');
-                $dt->save();
-
-                $data['message']=_lang('Successfuly change Status');
-                return outputSuccess($data);
+                if($dt->save()){
+                     $status =$dt->status;
+                     $activity = _lang('Changed order status to '.$status.'  by  ').$user->name;
+                     AddBookingLog($dt,$activity);
+                     $data['message']=_lang('Successfully change Status');
+                     return outputSuccess($data);
+                } 
             }
         } catch (\Exception $e) {
             $data['message']=_lang('Authentication error');
@@ -246,7 +248,7 @@ class BookingController extends Controller
                $driverList['from_location']=$dt->from_location;
                $driverList['to_location']=$dt->to_location;
                $driverList['status']=$dt->status;
-                if($bdprices){
+               if($bdprices){
                     foreach($bdprices as $key=>$price){
                         $prices[$key]['price_id'] = $price->id;
                         $prices[$key]['driver_name'] = $price->driver->name;

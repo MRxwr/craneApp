@@ -17,7 +17,7 @@ class ServiceController extends Controller
     public function getServices()
     {
         $services= Service::where('is_active',1)->where('is_deleted',0)
-        ->select('id', 'title', 'description','image') ->get()->toArray();
+        ->select('id', 'title', 'description','image')->get()->toArray();
         $data['message']=_lang('Sevices');
         $data['sevices']= $services;
         return outputSuccess($data);

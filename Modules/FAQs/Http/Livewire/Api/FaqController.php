@@ -16,7 +16,8 @@ class FaqController extends Controller
      */
     public function getFaqs()
     {
-        $faqs= Faq::where('is_active',1)->where('is_deleted',0)->get()->toArray();
+        $faqs= Faq::where('is_active',1)->where('is_deleted',0)
+        ->select('id', 'title', 'description')->get()->toArray();
         $data['message']=_lang('Faqs');
         $data['faqs']= $faqs;
         return outputSuccess($data);

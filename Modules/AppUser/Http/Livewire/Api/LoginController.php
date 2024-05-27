@@ -20,10 +20,8 @@ class LoginController extends Controller
             'mobile' => 'required|string|max:12',
             // Add more rules as needed
         ];
-
         // Perform validation
         $validator = Validator::make($request->all(), $rules);
-
         // Check if validation fails
         if ($validator->fails()) {
             // If validation fails, return response with validation errors

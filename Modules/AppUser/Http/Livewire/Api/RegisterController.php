@@ -136,6 +136,23 @@ class RegisterController extends Controller
         }
         $mobileNumber = $request->input('mobile');
         $mobileNumber = str_replace('+', '', $mobileNumber);
+
+        $otp = mt_rand(1000, 9999); // Generate a random OTP
+        $user = OtpUser::where('mobile', $mobileNumber)->first();
+        $data['otp'] = $otp;
+        if ($user) {
+            $user->otp = $otp;
+            $user->mobile = $mobileNumber;
+            $user->verified = true;
+            $user->save(); 
+        } else {
+           // Create a new OtpUser
+            $otpUser = OtpUser::create([
+                'otp' => $otp,
+                'mobile' => $mobileNumber,
+                'verified' => true,
+            ]);
+        }
         $name = $request->input('name');
         $email = $request->input('email');
         $dob = $request->input('dob');

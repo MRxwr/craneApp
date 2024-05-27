@@ -16,5 +16,5 @@ use Modules\FAQs\Http\Livewire\Api\FaqController;
 
 // API Version 1 routes
 Route::prefix('v1')->group(function () {
-    Route::get('/faqs', [FaqController::class, 'getFaqs']);
+    Route::get('/get_faqs', [FaqController::class, 'getFaqs']);
 });

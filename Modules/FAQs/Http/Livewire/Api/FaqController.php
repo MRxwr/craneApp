@@ -3,7 +3,7 @@
 namespace Modules\FAQs\Http\Livewire\Api;
 
 use Illuminate\Contracts\Support\Renderable;
-use Modules\Service\Entities\Faq;
+use Modules\FAQs\Entities\Faq;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Storage;

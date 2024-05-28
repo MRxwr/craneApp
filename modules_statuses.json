@@ -8,5 +8,6 @@
     "Pages": true,
     "FAQs": true,
     "Banners": true,
-    "Coupons": true
+    "Coupons": true,
+    "Notifications": true
 }

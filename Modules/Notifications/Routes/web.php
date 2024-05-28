@@ -11,12 +11,10 @@
 |
 */
 
-Route::prefix('notifications')->group(function() {
-    Route::get('/', 'NotificationsController@index');
-});
+
 Route::middleware(['web', 'auth'])->group(function () {
     Route::prefix('notifications')->group(function () {
-        Route::get('notifications', 'notifications\index');
-        Route::get('notifications/general', 'notifications\index');
+        Route::get('index', 'notifications\index');
+        Route::get('general', 'notifications\index');
     });
 });

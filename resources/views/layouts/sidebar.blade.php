@@ -22,6 +22,7 @@
                 </p>
             </a>
             <ul class="nav nav-treeview">
+                
                 @if (akses('view-users'))
                     <li class="nav-item">
                         <a href="{{ url('users/index') }}" 
@@ -61,6 +62,7 @@
                         </a>
                     </li>
                 @endif
+
             </ul>
         </li>
         @if (akses('view-service'))
@@ -82,33 +84,33 @@
             </a>
             <ul class="nav nav-treeview">
                 @if (akses('view-request'))
-                <li class="nav-item">
-                    <a href="{{ url('bookings/request') }}" class="nav-link pl-4">
-                    <i class="nav-icon fas fa-file"></i>
-                        <!-- <i class="nav-icon fas fa-file"></i> -->
-                        <p>{{_lang('Requests')}}</p>
-                    </a>
-                </li> 
+                    <li class="nav-item">
+                        <a href="{{ url('bookings/request') }}" class="nav-link pl-4">
+                        <i class="nav-icon fas fa-file"></i>
+                            <!-- <i class="nav-icon fas fa-file"></i> -->
+                            <p>{{_lang('Requests')}}</p>
+                        </a>
+                    </li> 
                 @endif
 
                 @if (akses('view-cancel'))
-                <li class="nav-item">
-                    <a href="{{ url('bookings/request/canceled') }}" class="nav-link pl-4">
-                    <i class="nav-icon fas fa-times"></i>
-                        <!-- <i class="nav-icon fas fa-file"></i> -->
-                        <p>{{_lang('Canceled Requests')}}</p>
-                    </a>
-                </li> 
+                    <li class="nav-item">
+                        <a href="{{ url('bookings/request/canceled') }}" class="nav-link pl-4">
+                        <i class="nav-icon fas fa-times"></i>
+                            <!-- <i class="nav-icon fas fa-file"></i> -->
+                            <p>{{_lang('Canceled Requests')}}</p>
+                        </a>
+                    </li> 
                 @endif
 
                 @if (akses('view-coupons'))
-                <li class="nav-item">
-                    <a href="{{ url('coupons/index') }}" class="nav-link pl-4">
-                    <i class="nav-icon fas fa-percentage"></i>
-                        <!-- <i class="nav-icon fas fa-file"></i> -->
-                        <p>{{_lang('Coupons')}}</p>
-                    </a>
-                </li> 
+                    <li class="nav-item">
+                        <a href="{{ url('coupons/index') }}" class="nav-link pl-4">
+                        <i class="nav-icon fas fa-percentage"></i>
+                            <!-- <i class="nav-icon fas fa-file"></i> -->
+                            <p>{{_lang('Coupons')}}</p>
+                        </a>
+                    </li> 
                 @endif
             
         </ul>
@@ -163,24 +165,23 @@
                 </p>
             </a>
             <ul class="nav nav-treeview">
-            @if (akses('view-notification'))
-                <li class="nav-item">
-                    <a href="{{ url('notifications/index') }}" class="nav-link pl-4">
-                    <i class="nav-icon fas fa-bell"></i>
-                        <!-- <i class="nav-icon fas fa-file"></i> -->
-                        <p>{{_lang('System Notification')}}</p>
-                    </a>
-                </li> 
-                <li class="nav-item">
-                    <a href="{{ url('notifications/general') }}" class="nav-link pl-4">
-                    <i class="nav-icon fas fa-bell"></i>
-                        <!-- <i class="nav-icon fas fa-file"></i> -->
-                        <p>{{_lang('General Notification')}}</p>
-                    </a>
-                </li> 
-            @endif
-
-        </ul>
+                @if (akses('view-notification'))
+                    <li class="nav-item">
+                        <a href="{{ url('notifications/index') }}" class="nav-link pl-4">
+                        <i class="nav-icon fas fa-bell"></i>
+                            <!-- <i class="nav-icon fas fa-file"></i> -->
+                            <p>{{_lang('System Notification')}}</p>
+                        </a>
+                    </li> 
+                    <li class="nav-item">
+                        <a href="{{ url('notifications/general') }}" class="nav-link pl-4">
+                        <i class="nav-icon fas fa-bell"></i>
+                            <!-- <i class="nav-icon fas fa-file"></i> -->
+                            <p>{{_lang('General Notification')}}</p>
+                        </a>
+                    </li> 
+                @endif
+           </ul>
         </li>
 
         <!-- Settings -->

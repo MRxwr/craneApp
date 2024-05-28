@@ -11,5 +11,15 @@ class GeneralNotification extends Model
 
     protected $fillable = [];
     
-    
+    public function scopeActive($e)
+    {
+        //return $e->where('is_read', 1);
+    }
+    public function scopeFilter($e, $q)
+    {
+        return $e->when($q, function ($ee, $q) {
+            return $ee->where('title', 'like', "%$q%")
+                ->orWhere('text', 'like', "%$q%");
+        });
+    }
 }

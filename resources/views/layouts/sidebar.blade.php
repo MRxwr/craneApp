@@ -112,7 +112,9 @@
                 @endif
             
         </ul>
+
         </li>
+
         <li class="nav-item {{ in_array(request()->segment(1),['pages','faqs','banners']) ? 'menu-open' : '' }}">
             <a href="#" class="nav-link {{ in_array(request()->segment(1),['pages','faqs','banners']) ? 'active' : '' }}">
             <i class="nav-icon fas fa-file"></i>
@@ -149,6 +151,35 @@
                 </a>
             </li> 
             @endif
+        </ul>
+        </li>
+
+        <li class="nav-item {{ in_array(request()->segment(1),['notification','general']) ? 'menu-open' : '' }}">
+            <a href="#" class="nav-link {{ in_array(request()->segment(1),['notification','general']) ? 'active' : '' }}">
+            <i class="nav-icon fas fa-file"></i>
+                <p>
+                {{_lang('Notifications')}}
+                    <i class="right fas fa-angle-left"></i>
+                </p>
+            </a>
+            <ul class="nav nav-treeview">
+            @if (akses('view-notification'))
+                <li class="nav-item">
+                    <a href="{{ url('notifications/index') }}" class="nav-link pl-4">
+                    <i class="nav-icon fas fa-file"></i>
+                        <!-- <i class="nav-icon fas fa-file"></i> -->
+                        <p>{{_lang('System Notification')}}</p>
+                    </a>
+                </li> 
+                <li class="nav-item">
+                    <a href="{{ url('notifications/general') }}" class="nav-link pl-4">
+                    <i class="nav-icon fas fa-file"></i>
+                        <!-- <i class="nav-icon fas fa-file"></i> -->
+                        <p>{{_lang('General Notification')}}</p>
+                    </a>
+                </li> 
+            @endif
+
         </ul>
         </li>
 

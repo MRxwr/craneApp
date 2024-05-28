@@ -146,7 +146,7 @@ class Index extends Component
             'data',
             'pagings',
         ))->layout('layouts.main', [
-                'title' => _lang('Manage Notifications')
+                'title' => _lang('Manage System Notifications')
         ]);
     }
 }

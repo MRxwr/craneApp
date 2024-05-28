@@ -15,6 +15,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
 use App\Services\FCMService;
+use Carbon\Carbon;
 
 class UserBookingController extends Controller
 {
@@ -84,8 +85,24 @@ class UserBookingController extends Controller
         try {
             $user = AppUser::where('token',$token)->first();
             if ($user) {
+                $driverId = $user->id;
                $data['message']=_lang('get Order request');
-               $dt = BookingRequest::where('client_id', $user->id)->where('is_deleted', 0)->get();
+               $todayEarnings = BookingRequest::where('client_id', $user->id)
+                    ->where('is_deleted', 0)
+                    ->whereHas('payment', function($query) use ($today, $driverId) {
+                        $query->whereDate('created_at', $today)
+                            ->where('driver_id', $driverId);
+                    })->with(['payment' => function($query) use ($today, $driverId) {
+                        $query->whereDate('created_at', $today)
+                            ->where('driver_id', $driverId);
+                    }])->get()->sum(function($bookingRequest) {
+                        return $bookingRequest->payment->amount;
+                    });
+               $data['todayEarnings']= $orderRequest;
+               $dt = BookingRequest::where('is_deleted', 0)
+               ->whereHas('payment', function($query) use ($today, $driverId) {
+                $query->where('driver_id', $driverId);
+                })->get();
                $orderRequest =[];
                $prices=[];
                 foreach ($dt as $bookingRequest){

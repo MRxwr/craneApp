@@ -1,7 +1,16 @@
 <div>
 
     <div class="card">
-        
+        <div class="card-header">
+            
+            @if (akses('create-page'))
+                <div class="buttons float-right">
+                    <a  href="{{ route('pages.create') }}" class="btn btn-icon icon-left btn-primary"><i
+                            class="bi bi-clipboard-plus"></i>
+                            {{_lang('Add New')}}</a>
+                </div>
+            @endif
+        </div>
         <div class="card-body">
 
             <div class="row">
@@ -42,9 +51,26 @@
                         @foreach ($data as $e => $dt)
                             <tr>
                                 <td>{{ $dt->id }}</td>
-                                <td>{{ $dt->title}}</td>
-                                <td>{{ $dt->description}}</td>
-                               
+                                
+                                <td>{{ $dt->title[getLocale()] }}</td>
+                                <td>{{ $dt->description[getLocale()] }}</td>
+                                
+                                <td>
+                                    @if (akses('edit-page'))
+                                        @if ($dt->is_active == 1)
+                                            <div style="cursor: pointer;"
+                                                wire:click.prevent="update_status({{ $dt->id }})"
+                                                class="badge badge-success">Active</div>
+                                        @else
+                                            <div style="cursor: pointer;"
+                                                wire:click.prevent="update_status({{ $dt->id }})"
+                                                class="badge badge-danger">Not Active</div>
+                                        @endif
+                                    @endif
+
+                                    <img wire:loading wire:target="update_status" src="{{ asset('loading-bar.gif') }}"
+                                        alt="">
+                                </td>
                                 <td>
                                     {{-- @if ($dt->is_paten != 1) --}}
                                     <div class="dropdown d-inline">
@@ -58,7 +84,7 @@
                                                 <a class="dropdown-item has-icon" href="{{ route('pages.edit', $dt->id) }}"
                                                     ><i
                                                         class="bi bi-pencil-square"></i>
-                                                        {{_lang('View')}}</a>
+                                                        {{_lang('Edit')}}</a>
                                             @endif
 
                                             @if (akses('delete-page'))

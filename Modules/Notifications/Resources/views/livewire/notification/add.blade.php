@@ -8,7 +8,7 @@
 
             <div class=" col-md-6 modal-content">
             <form action="{{ route('pages.store') }}" method="POST" enctype="multipart/form-data">
-                 @csrf <!-- CSRF protection -->
+                            @csrf 
                             <div class="card-body">
                                 {{ $message ?? '' }}
                                 @foreach (getActiveLanguages()  as $lang)

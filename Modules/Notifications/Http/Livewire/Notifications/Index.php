@@ -143,7 +143,7 @@ class Index extends Component
         $data = Notification::where('is_deleted',0)->filter($q)->latest()->paginate($this->paging);
         $pagings = MasterData::list_pagings();
        
-        return view('notifications::livewire.notifition.index', compact(
+        return view('notifications::livewire.notification.index', compact(
             'data',
             'pagings',
         ))

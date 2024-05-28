@@ -7,7 +7,7 @@ use Livewire\Component;
 use App\Traits\MasterData;
 use Livewire\WithFileUploads;
 use Livewire\WithPagination;
-use Modules\Pages\Http\Traits\NotificationTrait;
+use Modules\Notifications\Http\Traits\NotificationTrait;
 use Modules\Roles\Http\Traits\PermissionTrait;
 use Illuminate\Support\Facades\Storage;
 

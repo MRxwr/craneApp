@@ -15,6 +15,6 @@
 Route::middleware(['web', 'auth'])->group(function () {
     Route::prefix('notifications')->group(function () {
         Route::get('index', 'notifications\index');
-        Route::get('general', 'notifications\general');
+        Route::get('general','notifications\general');
     });
 });

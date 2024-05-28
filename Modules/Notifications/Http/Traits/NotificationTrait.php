@@ -43,8 +43,7 @@ trait NotificationTrait
 
         return [
             'token' => $dt->title,
-            'text' => $dt->text,
-            
+            'text' => $dt->text, 
         ];
     }
 }

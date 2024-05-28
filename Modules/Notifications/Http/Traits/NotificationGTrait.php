@@ -78,7 +78,6 @@ trait NotificationGTrait
     public static function find_data($id)
     {
         $dt = GeneralNotification::find($id);
-
         return [
             'title' => $dt->title,
             'text' => $dt->text,

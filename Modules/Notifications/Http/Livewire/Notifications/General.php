@@ -2,12 +2,12 @@
 
 namespace Modules\Notifications\Http\Livewire\Notifications;
 
-use Modules\Notifications\Entities\Notification;
+use Modules\Notifications\Entities\GeneralNotification;
 use Livewire\Component;
 use App\Traits\MasterData;
 use Livewire\WithFileUploads;
 use Livewire\WithPagination;
-use Modules\Notifications\Http\Traits\NotificationTrait;
+use Modules\Notifications\Http\Traits\NotificationGTrait;
 use Modules\Roles\Http\Traits\PermissionTrait;
 use Illuminate\Support\Facades\Storage;
 
@@ -30,7 +30,7 @@ class General extends Component
     public function mount()
     {
         $this->paging = 25;
-        $this->forms = NotificationTrait::firstForm();
+        $this->forms = NotificationGTrait::firstForm();
         // dd($this->forms);
 
     }
@@ -54,12 +54,12 @@ class General extends Component
         }
 
         try {
-            $dt = Notification::find($id);
+            $dt = GeneralNotification::find($id);
 
             // if ($dt->is_paten == 1) {
             //     $this->emit('pesanGagal', 'Sorry, this user can not edited..');
             // } else {
-            updateStatus(new Notification, $id);
+            updateStatus(new GeneralNotification, $id);
 
             $this->emit('pesanSukses', 'Sucess..');
             // }
@@ -74,7 +74,7 @@ class General extends Component
     public function tambah_data()
     {
         $this->reset(['is_edit', 'id_edit']);
-        $this->forms = NotificationTrait::firstForm();
+        $this->forms = NotificationGTrait::firstForm();
         $this->emit('modalAdd', 'show');
     }
 
@@ -83,7 +83,7 @@ class General extends Component
         $this->is_edit = 1;
         $this->id_edit = $id;
 
-        $this->forms = NotificationTrait::find_data($id);
+        $this->forms = NotificationGTrait::find_data($id);
 
         $this->emit('modalAdd', 'show');
     }
@@ -98,23 +98,23 @@ class General extends Component
            
             // dd($this->forms);
             if ($this->id_edit) {
-                $validasi = NotificationTrait::store_validation($this->forms, $this->id_edit);
+                $validasi = NotificationGTrait::store_validation($this->forms, $this->id_edit);
             } else {
-                $validasi = NotificationTrait::store_validation($this->forms);
+                $validasi = NotificationGTrait::store_validation($this->forms);
             }
             // dd($validasi);
             if (!$validasi['success']) {
                 $this->emit('pesanGagal', $validasi['message']);
             } else {
                 if ($this->id_edit) {
-                    NotificationTrait::store_data($this->forms, $this->id_edit);
+                    NotificationGTrait::store_data($this->forms, $this->id_edit);
                 } else {
                     
-                    NotificationTrait::store_data($this->forms);
+                    NotificationGTrait::store_data($this->forms);
                 }
 
                 $this->emit('modalAdd', 'hide');
-                $this->forms = NotificationTrait::firstForm();
+                $this->forms = NotificationGTrait::firstForm();
                 $this->emit('pesanSukses', 'Store Success..');
                 $this->reset(['is_edit', 'id_edit']);
             }
@@ -128,7 +128,7 @@ class General extends Component
     public function destroy($id)
     {
         try {
-            NotificationTrait::destroy($id);
+            NotificationGTrait::destroy($id);
             $this->emit('pesanSukses', 'Success..');
         } catch (\Exception $th) {
             //throw $th;
@@ -140,7 +140,7 @@ class General extends Component
     public function render()
     {
         $q = $this->search;
-        $data = Notification::where('is_deleted',0)->filter($q)->latest()->paginate($this->paging);
+        $data = GeneralNotification::where('is_deleted',0)->filter($q)->latest()->paginate($this->paging);
         $pagings = MasterData::list_pagings();
         return view('notifications::livewire.notification.index', compact(
             'data',

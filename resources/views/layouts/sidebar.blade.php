@@ -154,8 +154,8 @@
         </ul>
         </li>
 
-        <li class="nav-item {{ in_array(request()->segment(1),['notification','general']) ? 'menu-open' : '' }}">
-            <a href="#" class="nav-link {{ in_array(request()->segment(1),['notification','general']) ? 'active' : '' }}">
+        <li class="nav-item {{ in_array(request()->segment(1),['notifications']) ? 'menu-open' : '' }}">
+            <a href="#" class="nav-link {{ in_array(request()->segment(1),['notifications','general']) ? 'active' : '' }}">
             <i class="nav-icon fas fa-bell"></i>
                 <p>
                 {{_lang('Notifications')}}

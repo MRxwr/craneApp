@@ -301,13 +301,27 @@ trait PermissionTrait
                 'type' => 'manage-coupon',
                 'title' => 'delete-coupon'
             ],
-
             [
                 'type' => 'manage-coupon',
                 'title' => 'change-status-coupon'
             ],
-
-
+             // Manage Setting
+             [
+                'type' => 'manage-notify',
+                'title' => 'view-notification'
+            ],
+            [
+                'type' => 'manage-notify',
+                'title' => 'add-notification'
+            ],
+            [
+                'type' => 'manage-notify',
+                'title' => 'edit-notification'
+            ],
+            [
+                'type' => 'manage-notify',
+                'title' => 'send-notification'
+            ],
         ]);
     }
 }

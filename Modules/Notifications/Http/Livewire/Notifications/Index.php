@@ -142,13 +142,11 @@ class Index extends Component
         $q = $this->search;
         $data = Notification::where('is_deleted',0)->filter($q)->latest()->paginate($this->paging);
         $pagings = MasterData::list_pagings();
-       
         return view('notifications::livewire.notification.index', compact(
             'data',
             'pagings',
-        ))
-            ->layout('layouts.main', [
-                'title' => 'Manage Notifications'
-            ]);
+        ))->layout('layouts.main', [
+                'title' => _lang('Manage Notifications')
+        ]);
     }
 }

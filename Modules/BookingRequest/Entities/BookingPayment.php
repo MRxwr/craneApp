@@ -18,8 +18,7 @@ class BookingPayment extends Model
     {
         return $this->belongsTo(AppUser::class, 'client_id', 'id');
     }  
-    public function requests()
-    {
-        return $this->belongsTo(BookingRequest::class, 'request_id', 'id');
+    public function bookingRequest() {
+        return $this->belongsTo(BookingRequest::class, 'request_id');
     }
 }

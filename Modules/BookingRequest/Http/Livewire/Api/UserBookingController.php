@@ -88,7 +88,7 @@ class UserBookingController extends Controller
             $user = AppUser::where('token',$token)->first();
             //var_dump($user);
             if ($user) {
-               echo $driverId = $user->id;
+                $driverId = $user->id;
                $data['message']=_lang('get Order request');
                $todayEarnings = BookingRequest::where('is_deleted', 0)
                     ->whereHas('payment', function($query) use ($today, $driverId) {

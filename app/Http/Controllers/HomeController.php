@@ -34,6 +34,8 @@ class HomeController extends Controller
                 $bidid = $ids[0];
                 $pid = $ids[1];
                 $dt = BookingRequest::with('prices')->find($bidid);
+                $dt->driver_id =$price->driver_id?$price->driver_id:0;
+                $dt->save();
                 $price = BookingPrice::find($pid);
                 //dd($price->driver_id);
                 $payment=BookingPayment::where('request_id',$bidid)->first();

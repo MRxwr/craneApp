@@ -81,9 +81,10 @@ class UserBookingController extends Controller
             $data['errors'] = ['token'=>'header Authorization token is requred'];
             return outputError($data);
         }
-       echo $token = str_replace('Bearer ', '', $token);
+        $token = str_replace('Bearer ', '', $token);
         try {
             $user = AppUser::where('token',$token)->first();
+            var_dump($user);
             if ($user) {
                 $driverId = $user->id;
                $data['message']=_lang('get Order request');

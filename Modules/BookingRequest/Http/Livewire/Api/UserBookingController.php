@@ -134,6 +134,12 @@ class UserBookingController extends Controller
         } catch (\Exception $e) {
             // Log or handle the exception
             $data['message']=_lang('Authentication error');
+            $data['errors'] = [
+                'message' => $e->getMessage(),
+                'code' => $e->getCode(),
+                'file' => $e->getFile(),
+                'line' => $e->getLine()
+            ];
             return outputError($data);
            
         }

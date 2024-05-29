@@ -33,6 +33,7 @@ Route::prefix('v1')->group(function () {
     Route::post('/client/profile/update', [UserController::class, 'updateProfile']);
     Route::post('/profile/settings', [UserController::class, 'getProfileSetting']);
     Route::post('/profile/settings/update', [UserController::class, 'updateProfileSetting']);
+    Route::post('/change_online_offline', [UserController::class, 'updateIsOnline']);
 
     Route::post('/driver/profile', [DriverController::class, 'userProfile']);
     Route::post('/driver/profile/update', [DriverController::class, 'updateProfile']);

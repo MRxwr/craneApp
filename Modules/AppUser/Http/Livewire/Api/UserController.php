@@ -204,8 +204,7 @@ class UserController extends Controller
         }
         $token = str_replace('Bearer ', '', $token);
 
-        $language = $request->input('language');
-        $is_notify = $request->input('is_notify');
+        
         $appuser =  AppUser::where('token',$token)->first();
         $status='';
         if ($appuser){

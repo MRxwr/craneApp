@@ -9,7 +9,7 @@ class LoginAttemot extends Model
 {
     use HasFactory;
 
-    protected $table = 'app_user_metas';
+    protected $table = 'login_attempts';
     protected $fillable = [
                 'app_user_id',
                 'start_time',

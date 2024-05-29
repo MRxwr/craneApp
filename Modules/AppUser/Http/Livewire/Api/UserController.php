@@ -192,7 +192,7 @@ class UserController extends Controller
         }
     }
 
-    public function updateIsOnline(){
+    public function updateIsOnline(Request $request){
         $data = array();
         $token = $request->header('Authorization');
         // Check if validation fails

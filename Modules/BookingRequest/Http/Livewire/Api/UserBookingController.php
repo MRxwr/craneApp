@@ -99,7 +99,7 @@ class UserBookingController extends Controller
                     }])->get()->sum(function($bookingRequest) {
                         return $bookingRequest->payment->amount;
                     });
-               $data['todayEarnings']= $orderRequest;
+               $data['todayEarnings']= $todayEarnings;
                $dt = BookingRequest::where('is_deleted', 0)
                ->whereHas('payment', function($query) use ($today, $driverId) {
                 $query->where('driver_id', $driverId);

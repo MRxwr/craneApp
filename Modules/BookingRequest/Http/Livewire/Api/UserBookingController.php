@@ -136,7 +136,7 @@ class UserBookingController extends Controller
                          $upcommingRequest[$key]['client_name'] = $bookingRequest->client->name;
                          $upcommingRequest[$key]['client_mobile'] = $bookingRequest->client->mobile;
                          $upcommingRequest[$key]['status'] = $bookingRequest->status;
-                         $upcommingRequest[$key]['rating'] = 0;
+                         $upcommingRequest[$key]['rating'] = $bookingRequest->rating;
                     }
                     if($bookingRequest->status==2){
                         $arrivedRequest[$key]['bidid']=$bookingRequest->id;
@@ -146,7 +146,7 @@ class UserBookingController extends Controller
                         $arrivedRequest[$key]['client_name'] = $bookingRequest->client->name;
                         $arrivedRequest[$key]['client_mobile'] = $bookingRequest->client->mobile;
                         $arrivedRequest[$key]['status'] = $bookingRequest->status;
-                        $arrivedRequest[$key]['rating'] = 0;
+                        $arrivedRequest[$key]['rating'] = $bookingRequest->rating;
                    }
                     if($bookingRequest->status==3){
                         $ongoingRequest[$key]['bidid']=$bookingRequest->id;
@@ -156,7 +156,7 @@ class UserBookingController extends Controller
                         $ongoingRequest[$key]['client_name'] = $bookingRequest->client->name;
                         $ongoingRequest[$key]['client_mobile'] = $bookingRequest->client->mobile;
                         $ongoingRequest[$key]['status'] = $bookingRequest->status;
-                        $ongoingRequest[$key]['rating'] = 4;
+                        $ongoingRequest[$key]['rating'] = $bookingRequest->rating;
                    }
                    if($bookingRequest->status==4){
                         $canceledRequest[$key]['bidid']=$bookingRequest->id;
@@ -166,7 +166,7 @@ class UserBookingController extends Controller
                         $canceledRequest[$key]['client_name'] = $bookingRequest->client->name;
                         $canceledRequest[$key]['client_mobile'] = $bookingRequest->client->mobile;
                         $canceledRequest[$key]['status'] = $bookingRequest->status;
-                        $canceledRequest[$key]['rating'] = 4;
+                        $canceledRequest[$key]['rating'] = $bookingRequest->rating;
                     }
                     if($bookingRequest->status==5){
                         $completedRequest[$key]['bidid']=$bookingRequest->id;
@@ -176,7 +176,7 @@ class UserBookingController extends Controller
                         $completedRequest[$key]['client_name'] = $bookingRequest->client->name;
                         $completedRequest[$key]['client_mobile'] = $bookingRequest->client->mobile;
                         $completedRequest[$key]['status'] = $bookingRequest->status;
-                        $completedRequest[$key]['rating'] = 4;
+                        $completedRequest[$key]['rating'] = $bookingRequest->rating;
                    }
                        
                 }

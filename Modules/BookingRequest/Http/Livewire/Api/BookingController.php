@@ -223,6 +223,44 @@ class BookingController extends Controller
             return outputError($data); 
         }
     }
+
+    public function saveOrderRating(Request $request){
+        $data = array();
+        $token = $request->header('Authorization');
+        // Check if validation fails
+        if (!$token) {
+            // If validation fails, return response with validation errors
+            $data['message']=_lang('Authorization token is requred');
+            $data['errors'] = ['token'=>'header Authorization token is requred'];
+            return outputError($data);
+        }
+        try {
+            $token = str_replace('Bearer ', '', $token);
+            $user = AppUser::where('token',$token)->first();
+            if ($user) {
+                $bidid= $request->input('request_id');
+                $data['message']=_lang('Send Crane Request');
+                $dt = BookingRequest::with('prices')->find($bidid);
+                $dt->rating = $request->input('rating');
+                if($dt->save()){
+                     $rating =$dt->rating;
+                     $activity = _lang('Gives order rating  '.$rating.'  by  ').$user->name;
+                     AddBookingLog($dt,$activity);
+                     $data['message']=_lang('Successfully added your rating');
+                     return outputSuccess($data);
+                } 
+            }
+        } catch (\Exception $e) {
+            $data['message']=_lang('Authentication error');
+            $data['errors'] = [
+                'message' => $e->getMessage(),
+                'code' => $e->getCode(),
+                'file' => $e->getFile(),
+                'line' => $e->getLine()
+            ];
+            return outputError($data); 
+        }
+    }
     //For client : return list driver of this order
     public function getDriverListRequest(Request $request){
         $data = array();

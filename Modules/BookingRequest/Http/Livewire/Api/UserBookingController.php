@@ -109,6 +109,9 @@ class UserBookingController extends Controller
                ->with(['payment' => function($query) use ($driverId) {
                    $query->where('driver_id', $driverId);
                }])
+               ->with(['prices' => function($query) use ($driverId) {
+                $query->where('driver_id', $driverId);
+            }])
                ->get();
                $orderRequest =[];
                $prices=[];

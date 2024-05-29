@@ -4,6 +4,7 @@ namespace Modules\AppUser\Http\Livewire\Api;
 use Illuminate\Contracts\Support\Renderable;
 use Modules\AppUser\Entities\AppUser;
 use Modules\AppUser\Entities\OtpUser;
+use Modules\AppUser\Entities\LoginAttempt;
 use Illuminate\Routing\Controller;
 use Modules\Pages\Entities\Page;
 use Illuminate\Support\Facades\Hash;
@@ -11,6 +12,7 @@ use Illuminate\Support\Facades\Http;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
+use Carbon\Carbon;
 
 class UserController extends Controller
 {
@@ -31,9 +33,16 @@ class UserController extends Controller
             ->select('id', 'name', 'email','mobile','dob','token','avator','language') // Specify the fields you want to include
             ->first();
             if ($user) {
+                $is_online='no';
+                $incompleteLoginAttempt  = LoginAttempt::where('app_user_id', $user->id)->whereNull('end_time')->first();
+                if ($incompleteLoginAttempt) {
+                    $is_online='yes';
+                }
+        
                 // Authentication successful
                 $data['message']=_lang('Profile');
                 $data['user']= $user->toArray();
+                $data['is_online']= $is_online;
                 return outputSuccess($data);
                 // Proceed with authenticated user logic
             } else {
@@ -179,6 +188,41 @@ class UserController extends Controller
             $data['contact']['number']= getSetting('contact');
             $data['contact']['email']= getSetting('email');
             $data['contact']['address']= getSetting('address');
+            return outputSuccess($data);
+        }
+    }
+
+    public function updateIsOnline(){
+        $data = array();
+        $token = $request->header('Authorization');
+        // Check if validation fails
+        if (!$token) {
+            // If validation fails, return response with validation errors
+            $data['message']=_lang('Authorization token is requred');
+            $data['errors'] = ['token'=>'header Authorization token is requred'];
+            return outputError($data);
+        }
+        $token = str_replace('Bearer ', '', $token);
+
+        $language = $request->input('language');
+        $is_notify = $request->input('is_notify');
+        $appuser =  AppUser::where('token',$token)->first();
+        $status='';
+        if ($appuser){
+            $login=LoginAttempt::where('app_user_id',$appuser->id)->whereNull('end_time')->first();
+            if($login){
+                $login->end_time = Carbon::now();
+                $login->save();
+                $status= 'no';
+            }else{
+                $login= new LoginAttempt;
+                $login->app_user_id =$appuser->id;
+                $login->start_time =Carbon::now();
+                $login->save();
+                $status= 'yes';
+            }
+            $data['message']=_lang( 'user online/offline');
+            $data['is_online'] =$status;
             return outputSuccess($data);
         }
     }

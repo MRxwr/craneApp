@@ -9,10 +9,11 @@ class LoginAttemot extends Model
 {
     use HasFactory;
 
-    protected $fillable = [];
+    protected $table = 'app_user_metas';
+    protected $fillable = [
+                'app_user_id',
+                'start_time',
+                'end_time',
+            ];
     
-    protected static function newFactory()
-    {
-        return \Modules\AppUser\Database\factories\LoginAttemotFactory::new();
-    }
 }

@@ -92,6 +92,8 @@ class AppUser extends Authenticatable implements AuthenticatableContract
             return $usermeta;
         }
 
+        
+
     }
 
     

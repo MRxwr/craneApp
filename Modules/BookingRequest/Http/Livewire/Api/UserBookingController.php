@@ -87,8 +87,7 @@ class UserBookingController extends Controller
             if ($user) {
                 $driverId = $user->id;
                $data['message']=_lang('get Order request');
-               $todayEarnings = BookingRequest::where('client_id', $user->id)
-                    ->where('is_deleted', 0)
+               $todayEarnings = BookingRequest::where('is_deleted', 0)
                     ->whereHas('payment', function($query) use ($today, $driverId) {
                         $query->whereDate('created_at', $today)
                             ->where('driver_id', $driverId);

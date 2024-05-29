@@ -7,6 +7,7 @@ use Modules\BookingRequest\Entities\BookingRequest;
 use Modules\BookingRequest\Entities\BookingLog;
 use Modules\BookingRequest\Entities\BookingPrice;
 use Modules\AppUser\Entities\AppUser;
+use Modules\AppUser\Entities\LoginAttempt;
 use Illuminate\Routing\Controller;
 use Modules\Pages\Entities\Page;
 use Illuminate\Support\Facades\Hash;
@@ -88,6 +89,21 @@ class UserBookingController extends Controller
             $user = AppUser::where('token',$token)->first();
             //var_dump($user);
             if ($user) {
+                /// Retrieve all completed login attempts for the user
+                $completedLoginAttempts = LoginAttempt::where('app_user_id', $userId)
+                    ->whereNotNull('end_time')
+                    ->get();
+                $totalLoginTime = 0;
+                // Iterate through each login attempt and calculate the duration
+                foreach ($completedLoginAttempts as $attempt) {
+                    $startTime = Carbon::parse($attempt->start_time);
+                    $endTime = Carbon::parse($attempt->end_time);
+                    // Calculate the difference in seconds and add to total
+                    $totalLoginTime += $endTime->diffInSeconds($startTime);
+                }
+                // Convert total login time to a more readable format (e.g., hours, minutes, seconds)
+                $totalLoginTimeFormatted = gmdate('H:i:s', $totalLoginTime);
+
                 $driverId = $user->id;
                $data['message']=_lang('get Order request');
                $todayRequests = BookingRequest::where('is_deleted', 0)
@@ -110,7 +126,7 @@ class UserBookingController extends Controller
                 'total_earnings' => $totalEarnings,
                 'total_distance' => $totalDistance,
                 'total_trips' => $totalRequests,
-                'time_online'=>5.30
+                'time_online'=>$totalLoginTimeFormatted
             ];
                     //ongoing trip
                $dt = BookingRequest::where('is_deleted', 0)

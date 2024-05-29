@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
 use App\Services\FCMService;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 
 class UserBookingController extends Controller
 {
@@ -100,14 +101,20 @@ class UserBookingController extends Controller
                         return $bookingRequest->payment->amount;
                     });
                $data['todayEarnings']= $todayEarnings;
-               $dt = BookingRequest::where('is_deleted', 0)
-               ->whereHas('payment', function($query) use ($driverId) {
-                   $query->where('driver_id', $driverId);
-               })
-               ->with(['payment' => function($query) use ($driverId) {
-                   $query->where('driver_id', $driverId);
-               }])
+
+               $dt = DB::table('booking_requests')
+               ->join('booking_payments', 'booking_requests.id', '=', 'booking_payments.request_id')
+               ->where('booking_requests.is_deleted', 0)
+               ->where('booking_payments.driver_id', $driverId)
+               ->select(
+                   'booking_requests.*',
+                   'booking_payments.id as payment_id',
+                   'booking_payments.amount',
+                   'booking_payments.created_at as payment_created_at',
+                   'booking_payments.updated_at as payment_updated_at'
+               )
                ->get();
+               var_dump($dt);
                $orderRequest =[];
                $prices=[];
                 foreach ($dt as $bookingRequest){

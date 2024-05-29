@@ -90,7 +90,7 @@ class UserBookingController extends Controller
             //var_dump($user);
             if ($user) {
                 /// Retrieve all completed login attempts for the user
-                $completedLoginAttempts = LoginAttempt::where('app_user_id', $userId)
+                $completedLoginAttempts = LoginAttempt::where('app_user_id', $user->id)
                     ->whereNotNull('end_time')
                     ->get();
                 $totalLoginTime = 0;

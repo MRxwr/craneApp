@@ -102,8 +102,12 @@ class UserBookingController extends Controller
                $data['todayEarnings']= $todayEarnings;
                $dt = BookingRequest::where('is_deleted', 0)
                ->whereHas('payment', function($query) use ($driverId) {
-                $query->where('driver_id', $driverId);
-                })->get();
+                   $query->where('driver_id', $driverId);
+               })
+               ->with(['payment' => function($query) use ($driverId) {
+                   $query->where('driver_id', $driverId);
+               }])
+               ->get();
                $orderRequest =[];
                $prices=[];
                 foreach ($dt as $bookingRequest){

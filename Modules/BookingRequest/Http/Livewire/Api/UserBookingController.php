@@ -73,6 +73,7 @@ class UserBookingController extends Controller
     }
     public function GetDriverHome(Request $request){
         $data = array();
+        $today = Carbon::today();
         $token = $request->header('Authorization');
         // Check if validation fails
         if (!$token) {

@@ -98,7 +98,7 @@ class UserBookingController extends Controller
                         $query->whereDate('created_at', $today)
                             ->where('driver_id', $driverId);
                     }])->get()->sum(function($bookingRequest) {
-                        return $bookingRequest->payment->amount;
+                        return $bookingRequest->payment->payment_amount;
                     });
                $data['todayEarnings']= $todayEarnings;
 
@@ -109,7 +109,7 @@ class UserBookingController extends Controller
                ->select(
                    'booking_requests.*',
                    'booking_payments.id as payment_id',
-                   'booking_payments.amount',
+                   'booking_payments.payment_amount',
                    'booking_payments.created_at as payment_created_at',
                    'booking_payments.updated_at as payment_updated_at'
                )

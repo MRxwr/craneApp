@@ -5,7 +5,7 @@ namespace Modules\AppUser\Entities;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class LoginAttemot extends Model
+class LoginAttempt extends Model
 {
     use HasFactory;
 

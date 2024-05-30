@@ -144,6 +144,16 @@ class UserBookingController extends Controller
                $completedRequest =[];
                $prices=[];
                 foreach ($dt as $key=>$bookingRequest){
+                    $lat ='';
+                    $long='';
+                    if($bookingRequest->to_latlong){
+                        $latlong=explode(',',$bookingRequest->to_latlong);
+                        if(count($latlong)==2){
+                            $lat = $latlong[0];
+                            $long = $latlong[0];
+                        }
+                    }
+
                     if($bookingRequest->status==1){
                          $upcommingRequest[$key]['bidid']=$bookingRequest->id;
                          $upcommingRequest[$key]['request_id']=$bookingRequest->request_id;
@@ -152,6 +162,8 @@ class UserBookingController extends Controller
                          $upcommingRequest[$key]['client_name'] = $bookingRequest->client->name;
                          $upcommingRequest[$key]['client_mobile'] = $bookingRequest->client->mobile;
                          $upcommingRequest[$key]['status'] = $bookingRequest->status;
+                         $upcommingRequest[$key]['lat'] = $lat;
+                         $upcommingRequest[$key]['lng'] = $long;
                          $upcommingRequest[$key]['rating'] = $bookingRequest->rating;
                     }
                     if($bookingRequest->status==2){
@@ -162,6 +174,8 @@ class UserBookingController extends Controller
                         $arrivedRequest[$key]['client_name'] = $bookingRequest->client->name;
                         $arrivedRequest[$key]['client_mobile'] = $bookingRequest->client->mobile;
                         $arrivedRequest[$key]['status'] = $bookingRequest->status;
+                        $arrivedRequest[$key]['lat'] = $lat;
+                        $arrivedRequest[$key]['lng'] = $long;
                         $arrivedRequest[$key]['rating'] = $bookingRequest->rating;
                    }
                     if($bookingRequest->status==3){
@@ -172,6 +186,8 @@ class UserBookingController extends Controller
                         $ongoingRequest[$key]['client_name'] = $bookingRequest->client->name;
                         $ongoingRequest[$key]['client_mobile'] = $bookingRequest->client->mobile;
                         $ongoingRequest[$key]['status'] = $bookingRequest->status;
+                        $ongoingRequest[$key]['lat'] = $lat;
+                        $ongoingRequest[$key]['lng'] = $long;
                         $ongoingRequest[$key]['rating'] = $bookingRequest->rating;
                    }
                    if($bookingRequest->status==4){
@@ -182,6 +198,8 @@ class UserBookingController extends Controller
                         $canceledRequest[$key]['client_name'] = $bookingRequest->client->name;
                         $canceledRequest[$key]['client_mobile'] = $bookingRequest->client->mobile;
                         $canceledRequest[$key]['status'] = $bookingRequest->status;
+                        $canceledRequest[$key]['lat'] = $lat;
+                        $canceledRequest[$key]['lng'] = $long;
                         $canceledRequest[$key]['rating'] = $bookingRequest->rating;
                     }
                     if($bookingRequest->status==5){
@@ -192,6 +210,8 @@ class UserBookingController extends Controller
                         $completedRequest[$key]['client_name'] = $bookingRequest->client->name;
                         $completedRequest[$key]['client_mobile'] = $bookingRequest->client->mobile;
                         $completedRequest[$key]['status'] = $bookingRequest->status;
+                        $canceledRequest[$key]['lat'] = $lat;
+                        $canceledRequest[$key]['lng'] = $long;
                         $completedRequest[$key]['rating'] = $bookingRequest->rating;
                    }
                        

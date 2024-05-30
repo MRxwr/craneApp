@@ -217,11 +217,11 @@ class UserBookingController extends Controller
                        
                 }
                 
-                $data['upcommingRequest']= [$ongoingRequest];
-                $data['arrivedRequest']= [$ongoingRequest];
+                $data['upcommingRequest']= [$upcommingRequest];
+                $data['arrivedRequest']= [$arrivedRequest];
                 $data['ongoingRequest']= [$ongoingRequest];
-                $data['canceledRequest']= [$ongoingRequest];
-                $data['completedRequest']= [$ongoingRequest];
+                $data['canceledRequest']= [$canceledRequest];
+                $data['completedRequest']= [$completedRequest];
                return outputSuccess($data);
                 // Proceed with authenticated user logic
                 

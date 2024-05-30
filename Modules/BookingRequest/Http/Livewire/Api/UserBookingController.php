@@ -150,7 +150,7 @@ class UserBookingController extends Controller
                         $latlong=explode(',',$bookingRequest->to_latlong);
                         if(count($latlong)==2){
                             $lat = $latlong[0];
-                            $long = $latlong[0];
+                            $long = $latlong[1];
                         }
                     }
 

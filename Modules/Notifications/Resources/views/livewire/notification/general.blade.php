@@ -52,8 +52,8 @@
                             <tr>
                                 <td>{{ $dt->id }}</td>
                                 
-                                <td>{{ $dt->title[getLocale()] }}</td>
-                                <td>{{ $dt->description[getLocale()] }}</td>
+                                <td>{{ $dt->title}}</td>
+                                <td>{{ $dt->text }}</td>
                                 
                                 <td>
                                     @if (akses('edit-page'))
@@ -81,10 +81,11 @@
                                         <div class="dropdown-menu" x-placement="bottom-start"
                                             style="position: absolute; transform: translate3d(0px, 28px, 0px); top: 0px; left: 0px; will-change: transform;">
                                             @if (akses('edit-page'))
-                                            <a class="dropdown-item has-icon" href="#"
+                                                <!-- <a class="dropdown-item has-icon" href="#"
                                                     wire:click.prevent="edit_data({{ $dt->id }})"><i
                                                         class="bi bi-pencil-square"></i>
-                                                        {{_lang('Edit')}}</a>
+                                                        {{_lang('Edit')}}</a> -->
+                                                        
                                             @endif
                                             @if (akses('delete-page'))
                                                 <a class="dropdown-item has-icon"

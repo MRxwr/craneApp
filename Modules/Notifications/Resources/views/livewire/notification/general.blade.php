@@ -85,7 +85,7 @@
                                                     wire:click.prevent="edit_data({{ $dt->id }})"><i
                                                         class="bi bi-pencil-square"></i>
                                                         {{_lang('Edit')}}</a> -->
-                                                        
+
                                             @endif
                                             @if (akses('delete-page'))
                                                 <a class="dropdown-item has-icon"
@@ -111,7 +111,7 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">{{_lang('Add Service')}}</h5>
+                    <h5 class="modal-title">{{_lang('Add Notice')}}</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -126,33 +126,20 @@
                         <form wire:submit.prevent="store">
                             <div class="card-body">
                                 {{ $message ?? '' }}
-                                @foreach (getActiveLanguages()  as $lang)
-                                <div class="form-group row">
-                                    <div class="col-lg-3 col-12"> {{_lang('Title')}} [{{$lang->code}}]</div>
-                                    <div class="col-lg-9 col-12">
-                                        <input type="text" class="form-control" placeholder="Site Title.." wire:model="forms.title.{{ $lang->code }}">
-                                    </div>
-                                </div>
-                                @endforeach
-                                @foreach (getActiveLanguages()  as $lang)
-                                <div class="form-group row">
-                                    <div class="col-lg-3 col-12">{{_lang('Description')}} [{{$lang->code}}]</div>
-                                    <div class="col-lg-9 col-12">
-                                        <input type="text" class="form-control" placeholder="Description.." wire:model="forms.description.{{ $lang->code }}">
-                                    </div>
-                                </div>
-                                @endforeach
-
-                                <div class="form-group row">
-                                    <div class="col-lg-3 col-12">{{_lang('Image')}} </div>
-                                    <div class="col-lg-9 col-12">
-                                   
-                                    <img src="{{ $image }}" alt="Uploaded Image">
-                                        <input type="file" class="form-control" id="image"  wire:change="$emit('fileChoosen)">
-                                    </div>
-                                </div>
-
                                 
+                                <div class="form-group row">
+                                    <div class="col-lg-3 col-12"> {{_lang('Title')}} </div>
+                                    <div class="col-lg-9 col-12">
+                                        <input type="text" class="form-control" placeholder="Site Title.." wire:model="forms.title">
+                                    </div>
+                                </div>
+                               
+                                <div class="form-group row">
+                                    <div class="col-lg-3 col-12">{{_lang('text')}} </div>
+                                    <div class="col-lg-9 col-12">
+                                        <input type="text" class="form-control" placeholder="Description.." wire:model="forms.text">
+                                    </div>
+                                </div>
                             </div>
                             <div class="card-footer">
                                 <button type="submit" class="btn btn-primary">{{_lang('Submit')}}</button>

@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Http\Request;
+use Modules\Notifications\Http\Livewire\Api\NotificationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,3 +14,8 @@ use Illuminate\Http\Request;
 |
 */
 
+// API Version 1 routes
+Route::prefix('v1')->group(function () {
+    Route::post('get_notifications', [NotificationController::class, 'getNotifications']);
+    Route::post('save_user_notification', [NotificationController::class, 'saveUserNotification']);
+});

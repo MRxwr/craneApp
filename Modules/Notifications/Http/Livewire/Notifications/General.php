@@ -142,7 +142,7 @@ class General extends Component
         $q = $this->search;
         $data = GeneralNotification::where('is_deleted',0)->filter($q)->latest()->paginate($this->paging);
         $pagings = MasterData::list_pagings();
-        return view('notifications::livewire.notification.index', compact(
+        return view('notifications::livewire.notification.general', compact(
             'data',
             'pagings',
         ))->layout('layouts.main', [

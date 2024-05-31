@@ -125,7 +125,7 @@
                         <form wire:submit.prevent="store">
                             <div class="card-body">
                                 {{ $message ?? '' }}
-                                
+                                <input type="hidden"   wire:model="forms.is_read" value='0'>
                                 <div class="form-group row">
                                     <div class="col-lg-3 col-12"> {{_lang('Title')}} </div>
                                     <div class="col-lg-9 col-12">

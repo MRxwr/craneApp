@@ -121,7 +121,6 @@
                     <div class="card">
                         <div class="card-header">
                             {{-- <h4>Horizontal Form</h4> --}}
-                            
                         </div>
                         <form wire:submit.prevent="store">
                             <div class="card-body">
@@ -133,11 +132,10 @@
                                         <input type="text" class="form-control" placeholder="Site Title.." wire:model="forms.title">
                                     </div>
                                 </div>
-                               
                                 <div class="form-group row">
                                     <div class="col-lg-3 col-12">{{_lang('text')}} </div>
                                     <div class="col-lg-9 col-12">
-                                        <input type="text" class="form-control" placeholder="Description.." wire:model="forms.text">
+                                        <textarea class="form-control" placeholder="message.." wire:model="forms.text"></textarea> 
                                     </div>
                                 </div>
                             </div>

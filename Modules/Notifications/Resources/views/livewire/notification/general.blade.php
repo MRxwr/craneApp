@@ -86,7 +86,6 @@
                                                         class="bi bi-pencil-square"></i>
                                                         {{_lang('Edit')}}</a>
                                             @endif
-
                                             @if (akses('delete-page'))
                                                 <a class="dropdown-item has-icon"
                                                     onclick="return confirm('Confirm delete?') || event.stopImmediatePropagation()"

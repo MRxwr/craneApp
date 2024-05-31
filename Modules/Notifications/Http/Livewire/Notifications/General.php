@@ -90,6 +90,8 @@ class General extends Component
 
     public function store()
     {
+
+        dd($this->forms);
         $this->validate([
             'forms.*' => 'required'
         ]);

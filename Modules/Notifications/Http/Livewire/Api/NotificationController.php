@@ -25,7 +25,7 @@ class NotificationController extends Controller
      * Display a listing of the resource.
      * @return Renderable
      */
-    public function getNotifications()
+    public function getNotifications(Request $request)
     {
         $token = $request->header('Authorization');
         // Check if validation fails

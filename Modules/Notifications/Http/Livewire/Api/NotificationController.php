@@ -43,6 +43,9 @@ class NotificationController extends Controller
                 $data['message']=_lang('Get Notifications');
                 $data['notifications']= $notifications;
                 return outputSuccess($data); 
+            }{
+                $data['message']=_lang('User not exist with this token');
+                return outputError($data); 
             }
         } catch (\Exception $e) {
             $data['message']=_lang('Authentication error');
@@ -81,6 +84,9 @@ class NotificationController extends Controller
                      $data['message']=_lang('Successfully added your notification');
                      return outputSuccess($data);
                  } 
+            }else{
+                $data['message']=_lang('User not exist with this token');
+                return outputError($data); 
             }
         } catch (\Exception $e) {
             $data['message']=_lang('Authentication error');

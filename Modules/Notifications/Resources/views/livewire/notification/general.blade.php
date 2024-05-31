@@ -5,9 +5,9 @@
             
             @if (akses('create-page'))
                 <div class="buttons float-right">
-                    <a  href="{{ route('pages.create') }}" class="btn btn-icon icon-left btn-primary"><i
+                        <a wire:click.prevent="tambah_data" href="#" class="btn btn-icon icon-left btn-primary"><i
                             class="bi bi-clipboard-plus"></i>
-                            {{_lang('Add New')}}</a>
+                        {{_lang('Add new')}}</a>
                 </div>
             @endif
         </div>

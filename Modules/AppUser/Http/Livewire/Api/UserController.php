@@ -39,9 +39,13 @@ class UserController extends Controller
                     $is_online='yes';
                 }
                 // Authentication successful
-                $data['message']=_lang('Profile');
-                $data['user']= $user->toArray();
+                
+                $data['message']=_lang('get Profile');
+                $rating = getUserRating($user);
+                $data['rating']=  $rating;
                 $data['is_online']= $is_online;
+                $data['user']= $user->toArray();
+                
                 return outputSuccess($data);
                 //Proceed with authenticated user logic
             } else {

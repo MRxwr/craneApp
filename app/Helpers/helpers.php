@@ -8,6 +8,7 @@ use App\Services\FCMService;
 use Modules\Roles\Entities\Role;
 use Modules\AppUser\Entities\AppUser;
 use Modules\AppUser\Entities\AppUserMeta;
+use Modules\AppUser\Entities\AppUserRating;
 use Modules\AppUser\Entities\Wallet;
 use Modules\BookingRequest\Entities\BookingRequest;
 use Modules\BookingRequest\Entities\BookingLog;
@@ -254,3 +255,17 @@ function upadteUserMeta($key,$value,$app_user_id){
         return true;
     }
   }
+
+function getUserRating($user){
+   $ratings = AppUserRating ::where('rating_user_id',$user->id)->get();
+   $totalRating = 0;
+   if($ratings){
+     $numberofrating =$ratings->count();
+     $totalRating = 0;
+     foreach($ratings as $key=>$rate){
+        $totalRating = $totalRating + floatval($rate->rating);
+     }
+     $totalRating = $totalRating/$numberofrating;
+   }
+   return number_format($totalRating, 1);
+}

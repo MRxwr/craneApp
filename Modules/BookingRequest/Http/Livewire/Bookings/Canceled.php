@@ -81,6 +81,14 @@ class Canceled extends Component
         $this->emit('modalAdd', 'show');
     }
 
+    public function refund_data($id)
+    {
+        $dt = BookingRequest::find($id);
+        $this->is_edit = 1;
+        $this->id_edit = $id;
+        $this->emit('pesanSukses', 'Sucess..');
+    }
+
     public function logs_data($id)
     {
         $this->is_edit = 1;

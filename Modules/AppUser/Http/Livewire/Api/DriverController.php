@@ -31,8 +31,16 @@ class DriverController extends Controller
             ->select('id', 'name', 'email','mobile','dob','token','avator','licence','idfront','idback','language') // Specify the fields you want to include
             ->first();
             if ($user) {
+                $is_online='no';
+                $incompleteLoginAttempt  = LoginAttempt::where('app_user_id', $user->id)->whereNull('end_time')->first();
+                if ($incompleteLoginAttempt) {
+                    $is_online='yes';
+                }
                 // Authentication successful
                 $data['message']=_lang('Profile');
+                $rating = getUserRating($user);
+                $data['rating']=  $rating;
+                $data['is_online']= $is_online;
                 $data['user']= $user->toArray();
                 return outputSuccess($data);
                 // Proceed with authenticated user logic

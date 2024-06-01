@@ -225,7 +225,7 @@ class UserController extends Controller
             return outputSuccess($data);
         }else {
             // Authentication failed
-            $data['message']=_lang('Unauthorized');
+            $data['message']=_lang('Unauthorized due to token mismatch');
             return outputError($data); 
             
         }

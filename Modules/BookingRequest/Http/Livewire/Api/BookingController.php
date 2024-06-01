@@ -224,6 +224,45 @@ class BookingController extends Controller
         }
     }
 
+    public function cancelTheOrder(Request $request){
+        $data = array();
+        $token = $request->header('Authorization');
+        // Check if validation fails
+        if (!$token) {
+            // If validation fails, return response with validation errors
+            $data['message']=_lang('Authorization token is requred');
+            $data['errors'] = ['token'=>'header Authorization token is requred'];
+            return outputError($data);
+        }
+        try {
+            $token = str_replace('Bearer ', '', $token);
+            $user = AppUser::where('token',$token)->first();
+            if ($user) {
+                $bidid= $request->input('request_id');
+                $data['message']=_lang('Canceled the order');
+                $dt = BookingRequest::with('prices')->find($bidid);
+                $dt->is_active = 4;
+                $dt->status = 4;
+                if($dt->save()){
+                     $status =4;
+                     $activity = _lang('Canceled the order  by  ').$user->name;
+                      AddBookingLog($dt,$activity);
+                     $data['message']=_lang('Successfully change Status');
+                     return outputSuccess($data);
+                } 
+            }
+        } catch (\Exception $e) {
+            $data['message']=_lang('Authentication error');
+            $data['errors'] = [
+                'message' => $e->getMessage(),
+                'code' => $e->getCode(),
+                'file' => $e->getFile(),
+                'line' => $e->getLine()
+            ];
+            return outputError($data); 
+        }
+    }
+
     public function saveOrderRating(Request $request){
         $data = array();
         $token = $request->header('Authorization');

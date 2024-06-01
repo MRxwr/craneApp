@@ -15,8 +15,7 @@ use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 
 class UserController extends Controller
-{
-    
+{  
     public function userProfile(Request $request){
         $data = array();
         $token = $request->header('Authorization');
@@ -38,18 +37,16 @@ class UserController extends Controller
                 if ($incompleteLoginAttempt) {
                     $is_online='yes';
                 }
-        
                 // Authentication successful
                 $data['message']=_lang('Profile');
                 $data['user']= $user->toArray();
                 $data['is_online']= $is_online;
                 return outputSuccess($data);
-                // Proceed with authenticated user logic
+                //Proceed with authenticated user logic
             } else {
                 // Authentication failed
-                $data['message']=_lang('Unauthorized');
-                return outputError($data); 
-                
+                $data['message']=_lang('Unauthorized due to token mismatch');
+                return outputError($data);  
             }
         } catch (\Exception $e) {
             // Log or handle the exception
@@ -108,6 +105,11 @@ class UserController extends Controller
             $data['user']= $appuser->toArray();
             $data['message']=_lang('Successfully Update');
             return outputSuccess($data);
+        }else {
+            // Authentication failed
+            $data['message']=_lang('Unauthorized due to token mismatch');
+            return outputError($data); 
+            
         }
     }
     public function getProfileSetting(Request $request){
@@ -146,7 +148,7 @@ class UserController extends Controller
                 // Proceed with authenticated user logic
             } else {
                 // Authentication failed
-                $data['message']=_lang('Unauthorized');
+                $data['message']=_lang('Unauthorized due to token mismatch');
                 return outputError($data); 
                 
             }
@@ -189,6 +191,11 @@ class UserController extends Controller
             $data['contact']['email']= getSetting('email');
             $data['contact']['address']= getSetting('address');
             return outputSuccess($data);
+        }else {
+            // Authentication failed
+            $data['message']=_lang('Unauthorized due to token mismatch');
+            return outputError($data); 
+            
         }
     }
 

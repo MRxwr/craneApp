@@ -35,6 +35,8 @@ Route::prefix('v1')->group(function () {
     Route::post('/profile/settings/update', [UserController::class, 'updateProfileSetting']);
     Route::post('/change_online_offline', [UserController::class, 'updateIsOnline']);
 
+    Route::post('/add_rating', [UserController::class, 'AddClientDriverRatting']);
+
     Route::post('/driver/profile', [DriverController::class, 'userProfile']);
     Route::post('/driver/profile/update', [DriverController::class, 'updateProfile']);
 });

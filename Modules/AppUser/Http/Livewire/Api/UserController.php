@@ -5,6 +5,7 @@ use Illuminate\Contracts\Support\Renderable;
 use Modules\AppUser\Entities\AppUser;
 use Modules\AppUser\Entities\OtpUser;
 use Modules\AppUser\Entities\LoginAttempt;
+use Modules\AppUser\Entities\AppUserRating;
 use Illuminate\Routing\Controller;
 use Modules\Pages\Entities\Page;
 use Illuminate\Support\Facades\Hash;
@@ -52,8 +53,8 @@ class UserController extends Controller
             // Log or handle the exception
             $data['message']=_lang('Authentication error');
             return outputError($data);
-           
         }
+
     }
 
     public function updateProfile(Request $request){
@@ -237,5 +238,34 @@ class UserController extends Controller
             
         }
     }
+
+    public function AddClientDriverRatting(Request $request){
+        $data = array();
+        $token = $request->header('Authorization');
+        // Check if validation fails
+        if (!$token) {
+            // If validation fails, return response with validation errors
+            $data['message']=_lang('Authorization token is requred');
+            $data['errors'] = ['token'=>'header Authorization token is requred'];
+            return outputError($data);
+        }
+        $token = str_replace('Bearer ', '', $token);
+        $appuser =  AppUser::where('token',$token)->first();
+        $status='';
+        if ($appuser){
+                $rating= new AppUserRating;
+                $rating->app_user_id =$appuser->id;
+                $rating->rating_user_id =$request->input('user_id');
+                $rating->rating =$request->input('rating');
+                $rating->save();
+                $data['message']=_lang( 'Rating success fully added by ').$appuser->name;
+               return outputSuccess($data);
+        }else {
+            // Authentication failed
+            $data['message']=_lang('Unauthorized due to token mismatch');
+            return outputError($data); 
+            
+        }
+    }  
     
 }

@@ -116,7 +116,7 @@
                                                     href="#" wire:click.prevent="refund_data({{ $dt->id }})"><i
                                                         class="bi bi-x"></i>
                                                         
-                                                    Cancel</a>
+                                                    {{_lang('Refund')}}</a>
                                                 @endif
                                             @endif
 

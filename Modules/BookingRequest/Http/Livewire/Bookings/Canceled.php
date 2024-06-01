@@ -83,7 +83,7 @@ class Canceled extends Component
 
     public function refund_data($id)
     {
-        
+        $this->forms = BookingRequestTrait::find_data($id); 
         $this->emit('modalRefund', 'show');
     }
     public function refund_process($id,$type)

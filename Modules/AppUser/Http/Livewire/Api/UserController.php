@@ -223,6 +223,11 @@ class UserController extends Controller
             $data['message']=_lang( 'user online/offline');
             $data['is_online'] =$status;
             return outputSuccess($data);
+        }else {
+            // Authentication failed
+            $data['message']=_lang('Unauthorized');
+            return outputError($data); 
+            
         }
     }
     

@@ -249,6 +249,11 @@ class BookingController extends Controller
                      $data['message']=_lang('Successfully added your rating');
                      return outputSuccess($data);
                 } 
+            }else {
+                // Authentication failed
+                $data['message']=_lang('Unauthorized');
+                return outputError($data); 
+                
             }
         } catch (\Exception $e) {
             $data['message']=_lang('Authentication error');

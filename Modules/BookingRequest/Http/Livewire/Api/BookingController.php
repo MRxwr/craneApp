@@ -164,13 +164,13 @@ class BookingController extends Controller
                     $bidprice->save();
                     $activity = _lang('Added crane service price by Driver ').$user->name;
                     AddBookingLog($dt,$activity);
-                    $prices[$bidprice->id]['price_id'] = $bidprice->id;
-                    $prices[$bidprice->id]['client_name'] = $bidprice->client->name;
-                    $prices[$bidprice->id]['mobile'] = $bidprice->client->mobile;
-                    $prices[$bidprice->id]['price'] =  $bidprice->price;
-                    $prices[$bidprice->id]['is_accepted'] = $bidprice->is_accepted;
+                    $prices['price_id'] = $bidprice->id;
+                    $prices['client_name'] = $bidprice->client->name;
+                    $prices['mobile'] = $bidprice->client->mobile;
+                    $prices['price'] =  $bidprice->price;
+                    $prices['is_accepted'] = $bidprice->is_accepted;
                 }
-                $data['order_request']= $prices;
+                $data['order_request']= [$prices];
                 return outputSuccess($data);
                 // Proceed with authenticated user logic
             } else {

@@ -239,7 +239,6 @@ class BookingController extends Controller
             $user = AppUser::where('token',$token)->first();
             if ($user) {
                 $bidid= $request->input('request_id');
-                $data['message']=_lang('Canceled the order');
                 $dt = BookingRequest::with('prices')->find($bidid);
                 $dt->is_active = 4;
                 $dt->status = 4;
@@ -247,7 +246,7 @@ class BookingController extends Controller
                      $status =4;
                      $activity = _lang('Canceled the order  by  ').$user->name;
                       AddBookingLog($dt,$activity);
-                     $data['message']=_lang('Successfully change Status');
+                     $data['message']=_lang('Successfully Canceled the order');
                      return outputSuccess($data);
                 } 
             }

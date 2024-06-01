@@ -108,7 +108,16 @@
                                                         class="bi bi-x"></i>
                                                         
                                                     Cancel</a>
-                                                @endif    
+                                                @endif 
+                                                
+                                                @if($dt->is_active==4)
+                                                <a class="dropdown-item has-icon"
+                                                    onclick="return confirm('Want to refund?') || event.stopImmediatePropagation()"
+                                                    href="#" wire:click.prevent="refund_data({{ $dt->id }})"><i
+                                                        class="bi bi-x"></i>
+                                                        
+                                                    Cancel</a>
+                                                @endif
                                             @endif
 
                                         </div>
@@ -173,6 +182,43 @@
             </div>
         </div>
     </div>
+
+
+
+
+    
+    <div class="modal fade" tabindex="-1" role="dialog" id="modalRefund" wire:ignore.self>
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">{{ _lang('Canceled Booking Refund ') }}  #{{$forms['request_id']}}</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                   @if (akses('view-request'))
+                        <a class="dropdown-item has-icon" href="#"
+                            wire:click.prevent="refund_process({{ $dt->id }},'wallet')"><i
+                                class="bi bi-list"></i>
+                                {{_lang('Refund Wallet')}}
+                        </a>
+                    @endif
+                    
+                    @if (akses('view-request'))
+                        <a class="dropdown-item has-icon" href="#"
+                            wire:click.prevent="refund_process({{ $dt->id }},'ac')"><i
+                                class="bi bi-list"></i>
+                                {{_lang('Refund with A/C')}}
+                        </a>
+                    @endif
+               </div>
+                
+            </div>
+        </div>
+    </div>
+
+
     <div class="modal fade" tabindex="-1" role="dialog" id="modalLogs" wire:ignore.self>
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">

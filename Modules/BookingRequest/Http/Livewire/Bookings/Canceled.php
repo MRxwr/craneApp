@@ -84,8 +84,8 @@ class Canceled extends Component
     public function refund_data($id)
     {
         $dt = BookingRequest::find($id);
-        $this->is_edit = 1;
-        $this->id_edit = $id;
+        $this->forms;
+       
         $this->emit('pesanSukses', 'Sucess..');
     }
 
@@ -160,7 +160,7 @@ class Canceled extends Component
         $q = $this->search;
         $data = BookingRequest::where('is_active',4)->where('is_deleted',0)->filter($q)->latest()->paginate($this->paging);
         $pagings = MasterData::list_pagings();
-        return view('bookingrequest::livewire.requests.index', compact(
+        return view('bookingrequest::livewire.requests.canceled', compact(
             'data',
             'pagings',
             

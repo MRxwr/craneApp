@@ -262,25 +262,11 @@ class UserBookingController extends Controller
             $user = AppUser::where('token',$token)->first();
             //var_dump($user);
             if ($user) {
-                /// Retrieve all completed login attempts for the user
-                $completedLoginAttempts = LoginAttempt::where('app_user_id', $user->id)
-                    ->whereNotNull('end_time')
-                    ->get();
-                $totalLoginTime = 0;
-                // Iterate through each login attempt and calculate the duration
-                foreach ($completedLoginAttempts as $attempt) {
-                    $startTime = Carbon::parse($attempt->start_time);
-                    $endTime = Carbon::parse($attempt->end_time);
-                    // Calculate the difference in seconds and add to total
-                    $totalLoginTime += $endTime->diffInSeconds($startTime);
-                }
-                // Convert total login time to a more readable format (e.g., hours, minutes, seconds)
-                $totalLoginTimeFormatted = gmdate('H:i:s', $totalLoginTime);
-
+                
                 $driverId = $user->id;
                $data['message']=_lang('get Order request');
-               $todayRequests = BookingRequest::where('is_deleted', 0)->where('status', 5)
-            ->whereHas('payment', function($query) use ($today, $driverId) {
+               $todayRequests = BookingRequest::where('is_deleted', 0)
+               ->whereHas('payment', function($query) use ($today, $driverId) {
                 //$query->whereDate('created_at', $today)
                 $query->where('driver_id', $driverId);
             })

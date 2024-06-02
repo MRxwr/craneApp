@@ -259,7 +259,7 @@ function upadteUserMeta($key,$value,$app_user_id){
 function getUserRating($user_id){
    $ratings = AppUserRating ::where('rating_user_id',$user_id)->get();
    $totalRating = 0;
-   if($ratings){
+   if($ratings->count()>0){
      $numberofrating =$ratings->count();
      $totalRating = 0;
      foreach($ratings as $key=>$rate){

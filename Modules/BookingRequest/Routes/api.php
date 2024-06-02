@@ -22,7 +22,7 @@ Route::prefix('v1')->group(function () {
     Route::post('sent_order_request', [BookingController::class, 'sendRequest']);
     Route::post('get_driver_list',[BookingController::class, 'getDriverListRequest']);
     Route::post('place_order_request', [BookingController::class, 'placeOrderRequest']);
-    Route::post('change_order_status', [BookingController::class, 'saveDriverRequest']);
+    Route::post('change_order_status', [BookingController::class, 'changeOrderStatus']);
     Route::post('save_order_rating', [BookingController::class, 'saveOrderRating']);
     Route::post('cancel_order', [BookingController::class, 'cancelTheOrder']);
     // Driver

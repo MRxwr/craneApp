@@ -246,6 +246,144 @@ class UserBookingController extends Controller
         }
     }
 
-   
+    public function GetDriverHistories(Request $request){
+        $data = array();
+        $today = Carbon::today();
+        $token = $request->header('Authorization');
+        // Check if validation fails
+        if (!$token) {
+            // If validation fails, return response with validation errors
+            $data['message']=_lang('Authorization token is requred');
+            $data['errors'] = ['token'=>'header Authorization token is requred'];
+            return outputError($data);
+        }
+         $token = str_replace('Bearer ', '', $token);
+        try {
+            $user = AppUser::where('token',$token)->first();
+            //var_dump($user);
+            if ($user) {
+                /// Retrieve all completed login attempts for the user
+                $completedLoginAttempts = LoginAttempt::where('app_user_id', $user->id)
+                    ->whereNotNull('end_time')
+                    ->get();
+                $totalLoginTime = 0;
+                // Iterate through each login attempt and calculate the duration
+                foreach ($completedLoginAttempts as $attempt) {
+                    $startTime = Carbon::parse($attempt->start_time);
+                    $endTime = Carbon::parse($attempt->end_time);
+                    // Calculate the difference in seconds and add to total
+                    $totalLoginTime += $endTime->diffInSeconds($startTime);
+                }
+                // Convert total login time to a more readable format (e.g., hours, minutes, seconds)
+                $totalLoginTimeFormatted = gmdate('H:i:s', $totalLoginTime);
+
+                $driverId = $user->id;
+               $data['message']=_lang('get Order request');
+               $todayRequests = BookingRequest::where('is_deleted', 0)->where('status', 5)
+            ->whereHas('payment', function($query) use ($today, $driverId) {
+                //$query->whereDate('created_at', $today)
+                $query->where('driver_id', $driverId);
+            })
+            ->with(['payment' => function($query) use ($today, $driverId) {
+                //$query->whereDate('created_at', $today)
+                $query->where('driver_id', $driverId);
+            }])
+            ->get();
+
+            $totalEarnings = $todayRequests->sum(function($bookingRequest) {
+                return $bookingRequest->payment->payment_amount;
+            });
+
+            $totalDistance = $todayRequests->sum('distances'); // Assuming 'distance' is a field in BookingRequest
+            $totalRequests = $todayRequests->count();
+               $data['status']= [
+                'total_earnings' => $totalEarnings,
+                'total_distance' => $totalDistance,
+                'total_orders' => $totalRequests,
+               ];
+                    //ongoing trip
+               $dt = BookingRequest::where('is_deleted', 0)->where('status', 5)
+               ->whereHas('payment', function($query) use ($driverId) {
+                   $query->where('driver_id', $driverId);
+               })
+               ->with(['payment' => function($query) use ($driverId) {
+                   $query->where('driver_id', $driverId);
+               }])->get();
+               $orderRequest =[];
+               $ongoingRequest =[];
+               $upcommingRequest =[];
+               $arrivedRequest =[];
+               $canceledRequest =[];
+               $completedRequest =[];
+               $prices=[];
+                foreach ($dt as $key=>$bookingRequest){
+                    $to_lat ='';
+                    $to_long='';
+                    $from_lat ='';
+                    $from_long='';
+                    if($bookingRequest->to_latlong){
+                        
+                        $Tolatlong=explode(',',$bookingRequest->to_latlong);
+                        if(count($Tolatlong)==2){
+                            $to_lat = $Tolatlong[0];
+                            $to_long = $Tolatlong[1];
+                        }
+                    }
+                    if($bookingRequest->to_latlong){
+                        $Fromlatlong=explode(',',$bookingRequest->from_latlong);
+                        
+                        if(count($Fromlatlong)==2){
+                            $from_lat = $Fromlatlong[0];
+                            $from_long = $Fromlatlong[1];
+                        }
+                    }
+                  
+                    if($bookingRequest->status==5){
+                        $rating = getUserRating($bookingRequest->client_id);
+                        $completedRequest[$key]['bidid']=$bookingRequest->id;
+                        $completedRequest[$key]['request_id']=$bookingRequest->request_id;
+                        $completedRequest[$key]['from_location']=$bookingRequest->from_location;
+                        $completedRequest[$key]['to_location']=$bookingRequest->to_location;
+                        $completedRequest[$key]['client_name'] = $bookingRequest->client->name;
+                        $completedRequest[$key]['client_mobile'] = $bookingRequest->client->mobile;
+                        $completedRequest[$key]['rating'] = $rating;
+                        $completedRequest[$key]['status'] = $bookingRequest->status;
+                        $completedRequest[$key]['from_lat'] = $from_lat;
+                        $completedRequest[$key]['from_lng'] = $from_long;
+                        $completedRequest[$key]['to_lat'] = $to_lat;
+                        $completedRequest[$key]['to_lng'] = $to_long;
+                        $completedRequest[$key]['trip_cost'] = $bookingRequest->payment->payment_amount; 
+                   }
+                       
+                }
+                
+                //$data['upcommingRequest']= [$upcommingRequest];
+                //$data['arrivedRequest']= [$arrivedRequest];
+                //$data['ongoingRequest']= [$ongoingRequest];
+                //$data['canceledRequest']= [$canceledRequest];
+                $data['orderHistory']= [$completedRequest];
+               return outputSuccess($data);
+                // Proceed with authenticated user logic
+                
+                // Proceed with authenticated user logic
+            } else {
+                // Authentication failed
+                $data['message']=_lang('Unauthorized');
+                return outputError($data); 
+                
+            }
+        } catch (\Exception $e) {
+            // Log or handle the exception
+            $data['message']=_lang('Authentication error');
+            $data['errors'] = [
+                'message' => $e->getMessage(),
+                'code' => $e->getCode(),
+                'file' => $e->getFile(),
+                'line' => $e->getLine()
+            ];
+            return outputError($data);
+           
+        }
+    }
     
 }

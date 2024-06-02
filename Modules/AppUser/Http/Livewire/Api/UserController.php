@@ -41,7 +41,7 @@ class UserController extends Controller
                 // Authentication successful
                 
                 $data['message']=_lang('get Profile');
-                $rating = getUserRating($user);
+                $rating = getUserRating($user->id);
                 $data['rating']=  $rating;
                 $data['is_online']= $is_online;
                 $data['user']= $user->toArray();

@@ -38,7 +38,7 @@ class DriverController extends Controller
                 }
                 // Authentication successful
                 $data['message']=_lang('Profile');
-                $rating = getUserRating($user);
+                $rating = getUserRating($user->id);
                 $data['rating']=  $rating;
                 $data['is_online']= $is_online;
                 $data['user']= $user->toArray();

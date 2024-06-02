@@ -256,8 +256,8 @@ function upadteUserMeta($key,$value,$app_user_id){
     }
   }
 
-function getUserRating($user){
-   $ratings = AppUserRating ::where('rating_user_id',$user->id)->get();
+function getUserRating($user_id){
+   $ratings = AppUserRating ::where('rating_user_id',$user_id)->get();
    $totalRating = 0;
    if($ratings){
      $numberofrating =$ratings->count();

@@ -29,4 +29,5 @@ Route::prefix('v1')->group(function () {
     Route::post('get_order_request', [BookingController::class, 'getOrdersRequest']);
     Route::post('save_order_request', [BookingController::class, 'saveOrderRequest']);
     Route::post('driver_home', [UserBookingController::class, 'GetDriverHome']);
+    Route::post('get_driver_history', [UserBookingController::class, 'GetDriverHistories']);
 });

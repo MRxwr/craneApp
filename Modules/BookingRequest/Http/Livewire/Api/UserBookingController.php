@@ -263,7 +263,7 @@ class UserBookingController extends Controller
             //var_dump($user);
             if ($user) {
                 
-                $driverId = $user->id;
+              $driverId = $user->id;
                $data['message']=_lang('get Order request');
                $todayRequests = BookingRequest::where('is_deleted', 0)
                ->whereHas('payment', function($query) use ($today, $driverId) {
@@ -299,7 +299,9 @@ class UserBookingController extends Controller
               
                $completedRequest =[];
                $prices=[];
+               dd($dt);
                 foreach ($dt as $key=>$bookingRequest){
+
                     $to_lat ='';
                     $to_long='';
                     $from_lat ='';

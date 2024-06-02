@@ -321,7 +321,7 @@ class UserBookingController extends Controller
                         }
                     }
                   
-                    if($bookingRequest->status=='5'){
+                    if($bookingRequest->status==5){
                         $rating = getUserRating($bookingRequest->client_id);
                         $completedRequest[$key]['bidid']=$bookingRequest->id;
                         $completedRequest[$key]['request_id']=$bookingRequest->request_id;

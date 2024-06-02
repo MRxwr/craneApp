@@ -302,7 +302,7 @@ class UserBookingController extends Controller
                 'total_orders' => $totalRequests,
                ];
                     //ongoing trip
-               $dt = BookingRequest::where('is_deleted', 0)->where('status', 5)
+               $dt = BookingRequest::where('is_deleted', 0)
                ->whereHas('payment', function($query) use ($driverId) {
                    $query->where('driver_id', $driverId);
                })
@@ -310,10 +310,7 @@ class UserBookingController extends Controller
                    $query->where('driver_id', $driverId);
                }])->get();
                $orderRequest =[];
-               $ongoingRequest =[];
-               $upcommingRequest =[];
-               $arrivedRequest =[];
-               $canceledRequest =[];
+              
                $completedRequest =[];
                $prices=[];
                 foreach ($dt as $key=>$bookingRequest){
@@ -338,7 +335,7 @@ class UserBookingController extends Controller
                         }
                     }
                   
-                    if($bookingRequest->status==5){
+                    if($bookingRequest->status=='5'){
                         $rating = getUserRating($bookingRequest->client_id);
                         $completedRequest[$key]['bidid']=$bookingRequest->id;
                         $completedRequest[$key]['request_id']=$bookingRequest->request_id;

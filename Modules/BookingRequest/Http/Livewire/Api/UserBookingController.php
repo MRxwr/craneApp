@@ -299,7 +299,7 @@ class UserBookingController extends Controller
               
                $completedRequest =[];
                $prices=[];
-               dd($dt);
+               //dd($dt);
                 foreach ($dt as $key=>$bookingRequest){
 
                     $to_lat ='';
@@ -314,9 +314,8 @@ class UserBookingController extends Controller
                             $to_long = $Tolatlong[1];
                         }
                     }
-                    if($bookingRequest->to_latlong){
+                    if($bookingRequest->from_latlong){
                         $Fromlatlong=explode(',',$bookingRequest->from_latlong);
-                        
                         if(count($Fromlatlong)==2){
                             $from_lat = $Fromlatlong[0];
                             $from_long = $Fromlatlong[1];

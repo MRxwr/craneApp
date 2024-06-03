@@ -15,6 +15,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
 use App\Services\FCMService;
+use Carbon\Carbon;
 
 class BookingController extends Controller
 {
@@ -267,7 +268,7 @@ class BookingController extends Controller
             return outputError($data); 
         }
     }
-
+    // save order rating 
     public function saveOrderRating(Request $request){
         $data = array();
         $token = $request->header('Authorization');
@@ -291,6 +292,61 @@ class BookingController extends Controller
                      $activity = _lang('Gives order rating  '.$rating.'  by  ').$user->name;
                      AddBookingLog($dt,$activity);
                      $data['message']=_lang('Successfully added your rating');
+                     return outputSuccess($data);
+                } 
+            }else {
+                // Authentication failed
+                $data['message']=_lang('Unauthorized due to token mismatch');
+                return outputError($data);  
+            }
+        } catch (\Exception $e) {
+            $data['message']=_lang('Authentication error');
+            $data['errors'] = [
+                'message' => $e->getMessage(),
+                'code' => $e->getCode(),
+                'file' => $e->getFile(),
+                'line' => $e->getLine()
+            ];
+            return outputError($data); 
+        }
+    }
+    // save order Start time / end tive 
+    public function saveOrderStartEnd(Request $request){
+        $data = array();
+        $token = $request->header('Authorization');
+        // Check if validation fails
+        if (!$token) {
+            // If validation fails, return response with validation errors
+            $data['message']=_lang('Authorization token is requred');
+            $data['errors'] = ['token'=>'header Authorization token is requred'];
+            return outputError($data);
+        }
+        try {
+            $token = str_replace('Bearer ', '', $token);
+            $user = AppUser::where('token',$token)->first();
+            if ($user) {
+                $bidid= $request->input('request_id');
+                $data['message']=_lang('Send Crane Request');
+                $dt = BookingRequest::with('prices')->find($bidid);
+
+                if($dt->start_time){
+                    if($dt->end_time==""){
+                        $dt->end_time = Carbon::now();
+                        $activity = _lang('Order ended by  ').$user->name;
+                        $data['message']=_lang('Order ended by  ').$user->name;
+                    }else{
+                        $data['message']=_lang('Order already ended by  ').$user->name;
+                    }
+                }else{
+                     $dt->start_time = Carbon::now();
+                     $activity = _lang('Order started by  ').$user->name;
+                     $data['message']=_lang('Order started by  ').$user->name;
+                }
+                if($dt->save()){
+                     $rating =$dt->rating;
+                     
+                     AddBookingLog($dt,$activity);
+                    
                      return outputSuccess($data);
                 } 
             }else {

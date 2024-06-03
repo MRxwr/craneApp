@@ -6,6 +6,7 @@ use Modules\AppUser\Entities\AppUser;
 use Modules\AppUser\Entities\OtpUser;
 use Modules\AppUser\Entities\LoginAttempt;
 use Modules\AppUser\Entities\AppUserRating;
+use Modules\AppUser\Entities\AppUserActivity;
 use Illuminate\Routing\Controller;
 use Modules\Pages\Entities\Page;
 use Illuminate\Support\Facades\Hash;

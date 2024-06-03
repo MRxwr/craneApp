@@ -7,6 +7,7 @@ use Modules\BookingRequest\Entities\BookingRequest;
 use Modules\BookingRequest\Entities\BookingLog;
 use Modules\BookingRequest\Entities\BookingPrice;
 use Modules\AppUser\Entities\AppUser;
+use Modules\AppUser\Entities\AppUserActivity;
 use Illuminate\Routing\Controller;
 use Modules\Pages\Entities\Page;
 use Illuminate\Support\Facades\Hash;

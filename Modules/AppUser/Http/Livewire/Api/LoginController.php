@@ -4,6 +4,7 @@ namespace Modules\AppUser\Http\Livewire\Api;
 use Illuminate\Contracts\Support\Renderable;
 use Modules\AppUser\Entities\AppUser;
 use Modules\AppUser\Entities\OtpUser;
+use Modules\AppUser\Entities\AppUserActivity;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Http;

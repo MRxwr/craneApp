@@ -14,7 +14,7 @@ use Modules\BookingRequest\Entities\BookingRequest;
 use Modules\BookingRequest\Entities\BookingLog;
 use Modules\BookingRequest\Entities\BookingPrice;
 use Modules\BookingRequest\Entities\BookingPayment;
-
+use Modules\AppUser\Entities\AppUserActivity;
 use Modules\Pages\Entities\Page;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Model;
@@ -268,4 +268,21 @@ function getUserRating($user_id){
      $totalRating = $totalRating/$numberofrating;
    }
    return number_format($totalRating, 1);
+}
+function addUserActivity($user_id,$request_id=0,$activity,$flag){
+    /* Flags = 1= login
+       Flags = 2= online 
+       Flags = 3= offline 
+       Flags = 4= update profile  
+       Flags = 5= placed order
+       
+       */
+    if($user_id>0){
+        $activt = new AppUserActivity;
+        $activt->app_user_id =$user_id;
+        $activt->request_id =$request_id;
+        $activt->activity =$activity;
+        $activt->flag =$flag;
+        $activt->save();
+    }
 }

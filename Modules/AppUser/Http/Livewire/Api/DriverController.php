@@ -4,6 +4,8 @@ namespace Modules\AppUser\Http\Livewire\Api;
 use Illuminate\Contracts\Support\Renderable;
 use Modules\AppUser\Entities\AppUser;
 use Modules\AppUser\Entities\OtpUser;
+use Modules\AppUser\Entities\LoginAttempt;
+use Modules\AppUser\Entities\AppUserRating;
 use Illuminate\Routing\Controller;
 use Modules\Pages\Entities\Page;
 use Illuminate\Support\Facades\Hash;
@@ -11,6 +13,10 @@ use Illuminate\Support\Facades\Http;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
+use Carbon\Carbon;
+
+
+
 
 class DriverController extends Controller
 {

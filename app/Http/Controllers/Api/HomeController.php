@@ -31,6 +31,7 @@ class HomeController extends Controller
             $token = str_replace('Bearer ', '', $token);
             $user = AppUser::where('token',$token)->first();
             if ($user) {
+              $position =  DriverPosition::where('client_id', $user->id)->latest()->first();
                 $services= Service::where('is_active',1)->where('is_deleted',0)
                 ->select('id', 'title', 'description','image') ->get()->toArray();
                 $banners= Banner::where('is_active',1)->where('is_deleted',0)
@@ -38,6 +39,9 @@ class HomeController extends Controller
                 $data['message']=_lang('Get Home Data');
                 $data['sevices']= $services;
                 $data['banners']= $banners;
+                $data['time']= $position?$position->time:0;
+                $data['distance']= $position?$position->distance:0;
+
                 return outputSuccess($data);   
             }else {
                 // Authentication failed

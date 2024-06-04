@@ -6,6 +6,7 @@ use App\Traits\MasterData;
 use Modules\BookingRequest\Entities\BookingRequest;
 use Modules\BookingRequest\Entities\BookingLog;
 use Modules\BookingRequest\Entities\BookingPrice;
+use Modules\BookingRequest\Entities\DriverPosition;
 use Modules\AppUser\Entities\AppUser;
 use Modules\AppUser\Entities\AppUserActivity;
 use Illuminate\Routing\Controller;
@@ -327,9 +328,8 @@ class BookingController extends Controller
             $user = AppUser::where('token',$token)->first();
             if ($user) {
                 $bidid= $request->input('request_id');
-                $data['message']=_lang('Send Crane Request');
+                $data['message']=_lang('Save order start/end');
                 $dt = BookingRequest::with('prices')->find($bidid);
-
                 if($dt->start_time){
                     if($dt->end_time==""){
                         $dt->end_time = Carbon::now();
@@ -366,6 +366,56 @@ class BookingController extends Controller
             return outputError($data); 
         }
     }
+
+    //trauck driver position  driver_positions
+
+    public function TrackDriverPosition(Request $request){
+        $data = array();
+        $token = $request->header('Authorization');
+        // Check if validation fails
+        if (!$token) {
+            // If validation fails, return response with validation errors
+            $data['message']=_lang('Authorization token is requred');
+            $data['errors'] = ['token'=>'header Authorization token is requred'];
+            return outputError($data);
+        }
+        try {
+            $token = str_replace('Bearer ', '', $token);
+            $user = AppUser::where('token',$token)->first();
+            if ($user) {
+                $bidid= $request->input('request_id');
+                $data['message']=_lang('Send Crane Request');
+                $dt = DriverPosition::where('request_id',$bidid)->first;
+                if($dt){
+                     $dt->time= $request->input('time');
+                     $dt->distance= $request->input('distance');
+                }else{
+                     $dt = new DriverPosition;
+                     $dt->time= $request->input('time');
+                     $dt->distance= $request->input('distance');   
+                }
+                if($dt->save()){
+                    $data['message']=_lang('Driver Location update');
+                     return outputSuccess($data);
+                } 
+            }else {
+                // Authentication failed
+                $data['message']=_lang('Unauthorized due to token mismatch');
+                return outputError($data);  
+            }
+        } catch (\Exception $e) {
+            $data['message']=_lang('Authentication error');
+            $data['errors'] = [
+                'message' => $e->getMessage(),
+                'code' => $e->getCode(),
+                'file' => $e->getFile(),
+                'line' => $e->getLine()
+            ];
+            return outputError($data); 
+        }
+    }
+
+
     //For client : return list driver of this order
     public function getDriverListRequest(Request $request){
         $data = array();

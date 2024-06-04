@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Storage;
 
 class HomeController extends Controller
 {
-    public function getHome()
+    public function getHome(Request $request)
     {
         $data = array();
         $token = $request->header('Authorization');

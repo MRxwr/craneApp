@@ -144,6 +144,11 @@ class UserBookingController extends Controller
                $canceledRequest =[];
                $completedRequest =[];
                $prices=[];
+               $key1=0;
+               $key2=0;
+               $key3=0;
+               $key4=0;
+               $key5=0;
                 foreach ($dt as $key=>$bookingRequest){
                     $lat ='';
                     $long='';
@@ -156,65 +161,70 @@ class UserBookingController extends Controller
                     }
 
                     if($bookingRequest->status==1){
-                         $upcommingRequest[$key]['bidid']=$bookingRequest->id;
-                         $upcommingRequest[$key]['request_id']=$bookingRequest->request_id;
-                         $upcommingRequest[$key]['from_location']=$bookingRequest->from_location;
-                         $upcommingRequest[$key]['to_location']=$bookingRequest->to_location;
-                         $upcommingRequest[$key]['client_name'] = $bookingRequest->client->name;
-                         $upcommingRequest[$key]['client_mobile'] = $bookingRequest->client->mobile;
-                         $upcommingRequest[$key]['status'] = $bookingRequest->status;
-                         $upcommingRequest[$key]['lat'] = $lat;
-                         $upcommingRequest[$key]['lng'] = $long;
-                         $upcommingRequest[$key]['rating'] = $bookingRequest->rating;
-                    }
+                         $upcommingRequest[$key1]['bidid']=$bookingRequest->id;
+                         $upcommingRequest[$key1]['request_id']=$bookingRequest->request_id;
+                         $upcommingRequest[$key1]['from_location']=$bookingRequest->from_location;
+                         $upcommingRequest[$key1]['to_location']=$bookingRequest->to_location;
+                         $upcommingRequest[$key1]['client_name'] = $bookingRequest->client->name;
+                         $upcommingRequest[$key1]['client_mobile'] = $bookingRequest->client->mobile;
+                         $upcommingRequest[$key1]['status'] = $bookingRequest->status;
+                         $upcommingRequest[$key1]['lat'] = $lat;
+                         $upcommingRequest[$key1]['lng'] = $long;
+                         $upcommingRequest[$key1]['rating'] = $bookingRequest->rating;
+                         $key1++ ;
+                        }
                     if($bookingRequest->status==2){
-                        $arrivedRequest[$key]['bidid']=$bookingRequest->id;
-                        $arrivedRequest[$key]['request_id']=$bookingRequest->request_id;
-                        $arrivedRequest[$key]['from_location']=$bookingRequest->from_location;
-                        $arrivedRequest[$key]['to_location']=$bookingRequest->to_location;
-                        $arrivedRequest[$key]['client_name'] = $bookingRequest->client->name;
-                        $arrivedRequest[$key]['client_mobile'] = $bookingRequest->client->mobile;
-                        $arrivedRequest[$key]['status'] = $bookingRequest->status;
-                        $arrivedRequest[$key]['lat'] = $lat;
-                        $arrivedRequest[$key]['lng'] = $long;
-                        $arrivedRequest[$key]['rating'] = $bookingRequest->rating;
-                   }
+                        $arrivedRequest[$key2]['bidid']=$bookingRequest->id;
+                        $arrivedRequest[$key2]['request_id']=$bookingRequest->request_id;
+                        $arrivedRequest[$key2]['from_location']=$bookingRequest->from_location;
+                        $arrivedRequest[$key2]['to_location']=$bookingRequest->to_location;
+                        $arrivedRequest[$key2]['client_name'] = $bookingRequest->client->name;
+                        $arrivedRequest[$key2]['client_mobile'] = $bookingRequest->client->mobile;
+                        $arrivedRequest[$key2]['status'] = $bookingRequest->status;
+                        $arrivedRequest[$key2]['lat'] = $lat;
+                        $arrivedRequest[$key2]['lng'] = $long;
+                        $arrivedRequest[$key2]['rating'] = $bookingRequest->rating;
+                      $key2++;
+                    }
                     if($bookingRequest->status==3){
-                        $ongoingRequest[$key]['bidid']=$bookingRequest->id;
-                        $ongoingRequest[$key]['request_id']=$bookingRequest->request_id;
-                        $ongoingRequest[$key]['from_location']=$bookingRequest->from_location;
-                        $ongoingRequest[$key]['to_location']=$bookingRequest->to_location;
-                        $ongoingRequest[$key]['client_name'] = $bookingRequest->client->name;
-                        $ongoingRequest[$key]['client_mobile'] = $bookingRequest->client->mobile;
-                        $ongoingRequest[$key]['status'] = $bookingRequest->status;
-                        $ongoingRequest[$key]['lat'] = $lat;
-                        $ongoingRequest[$key]['lng'] = $long;
-                        $ongoingRequest[$key]['rating'] = $bookingRequest->rating;
-                   }
+                        $ongoingRequest[$key3]['bidid']=$bookingRequest->id;
+                        $ongoingRequest[$key3]['request_id']=$bookingRequest->request_id;
+                        $ongoingRequest[$key3]['from_location']=$bookingRequest->from_location;
+                        $ongoingRequest[$key3]['to_location']=$bookingRequest->to_location;
+                        $ongoingRequest[$key3]['client_name'] = $bookingRequest->client->name;
+                        $ongoingRequest[$key3]['client_mobile'] = $bookingRequest->client->mobile;
+                        $ongoingRequest[$key3]['status'] = $bookingRequest->status;
+                        $ongoingRequest[$key3]['lat'] = $lat;
+                        $ongoingRequest[$key3]['lng'] = $long;
+                        $ongoingRequest[$key3]['rating'] = $bookingRequest->rating;
+                     $key3++;
+                    }
                    if($bookingRequest->status==4){
-                        $canceledRequest[$key]['bidid']=$bookingRequest->id;
-                        $canceledRequest[$key]['request_id']=$bookingRequest->request_id;
-                        $canceledRequest[$key]['from_location']=$bookingRequest->from_location;
-                        $canceledRequest[$key]['to_location']=$bookingRequest->to_location;
-                        $canceledRequest[$key]['client_name'] = $bookingRequest->client->name;
-                        $canceledRequest[$key]['client_mobile'] = $bookingRequest->client->mobile;
-                        $canceledRequest[$key]['status'] = $bookingRequest->status;
-                        $canceledRequest[$key]['lat'] = $lat;
-                        $canceledRequest[$key]['lng'] = $long;
-                        $canceledRequest[$key]['rating'] = $bookingRequest->rating;
+                        $canceledRequest[$key4]['bidid']=$bookingRequest->id;
+                        $canceledRequest[$key4]['request_id']=$bookingRequest->request_id;
+                        $canceledRequest[$key4]['from_location']=$bookingRequest->from_location;
+                        $canceledRequest[$key4]['to_location']=$bookingRequest->to_location;
+                        $canceledRequest[$key4]['client_name'] = $bookingRequest->client->name;
+                        $canceledRequest[$key4]['client_mobile'] = $bookingRequest->client->mobile;
+                        $canceledRequest[$key4]['status'] = $bookingRequest->status;
+                        $canceledRequest[$key4]['lat'] = $lat;
+                        $canceledRequest[$key4]['lng'] = $long;
+                        $canceledRequest[$key4]['rating'] = $bookingRequest->rating;
+                      $key4++;
                     }
                     if($bookingRequest->status==5){
-                        $completedRequest[$key]['bidid']=$bookingRequest->id;
-                        $completedRequest[$key]['request_id']=$bookingRequest->request_id;
-                        $completedRequest[$key]['from_location']=$bookingRequest->from_location;
-                        $completedRequest[$key]['to_location']=$bookingRequest->to_location;
-                        $completedRequest[$key]['client_name'] = $bookingRequest->client->name;
-                        $completedRequest[$key]['client_mobile'] = $bookingRequest->client->mobile;
-                        $completedRequest[$key]['status'] = $bookingRequest->status;
-                        $canceledRequest[$key]['lat'] = $lat;
-                        $canceledRequest[$key]['lng'] = $long;
-                        $completedRequest[$key]['rating'] = $bookingRequest->rating;
-                   }
+                        $completedRequest[$key5]['bidid']=$bookingRequest->id;
+                        $completedRequest[$key5]['request_id']=$bookingRequest->request_id;
+                        $completedRequest[$key5]['from_location']=$bookingRequest->from_location;
+                        $completedRequest[$key5]['to_location']=$bookingRequest->to_location;
+                        $completedRequest[$key5]['client_name'] = $bookingRequest->client->name;
+                        $completedRequest[$key5]['client_mobile'] = $bookingRequest->client->mobile;
+                        $completedRequest[$key5]['status'] = $bookingRequest->status;
+                        $completedRequest[$key5]['lat'] = $lat;
+                        $completedRequest[$key5]['lng'] = $long;
+                        $completedRequest[$key5]['rating'] = $bookingRequest->rating;
+                       $key5++;
+                    }
                        
                 }
                 

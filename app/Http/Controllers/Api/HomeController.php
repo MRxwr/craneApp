@@ -37,8 +37,12 @@ class HomeController extends Controller
 
                if($booking){
                 $position = DriverPosition::where('request_id', $booking->id)->first();
-                $time = $position->time;
-                $distance = $position->distance;
+                if($position){
+                    $time = $position->time;
+                    $distance = $position->distance;
+                }
+                
+                
                }
                 $services= Service::where('is_active',1)->where('is_deleted',0)
                 ->select('id', 'title', 'description','image') ->get()->toArray();

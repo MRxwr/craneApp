@@ -332,7 +332,6 @@ class UserBookingController extends Controller
                             $from_long = $Fromlatlong[1];
                         }
                     }
-                  
                     if($bookingRequest->status==5){
                         $rating = getUserRating($bookingRequest->client_id);
                         $completedRequest[$key]['bidid']=$bookingRequest->id;
@@ -380,5 +379,7 @@ class UserBookingController extends Controller
            
         }
     }
+
+    
     
 }

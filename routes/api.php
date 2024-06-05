@@ -16,5 +16,5 @@ use App\Http\Controllers\Api\HomeController;
 
 // API Version 1 routes
 Route::prefix('v1')->group(function () {
-    Route::get('/home', [HomeController::class, 'getHome']);
+    Route::post('/home', [HomeController::class, 'getHome']);
 });

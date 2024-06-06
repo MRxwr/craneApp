@@ -26,7 +26,7 @@ Route::prefix('v1')->group(function () {
     Route::post('save_order_rating', [BookingController::class, 'saveOrderRating']);
     Route::post('cancel_order', [BookingController::class, 'cancelTheOrder']);
     Route::post('client_home', [UserBookingController::class, 'GetClientHome']);
-    Route::post('order_details', [UserBookingController::class, 'GetClientHome']);
+    Route::post('order_details', [BookingController::class, 'getOderDetails']);
     // Driver
     Route::post('get_order_request', [BookingController::class, 'getOrdersRequest']);
     Route::post('save_order_request', [BookingController::class, 'saveOrderRequest']);

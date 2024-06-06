@@ -434,7 +434,7 @@ class BookingController extends Controller
                $bidid= $request->input('request_id');
                $data['message']=_lang('Send Crane Request');
                $dt = BookingRequest::with('prices')->find($bidid);
-               $bdprices = $dt->prices()->where('is_accepted','!=', 2)->get();
+               $bdprices = $dt->prices()->where('price','!=','')->get();
                $prices=[];
                $driverList['bidid']=$bidid;
                $driverList['request_id']=$dt->request_id;

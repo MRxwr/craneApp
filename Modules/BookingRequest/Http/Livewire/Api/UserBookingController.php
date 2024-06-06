@@ -36,27 +36,35 @@ class UserBookingController extends Controller
         try {
             $user = AppUser::where('token',$token)->first();
             if ($user) {
+                $clientId = $user->id;
                $data['message']=_lang('get Order request');
-               $dt = BookingRequest::where('client_id', $user->id)->where('is_deleted', 0)->get();
+               $dt = BookingRequest::where('client_id', $user->id)->where('is_deleted', 0)
+               ->whereHas('payment', function($query) use ( $clientId) {
+                //$query->whereDate('created_at', $today)
+                $query->where('client_id', $clientId);
+               })
+               ->whereHas('peices', function($query) use ( $clientId) {
+                //$query->whereDate('created_at', $today)
+                $query->where('client_id', $clientId);
+               })
+            ->with(['payment' => function($query) use ($clientId){
+                //$query->whereDate('created_at', $today)
+                $query->where('driver_id', $clientId);
+               }])
+               ->with(['peices' => function($query) use ($clientId){
+                //$query->whereDate('created_at', $today)
+                $query->where('driver_id', $clientId);
+               }])->get();
                $orderRequest =[];
                $prices=[];
-                foreach ($dt as $bookingRequest){
-                        $orderRequest[$bookingRequest->id]['bidid']=$bookingRequest->id;
-                        $orderRequest[$bookingRequest->id]['request_id']=$bookingRequest->request_id;
-                        $orderRequest[$bookingRequest->id]['from_location']=$bookingRequest->from_location;
-                        $orderRequest[$bookingRequest->id]['to_location']=$bookingRequest->to_location;
-                        foreach ($bookingRequest->prices as $price) {
-                            $prices=[];
-                            $prices[$price->id]['price_id'] = $price->id;
-                            $prices[$price->id]['client_name'] = $price->client->name;
-                            $prices[$price->id]['mobile'] = $price->client->mobile;
-                            $prices[$price->id]['price'] =  $price->price;
-                            $prices[$price->id]['is_accepted'] = $price->is_accepted;
-                            $orderRequest[$bookingRequest->id]['prices']= $prices;
-                        }
+                foreach ($dt as $key=>$bookingRequest){
+                        $orderRequest[$key]['bidid']=$bookingRequest->id;
+                        $orderRequest[$key]['request_id']=$bookingRequest->request_id;
+                        $orderRequest[$key]['from_location']=$bookingRequest->from_location;
+                        $orderRequest[$key]['to_location']=$bookingRequest->to_location;  
                 }
                 
-                $data['orderRequest']= $orderRequest;
+                $data['ClientOrder']= $orderRequest;
                return outputSuccess($data);
                 // Proceed with authenticated user logic
                 

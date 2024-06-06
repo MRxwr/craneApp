@@ -645,5 +645,59 @@ class BookingController extends Controller
 
        return $data;
     }
+
+
+    //For client : return list driver of this order
+    public function getOderDetails(Request $request){
+        $data = array();
+        $token = $request->header('Authorization');
+        // Check if validation fails
+        if (!$token) {
+            // If validation fails, return response with validation errors
+            $data['message']=_lang('Authorization token is requred');
+            $data['errors'] = ['token'=>'header Authorization token is requred'];
+            return outputError($data);
+        }
+        try {
+            $token = str_replace('Bearer ', '', $token);
+            $user = AppUser::where('token',$token)->first();
+            $OrderDetails=[];
+            if ($user) {
+                $bidid= $request->input('request_id');
+                $data['message']=_lang('Send Crane Request');
+                $dt = BookingRequest::with('prices')->with('payment')->find($bidid);
+                $bdprices = $dt->prices()->where('is_accepted', 1)->first();
+                $prices=[];
+                $OrderDetails['bidid']=$bidid;
+                $OrderDetails['request_id']=$dt->request_id;
+                $OrderDetails['from_location']=$dt->from_location;
+                $OrderDetails['to_location']=$dt->to_location;
+                $OrderDetails['status']=$dt->status;
+                $OrderDetails['price_id'] = $bdprices->id;
+                $OrderDetails['driver_name'] = $bdprices->driver->name;
+                $OrderDetails['mobile'] = $bdprices->driver->mobile;
+                $OrderDetails['price'] =  $bdprices->price;
+                $OrderDetails['is_accepted'] = $bdprices->is_accepted;
+               $data['orderDetails']= [$OrderDetails];
+               return outputSuccess($data);
+                // Proceed with authenticated user logic
+            }else {
+                // Authentication failed
+                $data['message']=_lang('Unauthorized due to token mismatch');
+                return outputError($data);  
+            }
+        } catch (\Exception $e) {
+            // Log or handle the exception
+            $data['message']=_lang('Authentication error');
+            $data['errors'] = [
+                'message' => $e->getMessage(),
+                'code' => $e->getCode(),
+                'file' => $e->getFile(),
+                'line' => $e->getLine()
+            ];
+            return outputError($data);
+           
+        }
+    }
     
 }

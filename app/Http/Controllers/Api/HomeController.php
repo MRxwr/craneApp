@@ -51,13 +51,23 @@ class HomeController extends Controller
                $prices=[];
                $key3=0;
                 foreach ($dt as $key=>$bookingRequest){
-                    $lat ='';
-                    $long='';
+                    $to_lat ='';
+                    $to_long='';
+                    $from_lat ='';
+                    $from_long='';
                     if($bookingRequest->to_latlong){
-                        $latlong=explode(',',$bookingRequest->to_latlong);
-                        if(count($latlong)==2){
-                            $lat = $latlong[0];
-                            $long = $latlong[1];
+                        
+                        $Tolatlong=explode(',',$bookingRequest->to_latlong);
+                        if(count($Tolatlong)==2){
+                            $to_lat = $Tolatlong[0];
+                            $to_long = $Tolatlong[1];
+                        }
+                    }
+                    if($bookingRequest->from_latlong){
+                        $Fromlatlong=explode(',',$bookingRequest->from_latlong);
+                        if(count($Fromlatlong)==2){
+                            $from_lat = $Fromlatlong[0];
+                            $from_long = $Fromlatlong[1];
                         }
                     }
                     if($bookingRequest->status==3){
@@ -68,10 +78,11 @@ class HomeController extends Controller
                         $ongoingRequest[$key3]['client_name'] = $bookingRequest->client->name;
                         $ongoingRequest[$key3]['client_mobile'] = $bookingRequest->client->mobile;
                         $ongoingRequest[$key3]['status'] = $bookingRequest->status;
-                        $ongoingRequest[$key3]['lat'] = $lat;
-                        $ongoingRequest[$key3]['lng'] = $long;
-                        $ongoingRequest[$key3]['rating'] = $bookingRequest->rating;
-                     $key3++;
+                        $ongoingRequest[$key3]['from_lat'] = $from_lat;
+                        $ongoingRequest[$key3]['from_lng'] = $from_long;
+                        $ongoingRequest[$key3]['to_lat'] = $to_lat;
+                        $ongoingRequest[$key3]['to_lng'] = $to_long;
+                        $key3++;
                     }    
                 }
                 $services= Service::where('is_active',1)->where('is_deleted',0)

@@ -39,7 +39,7 @@ class UserBookingController extends Controller
             if ($user) {
                 $clientId = $user->id;
                $data['message']=_lang('get Order request');
-               $dt = BookingRequest::where('client_id', $user->id)->where('is_deleted', 0)->get();
+               $dt = BookingRequest::with('prices')->with('payment')->where('client_id', $user->id)->where('is_deleted', 0)->get();
                $orderRequest =[];
                $prices=[];
                 foreach ($dt as $key=>$bookingRequest){
@@ -336,6 +336,7 @@ class UserBookingController extends Controller
                             $from_long = $Fromlatlong[1];
                         }
                     }
+                    
                     if($bookingRequest->status==5){
                         $rating = getUserRating($bookingRequest->client_id);
                         $completedRequest[$key]['bidid']=$bookingRequest->id;

@@ -666,6 +666,24 @@ class BookingController extends Controller
                 $bidid= $request->input('request_id');
                 $data['message']=_lang('Send Crane Request');
                 $dt = BookingRequest::with('prices')->with('payment')->find($bidid);
+                $to_lat ='';
+                $to_long='';
+                $from_lat ='';
+                $from_long='';
+                if($dt->to_latlong){
+                    $Tolatlong=explode(',',$dt->to_latlong);
+                    if(count($Tolatlong)==2){
+                        $to_lat = $Tolatlong[0];
+                        $to_long = $Tolatlong[1];
+                    }
+                }
+                if($dt->from_latlong){
+                    $Fromlatlong=explode(',',$dt->from_latlong);
+                    if(count($Fromlatlong)==2){
+                        $from_lat = $Fromlatlong[0];
+                        $from_long = $Fromlatlong[1];
+                    }
+                }
                 $bdprices = $dt->prices()->where('is_accepted', 1)->first();
                 $prices=[];
                 $OrderDetails['bidid']=$bidid;
@@ -677,8 +695,12 @@ class BookingController extends Controller
                 $OrderDetails['driver_name'] = $bdprices->driver->name;
                 $OrderDetails['mobile'] = $bdprices->driver->mobile;
                 $OrderDetails['price'] =  $bdprices->price;
+                $OrderDetails['from_lat'] = $from_lat;
+                $OrderDetails['from_lng'] = $from_long;
+                $OrderDetails['to_lat'] = $to_lat;
+                $OrderDetails['to_lng'] = $to_long;
                 $OrderDetails['is_accepted'] = $bdprices->is_accepted;
-               $data['orderDetails']= [$OrderDetails];
+                $data['orderDetails']= [$OrderDetails];
                return outputSuccess($data);
                 // Proceed with authenticated user logic
             }else {

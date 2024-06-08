@@ -56,7 +56,6 @@ class HomeController extends Controller
                     $from_lat ='';
                     $from_long='';
                     if($bookingRequest->to_latlong){
-                        
                         $Tolatlong=explode(',',$bookingRequest->to_latlong);
                         if(count($Tolatlong)==2){
                             $to_lat = $Tolatlong[0];
@@ -77,6 +76,10 @@ class HomeController extends Controller
                         $ongoingRequest[$key3]['to_location']=$bookingRequest->to_location;
                         $ongoingRequest[$key3]['client_name'] = $bookingRequest->client->name;
                         $ongoingRequest[$key3]['client_mobile'] = $bookingRequest->client->mobile;
+                        $ongoingRequest[$key3]['client_avator'] = $bookingRequest->client->avator;
+                        $ongoingRequest[$key3]['driver_name'] = $bookingRequest->driver->name;
+                        $ongoingRequest[$key3]['driver_mobile'] = $bookingRequest->driver->mobile;
+                        $ongoingRequest[$key3]['driver_avator'] = $bookingRequest->driver->avator;
                         $ongoingRequest[$key3]['status'] = $bookingRequest->status;
                         $ongoingRequest[$key3]['from_lat'] = $from_lat;
                         $ongoingRequest[$key3]['from_lng'] = $from_long;

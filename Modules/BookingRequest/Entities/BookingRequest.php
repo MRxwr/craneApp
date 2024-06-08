@@ -31,10 +31,10 @@ class BookingRequest extends Model
     {
         return $this->belongsTo(AppUser::class, 'client_id', 'id');
     }
-    // public function driver()
-    // {
-    //     return $this->belongsTo(AppUser::class, 'driver_id', 'id');
-    // }
+    public function driver()
+    {
+        return $this->belongsTo(AppUser::class, 'driver_id', 'id');
+    }
 
     public function prices()
     {

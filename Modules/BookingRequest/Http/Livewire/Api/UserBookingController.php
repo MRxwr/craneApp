@@ -6,6 +6,7 @@ use App\Traits\MasterData;
 use Modules\BookingRequest\Entities\BookingRequest;
 use Modules\BookingRequest\Entities\BookingLog;
 use Modules\BookingRequest\Entities\BookingPrice;
+use Modules\BookingRequest\Entities\BookingPayment;
 use Modules\AppUser\Entities\AppUser;
 use Modules\AppUser\Entities\LoginAttempt;
 use Modules\AppUser\Entities\AppUserActivity;
@@ -38,31 +39,20 @@ class UserBookingController extends Controller
             if ($user) {
                 $clientId = $user->id;
                $data['message']=_lang('get Order request');
-               $dt = BookingRequest::where('client_id', $user->id)->where('is_deleted', 0)
-               ->whereHas('payment', function($query) use ( $clientId) {
-                //$query->whereDate('created_at', $today)
-                $query->where('client_id', $clientId);
-               })
-               ->whereHas('peices', function($query) use ( $clientId) {
-                //$query->whereDate('created_at', $today)
-                $query->where('client_id', $clientId);
-               })
-            ->with(['payment' => function($query) use ($clientId){
-                //$query->whereDate('created_at', $today)
-                $query->where('driver_id', $clientId);
-               }])
-               ->with(['peices' => function($query) use ($clientId){
-                //$query->whereDate('created_at', $today)
-                $query->where('driver_id', $clientId);
-               }])->get();
+               $dt = BookingRequest::where('client_id', $user->id)->where('is_deleted', 0)->get();
                $orderRequest =[];
                $prices=[];
                 foreach ($dt as $key=>$bookingRequest){
+                        $payment = BookingPayment::where('request_id', $bookingRequest->id)->first();
+                        if($payment){
+                            $prices=   BookingPrice::where('request_id', $bookingRequest->id)->where('driver_id', $payment->driver_id)->first();
+                        }
+                        
                         $orderRequest[$key]['bidid']=$bookingRequest->id;
                         $orderRequest[$key]['request_id']=$bookingRequest->request_id;
                         $orderRequest[$key]['from_location']=$bookingRequest->from_location;
                         $orderRequest[$key]['to_location']=$bookingRequest->to_location;  
-                }
+                  }
                 
                 $data['ClientOrder']= $orderRequest;
                return outputSuccess($data);

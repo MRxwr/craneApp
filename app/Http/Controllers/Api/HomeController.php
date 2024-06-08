@@ -41,6 +41,38 @@ class HomeController extends Controller
                             $time = $position->time;
                             $distance = $position->distance;
                         }
+                  }
+
+                        //ongoing trip
+                        $client_id = $user->id;
+               $dt = BookingRequest::with('payment')->where('client_id',$client_id)->where('status', 3)->where('is_deleted', 0)->get();
+               $orderRequest =[];
+               $ongoingRequest =[];
+               $prices=[];
+               $key3=0;
+                foreach ($dt as $key=>$bookingRequest){
+                    $lat ='';
+                    $long='';
+                    if($bookingRequest->to_latlong){
+                        $latlong=explode(',',$bookingRequest->to_latlong);
+                        if(count($latlong)==2){
+                            $lat = $latlong[0];
+                            $long = $latlong[1];
+                        }
+                    }
+                    if($bookingRequest->status==3){
+                        $ongoingRequest[$key3]['bidid']=$bookingRequest->id;
+                        $ongoingRequest[$key3]['request_id']=$bookingRequest->request_id;
+                        $ongoingRequest[$key3]['from_location']=$bookingRequest->from_location;
+                        $ongoingRequest[$key3]['to_location']=$bookingRequest->to_location;
+                        $ongoingRequest[$key3]['client_name'] = $bookingRequest->client->name;
+                        $ongoingRequest[$key3]['client_mobile'] = $bookingRequest->client->mobile;
+                        $ongoingRequest[$key3]['status'] = $bookingRequest->status;
+                        $ongoingRequest[$key3]['lat'] = $lat;
+                        $ongoingRequest[$key3]['lng'] = $long;
+                        $ongoingRequest[$key3]['rating'] = $bookingRequest->rating;
+                     $key3++;
+                    }    
                 }
                 $services= Service::where('is_active',1)->where('is_deleted',0)
                 ->select('id', 'title', 'description','image') ->get()->toArray();
@@ -51,6 +83,7 @@ class HomeController extends Controller
                 $data['banners']= $banners;
                 $data['time']= $time;
                 $data['distance']= $distance;
+                $data['ongoingOrders']= [$ongoingRequest];
 
                 return outputSuccess($data);   
             }else {

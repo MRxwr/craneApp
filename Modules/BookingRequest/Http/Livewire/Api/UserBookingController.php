@@ -84,7 +84,10 @@ class UserBookingController extends Controller
                         $orderRequest[$key]['from_lng'] = $from_long;
                         $orderRequest[$key]['to_lat'] = $to_lat;
                         $orderRequest[$key]['to_lng'] = $to_long;
-                        $orderRequest[$key]['trip_cost'] = $bookingRequest->payment->payment_amount; 
+                       if($payment){
+                         $orderRequest[$key]['trip_cost'] = $payment->payment_amount; 
+                       }
+                        
                   }
                 
                 $data['ClientOrder']= $orderRequest;

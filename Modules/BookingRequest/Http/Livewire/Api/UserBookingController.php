@@ -67,7 +67,7 @@ class UserBookingController extends Controller
                                 $from_long = $Fromlatlong[1];
                             }
                         }
-                        
+                        $client_rating = getUserRating($bookingRequest->client_id);
                         $orderRequest[$key]['bidid']=$bookingRequest->id;
                         $orderRequest[$key]['request_id']=$bookingRequest->request_id;
                         $orderRequest[$key]['from_location']=$bookingRequest->from_location;
@@ -76,12 +76,15 @@ class UserBookingController extends Controller
                         $orderRequest[$key]['client_name'] = $bookingRequest->client->name;
                         $orderRequest[$key]['client_mobile'] = $bookingRequest->client->mobile;
                         $orderRequest[$key]['client_avator'] = $bookingRequest->client->avator;
+                        $orderRequest[$key]['client_rating'] = $client_rating;
                         if($bookingRequest->driver_id>0){
+                            $driver_rating = getUserRating($bookingRequest->driver->id);
                             $orderRequest[$key]['driver_id'] = $bookingRequest->driver->id;
                             $orderRequest[$key]['driver_name'] = $bookingRequest->driver->name;
                             $orderRequest[$key]['driver_mobile'] = $bookingRequest->driver->mobile;
                             $orderRequest[$key]['driver_avator'] = $bookingRequest->driver->avator; 
                             $orderRequest[$key]['login_status'] = AppUserLogingStatus($bookingRequest->driver->id); 
+                            $orderRequest[$key]['driver_rating'] = $driver_rating;
                         }
                         $orderRequest[$key]['status'] = $bookingRequest->status;
                         $orderRequest[$key]['from_lat'] = $from_lat;

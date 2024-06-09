@@ -74,9 +74,11 @@ class UserBookingController extends Controller
                         $orderRequest[$key]['client_name'] = $bookingRequest->client->name;
                         $orderRequest[$key]['client_mobile'] = $bookingRequest->client->mobile;
                         $orderRequest[$key]['client_avator'] = $bookingRequest->client->avator;
-                        $orderRequest[$key]['driver_name'] = $bookingRequest->driver->name;
-                        $orderRequest[$key]['driver_mobile'] = $bookingRequest->driver->mobile;
-                        $orderRequest[$key]['driver_avator'] = $bookingRequest->driver->avator;  
+                        if($bookingRequest->driver_id>0){
+                            $orderRequest[$key]['driver_name'] = $bookingRequest->driver->name;
+                            $orderRequest[$key]['driver_mobile'] = $bookingRequest->driver->mobile;
+                            $orderRequest[$key]['driver_avator'] = $bookingRequest->driver->avator;  
+                        }
                         $orderRequest[$key]['status'] = $bookingRequest->status;
                         $orderRequest[$key]['from_lat'] = $from_lat;
                         $orderRequest[$key]['from_lng'] = $from_long;

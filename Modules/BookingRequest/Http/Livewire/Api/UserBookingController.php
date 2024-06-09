@@ -47,11 +47,42 @@ class UserBookingController extends Controller
                         if($payment){
                             $prices=   BookingPrice::where('request_id', $bookingRequest->id)->where('driver_id', $payment->driver_id)->first();
                         }
+                        $to_lat ='';
+                        $to_long='';
+                        $from_lat ='';
+                        $from_long='';
+                        if($bookingRequest->to_latlong){
+                            
+                            $Tolatlong=explode(',',$bookingRequest->to_latlong);
+                            if(count($Tolatlong)==2){
+                                $to_lat = $Tolatlong[0];
+                                $to_long = $Tolatlong[1];
+                            }
+                        }
+                        if($bookingRequest->from_latlong){
+                            $Fromlatlong=explode(',',$bookingRequest->from_latlong);
+                            if(count($Fromlatlong)==2){
+                                $from_lat = $Fromlatlong[0];
+                                $from_long = $Fromlatlong[1];
+                            }
+                        }
                         
                         $orderRequest[$key]['bidid']=$bookingRequest->id;
                         $orderRequest[$key]['request_id']=$bookingRequest->request_id;
                         $orderRequest[$key]['from_location']=$bookingRequest->from_location;
-                        $orderRequest[$key]['to_location']=$bookingRequest->to_location;  
+                        $orderRequest[$key]['to_location']=$bookingRequest->to_location;
+                        $orderRequest[$key]['client_name'] = $bookingRequest->client->name;
+                        $orderRequest[$key]['client_mobile'] = $bookingRequest->client->mobile;
+                        $orderRequest[$key]['client_avator'] = $bookingRequest->client->avator;
+                        $orderRequest[$key]['driver_name'] = $bookingRequest->driver->name;
+                        $orderRequest[$key]['driver_mobile'] = $bookingRequest->driver->mobile;
+                        $orderRequest[$key]['driver_avator'] = $bookingRequest->driver->avator;  
+                        $orderRequest[$key]['status'] = $bookingRequest->status;
+                        $orderRequest[$key]['from_lat'] = $from_lat;
+                        $orderRequest[$key]['from_lng'] = $from_long;
+                        $orderRequest[$key]['to_lat'] = $to_lat;
+                        $orderRequest[$key]['to_lng'] = $to_long;
+                        $orderRequest[$key]['trip_cost'] = $bookingRequest->payment->payment_amount; 
                   }
                 
                 $data['ClientOrder']= $orderRequest;
@@ -336,7 +367,7 @@ class UserBookingController extends Controller
                             $from_long = $Fromlatlong[1];
                         }
                     }
-                    
+
                     if($bookingRequest->status==5){
                         $rating = getUserRating($bookingRequest->client_id);
                         $completedRequest[$key]['bidid']=$bookingRequest->id;

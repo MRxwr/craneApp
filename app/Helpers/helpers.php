@@ -10,6 +10,7 @@ use Modules\AppUser\Entities\AppUser;
 use Modules\AppUser\Entities\AppUserMeta;
 use Modules\AppUser\Entities\AppUserRating;
 use Modules\AppUser\Entities\Wallet;
+use Modules\AppUser\Entities\LoginAttempt;
 use Modules\BookingRequest\Entities\BookingRequest;
 use Modules\BookingRequest\Entities\BookingLog;
 use Modules\BookingRequest\Entities\BookingPrice;
@@ -279,4 +280,14 @@ function addUserActivity($user_id,$request_id=0,$activity,$flag){
         $activt->flag =$flag;
         $activt->save();
     }
+}
+function AppUserLogingStatus($user_id){
+    $completedLoginAttempts = LoginAttempt::where('app_user_id', $user_id)
+                    ->whereNull('end_time')
+                    ->get();
+    if($completedLoginAttempts->count()>0) {
+        return 1;
+    } else{
+        return 0;
+    }              
 }

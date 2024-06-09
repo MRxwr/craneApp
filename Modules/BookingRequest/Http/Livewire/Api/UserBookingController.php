@@ -43,6 +43,7 @@ class UserBookingController extends Controller
                $orderRequest =[];
                $prices=[];
                 foreach ($dt as $key=>$bookingRequest){
+                        
                         $payment = BookingPayment::where('request_id', $bookingRequest->id)->first();
                         if($payment){
                             $prices=   BookingPrice::where('request_id', $bookingRequest->id)->where('driver_id', $payment->driver_id)->first();
@@ -71,13 +72,16 @@ class UserBookingController extends Controller
                         $orderRequest[$key]['request_id']=$bookingRequest->request_id;
                         $orderRequest[$key]['from_location']=$bookingRequest->from_location;
                         $orderRequest[$key]['to_location']=$bookingRequest->to_location;
+                        $orderRequest[$key]['client_id'] = $bookingRequest->client->id;
                         $orderRequest[$key]['client_name'] = $bookingRequest->client->name;
                         $orderRequest[$key]['client_mobile'] = $bookingRequest->client->mobile;
                         $orderRequest[$key]['client_avator'] = $bookingRequest->client->avator;
                         if($bookingRequest->driver_id>0){
+                            $orderRequest[$key]['driver_id'] = $bookingRequest->driver->id;
                             $orderRequest[$key]['driver_name'] = $bookingRequest->driver->name;
                             $orderRequest[$key]['driver_mobile'] = $bookingRequest->driver->mobile;
-                            $orderRequest[$key]['driver_avator'] = $bookingRequest->driver->avator;  
+                            $orderRequest[$key]['driver_avator'] = $bookingRequest->driver->avator; 
+                            $orderRequest[$key]['login_status'] = AppUserLogingStatus($bookingRequest->driver->id); 
                         }
                         $orderRequest[$key]['status'] = $bookingRequest->status;
                         $orderRequest[$key]['from_lat'] = $from_lat;

@@ -482,7 +482,7 @@ class BookingController extends Controller
         if (!$token) {
             // If validation fails, return response with validation errors
             $data['message']=_lang('Authorization token is requred');
-            $data['errors'] = ['token'=>'header Authorization token is requred'];
+            $data['errors'] = ['token'=>'Header Authorization token is requred'];
             return outputError($data);
         }
         $token = str_replace('Bearer ', '', $token);
@@ -546,11 +546,10 @@ class BookingController extends Controller
                         $payment_type ='knet/card';
                         $transaction_id='';
                         if(DoBooking($dt,$transaction_id,$payment_type,$price,$remark)){
-                            AddBookingLog($dt,$activity);
                             $activity = _lang('payment successfully done through payapi by ').$user->name;
-                            AddBookingLog($dt,$activity);  
-                            $driverList[$bidid]['prices']=$prices;
-                            $data['payment_data']= $pdata;
+                             AddBookingLog($dt,$activity);  
+                             $driverList[$bidid]['prices']=$prices;
+                             $data['payment_data']= $pdata;
                             return outputSuccess($data);
                         } 
                     }

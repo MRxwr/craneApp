@@ -43,7 +43,10 @@ class UserBookingController extends Controller
                $orderRequest =[];
                $prices=[];
                 foreach ($dt as $key=>$bookingRequest){
-                        
+                        $createdAt = $bookingRequest->created_at;
+                        // Format the date
+                        $formattedDate = Carbon::parse($createdAt)->format('dM h:iA');
+
                         $payment = BookingPayment::where('request_id', $bookingRequest->id)->first();
                         if($payment){
                             $prices=   BookingPrice::where('request_id', $bookingRequest->id)->where('driver_id', $payment->driver_id)->first();
@@ -91,6 +94,7 @@ class UserBookingController extends Controller
                         $orderRequest[$key]['from_lng'] = $from_long;
                         $orderRequest[$key]['to_lat'] = $to_lat;
                         $orderRequest[$key]['to_lng'] = $to_long;
+                        $orderRequest[$key]['time'] = $createdAt;
                        if($payment){
                          $orderRequest[$key]['trip_cost'] = $payment->payment_amount; 
                        }

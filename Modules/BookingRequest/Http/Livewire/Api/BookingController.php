@@ -444,6 +444,7 @@ class BookingController extends Controller
                if($bdprices){
                     foreach($bdprices as $key=>$price){
                         $prices[$key]['price_id'] = $price->id;
+                        $prices[$key]['driver_id'] = $price->driver_id;
                         $prices[$key]['driver_name'] = $price->driver->name;
                         $prices[$key]['mobile'] = $price->driver->mobile;
                         $prices[$key]['price'] =  $price->price;

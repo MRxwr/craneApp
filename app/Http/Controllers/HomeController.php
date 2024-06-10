@@ -43,7 +43,8 @@ class HomeController extends Controller
                 $payment->transaction_id=$request->paymentId;
                 $payment->payment_status='success';
                 $payment->save();
-                $data['dt'] = $dt;
+                //$data['dt'] = $dt;
+                $data['message'] =' Payment Successfully Done';
                 $data['price'] = $price;
                 $data['payment'] = $payment; 
                 // return outputSuccess($data);

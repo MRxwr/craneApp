@@ -46,6 +46,7 @@ class HomeController extends Controller
                 $data['dt'] = $dt;
                 $data['price'] = $price;
                 $data['payment'] = $payment; 
+                return outputSuccess($data);
             }
         }
         return view('page',compact('data'));
@@ -70,7 +71,7 @@ class HomeController extends Controller
                 $data['dt'] = $dt;
                 $data['price'] = $price;
                 $data['payment'] = $payment; 
-                $data['message'] =' Payment successfully Done';
+                $data['message'] =' Payment failed';
                 return outputSuccess($data);  
             }
         }

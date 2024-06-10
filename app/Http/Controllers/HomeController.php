@@ -46,10 +46,11 @@ class HomeController extends Controller
                 $data['dt'] = $dt;
                 $data['price'] = $price;
                 $data['payment'] = $payment; 
-                return outputSuccess($data);
+                // return outputSuccess($data);
             }
         }
-        return view('page',compact('data'));
+        return outputSuccess($data);  
+        //return view('page',compact('data'));
     }
     public function Failed(Request $request)
     { 
@@ -72,10 +73,11 @@ class HomeController extends Controller
                 $data['price'] = $price;
                 $data['payment'] = $payment; 
                 $data['message'] =' Payment failed';
-                return outputSuccess($data);  
+                
             }
         }
-        return view('page',compact('data'));
+        return outputSuccess($data);  
+        //return view('page',compact('data'));
     }
 
 

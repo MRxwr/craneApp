@@ -542,7 +542,7 @@ class BookingController extends Controller
                         $payment_data['paymentMethod'] = $payment_method;
                         $payment_data['pay_amount']= $price;
                         $pdata = $this->doPayment($payment_data);
-                        $remark =_lang('payment successfully done through wallet by ').$user->name;
+                        $remark =_lang('payment successfully done through payapi by ').$user->name;
                         $payment_type ='knet/card';
                         $transaction_id='';
                         if(DoBooking($dt,$transaction_id,$payment_type,$price,$remark)){

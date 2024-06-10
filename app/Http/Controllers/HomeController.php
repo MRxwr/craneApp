@@ -70,7 +70,8 @@ class HomeController extends Controller
                 $data['dt'] = $dt;
                 $data['price'] = $price;
                 $data['payment'] = $payment; 
-                $data['message'] ='';
+                $data['message'] =' Payment successfully Done';
+                return outputSuccess($data);  
             }
         }
         return view('page',compact('data'));

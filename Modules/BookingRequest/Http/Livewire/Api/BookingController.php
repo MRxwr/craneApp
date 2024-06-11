@@ -766,9 +766,16 @@ class BookingController extends Controller
                 $data['message']=_lang('Device token Request');
                 $dt = BookingRequest::with('prices')->with('payment')->find($bidid);
                 $OrderDetails['bidid']=$dt->id;
-                $OrderDetails['client_token'] = $dt->client->device_token;
-                $OrderDetails['driver_token'] = $dt->driver->device_token;
-
+                if($dt->client){
+                    $OrderDetails['client_token'] = $dt->client->device_token;
+                }else{
+                    $OrderDetails['client_token'] = '';
+                }
+                if($dt->driver){
+                    $OrderDetails['driver_token'] = $dt->driver->device_token;
+                }else{
+                    $OrderDetails['driver_token'] = '';
+                }
                 $data['device']= [$OrderDetails];
                return outputSuccess($data);
                 // Proceed with authenticated user logic

@@ -40,7 +40,9 @@ class BookingController extends Controller
                 $rebook=0;
                 $driver_id=0;
                 if($request->input('rebook')){
-                    $rebook = $request->input('rebook');
+                    $rebook = $request->input('rebook'); 
+                }
+                if($request->input('driver_id')){
                     $driver_id = $request->input('driver_id');
                 }
                 $data['message']=_lang('Send Crane Request');
@@ -53,6 +55,8 @@ class BookingController extends Controller
                 $bidr->to_latlong = $request->input('to_latlong');
                 $bidr->service_id = $request->input('service_id');
                 $bidr->distances = $request->input('distances');
+                $bidr->driver_id = $driver_id;
+                $bidr->rebook = $rebook;
                 if($bidr->save()){
                     $drivers = AppUser::where('user_type', 2)->where('is_active',1)->where('is_deleted',0)->get();
                      if($drivers->count()>0){
@@ -64,7 +68,13 @@ class BookingController extends Controller
                                     $price->client_id =$user->id;
                                     $price->driver_id =$driver->id; 
                                     if($price->save()){
-                                      firebaseNotification($user);
+                                        $notify=[];
+                                        $notify['client_id']=$user->id;
+                                        $notify['driver_id']=$driver->id;
+                                        $notify['message']=_lang('Notification to driver for new order');
+                                        $notify['notifyTo']='driver';
+                                        
+                                        firebaseNotification($notify);
                                     }
                                 }
                             }else{
@@ -73,12 +83,17 @@ class BookingController extends Controller
                                 $price->client_id =$user->id;
                                 $price->driver_id =$driver->id; 
                                 if($price->save()){
-                                   firebaseNotification($user);
+                                    $notify=[];
+                                    $notify['client_id']=$user->id;
+                                    $notify['driver_id']=$driver->id;
+                                    $notify['message']=_lang('Notification to driver for new order');
+                                    $notify['notifyTo']='driver';
+                                    firebaseNotification($notify);
                                 }
                             }
                         }
                      }
-                     $activity = _lang('The Crane requested by ').$user->name;
+                     $activity = _lang('Added new order by ').$user->name;
                      AddBookingLog($bidr,$activity);
                      $data['request']= $bidr->toArray();
                     return outputSuccess($data);
@@ -726,6 +741,38 @@ class BookingController extends Controller
                 $data['message']=_lang('Unauthorized due to token mismatch');
                 return outputError($data);  
             }
+        } catch (\Exception $e) {
+            // Log or handle the exception
+            $data['message']=_lang('Authentication error');
+            $data['errors'] = [
+                'message' => $e->getMessage(),
+                'code' => $e->getCode(),
+                'file' => $e->getFile(),
+                'line' => $e->getLine()
+            ];
+            return outputError($data);
+           
+        }
+    }
+
+     //For client : return list driver of this order
+     public function getClientDriverToken(Request $request){
+        $data = array();
+        
+        try {
+           
+            $OrderDetails=[];
+                $bidid= $request->input('request_id');
+                $data['message']=_lang('Device token Request');
+                $dt = BookingRequest::with('prices')->with('payment')->find($bidid);
+                $OrderDetails['bidid']=$bidid;
+                $OrderDetails['client_token'] = $dt->client->token;
+                $OrderDetails['driver_token'] = $dt->driver->token;
+
+                $data['device']= [$OrderDetails];
+               return outputSuccess($data);
+                // Proceed with authenticated user logic
+            
         } catch (\Exception $e) {
             // Log or handle the exception
             $data['message']=_lang('Authentication error');

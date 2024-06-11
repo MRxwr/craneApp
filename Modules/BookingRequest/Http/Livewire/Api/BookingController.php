@@ -765,9 +765,9 @@ class BookingController extends Controller
                 $bidid= $request->input('request_id');
                 $data['message']=_lang('Device token Request');
                 $dt = BookingRequest::with('prices')->with('payment')->find($bidid);
-                $OrderDetails['bidid']=$dt->client;
-                $OrderDetails['client_token'] = $dt->client->token;
-                $OrderDetails['driver_token'] = $dt->driver->token;
+                $OrderDetails['bidid']=$dt->id;
+                $OrderDetails['client_token'] = $dt->client->device_token;
+                $OrderDetails['driver_token'] = $dt->driver->device_token;
 
                 $data['device']= [$OrderDetails];
                return outputSuccess($data);

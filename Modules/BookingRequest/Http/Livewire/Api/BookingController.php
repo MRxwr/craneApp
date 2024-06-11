@@ -37,6 +37,12 @@ class BookingController extends Controller
             $user = AppUser::where('token',$token)->first();
             if ($user) {
                 // Authentication successful
+                $rebook=0;
+                $driver_id=0;
+                if($request->input('rebook')){
+                    $rebook = $request->input('rebook');
+                    $driver_id = $request->input('driver_id');
+                }
                 $data['message']=_lang('Send Crane Request');
                 $bidr= new BookingRequest();
                 $bidr->request_id = time();
@@ -51,13 +57,25 @@ class BookingController extends Controller
                     $drivers = AppUser::where('user_type', 2)->where('is_active',1)->where('is_deleted',0)->get();
                      if($drivers->count()>0){
                         foreach($drivers as $driver){
-                          $price = new  BookingPrice();
-                          $price->request_id =$bidr->id;
-                          $price->client_id =$user->id;
-                          $price->driver_id =$driver->id; 
-                          if($price->save()){
-                            firebaseNotification($user);
-                          }
+                            if($driver->id>0){
+                                if( $driver->id==$driver_id){}else{
+                                    $price = new  BookingPrice();
+                                    $price->request_id =$bidr->id;
+                                    $price->client_id =$user->id;
+                                    $price->driver_id =$driver->id; 
+                                    if($price->save()){
+                                      firebaseNotification($user);
+                                    }
+                                }
+                            }else{
+                                $price = new  BookingPrice();
+                                $price->request_id =$bidr->id;
+                                $price->client_id =$user->id;
+                                $price->driver_id =$driver->id; 
+                                if($price->save()){
+                                   firebaseNotification($user);
+                                }
+                            }
                         }
                      }
                      $activity = _lang('The Crane requested by ').$user->name;

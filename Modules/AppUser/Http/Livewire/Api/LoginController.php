@@ -42,6 +42,10 @@ class LoginController extends Controller
                         $credentials = $request->only('mobile', 'password');
                         if (Auth::guard('api')->attempt($credentials)) {
                             $user = Auth::guard('api')->user();
+                            if($request->input('device_token')){
+                                $user->device_token = $request->input('device_token');
+                                $user->save();
+                            }
                             if($token=GenerateApiToken($user)){
                                 $data['user']= $user->toArray();
                                 $data['token']= $user->token;
@@ -54,6 +58,10 @@ class LoginController extends Controller
                         if ($user) {
                             Auth::guard('api')->user();
                             if($token=GenerateApiToken($user)){
+                                if($request->input('device_token')){
+                                    $user->device_token = $request->input('device_token');
+                                    $user->save();
+                                }
                                 $data['user']= $user->toArray();
                                 $data['token']= $user->token;
                                 return outputSuccess($data);

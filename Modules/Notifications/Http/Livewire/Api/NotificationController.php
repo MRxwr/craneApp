@@ -76,9 +76,10 @@ class NotificationController extends Controller
             if ($user) {
                 $data['message']=_lang('Send Crane Request');
                 $dt = new Notification;
-                $dt->app_user_id = $user->id;
-                $dt->token =  $request->input('token');
-                $dt->text =  $request->input('text');
+                $dt->client_id = $request->input('client_id');
+                $dt->driver_id = $request->input('driver_id');
+                $dt->NotificationReciver =  $request->input('NotificationReciver');
+                $dt->message =  $request->input('message');
                 $dt->read = 0;
                 if($dt->save()){
                      $data['message']=_lang('Successfully added your notification');

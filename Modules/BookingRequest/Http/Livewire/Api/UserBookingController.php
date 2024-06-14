@@ -218,6 +218,7 @@ class UserBookingController extends Controller
                          $upcommingRequest[$key1]['request_id']=$bookingRequest->request_id;
                          $upcommingRequest[$key1]['from_location']=$bookingRequest->from_location;
                          $upcommingRequest[$key1]['to_location']=$bookingRequest->to_location;
+                         $upcommingRequest[$key1]['client_id'] = $bookingRequest->client->id;
                          $upcommingRequest[$key1]['client_name'] = $bookingRequest->client->name;
                          $upcommingRequest[$key1]['client_mobile'] = $bookingRequest->client->mobile;
                          $upcommingRequest[$key1]['status'] = $bookingRequest->status;
@@ -231,6 +232,7 @@ class UserBookingController extends Controller
                         $arrivedRequest[$key2]['request_id']=$bookingRequest->request_id;
                         $arrivedRequest[$key2]['from_location']=$bookingRequest->from_location;
                         $arrivedRequest[$key2]['to_location']=$bookingRequest->to_location;
+                        $arrivedRequest[$key2]['client_id'] = $bookingRequest->client->id;
                         $arrivedRequest[$key2]['client_name'] = $bookingRequest->client->name;
                         $arrivedRequest[$key2]['client_mobile'] = $bookingRequest->client->mobile;
                         $arrivedRequest[$key2]['status'] = $bookingRequest->status;
@@ -244,6 +246,7 @@ class UserBookingController extends Controller
                         $ongoingRequest[$key3]['request_id']=$bookingRequest->request_id;
                         $ongoingRequest[$key3]['from_location']=$bookingRequest->from_location;
                         $ongoingRequest[$key3]['to_location']=$bookingRequest->to_location;
+                        $ongoingRequest[$key3]['client_id'] = $bookingRequest->client->id;
                         $ongoingRequest[$key3]['client_name'] = $bookingRequest->client->name;
                         $ongoingRequest[$key3]['client_mobile'] = $bookingRequest->client->mobile;
                         $ongoingRequest[$key3]['status'] = $bookingRequest->status;
@@ -257,6 +260,7 @@ class UserBookingController extends Controller
                         $canceledRequest[$key4]['request_id']=$bookingRequest->request_id;
                         $canceledRequest[$key4]['from_location']=$bookingRequest->from_location;
                         $canceledRequest[$key4]['to_location']=$bookingRequest->to_location;
+                        $canceledRequest[$key4]['client_id'] = $bookingRequest->client->id;
                         $canceledRequest[$key4]['client_name'] = $bookingRequest->client->name;
                         $canceledRequest[$key4]['client_mobile'] = $bookingRequest->client->mobile;
                         $canceledRequest[$key4]['status'] = $bookingRequest->status;
@@ -270,6 +274,7 @@ class UserBookingController extends Controller
                         $completedRequest[$key5]['request_id']=$bookingRequest->request_id;
                         $completedRequest[$key5]['from_location']=$bookingRequest->from_location;
                         $completedRequest[$key5]['to_location']=$bookingRequest->to_location;
+                        $completedRequest[$key5]['client_id'] = $bookingRequest->client->id;
                         $completedRequest[$key5]['client_name'] = $bookingRequest->client->name;
                         $completedRequest[$key5]['client_mobile'] = $bookingRequest->client->mobile;
                         $completedRequest[$key5]['status'] = $bookingRequest->status;

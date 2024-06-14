@@ -7,8 +7,9 @@ trait NotificationTrait
 {
     public static function firstForm()
     {
-        $a['token'] = '';
-        $a['text'] = '';
+        $a['client_id'] = '';
+        $a['driver_id'] = '';
+        $a['message'] = '';
         $a['is_read'] = '';
 
         return $a;
@@ -42,8 +43,10 @@ trait NotificationTrait
         $dt = Notification::find($id);
 
         return [
-            'token' => $dt->title,
-            'text' => $dt->text, 
+            'client_id' => $dt->client_id,
+            'driver_id' => $dt->driver_id,
+            'message' => $dt->message,
+            'is_read' => $dt->is_read, 
         ];
     }
 }

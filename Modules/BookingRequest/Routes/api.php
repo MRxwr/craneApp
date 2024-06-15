@@ -34,6 +34,7 @@ Route::prefix('v1')->group(function () {
     Route::post('get_driver_history', [UserBookingController::class, 'GetDriverHistories']);
     Route::post('order_start_end', [BookingController::class, 'saveOrderStartEnd']);
     Route::post('save_driver_location', [BookingController::class, 'TrackDriverPosition']);
+    Route::post('driver_skip_order', [BookingController::class, 'doDriverOrderSkip']);
 
     Route::post('get_device_token', [BookingController::class, 'getClientDriverToken']);
 });

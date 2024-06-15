@@ -131,7 +131,7 @@ class BookingController extends Controller
                $bidid= $request->input('request_id');
                $data['message']=_lang('get Order request');
                $dt = BookingRequest::with(['prices' => function($query) use ($user) {
-                        $query->where('driver_id', $user->id)->where('is_accepted', '!=', 2);
+                        $query->where('driver_id', $user->id)->where('is_accepted', '!=', 2)->where('skip',0);
                 }])->where('status', 0)->get();
                 $orderRequest =[];
                $prices=[];
@@ -447,8 +447,6 @@ class BookingController extends Controller
             return outputError($data); 
         }
     }
-
-
     //For client : return list driver of this order
     public function getDriverListRequest(Request $request){
         $data = array();
@@ -791,6 +789,52 @@ class BookingController extends Controller
             ];
             return outputError($data);
            
+        }
+    }
+    public function doDriverOrderSkip(Request $request){
+        $data = array();
+        $token = $request->header('Authorization');
+        // Check if validation fails
+        if (!$token) {
+            // If validation fails, return response with validation errors
+            $data['message']=_lang('Authorization token is requred');
+            $data['errors'] = ['token'=>'header Authorization token is requred'];
+            return outputError($data);
+        }
+        try {
+            $token = str_replace('Bearer ', '', $token);
+            $user = AppUser::where('token',$token)->first();
+            if ($user) {
+                $bidid= $request->input('request_id');
+                $data['message']=_lang('Send Crane Request');
+                $dt = BookingPrice::where('request_id',$bidid)->where('driver_id',$user->id)->first();
+                $dt->skip = 1;
+                if($dt->save()){
+                     $activity = _lang('The order has been Skipped by ').$user->name;
+                     AddBookingLog($dt,$activity);
+                     $data['message']=_lang('The order has been Skipped');
+                     $data['status'] = true;
+                     return outputSuccess($data);
+                } else{
+                    $data['status'] = true;
+                    $data['message']=_lang('The order has not Skipped');
+                    $data['status'] = false;
+                    return outputError($data);
+                }
+            }else {
+                // Authentication failed
+                $data['message']=_lang('Unauthorized due to token mismatch');
+                return outputError($data);  
+            }
+        } catch (\Exception $e) {
+            $data['message']=_lang('Authentication error');
+            $data['errors'] = [
+                'message' => $e->getMessage(),
+                'code' => $e->getCode(),
+                'file' => $e->getFile(),
+                'line' => $e->getLine()
+            ];
+            return outputError($data); 
         }
     }
     

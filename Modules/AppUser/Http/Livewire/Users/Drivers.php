@@ -62,31 +62,33 @@ class Drivers extends Component
             $this->emit('pesanGagal', $pesan);
         }
     }
-
-    public function update_password($id)
+    public function change_password($id)
     {
-        if (!akses('change-status-user')) {
-            $this->emit('pesanGagal', 'Access Denied..');
-            return false;
-        }
+        $this->is_edit = 1;
+        $this->id_edit = $id;
 
-        try {
-            $dt = AppUser::find($id);
+        $this->forms = AppUser::find_data($id);
 
-            // if ($dt->is_paten == 1) {
-            //     $this->emit('pesanGagal', 'Sorry, this user can not edited..');
-            // } else {
-            updateStatus(new AppUser, $id);
-
-            $this->emit('pesanSukses', 'Sucess..');
-            // }
-        } catch (\Exception $th) {
-            //throw $th;
-            $pesan = MasterData::pesan_gagal($th);
-
-            $this->emit('pesanGagal', $pesan);
-        }
+        $this->emit('modalChnagePassword', 'show');
     }
+    public function update_password(Request $request){
+        try {
+            if ($this->id_edit) {
+                $dt = AppUser::find($this->id_edit);
+                isset($request->password) ? $dt->password = bcrypt($request->password) : '';
+               if( $dt->save()){
+                $this->emit('modalChnagePassword', 'hide');
+                $this->emit('pesanSukses', 'Sucess..');
+                $this->reset(['is_edit', 'id_edit']);
+               }
+            }
+       } catch (\Exception $th) {
+           //throw $th;
+           $pesan = MasterData::pesan_gagal($th);
+           $this->emit('pesanGagal', $pesan);
+       }
+    }
+   
 
     public function tambah_data()
     {

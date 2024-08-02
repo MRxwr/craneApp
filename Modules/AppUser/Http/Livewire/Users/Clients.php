@@ -78,11 +78,12 @@ class Clients extends Component
         try {
             if ($this->id_edit) {
                 $dt = AppUser::find($this->id_edit);
+                dd($dt);
                 isset($request->password) ? $dt->password = bcrypt($request->password) : '';
                if( $dt->save()){
-                $this->emit('modalChnagePassword', 'hide');
-                $this->emit('pesanSukses', 'Sucess..');
-                $this->reset(['is_edit', 'id_edit']);
+                 $this->emit('modalChnagePassword', 'hide');
+                 $this->emit('pesanSukses', 'Sucess..');
+                 $this->reset(['is_edit', 'id_edit']);
                }
             }
        } catch (\Exception $th) {

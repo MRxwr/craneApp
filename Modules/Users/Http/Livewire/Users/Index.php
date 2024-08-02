@@ -97,7 +97,7 @@ class Index extends Component
         try {
             if ($this->id_edit) {
                 $dt = User::find($this->id_edit);
-                $dt->password = bcrypt($this->password);
+                $dt->password = bcrypt($request->password);
                 $dt->save();
                 $this->emit('modalChnagePassword', 'hide');
                 $this->emit('pesanSukses', 'Sucess..');

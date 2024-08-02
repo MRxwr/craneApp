@@ -9,6 +9,7 @@ use Livewire\WithPagination;
 use Modules\Roles\Entities\Role;
 use Modules\Users\Http\Traits\UserTrait;
 use Modules\Roles\Http\Traits\PermissionTrait;
+use Illuminate\Http\Request;
 
 class Index extends Component
 {
@@ -89,7 +90,7 @@ class Index extends Component
 
         $this->emit('modalChnagePassword', 'show');
     }
-    public function update_password(){
+    public function update_password(Request $request){
         $this->validate([
             'password' => 'required'
         ]);

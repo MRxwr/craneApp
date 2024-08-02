@@ -84,6 +84,12 @@
                                                         class="bi bi-pencil-square"></i>
                                                         {{_lang('Edit')}}</a>
                                             @endif
+                                            @if (akses('edit-user'))
+                                                <a class="dropdown-item has-icon" href="#"
+                                                    wire:click.prevent="change_password({{ $dt->id }})"><i
+                                                        class="bi bi-pencil-square"></i>
+                                                        {{_lang('Change Password')}}</a>
+                                            @endif
 
                                             @if (akses('delete-user'))
                                                 <a class="dropdown-item has-icon"
@@ -159,6 +165,53 @@
                                         @enderror
                                     </div>
                                 </div>
+                            </div>
+                            <div class="card-footer">
+                                <button type="submit" class="btn btn-primary"> {{_lang('Submit')}}</button>
+                                <img src="{{ asset('loading-bar.gif') }}" alt="" wire:loading wire:target="store">
+                            </div>
+                        </form>
+                    </div>
+
+                </div>
+                
+            </div>
+        </div>
+    </div>
+
+    
+    <div class="modal fade" tabindex="-1" role="dialog" id="modalChnagePassword" wire:ignore.self>
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Add User</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+
+                    <div class="card">
+                        <div class="card-header">
+                            {{-- <h4>Horizontal Form</h4> --}}
+                            <p style="color: red">
+                                <b><i>** Password default: 123</i></b>
+                            </p>
+                        </div>
+                        <form wire:submit.prevent="update_password">
+                            <div class="card-body">
+                                {{ $message ?? '' }}
+                                <div class="form-group">
+                                    <label for="name"> {{_lang('New Password')}}</label>
+                                    <input wire:model="forms.password" type="password" class="form-control" id="password"
+                                        placeholder="Password">
+                                    {{-- {{ $forms['name'] }} --}}
+                                    @error('forms.password')
+                                        <span style="color: red;" class="error">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                                
+                               
                             </div>
                             <div class="card-footer">
                                 <button type="submit" class="btn btn-primary"> {{_lang('Submit')}}</button>

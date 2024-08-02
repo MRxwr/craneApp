@@ -86,13 +86,13 @@
                                             @if (akses('edit-user'))
                                                 <a class="dropdown-item has-icon" href="{{ route('appuser.edit', $dt->id) }}"><i
                                                         class="bi bi-pencil-square"></i>
-                                                    Change Password</a>
+                                                    Edit</a>
                                             @endif
 
                                             @if (akses('edit-user'))
                                                 <a class="dropdown-item has-icon" href="{{ route('appuser.edit', $dt->id) }}"><i
                                                         class="bi bi-lock"></i>
-                                                    Edit</a>
+                                                        Change Password</a>
                                             @endif
 
                                             @if (akses('delete-user'))

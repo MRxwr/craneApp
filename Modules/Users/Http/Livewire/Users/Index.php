@@ -91,13 +91,10 @@ class Index extends Component
         $this->emit('modalChnagePassword', 'show');
     }
     public function update_password(Request $request){
-        $this->validate([
-            'password' => 'required'
-        ]);
         try {
             if ($this->id_edit) {
                 $dt = User::find($this->id_edit);
-                $dt->password = bcrypt($request->password);
+                isset($request->password) ? $dt->password = bcrypt($request->password) : '';
                 $dt->save();
                 $this->emit('modalChnagePassword', 'hide');
                 $this->emit('pesanSukses', 'Sucess..');

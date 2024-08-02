@@ -89,6 +89,12 @@
                                                     Edit</a>
                                             @endif
 
+                                            @if (akses('edit-user'))
+                                                <a class="dropdown-item has-icon" href="{{ route('appuser.edit', $dt->id) }}"><i
+                                                        class="bi bi-lock"></i>
+                                                    Edit</a>
+                                            @endif
+
                                             @if (akses('delete-user'))
                                                 <a class="dropdown-item has-icon"
                                                     onclick="return confirm('Confirm delete?') || event.stopImmediatePropagation()"

@@ -87,7 +87,7 @@ class Index extends Component
 
         $this->forms = UserTrait::find_data($id);
 
-        $this->emit('modalChangePassword', 'show');
+        $this->emit('modalChnagePassword', 'show');
     }
     
 

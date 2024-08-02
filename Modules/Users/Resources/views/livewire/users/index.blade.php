@@ -203,7 +203,7 @@
                                 {{ $message ?? '' }}
                                 <div class="form-group">
                                     <label for="name"> {{_lang('New Password')}}</label>
-                                    <input wire:model="forms.password" type="password" class="form-control" id="password"
+                                    <input name="password" type="password" class="form-control" id="password"
                                         placeholder="Password">
                                     {{-- {{ $forms['name'] }} --}}
                                     @error('forms.password')
@@ -244,10 +244,9 @@
                 if (aksi == 'show') {
                     $('#modalChnagePassword').modal('show');
                 } else {
-                    // alert(aksi);
+                  
                     $('#modalChnagePassword').modal('hide');
-                    // $('#modalAdd').hide();
-                    // $('#modalAdd').find('.close').click();
+                    
                 }
 
                 })

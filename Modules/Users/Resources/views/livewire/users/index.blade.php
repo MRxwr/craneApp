@@ -126,7 +126,7 @@
                         <div class="card-header">
                             {{-- <h4>Horizontal Form</h4> --}}
                             <p style="color: red">
-                                <b><i>** Password default: 123</i></b>
+                                <b><i>** Password default: 12345678</i></b>
                             </p>
                         </div>
                         <form wire:submit.prevent="store">
@@ -195,7 +195,7 @@
                         <div class="card-header">
                             {{-- <h4>Horizontal Form</h4> --}}
                             <p style="color: red">
-                                <b><i>** Password default: 123</i></b>
+                                <b><i>** Password default: 12345678</i></b>
                             </p>
                         </div>
                         <form wire:submit.prevent="update_password">

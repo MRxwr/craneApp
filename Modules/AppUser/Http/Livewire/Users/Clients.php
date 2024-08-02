@@ -20,7 +20,7 @@ class Clients extends Component
 
     public $paging, $search;
     public $forms = [];
-    public $id_edit, $is_edit,$avator,$imageUrl ;
+    public $id_edit, $is_edit,$avator,$imageUrl,$password ;
 
     public function mount()
     {
@@ -74,12 +74,15 @@ class Clients extends Component
 
         $this->emit('modalChnagePassword', 'show');
     }
-    public function update_password(Request $request){
+    public function update_password(){
+        $this->validate([
+            'password' => 'required'
+        ]);
         try {
             if ($this->id_edit) {
                 $dt = AppUser::find($this->id_edit);
-                dd($request->all());
-                isset($request->password) ? $dt->password = bcrypt($request->password) : '';
+                dd($this->password);
+                isset($this->password) ? $dt->password = bcrypt($this->password) : '';
                if( $dt->save()){
                  $this->emit('modalChnagePassword', 'hide');
                  $this->emit('pesanSukses', 'Sucess..');

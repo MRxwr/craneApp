@@ -78,7 +78,7 @@ class Clients extends Component
         try {
             if ($this->id_edit) {
                 $dt = AppUser::find($this->id_edit);
-                dd($request->password);
+                dd($request->all());
                 isset($request->password) ? $dt->password = bcrypt($request->password) : '';
                if( $dt->save()){
                  $this->emit('modalChnagePassword', 'hide');

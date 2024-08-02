@@ -16,6 +16,7 @@ trait AppUserTrait
         $a['avator'] = '';
         return $a;
     }
+    
 
     public static function clientsForms(){
         // Retrieve forms based on the user_type

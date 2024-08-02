@@ -63,6 +63,31 @@ class Drivers extends Component
         }
     }
 
+    public function update_password($id)
+    {
+        if (!akses('change-status-user')) {
+            $this->emit('pesanGagal', 'Access Denied..');
+            return false;
+        }
+
+        try {
+            $dt = AppUser::find($id);
+
+            // if ($dt->is_paten == 1) {
+            //     $this->emit('pesanGagal', 'Sorry, this user can not edited..');
+            // } else {
+            updateStatus(new AppUser, $id);
+
+            $this->emit('pesanSukses', 'Sucess..');
+            // }
+        } catch (\Exception $th) {
+            //throw $th;
+            $pesan = MasterData::pesan_gagal($th);
+
+            $this->emit('pesanGagal', $pesan);
+        }
+    }
+
     public function tambah_data()
     {
         $this->reset(['is_edit', 'id_edit']);

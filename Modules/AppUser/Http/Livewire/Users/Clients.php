@@ -9,6 +9,7 @@ use Livewire\WithFileUploads;
 use Modules\AppUser\Entities\AppUser;
 use Modules\AppUser\Http\Traits\AppUserTrait;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 
 class Clients extends Component
@@ -81,8 +82,8 @@ class Clients extends Component
         try {
             if ($this->id_edit) {
                 $dt = AppUser::find($this->id_edit);
-                dd($this->password);
-                isset($this->password) ? $dt->password = bcrypt($this->password) : '';
+                //dd($this->password);
+                isset($this->password) ? $dt->password = Hash::make($this->password) : '';
                if( $dt->save()){
                  $this->emit('modalChnagePassword', 'hide');
                  $this->emit('pesanSukses', 'Sucess..');

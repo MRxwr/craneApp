@@ -8,6 +8,7 @@ use Livewire\WithPagination;
 use Modules\AppUser\Entities\AppUser;
 use Modules\AppUser\Http\Traits\AppUserTrait;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 
 class Index extends Component
@@ -17,7 +18,7 @@ class Index extends Component
 
     public $paging, $search;
     public $forms = [];
-    public $id_edit, $is_edit,$avator ;
+    public $id_edit, $is_edit,$avator,$password ;
 
     public function mount()
     {
@@ -72,15 +73,19 @@ class Index extends Component
 
         $this->emit('modalChnagePassword', 'show');
     }
-    public function update_password(Request $request){
+    public function update_password(){
+        $this->validate([
+            'password' => 'required'
+        ]);
         try {
             if ($this->id_edit) {
                 $dt = AppUser::find($this->id_edit);
-                isset($request->password) ? $dt->password = bcrypt($request->password) : '';
+                // dd($this->password);
+                isset($this->password) ? $dt->password = Hash::make($this->password) : '';
                if( $dt->save()){
-                $this->emit('modalChnagePassword', 'hide');
-                $this->emit('pesanSukses', 'Sucess..');
-                $this->reset(['is_edit', 'id_edit']);
+                 $this->emit('modalChnagePassword', 'hide');
+                 $this->emit('pesanSukses', 'Sucess..');
+                 $this->reset(['is_edit', 'id_edit']);
                }
             }
        } catch (\Exception $th) {

@@ -10,6 +10,8 @@ use Modules\Roles\Entities\Role;
 use Modules\Users\Http\Traits\UserTrait;
 use Modules\Roles\Http\Traits\PermissionTrait;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+
 
 class Index extends Component
 {
@@ -18,7 +20,7 @@ class Index extends Component
 
     public $paging, $search;
     public $forms = [];
-    public $id_edit,$is_edit,$image,$imageUrl;
+    public $id_edit,$is_edit,$image,$imageUrl,$password;
 
     public function mount()
     {
@@ -90,15 +92,20 @@ class Index extends Component
 
         $this->emit('modalChnagePassword', 'show');
     }
-    public function update_password(Request $request){
+    public function update_password(){
+        $this->validate([
+            'password' => 'required'
+        ]);
         try {
             if ($this->id_edit) {
                 $dt = User::find($this->id_edit);
-                isset($request->password) ? $dt->password = bcrypt($request->password) : '';
-                $dt->save();
-                $this->emit('modalChnagePassword', 'hide');
-                $this->emit('pesanSukses', 'Sucess..');
-                $this->reset(['is_edit', 'id_edit']);
+                //dd($this->password);
+                isset($this->password) ? $dt->password = Hash::make($this->password) : '';
+               if( $dt->save()){
+                 $this->emit('modalChnagePassword', 'hide');
+                 $this->emit('pesanSukses', 'Sucess..');
+                 $this->reset(['is_edit', 'id_edit']);
+               }
             }
        } catch (\Exception $th) {
            //throw $th;

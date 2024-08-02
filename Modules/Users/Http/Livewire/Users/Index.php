@@ -89,6 +89,25 @@ class Index extends Component
 
         $this->emit('modalChnagePassword', 'show');
     }
+    public function update_password(){
+        $this->validate([
+            'password' => 'required'
+        ]);
+        try {
+            if ($this->id_edit) {
+                $dt = User::find($this->id_edit);
+                $dt->password = bcrypt($this->password);
+                $dt->save();
+                $this->emit('modalChnagePassword', 'hide');
+                $this->emit('pesanSukses', 'Sucess..');
+                $this->reset(['is_edit', 'id_edit']);
+            }
+       } catch (\Exception $th) {
+           //throw $th;
+           $pesan = MasterData::pesan_gagal($th);
+           $this->emit('pesanGagal', $pesan);
+       }
+    }
     
 
     public function store()

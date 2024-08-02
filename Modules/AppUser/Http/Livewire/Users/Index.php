@@ -67,7 +67,7 @@ class Index extends Component
         $this->is_edit = 1;
         $this->id_edit = $id;
 
-        $this->forms = AppUser::find_data($id);
+        $this->forms = AppUserTrait::find_data($id);
 
         $this->emit('modalChnagePassword', 'show');
     }

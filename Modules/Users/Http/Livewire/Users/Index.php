@@ -99,7 +99,7 @@ class Index extends Component
                 $this->emit('pesanGagal', $validasi['message']);
             } else {
                 if ($this->id_edit) {
-                    $this->forms['password'] = bcrypt(12345678);
+                    //$this->forms['password'] = bcrypt(12345678);
                     UserTrait::store_data($this->forms, $this->id_edit);
                 } else {
                     $this->forms['password'] = bcrypt(12345678);

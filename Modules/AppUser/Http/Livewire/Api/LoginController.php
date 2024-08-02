@@ -51,6 +51,9 @@ class LoginController extends Controller
                                 $data['token']= $user->token;
                                 return outputSuccess($data);
                             }
+                        }else{
+                            $data['message']=_lang('Authentication failed: Invalid password');
+                            return outputError($data);
                         }
                     } else {
                         $mobile = $request->only('mobile');

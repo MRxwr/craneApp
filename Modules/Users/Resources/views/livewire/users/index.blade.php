@@ -87,7 +87,7 @@
                                             @if (akses('edit-user'))
                                                 <a class="dropdown-item has-icon" href="#"
                                                     wire:click.prevent="change_password({{ $dt->id }})"><i
-                                                        class="bi bi-pencil-square"></i>
+                                                        class="bi bi-lock-square"></i>
                                                         {{_lang('Change Password')}}</a>
                                             @endif
 

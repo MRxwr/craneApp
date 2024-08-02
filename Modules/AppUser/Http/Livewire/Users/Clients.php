@@ -8,6 +8,7 @@ use Livewire\WithPagination;
 use Livewire\WithFileUploads;
 use Modules\AppUser\Entities\AppUser;
 use Modules\AppUser\Http\Traits\AppUserTrait;
+use Illuminate\Http\Request;
 
 
 class Clients extends Component

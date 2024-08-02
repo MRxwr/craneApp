@@ -7,6 +7,7 @@ use App\Traits\MasterData;
 use Livewire\WithPagination;
 use Modules\AppUser\Entities\AppUser;
 use Modules\AppUser\Http\Traits\AppUserTrait;
+use Illuminate\Http\Request;
 
 
 class Index extends Component

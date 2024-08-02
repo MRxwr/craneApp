@@ -240,6 +240,17 @@
                 }
 
             })
+            Livewire.on('modalChnagePassword', aksi => {
+                if (aksi == 'show') {
+                    $('#modalChnagePassword').modal('show');
+                } else {
+                    // alert(aksi);
+                    $('#modalChnagePassword').modal('hide');
+                    // $('#modalAdd').hide();
+                    // $('#modalAdd').find('.close').click();
+                }
+
+                })
         </script>
     @endsection
 

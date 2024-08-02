@@ -87,9 +87,7 @@ class Index extends Component
     {
         $this->is_edit = 1;
         $this->id_edit = $id;
-
         $this->forms = UserTrait::find_data($id);
-
         $this->emit('modalChnagePassword', 'show');
     }
     public function update_password(){

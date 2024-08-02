@@ -203,7 +203,7 @@
                                 {{ $message ?? '' }}
                                 <div class="form-group">
                                     <label for="name"> {{_lang('New Password')}}</label>
-                                    <input name="password" type="password" class="form-control" id="password"
+                                    <input wire:model="password" name="password" type="password" class="form-control" id="password"
                                         placeholder="Password">
                                     {{-- {{ $forms['name'] }} --}}
                                     @error('forms.password')

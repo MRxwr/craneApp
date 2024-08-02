@@ -46,8 +46,8 @@
                             <tr>
                                 <td>{{ $dt->id }}</td>
                                 <td>{{ $dt->request_id }}</td>
-                                <td>{{ $dt->client->name }}</td>
-                                <td>{{ $dt->client->mobile }}</td>
+                                <td>{{ ($dt->client) ? $dt->client->name : '' }}</td>
+                                <td>{{ ($dt->client) ? $dt->client->mobile : '' }}</td>
                                 <td>{{ $dt->distances }}KM</td>
                                 <td>{{ $dt->from_location }}</td>
                                 <td>{{ $dt->to_location }}</td>

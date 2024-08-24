@@ -306,7 +306,8 @@ class UserController extends Controller
     }
 
     public function ResetDefaultPassword(Request $request){
-        $user = @AppUser::where('id',$request->id)->where('is_deleted',0)->first();
+        dd();
+        $user = @AppUser::where('id',$request->input('user_id'))->where('is_deleted',0)->first();
         if ($user) {
             // Authentication successful
             $password = '123456789';

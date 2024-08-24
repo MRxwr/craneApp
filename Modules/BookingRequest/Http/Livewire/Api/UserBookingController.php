@@ -246,20 +246,20 @@ class UserBookingController extends Controller
                         $key1++ ;
                        }
 
-                    if($bookingRequest->status==1){
-                         $upcommingRequest[$key1]['bidid']=$bookingRequest->id;
-                         $upcommingRequest[$key1]['request_id']=$bookingRequest->request_id;
-                         $upcommingRequest[$key1]['from_location']=$bookingRequest->from_location;
-                         $upcommingRequest[$key1]['to_location']=$bookingRequest->to_location;
-                         $upcommingRequest[$key1]['client_id'] = $bookingRequest->client->id;
-                         $upcommingRequest[$key1]['client_name'] = $bookingRequest->client->name;
-                         $upcommingRequest[$key1]['client_mobile'] = $bookingRequest->client->mobile;
-                         $upcommingRequest[$key1]['status'] = $bookingRequest->status;
-                         $upcommingRequest[$key1]['lat'] = $lat;
-                         $upcommingRequest[$key1]['lng'] = $long;
-                         $upcommingRequest[$key1]['rating'] = $bookingRequest->rating;
-                         $key1++ ;
-                        }
+                    // if($bookingRequest->status==1){
+                    //      $upcommingRequest[$key1]['bidid']=$bookingRequest->id;
+                    //      $upcommingRequest[$key1]['request_id']=$bookingRequest->request_id;
+                    //      $upcommingRequest[$key1]['from_location']=$bookingRequest->from_location;
+                    //      $upcommingRequest[$key1]['to_location']=$bookingRequest->to_location;
+                    //      $upcommingRequest[$key1]['client_id'] = $bookingRequest->client->id;
+                    //      $upcommingRequest[$key1]['client_name'] = $bookingRequest->client->name;
+                    //      $upcommingRequest[$key1]['client_mobile'] = $bookingRequest->client->mobile;
+                    //      $upcommingRequest[$key1]['status'] = $bookingRequest->status;
+                    //      $upcommingRequest[$key1]['lat'] = $lat;
+                    //      $upcommingRequest[$key1]['lng'] = $long;
+                    //      $upcommingRequest[$key1]['rating'] = $bookingRequest->rating;
+                    //      $key1++ ;
+                    //     }
                     if($bookingRequest->status==2){
                         $arrivedRequest[$key2]['bidid']=$bookingRequest->id;
                         $arrivedRequest[$key2]['request_id']=$bookingRequest->request_id;

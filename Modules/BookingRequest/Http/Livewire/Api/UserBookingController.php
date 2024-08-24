@@ -138,7 +138,7 @@ class UserBookingController extends Controller
             $data['errors'] = ['token'=>'header Authorization token is requred'];
             return outputError($data);
         }
-         $token = str_replace('Bearer ', '', $token);
+         echo $token = str_replace('Bearer ', '', $token);
         try {
             $user = AppUser::where('token',$token)->first();
             //var_dump($user);
@@ -330,7 +330,7 @@ class UserBookingController extends Controller
                 // Proceed with authenticated user logic
             } else {
                 // Authentication failed
-                $data['message']=_lang('Unauthorized');
+                $data['message']=_lang('Unauthorized !!');
                 return outputError($data); 
                 
             }

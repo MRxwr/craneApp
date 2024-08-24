@@ -378,7 +378,7 @@ class UserBookingController extends Controller
             }])
             ->get();
 
-            $totalEarnings = $todayRequests->sum(function($bookingRequest) {
+            $totalEarnings = @$todayRequests->sum(function($bookingRequest) {
                 return $bookingRequest->payment->payment_amount;
             });
 

@@ -39,7 +39,7 @@ class NotificationController extends Controller
             $token = str_replace('Bearer ', '', $token);
             $user = AppUser::where('token',$token)->first();
             if ($user) {
-                $notifications= Notification::where('app_user_id', $user->id)->where('is_deleted',0)->get()->toArray();
+                $notifications= Notification::where('client_id', $user->id)->where('is_deleted',0)->get()->toArray();
                 $data['message']=_lang('Get Notifications');
                 $data['notifications']= $notifications;
                 return outputSuccess($data); 

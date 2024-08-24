@@ -210,8 +210,6 @@
                                         <span style="color: red;" class="error">{{ $message }}</span>
                                     @enderror
                                 </div>
-                                
-                               
                             </div>
                             <div class="card-footer">
                                 <button type="submit" class="btn btn-primary"> {{_lang('Submit')}}</button>

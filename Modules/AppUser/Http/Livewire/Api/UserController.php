@@ -315,6 +315,7 @@ class UserController extends Controller
             $user->password= Hash::make($password);
             $user->save();
             $data['message']=_lang('Profile');
+            $data['mobile'] =$user->mobile;
             $data['password'] =$password;
             return outputSuccess($data);
             // Proceed with authenticated user logic

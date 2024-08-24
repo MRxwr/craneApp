@@ -35,7 +35,7 @@ class UserBookingController extends Controller
         }
         $token = str_replace('Bearer ', '', $token);
         try {
-            $user = AppUser::where('token',$token)->first();
+            $user = AppUser::where('token',$token)->where('is_deleted',0)->first();
             if ($user) {
                 $clientId = $user->id;
                $data['message']=_lang('get Order request');
@@ -140,7 +140,7 @@ class UserBookingController extends Controller
         }
           $token = str_replace('Bearer ', '', $token);
         try {
-            $user = AppUser::where('token',$token)->first();
+            $user = AppUser::where('token',$token)->where('is_deleted',0)->first();
             //var_dump($user);
             if ($user) {
                 /// Retrieve all completed login attempts for the user

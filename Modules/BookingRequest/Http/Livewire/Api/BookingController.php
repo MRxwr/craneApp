@@ -34,7 +34,7 @@ class BookingController extends Controller
         }
         $token = str_replace('Bearer ', '', $token);
         try {
-            $user = AppUser::where('token',$token)->first();
+            $user = AppUser::where('token',$token)->where('is_deleted',0)->first();
             if ($user) {
                 // Authentication successful
                 $rebook=0;
@@ -126,7 +126,7 @@ class BookingController extends Controller
         }
         $token = str_replace('Bearer ', '', $token);
         try {
-            $user = AppUser::where('token',$token)->first();
+            $user = AppUser::where('token',$token)->where('is_deleted',0)->first();
             if ($user) {
                $bidid= $request->input('request_id');
                $data['message']=_lang('get Order request');
@@ -185,7 +185,7 @@ class BookingController extends Controller
         }
         $token = str_replace('Bearer ', '', $token);
         try {
-            $user = AppUser::where('token',$token)->first();
+            $user = AppUser::where('token',$token)->where('is_deleted',0)->first();
 
             if ($user) {
                $bidid= $request->input('request_id');
@@ -232,7 +232,7 @@ class BookingController extends Controller
         }
         try {
             $token = str_replace('Bearer ', '', $token);
-            $user = AppUser::where('token',$token)->first();
+            $user = AppUser::where('token',$token)->where('is_deleted',0)->first();
             if ($user) {
                 $bidid= $request->input('request_id');
                 $data['message']=_lang('Send Crane Request');
@@ -274,7 +274,7 @@ class BookingController extends Controller
         }
         try {
             $token = str_replace('Bearer ', '', $token);
-            $user = AppUser::where('token',$token)->first();
+            $user = AppUser::where('token',$token)->where('is_deleted',0)->first();
             if ($user) {
                 $bidid= $request->input('request_id');
                 $dt = BookingRequest::with('prices')->find($bidid);
@@ -316,7 +316,7 @@ class BookingController extends Controller
         }
         try {
             $token = str_replace('Bearer ', '', $token);
-            $user = AppUser::where('token',$token)->first();
+            $user = AppUser::where('token',$token)->where('is_deleted',0)->first();
             if ($user) {
                 $bidid= $request->input('request_id');
                 $data['message']=_lang('Send Crane Request');
@@ -358,7 +358,7 @@ class BookingController extends Controller
         }
         try {
             $token = str_replace('Bearer ', '', $token);
-            $user = AppUser::where('token',$token)->first();
+            $user = AppUser::where('token',$token)->where('is_deleted',0)->first();
             if ($user) {
                 $bidid= $request->input('request_id');
                 $data['message']=_lang('Save order start/end');
@@ -414,7 +414,7 @@ class BookingController extends Controller
         }
         try {
             $token = str_replace('Bearer ', '', $token);
-            $user = AppUser::where('token',$token)->first();
+            $user = AppUser::where('token',$token)->where('is_deleted',0)->first();
             if ($user) {
                 $bidid= $request->input('request_id');
                 $data['message']=_lang('Send Crane Request');
@@ -460,7 +460,7 @@ class BookingController extends Controller
         }
         try {
             $token = str_replace('Bearer ', '', $token);
-            $user = AppUser::where('token',$token)->first();
+            $user = AppUser::where('token',$token)->where('is_deleted',0)->first();
             if ($user) {
                $bidid= $request->input('request_id');
                $data['message']=_lang('Send Crane Request');
@@ -518,7 +518,7 @@ class BookingController extends Controller
         }
         $token = str_replace('Bearer ', '', $token);
         try {
-            $user = AppUser::where('token',$token)->first();
+            $user = AppUser::where('token',$token)->where('is_deleted',0)->first();
 
             if ($user) {
                $bidid= $request->input('request_id');
@@ -691,7 +691,7 @@ class BookingController extends Controller
         }
         try {
             $token = str_replace('Bearer ', '', $token);
-            $user = AppUser::where('token',$token)->first();
+            $user = AppUser::where('token',$token)->where('is_deleted',0)->first();
             $OrderDetails=[];
             if ($user) {
                 $bidid= $request->input('request_id');
@@ -803,7 +803,7 @@ class BookingController extends Controller
         }
         try {
             $token = str_replace('Bearer ', '', $token);
-            $user = AppUser::where('token',$token)->first();
+            $user = AppUser::where('token',$token)->where('is_deleted',0)->first();
             if ($user) {
                 $bidid= $request->input('request_id');
                 $data['message']=_lang('Send Crane Request');

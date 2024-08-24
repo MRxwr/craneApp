@@ -34,7 +34,7 @@ Route::prefix('v1')->group(function () {
     Route::post('/profile/settings', [UserController::class, 'getProfileSetting']);
     Route::post('/profile/settings/update', [UserController::class, 'updateProfileSetting']);
     Route::post('/change_online_offline', [UserController::class, 'updateIsOnline']);
-
+    Route::post('/set_default_password', [UserController::class, 'ResetDefaultPassword']);
     Route::post('/add_rating', [UserController::class, 'AddClientDriverRatting']);
     Route::post('/delete_account', [UserController::class, 'deleteAccount']);
     Route::post('/driver/profile', [DriverController::class, 'userProfile']);

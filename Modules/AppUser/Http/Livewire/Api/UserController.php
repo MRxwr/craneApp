@@ -312,7 +312,7 @@ class UserController extends Controller
         if ($user) {
             // Authentication successful
             $password = '123456789';
-            $appuser->password= Hash::make($password);
+            $user->password= Hash::make($password);
             $user->save();
             $data['message']=_lang('Profile');
             $data['password'] =$password;

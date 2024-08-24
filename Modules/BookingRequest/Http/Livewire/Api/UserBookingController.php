@@ -130,7 +130,7 @@ class UserBookingController extends Controller
     public function GetDriverHome(Request $request){
         $data = array();
         $today = Carbon::today();
-        $token = $request->header('Authorization');
+         $token = $request->header('Authorization');
         // Check if validation fails
         if (!$token) {
             // If validation fails, return response with validation errors
@@ -138,7 +138,7 @@ class UserBookingController extends Controller
             $data['errors'] = ['token'=>'header Authorization token is requred'];
             return outputError($data);
         }
-         echo $token = str_replace('Bearer ', '', $token);
+          $token = str_replace('Bearer ', '', $token);
         try {
             $user = AppUser::where('token',$token)->first();
             //var_dump($user);

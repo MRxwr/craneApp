@@ -52,9 +52,9 @@ class RegisterController extends Controller
                 $appuser->dob = $dob;
                 $appuser->device_type = $device_type;
                 $appuser->device_token = $device_token;
-
                 $appuser->password = Hash::make($password);
                 $appuser->email_verified_at = now();
+                $appuser->is_deleted = 0;
                 if ($request->hasFile('avator')) {
                     $imageName = time().'.'.$request->avator->extension();  
                     $request->avator->move(public_path('avators'), $imageName);

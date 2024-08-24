@@ -31,7 +31,7 @@ class DriverController extends Controller
         }
         $token = str_replace('Bearer ', '', $token);
         try {
-            $user = AppUser::where('token',$token)
+            $user = AppUser::where('token',$token)->where('is_deleted',0)
             ->select('id', 'name', 'email','mobile','dob','token','avator','licence','idfront','idback','language') // Specify the fields you want to include
             ->first();
             if ($user) {
@@ -76,7 +76,7 @@ class DriverController extends Controller
         $name = $request->input('name');
         $email = $request->input('email');
         $dob = $request->input('dob');
-        $appuser =  AppUser::where('token',$token)
+        $appuser =  AppUser::where('token',$token)->where('is_deleted',0)
         ->select('id', 'name', 'email','mobile','dob','token','avator','licence','idfront','idback','language') // Specify the fields you want to include
         ->first();
         if ($appuser){

@@ -30,7 +30,7 @@ class UserController extends Controller
         }
         $token = str_replace('Bearer ', '', $token);
         try {
-            $user = AppUser::where('token',$token)
+            $user = AppUser::where('token',$token)->where('is_deleted',0)
             ->select('id', 'name', 'email','mobile','dob','token','avator','language') // Specify the fields you want to include
             ->first();
             if ($user) {
@@ -76,7 +76,7 @@ class UserController extends Controller
         $name = $request->input('name');
         $email = $request->input('email');
         $dob = $request->input('dob');
-        $appuser =  AppUser::where('token',$token)
+        $appuser =  AppUser::where('token',$token)->where('is_deleted',0)
             ->select('id', 'name', 'email','mobile','dob','token','avator','language') // Specify the fields you want to include
             ->first();
         if ($appuser){
@@ -131,7 +131,7 @@ class UserController extends Controller
         }
         $token = str_replace('Bearer ', '', $token);
         try {
-            $user = AppUser::where('token',$token)->first();
+            $user = AppUser::where('token',$token)->where('is_deleted',0)->first();
             if ($user) {
                 // Authentication successful
                 if(!getUserMeta('wallet',$user->id)){
@@ -179,7 +179,7 @@ class UserController extends Controller
 
         $language = $request->input('language');
         $is_notify = $request->input('is_notify');
-        $appuser =  AppUser::where('token',$token)->first();
+        $appuser =  AppUser::where('token',$token)->where('is_deleted',0)->first();
         if ($appuser){
             $appuser->language = $language;
             $appuser->save();
@@ -218,7 +218,7 @@ class UserController extends Controller
         $token = str_replace('Bearer ', '', $token);
 
         
-        $appuser =  AppUser::where('token',$token)->first();
+        $appuser =  AppUser::where('token',$token)->where('is_deleted',0)->first();
         $status='';
         if ($appuser){
             $login=LoginAttempt::where('app_user_id',$appuser->id)->whereNull('end_time')->first();
@@ -271,6 +271,37 @@ class UserController extends Controller
             return outputError($data); 
             
         }
-    }  
+    } 
+    
+    public function deleteAccount(Request $request){
+        $data = array();
+        $token = $request->header('Authorization');
+        // Check if validation fails
+        if (!$token) {
+            // If validation fails, return response with validation errors
+            $data['message']=_lang('Authorization token is requred');
+            $data['errors'] = ['token'=>'header Authorization token is requred'];
+            return outputError($data);
+        }
+        $token = str_replace('Bearer ', '', $token);
+        $appuser =  AppUser::where('token',$token)->where('is_deleted',0)->first();
+        $status='';
+        if ($appuser){
+            $appuser->is_deleted=1;
+            if($appuser->save()){
+                $data['message']=_lang( 'Your Account Successfully deleted');
+                return outputSuccess($data);
+            }else{
+                $data['message']=_lang( 'Problen arrived');
+                return outputError($data); 
+            }
+            
+        }else {
+            // Authentication failed
+            $data['message']=_lang('Unauthorized due to token mismatch');
+            return outputError($data); 
+            
+        }
+    }
     
 }

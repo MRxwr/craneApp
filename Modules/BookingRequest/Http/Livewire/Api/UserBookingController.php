@@ -318,7 +318,7 @@ class UserBookingController extends Controller
                     }
                        
                 }
-                
+                $data['pendingRequest']= [$pendingRequest];
                 $data['upcommingRequest']= [$upcommingRequest];
                 $data['arrivedRequest']= [$arrivedRequest];
                 $data['ongoingRequest']= [$ongoingRequest];

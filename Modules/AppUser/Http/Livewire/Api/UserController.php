@@ -187,7 +187,7 @@ class UserController extends Controller
                 upadteUserMeta('is_notify',$is_notify,$appuser->id);
             }
             $data['message']=_lang('Profile');
-            $data['meta']['language']= $user->language;
+            $data['meta']['language']= $appuser->language;
             $data['meta']['is_notify']= getUserMeta('is_notify',$appuser->id);
             $data['meta']['wallet']= getUserMeta('wallet',$appuser->id);
             $data['about']= Page::find(1)->toArray();

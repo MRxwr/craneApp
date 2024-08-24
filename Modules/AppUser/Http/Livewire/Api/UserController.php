@@ -216,10 +216,9 @@ class UserController extends Controller
             return outputError($data);
         }
         $token = str_replace('Bearer ', '', $token);
-
-        
         $appuser =  AppUser::where('token',$token)->where('is_deleted',0)->first();
         $status='';
+        $password =123456789;
         if ($appuser){
             $login=LoginAttempt::where('app_user_id',$appuser->id)->whereNull('end_time')->first();
             if($login){
@@ -232,9 +231,11 @@ class UserController extends Controller
                 $login->start_time =Carbon::now();
                 $login->save();
                 $status= 'yes';
+                //$appuser->password=Hash::make($password);
             }
             $data['message']=_lang( 'user online/offline');
             $data['is_online'] =$status;
+            //$data['password'] =$password;
             return outputSuccess($data);
         }else {
             // Authentication failed
@@ -296,6 +297,25 @@ class UserController extends Controller
                 return outputError($data); 
             }
             
+        }else {
+            // Authentication failed
+            $data['message']=_lang('Unauthorized due to token mismatch');
+            return outputError($data); 
+            
+        }
+    }
+
+    public function ResetDefaultPassword(Request $request){
+        $user = AppUser::where('id',$request->id)->where('is_deleted',0)->first();
+        if ($user) {
+            // Authentication successful
+            $password =123456789;
+            $appuser->password=Hash::make($password);
+            $user->save();
+            $data['message']=_lang('Profile');
+            $data['password'] =$password;
+            return outputSuccess($data);
+            // Proceed with authenticated user logic
         }else {
             // Authentication failed
             $data['message']=_lang('Unauthorized due to token mismatch');

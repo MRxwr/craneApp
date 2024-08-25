@@ -107,7 +107,7 @@ class ForgotPasswordController extends Controller
                 $appuser->save();
                 return outputSuccess($data);
             } else {
-                $data['message']=_lang('login faild Regiter');
+                $data['message']=_lang('reset password faild ');
                 return outputError($data);
             }   
         }else{

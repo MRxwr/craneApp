@@ -39,7 +39,7 @@ class UserBookingController extends Controller
             if ($user) {
                 $clientId = $user->id;
                $data['message']=_lang('get Order request');
-               $dt = BookingRequest::with('prices')->with('payment')->where('client_id', $user->id)->where('is_deleted', 0)->whereIn('status',[1,2,3,5])->get();
+               $dt = BookingRequest::with('prices')->with('payment')->where('client_id', $user->id)->where('is_deleted', 0)->whereIn('status',[0,1,2,3,4,5])->get();
                $orderRequest =[];
                $prices=[];
                 foreach ($dt as $key=>$bookingRequest){

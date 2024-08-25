@@ -50,11 +50,15 @@ class ForgotPasswordController extends Controller
                     $otpUser->mobile = $mobileNumber;
                     $otpUser->type = 'reset';
                     $otpUser->save();
+                    return outputSuccess($data);
                  } 
                   
-            }
+            }else {
+                $data['message']=_lang('This mobile number not exists');
+                return outputError($data);
+            }   
            
-        return outputSuccess($data);
+       
         }   
     }
 

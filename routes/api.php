@@ -18,5 +18,5 @@ use App\Http\Controllers\Api\SettingController;
 // API Version 1 routes
 Route::prefix('v1')->group(function () {
     Route::post('/home', [HomeController::class, 'getHome']);
-    Route::post('/setting', [HomeController::class, 'getSetting']);
+    Route::post('/setting', [SettingController::class, 'getSetting']);
 });

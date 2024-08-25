@@ -24,11 +24,8 @@ class SettingController extends Controller
             $setting = Setting::where('id',1)->first();
             if($request->input('action')=='version'){
                 if($request->input('type')=='list'){
-                    $data['ok']=true;
-                    $data['error']='0';
-                    $data['status']='successful';
-                    $data['versions']['ios']=$setting->ios_version;
-                    $data['versions']['android']=$setting->android_version;
+                    $data['data']['versions']['ios']=$setting->ios_version;
+                    $data['data']['versions']['android']=$setting->android_version;
                     return outputSuccess($data); 
 
                 }else if($request->input('type')=='update'){

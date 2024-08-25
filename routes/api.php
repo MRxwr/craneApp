@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\HomeController;
+use App\Http\Controllers\Api\SettingController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -17,4 +18,5 @@ use App\Http\Controllers\Api\HomeController;
 // API Version 1 routes
 Route::prefix('v1')->group(function () {
     Route::post('/home', [HomeController::class, 'getHome']);
+    Route::post('/setting', [HomeController::class, 'getSetting']);
 });

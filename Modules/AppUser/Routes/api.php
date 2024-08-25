@@ -5,6 +5,7 @@ use Modules\AppUser\Http\Livewire\Api\RegisterController;
 use Modules\AppUser\Http\Livewire\Api\LoginController;
 use Modules\AppUser\Http\Livewire\Api\UserController;
 use Modules\AppUser\Http\Livewire\Api\DriverController;
+use Modules\AppUser\Http\Livewire\Api\ForgotPasswordController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -28,7 +29,11 @@ Route::prefix('v1')->group(function () {
     Route::post('/register/client', [RegisterController::class, 'registerClient']);
     Route::post('/register/driver', [RegisterController::class, 'registerDriver']);
     Route::post('/login', [LoginController::class, 'AppUserLogin']);
-   
+    
+    Route::post('/reset/send-otp', [ForgotPasswordController::class, 'sendOTP']);
+    Route::post('/reset/verify-otp', [ForgotPasswordController::class, 'verifyOTP']);
+    Route::post('/reset/set_password', [ForgotPasswordController::class, 'SetNewPassword']);
+
     Route::post('/client/profile', [UserController::class, 'userProfile']);
     Route::post('/client/profile/update', [UserController::class, 'updateProfile']);
     Route::post('/profile/settings', [UserController::class, 'getProfileSetting']);

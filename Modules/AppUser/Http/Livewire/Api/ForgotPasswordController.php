@@ -38,17 +38,24 @@ class ForgotPasswordController extends Controller
         if($isverified){
             $appuser = AppUser::where('mobile', $mobileNumber)->where('is_deleted',0)->first();
            // Create a new OtpUser
-           if( $appuser){
-             $otpUser = OtpUser::create([
-                'otp' => $otp,
-                'mobile' => $mobileNumber,
-                'type' => 'reset',
-             ]);
-           }
+            if( $appuser){
+                $otpr=OtpUser::where('mobile', $mobileNumber)->where('type', 'reset')->first();
+                 if($otpr){
+                    $otpr->otp = $otp;
+                    $otpr->save();
+                    return outputSuccess($data);
+                 }else{
+                    $otpUser = OtpUser::create([
+                        'otp' => $otp,
+                        'mobile' => $mobileNumber,
+                        'type' => 'reset',
+                    ]);
+                 } 
+                  
+            }
            
         return outputSuccess($data);
-        } 
-        
+        }   
     }
 
     public function verifyOTP(Request $request){ 
@@ -76,8 +83,8 @@ class ForgotPasswordController extends Controller
         $data = array();
         $rules = [
             'mobile' => 'required|string|max:12',
-            'new_password' => 'required|string|max:12',
-            'confirm_password' => 'required|string|max:12',
+            'password' => 'required|min:8',
+            'password_confirmation' => 'required|same:password',
         ];
         // Perform validation
         $validator = Validator::make($request->all(), $rules);
@@ -88,54 +95,21 @@ class ForgotPasswordController extends Controller
             $data['errors'] = $validator->errors();
             return outputError($data);
         }
+        $password =$request->input('password');
         $mobileNumber = $request->input('mobile');
         $mobileNumber = str_replace('+', '', $mobileNumber);
         $isverified = OtpUser::where('mobile', $mobileNumber)->where('verified', 1)->first();
         if($isverified){
             $appuser = AppUser::where('mobile', $mobileNumber)->where('is_deleted',0)->first();
             if ($appuser){
-                $data['message']=_lang('Successful loggedin');
-                if ($request->has('password')) {
-                        // Password is provided, attempt to authenticate with password
-                        $credentials = $request->only('mobile', 'password');
-                        if (Auth::guard('api')->attempt($credentials)) {
-                            $user = Auth::guard('api')->user();
-                            if($request->input('device_token')){
-                                $user->device_token = $request->input('device_token');
-                                $user->save();
-                            }
-                            if($token=GenerateApiToken($user)){
-                                $data['user']= $user->toArray();
-                                $data['token']= $user->token;
-                                return outputSuccess($data);
-                            }
-                        }else{
-                            $data['message']=_lang('Authentication failed: Invalid password');
-                            return outputError($data);
-                        }
-                    } else {
-                        $mobile = $request->only('mobile');
-                        $user = AppUser::where('mobile', $mobile)->first();
-                        if ($user) {
-                            Auth::guard('api')->user();
-                            if($token=GenerateApiToken($user)){
-                                if($request->input('device_token')){
-                                    $user->device_token = $request->input('device_token');
-                                    $user->save();
-                                }
-                                $data['user']= $user->toArray();
-                                $data['token']= $user->token;
-                                return outputSuccess($data);
-                            }
-                        }else {
-                            $data['message']=_lang('Authentication failed: mobile number not found');
-                            return outputError($data);
-                        }
-                     } 
-                } else {
-                    $data['message']=_lang('login faild Regiter');
-                    return outputError($data);
-                }   
+                $data['message']=_lang('Successful Set New Password ');
+                $appuser->password = Hash::make($password);
+                $appuser->save();
+                return outputSuccess($data);
+            } else {
+                $data['message']=_lang('login faild Regiter');
+                return outputError($data);
+            }   
         }else{
             $data['message']=_lang('mobile not  verified');
             return outputError($data); 

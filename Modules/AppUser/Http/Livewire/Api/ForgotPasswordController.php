@@ -18,7 +18,7 @@ class ForgotPasswordController extends Controller
     {
         $data=array();
         $rules = [
-            'mobile' => 'required|unique:app_users|max:12',
+            'mobile' => 'required|max:12',
         ];
 
         // Perform validation

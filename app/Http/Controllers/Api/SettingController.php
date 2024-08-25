@@ -24,10 +24,9 @@ class SettingController extends Controller
             $setting = Setting::where('id',1)->first();
             if($request->input('action')=='version'){
                 if($request->input('type')=='list'){
-                    $data['data']['versions']['ios']=$setting->ios_version;
-                    $data['data']['versions']['android']=$setting->android_version;
+                    $data['versions']['ios']=$setting->ios_version;
+                    $data['versions']['android']=$setting->android_version;
                     return outputSuccess($data); 
-
                 }else if($request->input('type')=='update'){
 
                     if($request->input('ios')){
@@ -44,18 +43,18 @@ class SettingController extends Controller
                     // }
                     $setting->save();
                     
-                    $data['data']['versions']['ios']=$setting->ios_version;
-                    $data['data']['versions']['android']=$setting->android_version;
+                    $data['versions']['ios']=$setting->ios_version;
+                    $data['versions']['android']=$setting->android_version;
                     return outputSuccess($data); 
                 }else{
-                    $data['data']['versions']['ios']=$setting->ios_version;
-                    $data['data']['versions']['android']=$setting->android_version;
+                    $data['versions']['ios']=$setting->ios_version;
+                    $data['versions']['android']=$setting->android_version;
                     return outputSuccess($data); 
                 }
         }else if($request->input('action')=='link'){
             if($request->input('type')=='list'){
-                $data['data']['links']['ios']=$setting->ios_app_link;
-                $data['data']['links']['android']=$setting->android_app_link;
+                $data['links']['ios']=$setting->ios_app_link;
+                $data['links']['android']=$setting->android_app_link;
                 return outputSuccess($data); 
 
             }else if($request->input('type')=='update'){
@@ -67,12 +66,12 @@ class SettingController extends Controller
                     $setting->android_app_link = $request->input('android_link');
                 }
                 $setting->save();
-                $data['data']['links']['ios']=$setting->ios_app_link;
-                $data['data']['links']['android']=$setting->android_app_link;
+                $data['links']['ios']=$setting->ios_app_link;
+                $data['links']['android']=$setting->android_app_link;
                 return outputSuccess($data); 
             }else{
-                $data['data']['links']['ios']=$setting->ios_app_link;
-                $data['data']['links']['android']=$setting->android_app_link;
+                $data['links']['ios']=$setting->ios_app_link;
+                $data['links']['android']=$setting->android_app_link;
                 return outputSuccess($data); 
             }
         }

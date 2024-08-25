@@ -45,11 +45,11 @@ class ForgotPasswordController extends Controller
                     $otpr->save();
                     return outputSuccess($data);
                  }else{
-                    $otpUser = OtpUser::create([
-                        'otp' => $otp,
-                        'mobile' => $mobileNumber,
-                        'type' => 'reset',
-                    ]);
+                    $otpUser = new OtpUser();
+                    $otpUser->otp =$otp;
+                    $otpUser->mobile = $mobileNumber;
+                    $otpUser->type = 'reset';
+                    $otpUser->save();
                  } 
                   
             }

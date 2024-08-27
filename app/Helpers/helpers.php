@@ -132,12 +132,33 @@ function outputError($data){
 	$response["data"] = $data;
     return response()->json($response, 200);
 }
-function sendSMS($msg){
-    $response["ok"] = true;
-	$response["error"] = "0";
-	$response["status"] = "successful";
-	$response["data"] = '';
-    return response()->json($response, 200);
+function sendSMS($msg,$mobile,$code,$flag){
+    $message = urlencode($msg);
+    $sms_username = '';
+    $sms_password = '';
+    $sms_sender = '';
+	$message = str_replace(' ','+',$message);
+    if($flag==0){
+        $url = 'http://www.kwtsms.com/API/send/?username='.$sms_username.'&password='.$sms_password.'&sender='.$sms_sender.'&mobile='.$code.$mobile.'&lang=1&message='.$message;
+           $curl = curl_init();
+            curl_setopt_array($curl, array(
+              CURLOPT_URL => $url,
+              CURLOPT_RETURNTRANSFER => true,
+              CURLOPT_TIMEOUT => 30,
+              CURLOPT_CUSTOMREQUEST => "GET",
+            ));
+            $response = curl_exec($curl);
+            $err = curl_error($curl);
+            curl_close($curl);
+            if ($err){
+                return $err;
+            }else{
+                return $response;	
+            }
+        $flag=1;
+    }	
+
+   
 }
 function GenerateApiToken($user){
     if($user){

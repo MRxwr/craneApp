@@ -41,6 +41,9 @@ class Settings extends Component
             $row->contact = $request->contact;
             $row->email = $request->email;
             $row->address = $request->address;
+            $row->sms_username = $request->sms_username;
+            $row->sms_password = $request->sms_password;
+            $row->sms_senderid = $request->sms_senderid;
 
             if ($request->hasFile('logo')) {
                 $imageName = 'logo-'.time().'.'.$request->logo->extension();

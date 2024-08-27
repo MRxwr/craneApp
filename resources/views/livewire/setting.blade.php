@@ -76,6 +76,27 @@
                              <input type="text" class="form-control" placeholder="Address" name="address" value="{{$row->address}}">
                             </div>
                         </div>
+
+
+                        <div class="form-group row">
+                            <div class="col-lg-3 col-12"> {{_lang('SMS Username')}}</div>
+                            <div class="col-lg-9 col-12">
+                                <input type="text" class="form-control" placeholder="SMS Username " name="sms_username" value="{{$row->sms_username}}">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-lg-3 col-12">{{_lang('SMS Password')}} </div>
+                            <div class="col-lg-9 col-12">
+                            <input type="text" class="form-control" placeholder="SMS Password" name="sms_password" value="{{$row->sms_password}}">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-lg-3 col-12"> {{_lang('SMS Sender ID')}}</div>
+                            <div class="col-lg-9 col-12">
+                             <input type="text" class="form-control" placeholder="SMS Sender ID" name="sms_senderid" value="{{$row->sms_senderid}}">
+                            </div>
+                        </div>
+
                     </div>
                 </div>
             </div>

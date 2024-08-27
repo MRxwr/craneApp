@@ -134,9 +134,9 @@ function outputError($data){
 }
 function sendSMS($msg,$mobile,$code,$flag){
     $message = urlencode($msg);
-    $sms_username = '';
-    $sms_password = '';
-    $sms_sender = '';
+    $sms_username = getSetting('sms_username');
+    $sms_password = getSetting('sms_password');
+    $sms_sender = getSetting('sms_senderid');
 	$message = str_replace(' ','+',$message);
     if($flag==0){
         $url = 'http://www.kwtsms.com/API/send/?username='.$sms_username.'&password='.$sms_password.'&sender='.$sms_sender.'&mobile='.$code.$mobile.'&lang=1&message='.$message;

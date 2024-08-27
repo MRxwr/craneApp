@@ -219,6 +219,66 @@ class BookingController extends Controller
             return outputError($data);
         }
     }
+       //For driver :: single order for driver add price 
+   public function DriverOrdersRequestForAccept(Request $request){ 
+        $data = array();
+        $token = $request->header('Authorization');
+        // Check if validation fails
+        if (!$token) {
+            // If validation fails, return response with validation errors
+            $data['message']=_lang('Authorization token is requred');
+            $data['errors'] = ['token'=>'header Authorization token is requred'];
+            return outputError($data);
+        }
+        $token = str_replace('Bearer ', '', $token);
+        try {
+            $user = AppUser::where('token',$token)->where('is_deleted',0)->first();
+            if ($user) {
+             
+               $data['message']=_lang('get Order request For Accept');
+               $dt = BookingRequest::with(['payment' => function($query) use ($user) {
+                        $query->where('driver_id', $user->id);
+                }])->where('driver_id', 0)->where('status', 0)->where('is_deleted', 0)->get();
+                // $dt = BookingRequest::with('prices')->with('payment')->where('client_id', $user->id)->where('is_deleted', 0)->get();
+                $orderRequest =[];
+               $prices=[];
+                foreach ($dt as $key=>$bookingRequest) {
+                        $orderRequest[$key]['bidid']=$bookingRequest->id;
+                        $orderRequest[$key]['request_id']=$bookingRequest->request_id;
+                        $orderRequest[$key]['from_location']=$bookingRequest->from_location;
+                        $orderRequest[$key]['to_location']=$bookingRequest->to_location;
+                        foreach ($bookingRequest->prices as $keyr=>$price) {
+                            $prices=[];
+                            $prices[$keyr]['price_id'] = $price->id;
+                            $prices[$keyr]['client_name'] = $price->client->name;
+                            $prices[$keyr]['mobile'] = $price->client->mobile;
+                            $prices[$keyr]['price'] =  $price->price;
+                            $prices[$keyr]['is_accepted'] = $price->is_accepted;
+                            $orderRequest[$key]['prices']= $prices;
+                        }
+                    }
+                
+                    $data['orderRequestForConfirm']= $orderRequest;
+               return outputSuccess($data);
+                // Proceed with authenticated user logic
+            } else {
+                // Authentication failed
+                $data['message']=_lang('Unauthorized due to token mismatch');
+                return outputError($data);  
+            }
+        } catch (\Exception $e) {
+            // Log or handle the exception
+            $data['message']=_lang('Authentication error');
+            $data['errors'] = [
+                'message' => $e->getMessage(),
+                'code' => $e->getCode(),
+                'file' => $e->getFile(),
+                'line' => $e->getLine()
+            ];
+            return outputError($data);
+           
+        }
+}
     //For driver/client :: just update order status like upcoming,ongoing,completed 
     public function changeOrderStatus(Request $request){
         $data = array();

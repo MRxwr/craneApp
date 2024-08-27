@@ -30,6 +30,7 @@ Route::prefix('v1')->group(function () {
     // Driver
     Route::post('get_order_request', [BookingController::class, 'getOrdersRequest']);
     Route::post('save_order_request', [BookingController::class, 'saveOrderRequest']);
+    Route::post('driver_orders_request_foraccept', [BookingController::class, 'DriverOrdersRequestForAccept']);
     Route::post('driver_home', [UserBookingController::class, 'GetDriverHome']);
     Route::post('get_driver_history', [UserBookingController::class, 'GetDriverHistories']);
     Route::post('order_start_end', [BookingController::class, 'saveOrderStartEnd']);

@@ -152,9 +152,9 @@ function sendSMS($msg,$mobile,$flag){
             $err = curl_error($curl);
             curl_close($curl);
             if ($err){
-                echo $err;
+                return $err;
             }else{
-                echo $response;	
+                return $response;	
             }
         $flag=1;
     }	

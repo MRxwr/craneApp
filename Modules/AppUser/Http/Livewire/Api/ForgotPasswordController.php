@@ -44,6 +44,7 @@ class ForgotPasswordController extends Controller
                     $otpr->otp = $otp;
                     $otpr->save();
                     $msg = str_replace('[otp]', $otp, _lang('To reset your password for Crane, use the OTP {{OTP}}.Please do not share this code with anyone.'));
+                    sendSMS($msg,$mobileNumber,$flag=0);
                     return outputSuccess($data);
                  }else{
                     $otpUser = new OtpUser();
@@ -52,6 +53,7 @@ class ForgotPasswordController extends Controller
                     $otpUser->type = 'reset';
                     $otpUser->save();
                     $msg = str_replace('[otp]', $otp, _lang('To reset your password for Crane, use the OTP {{OTP}}.Please do not share this code with anyone.'));
+                    sendSMS($msg,$mobileNumber,$flag=0);
                     return outputSuccess($data);
                  } 
                   

@@ -38,7 +38,7 @@ class OTPController extends Controller
             $user->mobile = $mobileNumber;
             $user->verified = true;
             $user->save();
-            $msg = str_replace('[otp]', $otp, _lang('Your OTP is [otp]'));//_lang('Your OTP is [otp]') 'Your OTP is '.$otp;
+            $msg = str_replace('{{OTP}}', $otp, _lang('Use {{OTP}} as your login code for The Crane. Please do not share this code with anyone.'));
             return outputSuccess($data);
         } else {
            // Create a new OtpUser
@@ -47,7 +47,7 @@ class OTPController extends Controller
                 'mobile' => $mobileNumber,
                 'verified' => true,
             ]);
-            $msg = str_replace('[otp]', $otp, _lang('Your OTP is [otp]'));//_lang('Your OTP is [otp]') 'Your OTP is '.$otp;
+            $msg = str_replace('{{OTP}}', $otp, _lang('Use {{OTP}} as your login code for The Crane. Please do not share this code with anyone.'));
             sendSMS($msg,$mobile,$flag=0);
             return outputSuccess($data);
         }

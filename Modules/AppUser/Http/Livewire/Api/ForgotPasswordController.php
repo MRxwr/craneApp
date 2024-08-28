@@ -43,7 +43,7 @@ class ForgotPasswordController extends Controller
                  if($otpr){
                     $otpr->otp = $otp;
                     $otpr->save();
-                    $msg = str_replace('[otp]', $otp, _lang('Your OTP is [otp]'));//_lang('Your OTP is [otp]') 'Your OTP is '.$otp;
+                    $msg = str_replace('[otp]', $otp, _lang('To reset your password for Crane, use the OTP {{OTP}}.Please do not share this code with anyone.'));
                     return outputSuccess($data);
                  }else{
                     $otpUser = new OtpUser();
@@ -51,7 +51,7 @@ class ForgotPasswordController extends Controller
                     $otpUser->mobile = $mobileNumber;
                     $otpUser->type = 'reset';
                     $otpUser->save();
-                    $msg = str_replace('[otp]', $otp, _lang('Your OTP is [otp]'));//_lang('Your OTP is [otp]') 'Your OTP is '.$otp;
+                    $msg = str_replace('[otp]', $otp, _lang('To reset your password for Crane, use the OTP {{OTP}}.Please do not share this code with anyone.'));
                     return outputSuccess($data);
                  } 
                   

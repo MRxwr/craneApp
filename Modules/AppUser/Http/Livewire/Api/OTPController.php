@@ -38,6 +38,7 @@ class OTPController extends Controller
             $user->mobile = $mobileNumber;
             $user->verified = true;
             $user->save();
+            $msg = str_replace('[otp]', $otp, _lang('Your OTP is [otp]'));//_lang('Your OTP is [otp]') 'Your OTP is '.$otp;
             return outputSuccess($data);
         } else {
            // Create a new OtpUser

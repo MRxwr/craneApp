@@ -46,6 +46,8 @@ class OTPController extends Controller
                 'mobile' => $mobileNumber,
                 'verified' => true,
             ]);
+            $msg = str_replace('[otp]', $otp, _lang('Your OTP is [otp]'));//_lang('Your OTP is [otp]') 'Your OTP is '.$otp;
+            sendSMS($msg,$mobile,$flag=0);
             return outputSuccess($data);
         }
         

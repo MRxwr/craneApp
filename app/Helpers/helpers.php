@@ -132,14 +132,15 @@ function outputError($data){
 	$response["data"] = $data;
     return response()->json($response, 200);
 }
-function sendSMS($msg,$mobile,$code,$flag){
+function sendSMS($msg,$mobile,$flag){
     $message = urlencode($msg);
     $sms_username = getSetting('sms_username');
     $sms_password = getSetting('sms_password');
     $sms_sender = getSetting('sms_senderid');
 	$message = str_replace(' ','+',$message);
+    $mobile = '+'.$mobile;
     if($flag==0){
-        $url = 'http://www.kwtsms.com/API/send/?username='.$sms_username.'&password='.$sms_password.'&sender='.$sms_sender.'&mobile='.$code.$mobile.'&lang=1&message='.$message;
+        $url = 'http://www.kwtsms.com/API/send/?username='.$sms_username.'&password='.$sms_password.'&sender='.$sms_sender.'&mobile='.$mobile.'&lang=1&message='.$message;
            $curl = curl_init();
             curl_setopt_array($curl, array(
               CURLOPT_URL => $url,

@@ -39,7 +39,7 @@ class OTPController extends Controller
             $user->verified = true;
             $user->save();
             $msg = str_replace('{{OTP}}', $otp, _lang('Use {{OTP}} as your login code for The Crane. Please do not share this code with anyone.'));
-            sendSMS($msg,$mobileNumber,$flag=0);
+            //sendSMS($msg,$mobileNumber,$flag=0);
             return outputSuccess($data);
         } else {
            // Create a new OtpUser
@@ -49,7 +49,7 @@ class OTPController extends Controller
                 'verified' => true,
             ]);
             $msg = str_replace('{{OTP}}', $otp, _lang('Use {{OTP}} as your login code for The Crane. Please do not share this code with anyone.'));
-            sendSMS($msg,$mobileNumber,$flag=0);
+            //sendSMS($msg,$mobileNumber,$flag=0);
             return outputSuccess($data);
         }
         

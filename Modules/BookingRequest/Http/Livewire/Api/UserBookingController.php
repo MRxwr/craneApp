@@ -186,7 +186,7 @@ class UserBookingController extends Controller
             
             $dtnew = BookingRequest::with(['prices' => function($query) use ($user) {
                      $query->where('driver_id', $user->id)->where('is_accepted', '!=', 2)->where('skip',0);
-             }])->where('status', 0)->get();
+             }])->where('status', null)->get();
              $newOrderRequest =[];
             $prices=[];
              foreach ($dtnew as $key=>$bookingRequest) {
@@ -200,16 +200,15 @@ class UserBookingController extends Controller
                         }
                     }
                     if($bookingRequest->driver_id==0 && $bookingRequest->prices->count()>0){
-                     $newOrderRequest[$key]['bidid']=$bookingRequest->id;
-                     $newOrderRequest[$key]['request_id']=$bookingRequest->request_id;
-                     $newOrderRequest[$key]['from_location']=$bookingRequest->from_location;
-                     $newOrderRequest[$key]['to_location']=$bookingRequest->to_location;
-                     $newOrderRequest[$key]['client_id'] = $bookingRequest->client->id;
-                     $newOrderRequest[$key]['client_name'] = $bookingRequest->client->name;
-                     $newOrderRequest[$key]['client_mobile'] = $bookingRequest->client->mobile;
-                    
-                     $newOrderRequest[$key]['lat'] = $lat;
-                     $newOrderRequest[$key]['lng'] = $long;
+                        $newOrderRequest[$key]['bidid']=$bookingRequest->id;
+                        $newOrderRequest[$key]['request_id']=$bookingRequest->request_id;
+                        $newOrderRequest[$key]['from_location']=$bookingRequest->from_location;
+                        $newOrderRequest[$key]['to_location']=$bookingRequest->to_location;
+                        $newOrderRequest[$key]['client_id'] = $bookingRequest->client->id;
+                        $newOrderRequest[$key]['client_name'] = $bookingRequest->client->name;
+                        $newOrderRequest[$key]['client_mobile'] = $bookingRequest->client->mobile;
+                        $newOrderRequest[$key]['lat'] = $lat;
+                        $newOrderRequest[$key]['lng'] = $long;
                      foreach ($bookingRequest->prices as $keyr=>$price) {
                          $prices=[];
                          $prices[$keyr]['price_id'] = $price->id;
@@ -222,7 +221,8 @@ class UserBookingController extends Controller
                          }
                          $newOrderRequest[$key]['prices']= $prices;
                      }
-                 }
+
+                    }
                 }
              
              $data['NewOrderRequest']= $newOrderRequest;

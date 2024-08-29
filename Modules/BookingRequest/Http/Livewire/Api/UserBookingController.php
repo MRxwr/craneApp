@@ -207,7 +207,7 @@ class UserBookingController extends Controller
                      $newOrderRequest[$key]['client_id'] = $bookingRequest->client->id;
                      $newOrderRequest[$key]['client_name'] = $bookingRequest->client->name;
                      $newOrderRequest[$key]['client_mobile'] = $bookingRequest->client->mobile;
-                     $newOrderRequest[$key]['status'] = $bookingRequest->status;
+                    
                      $newOrderRequest[$key]['lat'] = $lat;
                      $newOrderRequest[$key]['lng'] = $long;
                      foreach ($bookingRequest->prices as $keyr=>$price) {
@@ -217,6 +217,9 @@ class UserBookingController extends Controller
                          $prices[$keyr]['mobile'] = $price->client->mobile;
                          $prices[$keyr]['price'] =  $price->price;
                          $prices[$keyr]['is_accepted'] = $price->is_accepted;
+                         if(!$price->price){
+                            $newOrderRequest[$key]['status'] = 'new';
+                         }
                          $newOrderRequest[$key]['prices']= $prices;
                      }
                  }

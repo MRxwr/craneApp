@@ -199,6 +199,7 @@ class UserBookingController extends Controller
                             $long = $latlong[1];
                         }
                     }
+                    if($bookingRequest->driver_id==0){
                      $newOrderRequest[$key]['bidid']=$bookingRequest->id;
                      $newOrderRequest[$key]['request_id']=$bookingRequest->request_id;
                      $newOrderRequest[$key]['from_location']=$bookingRequest->from_location;
@@ -219,6 +220,7 @@ class UserBookingController extends Controller
                          $newOrderRequest[$key]['prices']= $prices;
                      }
                  }
+                }
              
              $data['NewOrderRequest']= $newOrderRequest;
               //ongoing trip

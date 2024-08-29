@@ -179,7 +179,8 @@ class UserBookingController extends Controller
                 'total_earnings' => $totalEarnings,
                 'total_distance' => $totalDistance,
                 'total_trips' => $totalRequests,
-                'time_online'=>$totalLoginTimeFormatted
+                'time_online'=>$totalLoginTimeFormatted,
+                'login_status' => AppUserLogingStatus(driverId)
             ];
                
               //ongoing trip

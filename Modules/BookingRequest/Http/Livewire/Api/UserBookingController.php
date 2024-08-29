@@ -182,7 +182,30 @@ class UserBookingController extends Controller
                 'time_online'=>$totalLoginTimeFormatted,
                 'login_status' => AppUserLogingStatus($driverId)
             ];
-               
+
+            
+            $dtnew = BookingRequest::with(['prices' => function($query) use ($user) {
+                     $query->where('driver_id', $user->id)->where('is_accepted', '!=', 2)->where('skip',0);
+             }])->where('status', 0)->get();
+             $newOrderRequest =[];
+            $prices=[];
+             foreach ($dtnew as $key=>$bookingRequest) {
+                     $newOrderRequest[$key]['bidid']=$bookingRequest->id;
+                     $newOrderRequest[$key]['request_id']=$bookingRequest->request_id;
+                     $newOrderRequest[$key]['from_location']=$bookingRequest->from_location;
+                     $newOrderRequest[$key]['to_location']=$bookingRequest->to_location;
+                     foreach ($bookingRequest->prices as $keyr=>$price) {
+                         $prices=[];
+                         $prices[$keyr]['price_id'] = $price->id;
+                         $prices[$keyr]['client_name'] = $price->client->name;
+                         $prices[$keyr]['mobile'] = $price->client->mobile;
+                         $prices[$keyr]['price'] =  $price->price;
+                         $prices[$keyr]['is_accepted'] = $price->is_accepted;
+                         $newOrderRequest[$key]['prices']= $prices;
+                     }
+                 }
+             
+             $data['NewOrderRequest']= $newOrderRequest;
               //ongoing trip
                $dt = BookingRequest::where('is_deleted', 0)
                ->whereHas('payment', function($query) use ($driverId) {
@@ -318,15 +341,14 @@ class UserBookingController extends Controller
                     }
                        
                 }
+                $data['NewOrderRequest']= $newOrderRequest;
                 $data['pendingRequest']= [$pendingRequest];
                 $data['upcommingRequest']= [$upcommingRequest];
                 $data['arrivedRequest']= [$arrivedRequest];
                 $data['ongoingRequest']= [$ongoingRequest];
                 $data['canceledRequest']= [$canceledRequest];
                 $data['completedRequest']= [$completedRequest];
-               return outputSuccess($data);
-                // Proceed with authenticated user logic
-                
+                return outputSuccess($data);
                 // Proceed with authenticated user logic
             } else {
                 // Authentication failed

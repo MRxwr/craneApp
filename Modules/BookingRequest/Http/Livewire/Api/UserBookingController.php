@@ -48,7 +48,6 @@ class UserBookingController extends Controller
                         $hour = $hour < 10 ? '100' : $hour;
                         // Format the rest
                         $formattedDate = $createdAt->format('dM ') . $hour . $createdAt->format(':iA');
-
                         $payment = BookingPayment::where('request_id', $bookingRequest->id)->first();
                         if($payment){
                             $prices=   BookingPrice::where('request_id', $bookingRequest->id)->where('driver_id', $payment->driver_id)->first();
@@ -187,7 +186,7 @@ class UserBookingController extends Controller
             $dtnew = BookingRequest::with(['prices' => function($query) use ($user) {
                      $query->where('driver_id', $user->id)->where('is_accepted', '!=', 2)->where('skip',0);
              }])->where('status', null)->get();
-             $newOrderRequest =[];
+             $newTripRequest =[];
             $prices=[];
              foreach ($dtnew as $key=>$bookingRequest) {
                     $lat ='';
@@ -200,15 +199,15 @@ class UserBookingController extends Controller
                         }
                     }
                     if($bookingRequest->driver_id==0 && $bookingRequest->prices->count()>0){
-                        $newOrderRequest[$key]['bidid']=$bookingRequest->id;
-                        $newOrderRequest[$key]['request_id']=$bookingRequest->request_id;
-                        $newOrderRequest[$key]['from_location']=$bookingRequest->from_location;
-                        $newOrderRequest[$key]['to_location']=$bookingRequest->to_location;
-                        $newOrderRequest[$key]['client_id'] = $bookingRequest->client->id;
-                        $newOrderRequest[$key]['client_name'] = $bookingRequest->client->name;
-                        $newOrderRequest[$key]['client_mobile'] = $bookingRequest->client->mobile;
-                        $newOrderRequest[$key]['lat'] = $lat;
-                        $newOrderRequest[$key]['lng'] = $long;
+                        $newTripRequest[$key]['bidid']=$bookingRequest->id;
+                        $newTripRequest[$key]['request_id']=$bookingRequest->request_id;
+                        $newTripRequest[$key]['from_location']=$bookingRequest->from_location;
+                        $newTripRequest[$key]['to_location']=$bookingRequest->to_location;
+                        $newTripRequest[$key]['client_id'] = $bookingRequest->client->id;
+                        $newTripRequest[$key]['client_name'] = $bookingRequest->client->name;
+                        $newTripRequest[$key]['client_mobile'] = $bookingRequest->client->mobile;
+                        $newTripRequest[$key]['lat'] = $lat;
+                        $newTripRequest[$key]['lng'] = $long;
                      foreach ($bookingRequest->prices as $keyr=>$price) {
                          $prices=[];
                          $prices[$keyr]['price_id'] = $price->id;
@@ -217,15 +216,15 @@ class UserBookingController extends Controller
                          $prices[$keyr]['price'] =  $price->price;
                          $prices[$keyr]['is_accepted'] = $price->is_accepted;
                          if(!$price->price){
-                            $newOrderRequest[$key]['status'] = 'new';
+                            $newTripRequest[$key]['status'] = 'new';
                          }
-                         $newOrderRequest[$key]['prices']= $prices;
+                         $newTripRequest[$key]['prices']= $prices;
                      }
 
                     }
                 }
              
-             $data['NewOrderRequest']= $newOrderRequest;
+             $data['newTripRequest']= $newTripRequest;
               //ongoing trip
                $dt = BookingRequest::where('is_deleted', 0)
                ->whereHas('payment', function($query) use ($driverId) {
@@ -259,7 +258,7 @@ class UserBookingController extends Controller
                             $long = $latlong[1];
                         }
                     }
-                    if($bookingRequest->status==0 ){
+                    if($bookingRequest->status==0 && $bookingRequest->driver_id==0 ){
                         BookingPrice::where('request_id',$bookingRequest->id)->where('skip',0)->first();
                         $pendingRequest[$key0]['bidid']=$bookingRequest->id;
                         $pendingRequest[$key0]['request_id']=$bookingRequest->request_id;
@@ -274,7 +273,7 @@ class UserBookingController extends Controller
                         $pendingRequest[$key0]['rating'] = $bookingRequest->rating;
                         $key1++ ;
                        }
-                    if($bookingRequest->status==1){
+                    if($bookingRequest->status==1 && $bookingRequest->driver_id==$driverId ){
                         $upcommingRequest[$key1]['bidid']=$bookingRequest->id;
                         $upcommingRequest[$key1]['request_id']=$bookingRequest->request_id;
                         $upcommingRequest[$key1]['from_location']=$bookingRequest->from_location;
@@ -289,21 +288,7 @@ class UserBookingController extends Controller
                         $key1++ ;
                        }
 
-                    // if($bookingRequest->status==1){
-                    //      $upcommingRequest[$key1]['bidid']=$bookingRequest->id;
-                    //      $upcommingRequest[$key1]['request_id']=$bookingRequest->request_id;
-                    //      $upcommingRequest[$key1]['from_location']=$bookingRequest->from_location;
-                    //      $upcommingRequest[$key1]['to_location']=$bookingRequest->to_location;
-                    //      $upcommingRequest[$key1]['client_id'] = $bookingRequest->client->id;
-                    //      $upcommingRequest[$key1]['client_name'] = $bookingRequest->client->name;
-                    //      $upcommingRequest[$key1]['client_mobile'] = $bookingRequest->client->mobile;
-                    //      $upcommingRequest[$key1]['status'] = $bookingRequest->status;
-                    //      $upcommingRequest[$key1]['lat'] = $lat;
-                    //      $upcommingRequest[$key1]['lng'] = $long;
-                    //      $upcommingRequest[$key1]['rating'] = $bookingRequest->rating;
-                    //      $key1++ ;
-                    //     }
-                    if($bookingRequest->status==2){
+                    if($bookingRequest->status==2 && $bookingRequest->driver_id==$driverId){ //arrived
                         $arrivedRequest[$key2]['bidid']=$bookingRequest->id;
                         $arrivedRequest[$key2]['request_id']=$bookingRequest->request_id;
                         $arrivedRequest[$key2]['from_location']=$bookingRequest->from_location;
@@ -317,7 +302,7 @@ class UserBookingController extends Controller
                         $arrivedRequest[$key2]['rating'] = $bookingRequest->rating;
                       $key2++;
                     }
-                    if($bookingRequest->status==3){
+                    if($bookingRequest->status==3 && $bookingRequest->driver_id==$driverId){ //ongoing
                         $ongoingRequest[$key3]['bidid']=$bookingRequest->id;
                         $ongoingRequest[$key3]['request_id']=$bookingRequest->request_id;
                         $ongoingRequest[$key3]['from_location']=$bookingRequest->from_location;
@@ -331,7 +316,7 @@ class UserBookingController extends Controller
                         $ongoingRequest[$key3]['rating'] = $bookingRequest->rating;
                      $key3++;
                     }
-                   if($bookingRequest->status==4){
+                   if($bookingRequest->status==4 && $bookingRequest->driver_id==$driverId){ // canceled
                         $canceledRequest[$key4]['bidid']=$bookingRequest->id;
                         $canceledRequest[$key4]['request_id']=$bookingRequest->request_id;
                         $canceledRequest[$key4]['from_location']=$bookingRequest->from_location;
@@ -345,7 +330,7 @@ class UserBookingController extends Controller
                         $canceledRequest[$key4]['rating'] = $bookingRequest->rating;
                       $key4++;
                     }
-                    if($bookingRequest->status==5){
+                    if($bookingRequest->status==5 && $bookingRequest->driver_id==$driverId){ // completed
                         $completedRequest[$key5]['bidid']=$bookingRequest->id;
                         $completedRequest[$key5]['request_id']=$bookingRequest->request_id;
                         $completedRequest[$key5]['from_location']=$bookingRequest->from_location;
@@ -361,7 +346,7 @@ class UserBookingController extends Controller
                     }
                        
                 }
-                $data['NewOrderRequest']= $newOrderRequest;
+                $data['newTripRequest']= $newTripRequest;
                 $data['pendingRequest']= [$pendingRequest];
                 $data['upcommingRequest']= [$upcommingRequest];
                 $data['arrivedRequest']= [$arrivedRequest];

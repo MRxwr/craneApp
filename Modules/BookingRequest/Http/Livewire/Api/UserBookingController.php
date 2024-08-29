@@ -190,10 +190,25 @@ class UserBookingController extends Controller
              $newOrderRequest =[];
             $prices=[];
              foreach ($dtnew as $key=>$bookingRequest) {
+                    $lat ='';
+                    $long='';
+                    if($bookingRequest->to_latlong){
+                        $latlong=explode(',',$bookingRequest->to_latlong);
+                        if(count($latlong)==2){
+                            $lat = $latlong[0];
+                            $long = $latlong[1];
+                        }
+                    }
                      $newOrderRequest[$key]['bidid']=$bookingRequest->id;
                      $newOrderRequest[$key]['request_id']=$bookingRequest->request_id;
                      $newOrderRequest[$key]['from_location']=$bookingRequest->from_location;
                      $newOrderRequest[$key]['to_location']=$bookingRequest->to_location;
+                     $newOrderRequest[$key]['client_id'] = $bookingRequest->client->id;
+                     $newOrderRequest[$key]['client_name'] = $bookingRequest->client->name;
+                     $newOrderRequest[$key]['client_mobile'] = $bookingRequest->client->mobile;
+                     $newOrderRequest[$key]['status'] = $bookingRequest->status;
+                     $newOrderRequest[$key]['lat'] = $lat;
+                     $newOrderRequest[$key]['lng'] = $long;
                      foreach ($bookingRequest->prices as $keyr=>$price) {
                          $prices=[];
                          $prices[$keyr]['price_id'] = $price->id;

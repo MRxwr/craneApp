@@ -171,7 +171,7 @@ class UserBookingController extends Controller
             }])
             ->get();
             $totalEarnings = $todayRequests->sum(function($bookingRequest) {
-                return $bookingRequest->payment->payment_amount;
+                return @$bookingRequest->payment->payment_amount;
             });
             $totalDistance = $todayRequests->sum('distances'); // Assuming 'distance' is a field in BookingRequest
             $totalRequests = $todayRequests->count();

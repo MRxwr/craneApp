@@ -198,26 +198,31 @@ class UserBookingController extends Controller
                             $lat = $latlong[0];
                             $long = $latlong[1];
                         }
-                    }
-                     $newOrderRequest[$key]['bidid']=$bookingRequest->id;
-                     $newOrderRequest[$key]['request_id']=$bookingRequest->request_id;
-                     $newOrderRequest[$key]['from_location']=$bookingRequest->from_location;
-                     $newOrderRequest[$key]['to_location']=$bookingRequest->to_location;
-                     $newOrderRequest[$key]['client_id'] = $bookingRequest->client->id;
-                     $newOrderRequest[$key]['client_name'] = $bookingRequest->client->name;
-                     $newOrderRequest[$key]['client_mobile'] = $bookingRequest->client->mobile;
-                     $newOrderRequest[$key]['status'] = $bookingRequest->status;
-                     $newOrderRequest[$key]['lat'] = $lat;
-                     $newOrderRequest[$key]['lng'] = $long;
-                     foreach ($bookingRequest->prices as $keyr=>$price) {
-                         $prices=[];
-                         $prices[$keyr]['price_id'] = $price->id;
-                         $prices[$keyr]['client_name'] = $price->client->name;
-                         $prices[$keyr]['mobile'] = $price->client->mobile;
-                         $prices[$keyr]['price'] =  $price->price;
-                         $prices[$keyr]['is_accepted'] = $price->is_accepted;
-                         $newOrderRequest[$key]['prices']= $prices;
                      }
+                     if($bookingRequest->driver_id==0){
+                        $newOrderRequest[$key]['bidid']=$bookingRequest->id;
+                        $newOrderRequest[$key]['request_id']=$bookingRequest->request_id;
+                        $newOrderRequest[$key]['from_location']=$bookingRequest->from_location;
+                        $newOrderRequest[$key]['to_location']=$bookingRequest->to_location;
+                        $newOrderRequest[$key]['client_id'] = $bookingRequest->client->id;
+                        $newOrderRequest[$key]['client_name'] = $bookingRequest->client->name;
+                        $newOrderRequest[$key]['client_mobile'] = $bookingRequest->client->mobile;
+                        $newOrderRequest[$key]['status'] = $bookingRequest->status;
+                        $newOrderRequest[$key]['lat'] = $lat;
+                        $newOrderRequest[$key]['lng'] = $long;
+                        foreach ($bookingRequest->prices as $keyr=>$price) {
+                            $prices=[];
+                            $prices[$keyr]['price_id'] = $price->id;
+                            $prices[$keyr]['client_name'] = $price->client->name;
+                            $prices[$keyr]['mobile'] = $price->client->mobile;
+                            $prices[$keyr]['price'] =  $price->price;
+                            $prices[$keyr]['is_accepted'] = $price->is_accepted;
+                            $newOrderRequest[$key]['prices']= $prices;
+                            if($price->price==null){
+                                $newOrderRequest[$key]['status'] = 'new';
+                            }
+                        }
+                    }
                  }
              
              $data['NewOrderRequest']= $newOrderRequest;

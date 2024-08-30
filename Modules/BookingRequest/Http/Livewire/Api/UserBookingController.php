@@ -188,6 +188,7 @@ class UserBookingController extends Controller
              }])->where('status', null)->get();
              $newTripRequest =[];
             $prices=[];
+            $nkey=0;
              foreach ($dtnew as $key=>$bookingRequest) {
                     $lat ='';
                     $long='';
@@ -220,7 +221,7 @@ class UserBookingController extends Controller
                          }
                          $newTripRequest[$key]['prices']= $prices;
                      }
-
+                     $nkey++;
                     }
                 }
              

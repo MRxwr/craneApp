@@ -40,14 +40,11 @@ class HomeController extends Controller
                 $dt->save();
                 $price->is_accepted = 1;
                 $price->save();
-                //dd($price->driver_id);
                 $payment=BookingPayment::where('request_id',$bidid)->first();
                 $payment->driver_id = $price->driver_id?$price->driver_id:0;
                 $payment->transaction_id=$request->paymentId;
                 $payment->payment_status='success';
                 $payment->save();
-               
-                //$data['dt'] = $dt;
                 $data['message'] =' Payment Successfully Done';
                 $data['price'] = $price;
                 $data['payment'] = $payment; 

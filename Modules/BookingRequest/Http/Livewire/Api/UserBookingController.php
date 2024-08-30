@@ -200,27 +200,29 @@ class UserBookingController extends Controller
                         }
                     }
                     if($bookingRequest->driver_id==0 && $bookingRequest->prices->count()>0){
-                        $newTripRequest[$key]['bidid']=$bookingRequest->id;
-                        $newTripRequest[$key]['request_id']=$bookingRequest->request_id;
-                        $newTripRequest[$key]['from_location']=$bookingRequest->from_location;
-                        $newTripRequest[$key]['to_location']=$bookingRequest->to_location;
-                        $newTripRequest[$key]['client_id'] = $bookingRequest->client->id;
-                        $newTripRequest[$key]['client_name'] = $bookingRequest->client->name;
-                        $newTripRequest[$key]['client_mobile'] = $bookingRequest->client->mobile;
-                        $newTripRequest[$key]['lat'] = $lat;
-                        $newTripRequest[$key]['lng'] = $long;
+                        $newTripRequest[$nkey]['bidid']=$bookingRequest->id;
+                        $newTripRequest[$nkey]['request_id']=$bookingRequest->request_id;
+                        $newTripRequest[$nkey]['from_location']=$bookingRequest->from_location;
+                        $newTripRequest[$nkey]['to_location']=$bookingRequest->to_location;
+                        $newTripRequest[$nkey]['client_id'] = $bookingRequest->client->id;
+                        $newTripRequest[$nkey]['client_name'] = $bookingRequest->client->name;
+                        $newTripRequest[$nkey]['client_mobile'] = $bookingRequest->client->mobile;
+                        $newTripRequest[$nkey]['lat'] = $lat;
+                        $newTripRequest[$nkey]['lng'] = $long;
+                        $rkey=0;
                      foreach ($bookingRequest->prices as $keyr=>$price) {
                          $prices=[];
-                         $prices[$keyr]['price_id'] = $price->id;
-                         $prices[$keyr]['client_name'] = $price->client->name;
-                         $prices[$keyr]['mobile'] = $price->client->mobile;
-                         $prices[$keyr]['price'] =  $price->price;
-                         $prices[$keyr]['is_accepted'] = $price->is_accepted;
+                         $prices[$rkey]['price_id'] = $price->id;
+                         $prices[$rkey]['client_name'] = $price->client->name;
+                         $prices[$rkey]['mobile'] = $price->client->mobile;
+                         $prices[$rkey]['price'] =  $price->price;
+                         $prices[$rkey]['is_accepted'] = $price->is_accepted;
                          if(!$price->price){
-                            $newTripRequest[$key]['status'] = 'new';
+                            $newTripRequest[$nkey]['status'] = 'new';
                          }
-                         $newTripRequest[$key]['prices']= $prices;
-                     }
+                         $newTripRequest[$nkey]['prices']= $prices;
+                         $rkey++;
+                        }
                      $nkey++;
                     }
                 }

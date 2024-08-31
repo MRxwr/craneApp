@@ -432,45 +432,43 @@ class UserBookingController extends Controller
                $completedRequest =[];
                $prices=[];
                //dd($dt);
+               $bkey=0;
                 foreach ($dt as $key=>$bookingRequest){
 
                     $to_lat ='';
                     $to_long='';
                     $from_lat ='';
                     $from_long='';
-                    if($bookingRequest->to_latlong){
-                        
-                        $Tolatlong=explode(',',$bookingRequest->to_latlong);
-                        if(count($Tolatlong)==2){
-                            $to_lat = $Tolatlong[0];
-                            $to_long = $Tolatlong[1];
+                        if($bookingRequest->to_latlong){
+                            
+                            $Tolatlong=explode(',',$bookingRequest->to_latlong);
+                            if(count($Tolatlong)==2){
+                                $to_lat = $Tolatlong[0];
+                                $to_long = $Tolatlong[1];
+                            }
                         }
-                    }
-                    if($bookingRequest->from_latlong){
-                        $Fromlatlong=explode(',',$bookingRequest->from_latlong);
-                        if(count($Fromlatlong)==2){
-                            $from_lat = $Fromlatlong[0];
-                            $from_long = $Fromlatlong[1];
+                        if($bookingRequest->from_latlong){
+                            $Fromlatlong=explode(',',$bookingRequest->from_latlong);
+                            if(count($Fromlatlong)==2){
+                                $from_lat = $Fromlatlong[0];
+                                $from_long = $Fromlatlong[1];
+                            }
                         }
-                    }
-
-                    if($bookingRequest->status==5){
                         $rating = getUserRating($bookingRequest->client_id);
-                        $completedRequest[$key]['bidid']=$bookingRequest->id;
-                        $completedRequest[$key]['request_id']=$bookingRequest->request_id;
-                        $completedRequest[$key]['from_location']=$bookingRequest->from_location;
-                        $completedRequest[$key]['to_location']=$bookingRequest->to_location;
-                        $completedRequest[$key]['client_name'] = $bookingRequest->client->name;
-                        $completedRequest[$key]['client_mobile'] = $bookingRequest->client->mobile;
-                        $completedRequest[$key]['rating'] = $rating;
-                        $completedRequest[$key]['status'] = $bookingRequest->status;
-                        $completedRequest[$key]['from_lat'] = $from_lat;
-                        $completedRequest[$key]['from_lng'] = $from_long;
-                        $completedRequest[$key]['to_lat'] = $to_lat;
-                        $completedRequest[$key]['to_lng'] = $to_long;
-                        $completedRequest[$key]['trip_cost'] = $bookingRequest->payment->payment_amount; 
-                   }
-                       
+                        $completedRequest[$bkey]['bidid']=$bookingRequest->id;
+                        $completedRequest[$bkey]['request_id']=$bookingRequest->request_id;
+                        $completedRequest[$bkey]['from_location']=$bookingRequest->from_location;
+                        $completedRequest[$bkey]['to_location']=$bookingRequest->to_location;
+                        $completedRequest[$bkey]['client_name'] = $bookingRequest->client->name;
+                        $completedRequest[$bkey]['client_mobile'] = $bookingRequest->client->mobile;
+                        $completedRequest[$bkey]['rating'] = $rating;
+                        $completedRequest[$bkey]['status'] = $bookingRequest->status;
+                        $completedRequest[$bkey]['from_lat'] = $from_lat;
+                        $completedRequest[$bkey]['from_lng'] = $from_long;
+                        $completedRequest[$bkey]['to_lat'] = $to_lat;
+                        $completedRequest[$bkey]['to_lng'] = $to_long;
+                        $completedRequest[$bkey]['trip_cost'] = $bookingRequest->payment->payment_amount; 
+                        $bkey++;  
                 }
                 
                 //$data['upcommingRequest']= [$upcommingRequest];

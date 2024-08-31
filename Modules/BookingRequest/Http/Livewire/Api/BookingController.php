@@ -865,6 +865,9 @@ class BookingController extends Controller
                 $bidid= $request->input('request_id');
                 $data['message']=_lang('Send Crane Request');
                 $dt = BookingPrice::where('request_id',$bidid)->where('driver_id',$user->id)->first();
+              if($dt){
+                  
+             
                 $dt->skip = 1;
                 if($dt->save()){
                      $activity = _lang('The order has been Skipped by ').$user->name;
@@ -878,6 +881,10 @@ class BookingController extends Controller
                     $data['status'] = false;
                     return outputError($data);
                 }
+            }else{
+               $data['message']=_lang('Trip not found');
+               return outputError($data);   
+            }
             }else {
                 // Authentication failed
                 $data['message']=_lang('Unauthorized due to token mismatch');

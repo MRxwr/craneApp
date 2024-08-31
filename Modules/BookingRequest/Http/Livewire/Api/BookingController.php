@@ -419,6 +419,7 @@ class BookingController extends Controller
             $token = str_replace('Bearer ', '', $token);
             $user = AppUser::where('token',$token)->where('is_deleted',0)->first();
             if ($user) {
+                $activity = '';
                 $bidid= $request->input('request_id');
                 $data['message']=_lang('Save order start/end');
                 $dt = BookingRequest::with('prices')->find($bidid);
@@ -428,18 +429,16 @@ class BookingController extends Controller
                         $activity = _lang('Order ended by  ').$user->name;
                         $data['message']=_lang('Order ended by  ').$user->name;
                     }else{
+                        $activity = 'Order already ended by  '.$user->name;
                         $data['message']=_lang('Order already ended by  ').$user->name;
                     }
                 }else{
                      $dt->start_time = Carbon::now();
                      $activity = _lang('Order started by  ').$user->name;
                      $data['message']=_lang('Order started by  ').$user->name;
-                }
+                 }
                 if($dt->save()){
-                     $rating =$dt->rating;
-                     
                      AddBookingLog($dt,$activity);
-                    
                      return outputSuccess($data);
                 } 
             }else {

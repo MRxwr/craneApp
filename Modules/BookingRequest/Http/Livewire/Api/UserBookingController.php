@@ -185,7 +185,7 @@ class UserBookingController extends Controller
             
             $dtnew = BookingRequest::with(['prices' => function($query) use ($user) {
                      $query->where('driver_id', $user->id)->where('is_accepted', '0')->where('skip',0);
-             }])->where('status', '0')->where('is_deleted',0)->get();
+             }])->where('status', '0')->where('is_deleted',0)->orderBy('created_at', 'desc')->get();
              $newTripRequest =[];
             $prices=[];
             $nkey=0;

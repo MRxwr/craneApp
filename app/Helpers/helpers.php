@@ -233,7 +233,10 @@ function upadteUserMeta($key,$value,$app_user_id){
     $log->flag =1; 
     $log->save();
   }
-  function firebaseNotification($user){
+  function firebaseNotification($user,$title,$message='',$data=[]){
+    if($user){
+        FCMService::sendNotification($user->device_token,$title,$message,$data);
+    }
 
   }
   function walletTransaction($data){

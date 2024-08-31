@@ -519,7 +519,6 @@ class UserBookingController extends Controller
                         $orderRequest[$bkey]['client_mobile'] = $bookingRequest->client->mobile;
                         $orderRequest[$bkey]['client_avator'] = $bookingRequest->client->avator;
                         $orderRequest[$bkey]['client_rating'] = $client_rating;
-                        
                         if($bookingRequest->driver_id>0){
                             $driver_rating = getUserRating($bookingRequest->driver->id);
                             $orderRequest[$bkey]['driver_id'] = $bookingRequest->driver->id;

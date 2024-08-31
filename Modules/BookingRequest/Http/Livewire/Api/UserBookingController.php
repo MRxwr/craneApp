@@ -440,7 +440,6 @@ class UserBookingController extends Controller
                     $from_lat ='';
                     $from_long='';
                         if($bookingRequest->to_latlong){
-                            
                             $Tolatlong=explode(',',$bookingRequest->to_latlong);
                             if(count($Tolatlong)==2){
                                 $to_lat = $Tolatlong[0];
@@ -467,7 +466,10 @@ class UserBookingController extends Controller
                         $completedRequest[$bkey]['from_lng'] = $from_long;
                         $completedRequest[$bkey]['to_lat'] = $to_lat;
                         $completedRequest[$bkey]['to_lng'] = $to_long;
-                        $completedRequest[$bkey]['trip_cost'] = $bookingRequest->payment->payment_amount; 
+                        if($bookingRequest->payment){
+                            $completedRequest[$bkey]['trip_cost'] = $bookingRequest->payment->payment_amount;
+                        }
+                       
                         $bkey++;  
                 }
                 

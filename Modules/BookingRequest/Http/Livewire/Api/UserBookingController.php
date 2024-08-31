@@ -81,6 +81,7 @@ class UserBookingController extends Controller
                         $orderRequest[$key]['client_mobile'] = $bookingRequest->client->mobile;
                         $orderRequest[$key]['client_avator'] = $bookingRequest->client->avator;
                         $orderRequest[$key]['client_rating'] = $client_rating;
+                        
                         if($bookingRequest->driver_id>0){
                             $driver_rating = getUserRating($bookingRequest->driver->id);
                             $orderRequest[$key]['driver_id'] = $bookingRequest->driver->id;
@@ -97,8 +98,14 @@ class UserBookingController extends Controller
                         $orderRequest[$key]['to_lng'] = $to_long;
                         $orderRequest[$key]['time'] = $formattedDate;
                        if($payment){
+                         $orderRequest[$key]['payment_status'] = $payment->payment_status; 
+                         $orderRequest[$key]['bid_amount'] = $payment->payment_amount; 
+                         $orderRequest[$key]['coupon_discount'] = $payment->coupon_discount; 
+                         $orderRequest[$key]['coupon_code'] = $payment->coupon_code; 
                          $orderRequest[$key]['trip_cost'] = $payment->payment_amount; 
                        }
+                       $orderRequest[$key]['trip_start'] = $bookingRequest->start_time;
+                       $orderRequest[$key]['trip_end'] = $bookingRequest->end_time;
                         
                   }
                 
@@ -202,7 +209,7 @@ class UserBookingController extends Controller
                         }
                     }
                     if($bookingRequest->driver_id==0 && $bookingRequest->prices->count()>0){
-                        
+                        $client_rating = getUserRating($bookingRequest->client_id);
                         $rkey=0;
                         $npkey=0;
                      foreach ($bookingRequest->prices as $keyr=>$price) {
@@ -214,6 +221,7 @@ class UserBookingController extends Controller
                                 $newTripRequest[$nkey]['client_id'] = $bookingRequest->client->id;
                                 $newTripRequest[$nkey]['client_name'] = $bookingRequest->client->name;
                                 $newTripRequest[$nkey]['client_mobile'] = $bookingRequest->client->mobile;
+                                $newTripRequest[$nkey]['client_rating'] = $client_rating;
                                 $newTripRequest[$nkey]['lat'] = $lat;
                                 $newTripRequest[$nkey]['lng'] = $long;
                                 $prices=[];
@@ -232,6 +240,7 @@ class UserBookingController extends Controller
                                 $pendingRequest[$pkey]['client_id'] = $bookingRequest->client->id;
                                 $pendingRequest[$pkey]['client_name'] = $bookingRequest->client->name;
                                 $pendingRequest[$pkey]['client_mobile'] = $bookingRequest->client->mobile;
+                                $pendingRequest[$pkey]['client_rating'] = $client_rating;
                                 $pendingRequest[$pkey]['lat'] = $lat;
                                 $pendingRequest[$pkey]['lng'] = $long;
                                 $prices=[];
@@ -456,7 +465,15 @@ class UserBookingController extends Controller
                //dd($dt);
                $bkey=0;
                 foreach ($dt as $key=>$bookingRequest){
-
+                    $createdAt = $bookingRequest->created_at;
+                    $hour = $createdAt->format('g');
+                    $hour = $hour < 10 ? '100' : $hour;
+                    // Format the rest
+                    $formattedDate = $createdAt->format('dM ') . $hour . $createdAt->format(':iA');
+                    $payment = BookingPayment::where('request_id', $bookingRequest->id)->first();
+                    if($payment){
+                        $prices=   BookingPrice::where('request_id', $bookingRequest->id)->where('driver_id', $payment->driver_id)->first();
+                    }
                     $to_lat ='';
                     $to_long='';
                     $from_lat ='';
@@ -475,31 +492,62 @@ class UserBookingController extends Controller
                                 $from_long = $Fromlatlong[1];
                             }
                         }
-                        $rating = getUserRating($bookingRequest->client_id);
-                        $completedRequest[$bkey]['bidid']=$bookingRequest->id;
-                        $completedRequest[$bkey]['request_id']=$bookingRequest->request_id;
-                        $completedRequest[$bkey]['from_location']=$bookingRequest->from_location;
-                        $completedRequest[$bkey]['to_location']=$bookingRequest->to_location;
-                        $completedRequest[$bkey]['client_name'] = $bookingRequest->client->name;
-                        $completedRequest[$bkey]['client_mobile'] = $bookingRequest->client->mobile;
-                        $completedRequest[$bkey]['rating'] = $rating;
-                        $completedRequest[$bkey]['status'] = $bookingRequest->status;
-                        $completedRequest[$bkey]['from_lat'] = $from_lat;
-                        $completedRequest[$bkey]['from_lng'] = $from_long;
-                        $completedRequest[$bkey]['to_lat'] = $to_lat;
-                        $completedRequest[$bkey]['to_lng'] = $to_long;
-                        if($bookingRequest->payment){
-                            $completedRequest[$bkey]['trip_cost'] = $bookingRequest->payment->payment_amount;
+                        // $rating = getUserRating($bookingRequest->client_id);
+                        // $completedRequest[$bkey]['bidid']=$bookingRequest->id;
+                        // $completedRequest[$bkey]['request_id']=$bookingRequest->request_id;
+                        // $completedRequest[$bkey]['from_location']=$bookingRequest->from_location;
+                        // $completedRequest[$bkey]['to_location']=$bookingRequest->to_location;
+                        // $completedRequest[$bkey]['client_name'] = $bookingRequest->client->name;
+                        // $completedRequest[$bkey]['client_mobile'] = $bookingRequest->client->mobile;
+                        // $completedRequest[$bkey]['rating'] = $rating;
+                        // $completedRequest[$bkey]['status'] = $bookingRequest->status;
+                        // $completedRequest[$bkey]['from_lat'] = $from_lat;
+                        // $completedRequest[$bkey]['from_lng'] = $from_long;
+                        // $completedRequest[$bkey]['to_lat'] = $to_lat;
+                        // $completedRequest[$bkey]['to_lng'] = $to_long;
+                        // if($bookingRequest->payment){
+                        //     $completedRequest[$bkey]['trip_cost'] = $bookingRequest->payment->payment_amount;
+                        // }
+
+                        $client_rating = getUserRating($bookingRequest->client_id);
+                        $orderRequest[$bkey]['bidid']=$bookingRequest->id;
+                        $orderRequest[$bkey]['request_id']=$bookingRequest->request_id;
+                        $orderRequest[$bkey]['from_location']=$bookingRequest->from_location;
+                        $orderRequest[$bkey]['to_location']=$bookingRequest->to_location;
+                        $orderRequest[$bkey]['client_id'] = $bookingRequest->client->id;
+                        $orderRequest[$bkey]['client_name'] = $bookingRequest->client->name;
+                        $orderRequest[$bkey]['client_mobile'] = $bookingRequest->client->mobile;
+                        $orderRequest[$bkey]['client_avator'] = $bookingRequest->client->avator;
+                        $orderRequest[$bkey]['client_rating'] = $client_rating;
+                        
+                        if($bookingRequest->driver_id>0){
+                            $driver_rating = getUserRating($bookingRequest->driver->id);
+                            $orderRequest[$bkey]['driver_id'] = $bookingRequest->driver->id;
+                            $orderRequest[$bkey]['driver_name'] = $bookingRequest->driver->name;
+                            $orderRequest[$bkey]['driver_mobile'] = $bookingRequest->driver->mobile;
+                            $orderRequest[$bkey]['driver_avator'] = $bookingRequest->driver->avator; 
+                            $orderRequest[$bkey]['login_status'] = AppUserLogingStatus($bookingRequest->driver->id); 
+                            $orderRequest[$bkey]['driver_rating'] = $driver_rating;
                         }
-                       
-                        $bkey++;  
+                        $orderRequest[$bkey]['status'] = $bookingRequest->status;
+                        $orderRequest[$bkey]['from_lat'] = $from_lat;
+                        $orderRequest[$bkey]['from_lng'] = $from_long;
+                        $orderRequest[$bkey]['to_lat'] = $to_lat;
+                        $orderRequest[$bkey]['to_lng'] = $to_long;
+                        $orderRequest[$bkey]['time'] = $formattedDate;
+                       if($payment){
+                         $orderRequest[$bkey]['payment_status'] = $payment->payment_status; 
+                         $orderRequest[$bkey]['bid_amount'] = $payment->payment_amount; 
+                         $orderRequest[$bkey]['coupon_discount'] = $payment->coupon_discount; 
+                         $orderRequest[$bkey]['coupon_code'] = $payment->coupon_code; 
+                         $orderRequest[$bkey]['trip_cost'] = $payment->payment_amount; 
+                       }
+                       $orderRequest[$bkey]['trip_start'] = $bookingRequest->start_time;
+                       $orderRequest[$bkey]['trip_end'] = $bookingRequest->end_time;
+                     
+                       $bkey++;  
                 }
-                
-                //$data['upcommingRequest']= [$upcommingRequest];
-                //$data['arrivedRequest']= [$arrivedRequest];
-                //$data['ongoingRequest']= [$ongoingRequest];
-                //$data['canceledRequest']= [$canceledRequest];
-                $data['orderHistory']= [$completedRequest];
+                $data['orderHistory']= [$orderRequest];
                return outputSuccess($data);
                 // Proceed with authenticated user logic
                 

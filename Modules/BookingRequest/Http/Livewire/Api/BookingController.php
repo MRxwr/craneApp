@@ -779,22 +779,43 @@ class BookingController extends Controller
                         $from_long = $Fromlatlong[1];
                     }
                 }
+                $payment = BookingPayment::where('request_id', $bidid)->first();
                 $bdprices = $dt->prices()->where('is_accepted', 1)->first();
+                $driver_rating = getUserRating($bdprices->driver->id);
                 $prices=[];
+                $client_rating = getUserRating($dt->client_id);
                 $OrderDetails['bidid']=$bidid;
                 $OrderDetails['request_id']=$dt->request_id;
                 $OrderDetails['from_location']=$dt->from_location;
                 $OrderDetails['to_location']=$dt->to_location;
+                $OrderDetails['client_id'] = $dt->client->id;
+                $OrderDetails['client_name'] = $dt->client->name;
+                $OrderDetails['client_mobile'] = $dt->client->mobile;
+                $OrderDetails['client_avator'] = $dt->client->avator;
+                $OrderDetails['client_rating'] = $client_rating;
                 $OrderDetails['status']=$dt->status;
                 $OrderDetails['price_id'] = $bdprices->id;
                 $OrderDetails['driver_name'] = $bdprices->driver->name;
                 $OrderDetails['mobile'] = $bdprices->driver->mobile;
+                $OrderDetails['driver_id'] = $bdprices->driver->id;
+                $OrderDetails['driver_avator'] = $bookingRequest->driver->avator; 
+                $OrderDetails['login_status'] = AppUserLogingStatus($bookingRequest->driver->id); 
+                $OrderDetails['driver_rating'] = $driver_rating;
                 $OrderDetails['price'] =  $bdprices->price;
                 $OrderDetails['from_lat'] = $from_lat;
                 $OrderDetails['from_lng'] = $from_long;
                 $OrderDetails['to_lat'] = $to_lat;
                 $OrderDetails['to_lng'] = $to_long;
                 $OrderDetails['is_accepted'] = $bdprices->is_accepted;
+                if($payment){
+                    $OrderDetails['payment_status'] = $payment->payment_status; 
+                    $OrderDetails['bid_amount'] = $payment->payment_amount; 
+                    $OrderDetails['coupon_discount'] = $payment->coupon_discount; 
+                    $OrderDetails['coupon_code'] = $payment->coupon_code; 
+                    $OrderDetails['trip_cost'] = $payment->payment_amount; 
+                  }
+                $OrderDetails['trip_start'] = $dt->start_time;
+                $OrderDetails['trip_end'] = $dt->end_time;
                 $data['orderDetails']= [$OrderDetails];
                return outputSuccess($data);
                 // Proceed with authenticated user logic

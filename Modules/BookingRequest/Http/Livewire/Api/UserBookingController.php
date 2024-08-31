@@ -206,47 +206,46 @@ class UserBookingController extends Controller
                         $rkey=0;
                         $npkey=0;
                      foreach ($bookingRequest->prices as $keyr=>$price) {
-                        if(!$price->price){
-                            $newTripRequest[$nkey]['bidid']=$bookingRequest->id;
-                            $newTripRequest[$nkey]['request_id']=$bookingRequest->request_id;
-                            $newTripRequest[$nkey]['from_location']=$bookingRequest->from_location;
-                            $newTripRequest[$nkey]['to_location']=$bookingRequest->to_location;
-                            $newTripRequest[$nkey]['client_id'] = $bookingRequest->client->id;
-                            $newTripRequest[$nkey]['client_name'] = $bookingRequest->client->name;
-                            $newTripRequest[$nkey]['client_mobile'] = $bookingRequest->client->mobile;
-                            $newTripRequest[$nkey]['lat'] = $lat;
-                            $newTripRequest[$nkey]['lng'] = $long;
-                            $prices=[];
-                            $prices[$rkey]['price_id'] = $price->id;
-                            $prices[$rkey]['client_name'] = $price->client->name;
-                            $prices[$rkey]['mobile'] = $price->client->mobile;
-                            $prices[$rkey]['price'] =  $price->price;
-                            $prices[$rkey]['is_accepted'] = $price->is_accepted;
-                            
-                            $newTripRequest[$nkey]['prices']= $prices;
-                        }else{
-                            $pendingRequest[$pkey]['bidid']=$bookingRequest->id;
-                            $pendingRequest[$pkey]['request_id']=$bookingRequest->request_id;
-                            $pendingRequest[$pkey]['from_location']=$bookingRequest->from_location;
-                            $pendingRequest[$pkey]['to_location']=$bookingRequest->to_location;
-                            $pendingRequest[$pkey]['client_id'] = $bookingRequest->client->id;
-                            $pendingRequest[$pkey]['client_name'] = $bookingRequest->client->name;
-                            $pendingRequest[$pkey]['client_mobile'] = $bookingRequest->client->mobile;
-                            $pendingRequest[$pkey]['lat'] = $lat;
-                            $pendingRequest[$pkey]['lng'] = $long;
-                            $prices=[];
-                            $prices[$npkey]['price_id'] = $price->id;
-                            $prices[$npkey]['client_name'] = $price->client->name;
-                            $prices[$npkey]['mobile'] = $price->client->mobile;
-                            $prices[$npkey]['price'] =  $price->price;
-                            $prices[$npkey]['is_accepted'] = $price->is_accepted;
-                            
-                            $pendingRequest[$pkey]['prices']= $prices; 
+                            if(!$price->price){
+                                $newTripRequest[$nkey]['bidid']=$bookingRequest->id;
+                                $newTripRequest[$nkey]['request_id']=$bookingRequest->request_id;
+                                $newTripRequest[$nkey]['from_location']=$bookingRequest->from_location;
+                                $newTripRequest[$nkey]['to_location']=$bookingRequest->to_location;
+                                $newTripRequest[$nkey]['client_id'] = $bookingRequest->client->id;
+                                $newTripRequest[$nkey]['client_name'] = $bookingRequest->client->name;
+                                $newTripRequest[$nkey]['client_mobile'] = $bookingRequest->client->mobile;
+                                $newTripRequest[$nkey]['lat'] = $lat;
+                                $newTripRequest[$nkey]['lng'] = $long;
+                                $prices=[];
+                                $prices[$rkey]['price_id'] = $price->id;
+                                $prices[$rkey]['client_name'] = $price->client->name;
+                                $prices[$rkey]['mobile'] = $price->client->mobile;
+                                $prices[$rkey]['price'] =  $price->price;
+                                $prices[$rkey]['is_accepted'] = $price->is_accepted;
+                                $newTripRequest[$nkey]['prices']= $prices;
+                                $nkey++;
+                            }else{
+                                $pendingRequest[$pkey]['bidid']=$bookingRequest->id;
+                                $pendingRequest[$pkey]['request_id']=$bookingRequest->request_id;
+                                $pendingRequest[$pkey]['from_location']=$bookingRequest->from_location;
+                                $pendingRequest[$pkey]['to_location']=$bookingRequest->to_location;
+                                $pendingRequest[$pkey]['client_id'] = $bookingRequest->client->id;
+                                $pendingRequest[$pkey]['client_name'] = $bookingRequest->client->name;
+                                $pendingRequest[$pkey]['client_mobile'] = $bookingRequest->client->mobile;
+                                $pendingRequest[$pkey]['lat'] = $lat;
+                                $pendingRequest[$pkey]['lng'] = $long;
+                                $prices=[];
+                                $prices[$npkey]['price_id'] = $price->id;
+                                $prices[$npkey]['client_name'] = $price->client->name;
+                                $prices[$npkey]['mobile'] = $price->client->mobile;
+                                $prices[$npkey]['price'] =  $price->price;
+                                $prices[$npkey]['is_accepted'] = $price->is_accepted;
+                                
+                                $pendingRequest[$pkey]['prices']= $prices; 
+                                $rkey++;
+                            }
                         }
-                         
-                         $rkey++;
-                        }
-                     $nkey++;
+                     
                     }
                 }
              

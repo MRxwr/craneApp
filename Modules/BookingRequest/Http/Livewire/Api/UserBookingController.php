@@ -187,8 +187,10 @@ class UserBookingController extends Controller
                      $query->where('driver_id', $user->id)->where('is_accepted', '0')->where('skip',0);
              }])->where('status', '0')->where('is_deleted',0)->orderBy('created_at', 'desc')->get();
              $newTripRequest =[];
-            $prices=[];
-            $nkey=0;
+             $pendingRequest =[];
+             $prices=[];
+             $nkey=0;
+             $pkey=0;
              foreach ($dtnew as $key=>$bookingRequest) {
                     $lat ='';
                     $long='';
@@ -200,27 +202,48 @@ class UserBookingController extends Controller
                         }
                     }
                     if($bookingRequest->driver_id==0 && $bookingRequest->prices->count()>0){
-                        $newTripRequest[$nkey]['bidid']=$bookingRequest->id;
-                        $newTripRequest[$nkey]['request_id']=$bookingRequest->request_id;
-                        $newTripRequest[$nkey]['from_location']=$bookingRequest->from_location;
-                        $newTripRequest[$nkey]['to_location']=$bookingRequest->to_location;
-                        $newTripRequest[$nkey]['client_id'] = $bookingRequest->client->id;
-                        $newTripRequest[$nkey]['client_name'] = $bookingRequest->client->name;
-                        $newTripRequest[$nkey]['client_mobile'] = $bookingRequest->client->mobile;
-                        $newTripRequest[$nkey]['lat'] = $lat;
-                        $newTripRequest[$nkey]['lng'] = $long;
+                        
                         $rkey=0;
+                        $npkey=0;
                      foreach ($bookingRequest->prices as $keyr=>$price) {
-                         $prices=[];
-                         $prices[$rkey]['price_id'] = $price->id;
-                         $prices[$rkey]['client_name'] = $price->client->name;
-                         $prices[$rkey]['mobile'] = $price->client->mobile;
-                         $prices[$rkey]['price'] =  $price->price;
-                         $prices[$rkey]['is_accepted'] = $price->is_accepted;
-                         if(!$price->price){
-                            $newTripRequest[$nkey]['status'] = 'new';
-                         }
-                         $newTripRequest[$nkey]['prices']= $prices;
+                        if(!$price->price){
+                            $newTripRequest[$nkey]['bidid']=$bookingRequest->id;
+                            $newTripRequest[$nkey]['request_id']=$bookingRequest->request_id;
+                            $newTripRequest[$nkey]['from_location']=$bookingRequest->from_location;
+                            $newTripRequest[$nkey]['to_location']=$bookingRequest->to_location;
+                            $newTripRequest[$nkey]['client_id'] = $bookingRequest->client->id;
+                            $newTripRequest[$nkey]['client_name'] = $bookingRequest->client->name;
+                            $newTripRequest[$nkey]['client_mobile'] = $bookingRequest->client->mobile;
+                            $newTripRequest[$nkey]['lat'] = $lat;
+                            $newTripRequest[$nkey]['lng'] = $long;
+                            $prices=[];
+                            $prices[$rkey]['price_id'] = $price->id;
+                            $prices[$rkey]['client_name'] = $price->client->name;
+                            $prices[$rkey]['mobile'] = $price->client->mobile;
+                            $prices[$rkey]['price'] =  $price->price;
+                            $prices[$rkey]['is_accepted'] = $price->is_accepted;
+                            
+                            $newTripRequest[$nkey]['prices']= $prices;
+                        }else{
+                            $pendingRequest[$pkey]['bidid']=$bookingRequest->id;
+                            $pendingRequest[$pkey]['request_id']=$bookingRequest->request_id;
+                            $pendingRequest[$pkey]['from_location']=$bookingRequest->from_location;
+                            $pendingRequest[$pkey]['to_location']=$bookingRequest->to_location;
+                            $pendingRequest[$pkey]['client_id'] = $bookingRequest->client->id;
+                            $pendingRequest[$pkey]['client_name'] = $bookingRequest->client->name;
+                            $pendingRequest[$pkey]['client_mobile'] = $bookingRequest->client->mobile;
+                            $pendingRequest[$pkey]['lat'] = $lat;
+                            $pendingRequest[$pkey]['lng'] = $long;
+                            $prices=[];
+                            $prices[$npkey]['price_id'] = $price->id;
+                            $prices[$npkey]['client_name'] = $price->client->name;
+                            $prices[$npkey]['mobile'] = $price->client->mobile;
+                            $prices[$npkey]['price'] =  $price->price;
+                            $prices[$npkey]['is_accepted'] = $price->is_accepted;
+                            
+                            $pendingRequest[$pkey]['prices']= $prices; 
+                        }
+                         
                          $rkey++;
                         }
                      $nkey++;
@@ -238,7 +261,7 @@ class UserBookingController extends Controller
                }])->get();
 
                $orderRequest =[];
-               $pendingRequest =[];
+              
                $upcommingRequest =[];
                $ongoingRequest =[];
                $arrivedRequest =[];
@@ -261,21 +284,21 @@ class UserBookingController extends Controller
                             $long = $latlong[1];
                         }
                     }
-                    if($bookingRequest->status==0 && $bookingRequest->driver_id==0 ){
-                        BookingPrice::where('request_id',$bookingRequest->id)->where('skip',0)->first();
-                        $pendingRequest[$key0]['bidid']=$bookingRequest->id;
-                        $pendingRequest[$key0]['request_id']=$bookingRequest->request_id;
-                        $pendingRequest[$key0]['from_location']=$bookingRequest->from_location;
-                        $pendingRequest[$key0]['to_location']=$bookingRequest->to_location;
-                        $pendingRequest[$key0]['client_id'] = $bookingRequest->client->id;
-                        $pendingRequest[$key0]['client_name'] = $bookingRequest->client->name;
-                        $pendingRequest[$key0]['client_mobile'] = $bookingRequest->client->mobile;
-                        $pendingRequest[$key0]['status'] = $bookingRequest->status;
-                        $pendingRequest[$key0]['lat'] = $lat;
-                        $pendingRequest[$key0]['lng'] = $long;
-                        $pendingRequest[$key0]['rating'] = $bookingRequest->rating;
-                        $key1++ ;
-                       }
+                    // if($bookingRequest->status==0 && $bookingRequest->driver_id==0 ){
+                    //     BookingPrice::where('request_id',$bookingRequest->id)->where('skip',0)->first();
+                    //     $pendingRequest[$key0]['bidid']=$bookingRequest->id;
+                    //     $pendingRequest[$key0]['request_id']=$bookingRequest->request_id;
+                    //     $pendingRequest[$key0]['from_location']=$bookingRequest->from_location;
+                    //     $pendingRequest[$key0]['to_location']=$bookingRequest->to_location;
+                    //     $pendingRequest[$key0]['client_id'] = $bookingRequest->client->id;
+                    //     $pendingRequest[$key0]['client_name'] = $bookingRequest->client->name;
+                    //     $pendingRequest[$key0]['client_mobile'] = $bookingRequest->client->mobile;
+                    //     $pendingRequest[$key0]['status'] = $bookingRequest->status;
+                    //     $pendingRequest[$key0]['lat'] = $lat;
+                    //     $pendingRequest[$key0]['lng'] = $long;
+                    //     $pendingRequest[$key0]['rating'] = $bookingRequest->rating;
+                    //     $key1++ ;
+                    //    }
                     if($bookingRequest->status==1 && $bookingRequest->driver_id==$driverId ){
                         $upcommingRequest[$key1]['bidid']=$bookingRequest->id;
                         $upcommingRequest[$key1]['request_id']=$bookingRequest->request_id;

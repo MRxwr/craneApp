@@ -133,7 +133,7 @@ class BookingController extends Controller
                         $query->where('driver_id', $user->id)->where('is_accepted', '!=', 2)->where('skip',0);
                 }])->where('status', 0)->get();
                 $orderRequest =[];
-               $prices=[];
+                $prices=[];
                 foreach ($dt as $key=>$bookingRequest) {
                         $orderRequest[$key]['bidid']=$bookingRequest->id;
                         $orderRequest[$key]['request_id']=$bookingRequest->request_id;
@@ -422,24 +422,31 @@ class BookingController extends Controller
                 $bidid= $request->input('request_id');
                 $data['message']=_lang('Save order start/end');
                 $dt = BookingRequest::with('prices')->find($bidid);
-                if($dt->start_time){
-                    if($dt->end_time==""){
-                        $dt->end_time = Carbon::now();
-                        $activity = _lang('Order ended by  ').$user->name;
-                        $data['message']=_lang('Order ended by  ').$user->name;
+                if($dt){
+                    if($dt->start_time){
+                        if($dt->end_time==""){
+                            $dt->end_time = Carbon::now();
+                            $dt->status = 5;
+                            $activity = _lang('Order ended by  ').$user->name;
+                            $data['message']=_lang('Order ended by  ').$user->name;
+                        }else{
+                            $activity = 'Order already ended by  '.$user->name;
+                            $data['message']=_lang('Order already ended by  ').$user->name;
+                        }
                     }else{
-                        $activity = 'Order already ended by  '.$user->name;
-                        $data['message']=_lang('Order already ended by  ').$user->name;
+                        $dt->start_time = Carbon::now();
+                        $dt->status = 3;
+                        $activity = _lang('Order started by  ').$user->name;
+                        $data['message']=_lang('Order started by  ').$user->name;
                     }
+                    if($dt->save()){
+                        AddBookingLog($dt,$activity);
+                        return outputSuccess($data);
+                    } 
                 }else{
-                     $dt->start_time = Carbon::now();
-                     $activity = _lang('Order started by  ').$user->name;
-                     $data['message']=_lang('Order started by  ').$user->name;
-                 }
-                if($dt->save()){
-                     AddBookingLog($dt,$activity);
-                     return outputSuccess($data);
-                } 
+                    $data['message']=_lang('Order not found');
+                    return outputError($data);
+                }
             }else {
                 // Authentication failed
                 $data['message']=_lang('Unauthorized due to token mismatch');

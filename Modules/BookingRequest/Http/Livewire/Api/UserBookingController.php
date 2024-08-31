@@ -227,7 +227,7 @@ class UserBookingController extends Controller
                     }
                 }
              
-             $data['newTripRequest']= $newTripRequest;
+             //$data['newTripRequest']= $newTripRequest;
               //ongoing trip
                $dt = BookingRequest::where('is_deleted', 0)
                ->whereHas('payment', function($query) use ($driverId) {
@@ -349,7 +349,7 @@ class UserBookingController extends Controller
                     }
                        
                 }
-                $data['newTripRequest']= $newTripRequest;
+                $data['newTripRequest']= [$newTripRequest];
                 $data['pendingRequest']= [$pendingRequest];
                 $data['upcommingRequest']= [$upcommingRequest];
                 $data['arrivedRequest']= [$arrivedRequest];

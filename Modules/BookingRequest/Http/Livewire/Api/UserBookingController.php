@@ -420,7 +420,7 @@ class UserBookingController extends Controller
                 'total_orders' => $totalRequests,
                ];
                 //ongoing trip
-               $dt = BookingRequest::where('is_deleted', 0)->where('status', '5')
+               $dt = BookingRequest::where('is_deleted', 0)
                ->whereHas('payment', function($query) use ($driverId) {
                    $query->where('driver_id', $driverId);
                })

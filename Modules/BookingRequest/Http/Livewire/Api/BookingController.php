@@ -185,7 +185,6 @@ class BookingController extends Controller
         $token = str_replace('Bearer ', '', $token);
         try {
             $user = AppUser::where('token',$token)->where('is_deleted',0)->first();
-
             if ($user) {
                $bidid= $request->input('request_id');
                     $price= $request->input('price');

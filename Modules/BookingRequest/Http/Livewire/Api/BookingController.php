@@ -852,7 +852,6 @@ class BookingController extends Controller
     public function doDriverOrderSkip(Request $request){
         $data = array();
         $token = $request->header('Authorization');
-        // Check if validation fails
         if (!$token) {
             // If validation fails, return response with validation errors
             $data['message']=_lang('Authorization token is requred');

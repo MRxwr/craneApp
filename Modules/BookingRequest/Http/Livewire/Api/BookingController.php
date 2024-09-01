@@ -73,7 +73,6 @@ class BookingController extends Controller
                                         $notify['driver_id']=$driver->id;
                                         $notify['message']=_lang('Notification to driver for new order');
                                         $notify['notifyTo']='driver';
-                                        firebaseNotification($notify);
                                     }
                                 }
                             }else{
@@ -87,7 +86,7 @@ class BookingController extends Controller
                                     $notify['driver_id']=$driver->id;
                                     $notify['message']=_lang('Notification to driver for new order');
                                     $notify['notifyTo']='driver';
-                                    firebaseNotification($notify);
+                                    
                                 }
                             }
                         }

@@ -14,7 +14,7 @@ class FCMService
         $this->senderId = env('FCM_SENDER_ID');
     }
 
-    public function sendNotification($token, $title, $body, $data = [])
+    public static function sendNotification($token, $title, $body, $data = [])
     {
         $url = 'https://fcm.googleapis.com/fcm/send';
         $payload = [

@@ -927,5 +927,138 @@ class BookingController extends Controller
             return outputError($data); 
         }
     }
+
+    public function getSuccess(Request $request)
+    {
+        $data=[];
+        $token = $request->header('Authorization');
+        if (!$token) {
+            // If validation fails, return response with validation errors
+            $data['message']=_lang('Authorization token is requred');
+            $data['errors'] = ['token'=>'header Authorization token is requred'];
+            return outputError($data);
+        }
+        try {
+            $token = str_replace('Bearer ', '', $token);
+            $user = AppUser::where('token',$token)->where('is_deleted',0)->first();
+            if ($user) {
+                if($request->link){
+                    $url = $request->link;
+                    $queryString = parse_url($url, PHP_URL_QUERY);
+                    parse_str($queryString, $queryParams);
+                    $bsid = $queryParams['bsid'];
+                    $paymentId = $queryParams['paymentId'];
+                    if($bsid && $paymentId){
+                        $decodedData = base64_decode($bsid);
+                        $ids=explode('|',$decodedData);
+                        if(!empty($ids)){
+                            $bidid = $ids[0];
+                            $pid = $ids[1];
+                            $price = BookingPrice::find($pid);
+                            $dt = BookingRequest::with('prices')->find($bidid);
+                            $dt->status = 1;
+                            $dt->driver_id = $price->driver_id?$price->driver_id:0;
+                            $dt->save();
+                            $price->is_accepted = 1;
+                            $price->save();
+                            $payment=BookingPayment::where('request_id',$bidid)->first();
+                            $payment->driver_id = $price->driver_id?$price->driver_id:0;
+                            $payment->transaction_id=$paymentId;
+                            $payment->payment_status='success';
+                            $payment->save();
+                            $data['message'] =' Payment Successfully Done';
+                            $data['price'] = $price;
+                            $data['payment'] = $payment; 
+                            return outputSuccess($data);
+                        }
+                    }else{
+                        $data['message']=_lang('bsid & PaymentId are missing');
+                        return outputError($data); 
+                    }
+                }else{
+                    $data['message']=_lang('link is not valied');
+                    return outputError($data); 
+                }
+            }else{
+                // Authentication failed
+                $data['message']=_lang('Unauthorized due to token mismatch');
+                return outputError($data);  
+            }
+        } catch (\Exception $e) {
+            $data['message']=_lang('Authentication error');
+            $data['errors'] = [
+                'message' => $e->getMessage(),
+                'code' => $e->getCode(),
+                'file' => $e->getFile(),
+                'line' => $e->getLine()
+            ];
+            return outputError($data); 
+        }
+    }
+    public function getFailed(Request $request)
+    { 
+        $data=[];
+        $token = $request->header('Authorization');
+        if (!$token) {
+            // If validation fails, return response with validation errors
+            $data['message']=_lang('Authorization token is requred');
+            $data['errors'] = ['token'=>'header Authorization token is requred'];
+            return outputError($data);
+        }
+        try {
+            $token = str_replace('Bearer ', '', $token);
+            $user = AppUser::where('token',$token)->where('is_deleted',0)->first();
+            if ($user) {
+             if($request->link){
+                $url = $request->link;
+                $queryString = parse_url($url, PHP_URL_QUERY);
+                parse_str($queryString, $queryParams);
+                $bsid = $queryParams['bsid'];
+                $paymentId = $queryParams['paymentId'];
+                if($bsid && $paymentId){
+                    $decodedData = base64_decode($bsid);
+                    $ids=explode('|',$decodedData);
+                    if(!empty($ids)){
+                        $bidid = $ids[0];
+                        $pid = $ids[1];
+                        $dt = BookingRequest::with('prices')->find($bidid);
+                        $price = BookingPrice::find($pid);
+                        $payment=BookingPayment::where('request_id',$bidid)->first();
+                        $payment->driver_id = $price->driver_id?$price->driver_id:0;
+                        $payment->transaction_id='';
+                        $payment->payment_status='failed';
+                        $payment->save();
+                        $data['dt'] = $dt;
+                        $data['price'] = $price;
+                        $data['payment'] = $payment; 
+                        $data['message'] =' Payment failed';
+                        
+                    }
+                }else{
+                    $data['message']=_lang('bsid & PaymentId are missing');
+                    return outputError($data); 
+                }
+    
+                }else{
+                    $data['message']=_lang('link is not valied');
+                    return outputError($data); 
+                }
+            }else{
+                // Authentication failed
+                $data['message']=_lang('Unauthorized due to token mismatch');
+                return outputError($data);  
+            }
+        } catch (\Exception $e) {
+            $data['message']=_lang('Authentication error');
+            $data['errors'] = [
+                'message' => $e->getMessage(),
+                'code' => $e->getCode(),
+                'file' => $e->getFile(),
+                'line' => $e->getLine()
+            ];
+            return outputError($data); 
+        }
+       
+    }
     
 }

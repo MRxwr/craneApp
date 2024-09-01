@@ -92,6 +92,8 @@ class SettingController extends Controller
         if($request->id){
             try{
                 $user_id=$request->id;
+                $title='new trip';
+                $message='Client create New trip please Bid';
                 $status =  firebaseNotification($user_id,$title,$message='',$data=[]);
                 $data['status']=$status;
                 return outputSuccess($data); 

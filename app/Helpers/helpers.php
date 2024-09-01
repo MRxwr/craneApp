@@ -233,8 +233,9 @@ function upadteUserMeta($key,$value,$app_user_id){
     $log->flag =1; 
     $log->save();
   }
-  function firebaseNotification($user,$title,$message='',$data=[]){
-    if($user){
+  function firebaseNotification($user_id,$title,$message='',$data=[]){
+    if($user_id){
+        $user = AppUser::find($user_id);
         FCMService::sendNotification($user->device_token,$title,$message,$data);
     }
 

@@ -87,4 +87,26 @@ class SettingController extends Controller
         }
         
     }
+    public function testFirebaseNotification(Request $request){
+
+        if($request->id){
+            try{
+                $user_id=$request->id;
+                $status =  firebaseNotification($user_id,$title,$message='',$data=[]);
+                $data['status']=$status;
+                return outputSuccess($data); 
+            }catch (\Exception $e) {
+                $data['message']=_lang('Authentication error');
+                $data['errors'] = [
+                    'message' => $e->getMessage(),
+                    'code' => $e->getCode(),
+                    'file' => $e->getFile(),
+                    'line' => $e->getLine()
+                ];
+                return outputError($data); 
+            }
+           
+        }
+
+    }
 }

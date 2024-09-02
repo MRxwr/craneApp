@@ -1019,7 +1019,7 @@ class BookingController extends Controller
                 if($bsid && $paymentId){
                     $decodedData = base64_decode($bsid);
                     $ids=explode('|',$decodedData);
-                    var_dump($ids);
+                    
                     if(!empty($ids)){
                         $bidid = $ids[0];
                         $pid = $ids[1];
@@ -1034,7 +1034,7 @@ class BookingController extends Controller
                         $data['price'] = $price;
                         $data['payment'] = $payment; 
                         $data['message'] =' Payment failed';
-                        
+                        return outputSuccess($data);
                     }
                     }else{
                         $data['message']=_lang('bsid & PaymentId are missing');

@@ -1029,8 +1029,8 @@ class BookingController extends Controller
                         $payment->driver_id = $price->driver_id?$price->driver_id:0;
                         $payment->transaction_id='';
                         $payment->payment_status='failed';
-                        //$payment->save();
-                        $data['dt'] = $dt;
+                        $payment->save();
+                        //$data['dt'] = $dt;
                         $data['price'] = $price;
                         $data['payment'] = $payment; 
                         $data['message'] =' Payment failed';

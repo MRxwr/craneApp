@@ -681,7 +681,7 @@ class BookingController extends Controller
         $totalPrice = $payment_data['pay_amount'];
 
         $params = array(
-            "endpoint"                  => "PaymentRequestExicuteForStore",
+            "endpoint"                  => "PaymentRequestExicuteShipping",
             "apikey"                    => "$PaymentAPIKey",
             "PaymentMethodId"           => "$paymentMethod",
             "CustomerName"              => "$name",

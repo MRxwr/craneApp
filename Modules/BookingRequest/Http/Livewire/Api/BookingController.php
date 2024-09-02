@@ -672,7 +672,8 @@ class BookingController extends Controller
     //payment action 
     public function doPayment($payment_data){
         $bsid=base64_encode($payment_data['booking_id'].'|'.$payment_data['price_id']);
-        $PaymentAPIKey = 'CKW-1640114323-2537';
+        //$PaymentAPIKey = 'CKW-1640114323-2537';
+        $PaymentAPIKey = 'CKW-1720608905-1840';
         $paymentMethod=$payment_data['paymentMethod'];
         $name = $payment_data['customer_name'];
         $phone1 = $payment_data['customer_mobile'];

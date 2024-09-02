@@ -1019,6 +1019,7 @@ class BookingController extends Controller
                 if($bsid && $paymentId){
                     $decodedData = base64_decode($bsid);
                     $ids=explode('|',$decodedData);
+                    var_dump($ids);
                     if(!empty($ids)){
                         $bidid = $ids[0];
                         $pid = $ids[1];
@@ -1028,17 +1029,17 @@ class BookingController extends Controller
                         $payment->driver_id = $price->driver_id?$price->driver_id:0;
                         $payment->transaction_id='';
                         $payment->payment_status='failed';
-                        $payment->save();
+                        //$payment->save();
                         $data['dt'] = $dt;
                         $data['price'] = $price;
                         $data['payment'] = $payment; 
                         $data['message'] =' Payment failed';
                         
                     }
-                }else{
-                    $data['message']=_lang('bsid & PaymentId are missing');
-                    return outputError($data); 
-                }
+                    }else{
+                        $data['message']=_lang('bsid & PaymentId are missing');
+                        return outputError($data); 
+                    }
     
                 }else{
                     $data['message']=_lang('link is not valied');

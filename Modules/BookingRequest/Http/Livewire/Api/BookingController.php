@@ -726,15 +726,21 @@ class BookingController extends Controller
                 $data['error_url']= url('failed').'/?bsid='.$bsid.'&msg='. $err;
             } else {
                 $res = json_decode($response);
-                
-                if($res->type == 'success' && isset($res->data->InvoiceId)){
-                    $PaymentURL = $res->data->PaymentURL;
-                    $InvoiceId = $res->data->InvoiceId;
-                    $data['payment_status']='success';
-                    $data['payment_type']='knet/card';
-                    $data['payment_url'] = $PaymentURL;  
+                if($res){
+                    if($res->type == 'success' && isset($res->data->InvoiceId)){
+                        $PaymentURL = $res->data->PaymentURL;
+                        $InvoiceId = $res->data->InvoiceId;
+                        $data['payment_status']='success';
+                        $data['payment_type']='knet/card';
+                        $data['payment_url'] = $PaymentURL;  
+                    }else{
+                        $error_url = url('payment/failed').'/?bsid='.$bsid.'&msg='.$res->msg;
+                        $data['payment_status']='error';
+                        $data['error_url']= $error_url;
+                    }
                 }else{
                     $error_url = url('payment/failed').'/?bsid='.$bsid.'&msg='.$res->msg;
+                    $data['msg']='Payapi error';
                     $data['payment_status']='error';
                     $data['error_url']= $error_url;
                 }

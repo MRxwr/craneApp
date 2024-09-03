@@ -956,7 +956,13 @@ class BookingController extends Controller
                     $queryString = parse_url($url, PHP_URL_QUERY);
                     parse_str($queryString, $queryParams);
                     $bsid = $queryParams['bsid'];
-                    $paymentId = $queryParams['paymentId'];
+                    if(isset($queryParams['payment_id'])){
+                        $paymentId = $queryParams['payment_id'];
+                    }else if(isset($queryParams['paymentId'])){
+                        $paymentId = $queryParams['paymentId'];  
+                    }else{
+                        $paymentId = '';
+                    }
                     if($bsid && $paymentId){
                         $decodedData = base64_decode($bsid);
                         $ids=explode('|',$decodedData);
@@ -1023,7 +1029,14 @@ class BookingController extends Controller
                 $queryString = parse_url($url, PHP_URL_QUERY);
                 parse_str($queryString, $queryParams);
                 $bsid = $queryParams['bsid'];
-                $paymentId = $queryParams['paymentId'];
+                if(isset($queryParams['payment_id'])){
+                    $paymentId = $queryParams['payment_id'];
+                }else if(isset($queryParams['paymentId'])){
+                    $paymentId = $queryParams['paymentId'];  
+                }else{
+                    $paymentId = '';
+                }
+                //$paymentId = $queryParams['payment_id'];
                 if($bsid && $paymentId){
                     $decodedData = base64_decode($bsid);
                     $ids=explode('|',$decodedData);

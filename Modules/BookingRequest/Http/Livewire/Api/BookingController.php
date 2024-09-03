@@ -681,7 +681,7 @@ class BookingController extends Controller
         $totalPrice = $payment_data['pay_amount'];
 
         $params = array(
-            "endpoint"                  => "PaymentRequestExicute",
+            "endpoint"                  => "PaymentRequestExicuteShipping",
             "apikey"                    => "$PaymentAPIKey",
             "PaymentMethodId"           => "$paymentMethod",
             "CustomerName"              => "$name",
@@ -726,7 +726,7 @@ class BookingController extends Controller
                 $data['error_url']= url('failed').'/?bsid='.$bsid.'&msg='. $err;
             } else {
                 $res = json_decode($response);
-                dd($res);
+                //dd($res);
                 if($res->type == 'success' && isset($res->data->InvoiceId)){
                     $PaymentURL = $res->data->PaymentURL;
                     $InvoiceId = $res->data->InvoiceId;

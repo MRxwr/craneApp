@@ -672,8 +672,8 @@ class BookingController extends Controller
     //payment action 
     public function doPayment($payment_data){
         $bsid=base64_encode($payment_data['booking_id'].'|'.$payment_data['price_id']);
-        //$PaymentAPIKey = 'CKW-1640114323-2537';
-        $PaymentAPIKey = 'CKW-1720608905-1840';
+        $PaymentAPIKey = 'CKW-1640114323-2537';
+        //$PaymentAPIKey = 'CKW-1720608905-1840';
         $paymentMethod=$payment_data['paymentMethod'];
         $name = $payment_data['customer_name'];
         $phone1 = $payment_data['customer_mobile'];
@@ -681,7 +681,7 @@ class BookingController extends Controller
         $totalPrice = $payment_data['pay_amount'];
 
         $params = array(
-            "endpoint"                  => "PaymentRequestExicuteShipping",
+            "endpoint"                  => "PaymentRequestExicuteStore",
             "apikey"                    => "$PaymentAPIKey",
             "PaymentMethodId"           => "$paymentMethod",
             "CustomerName"              => "$name",
@@ -700,7 +700,7 @@ class BookingController extends Controller
         // curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, $certificate_location);
         //dd($params);
         curl_setopt_array($curl, array(
-            CURLOPT_URL => "https://createapi.link/api/v3/index.php",
+            CURLOPT_URL => "https://createapi.link/api/v2/index.php",
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_ENCODING => "",
             CURLOPT_MAXREDIRS => 10,

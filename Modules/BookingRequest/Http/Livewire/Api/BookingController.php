@@ -682,9 +682,9 @@ class BookingController extends Controller
 
         $params = array(
             "endpoint"                  => "PaymentRequestExicute",
-            "apikey"                    => "$PaymentAPIKey",
-            "PaymentMethodId"           => "$paymentMethod",
-            "CustomerName"              => "$name",
+            "apikey"                    => $PaymentAPIKey,
+            "PaymentMethodId"           => $paymentMethod,
+            "CustomerName"              => $name,
             "DisplayCurrencyIso"        => "KWD", 
             "MobileCountryCode"         => "+965", 
             "CustomerMobile"            => substr($phone1,0,11),

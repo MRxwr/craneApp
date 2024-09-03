@@ -951,18 +951,20 @@ class BookingController extends Controller
             $token = str_replace('Bearer ', '', $token);
             $user = AppUser::where('token',$token)->where('is_deleted',0)->first();
             if ($user) {
-                if($request->link){
-                    $url = $request->link;
-                    $queryString = parse_url($url, PHP_URL_QUERY);
-                    parse_str($queryString, $queryParams);
-                    $bsid = $queryParams['bsid'];
-                    if(isset($queryParams['payment_id'])){
-                        $paymentId = $queryParams['payment_id'];
-                    }else if(isset($queryParams['paymentId'])){
-                        $paymentId = $queryParams['paymentId'];  
-                    }else{
-                        $paymentId = '';
-                    }
+                if($request->paymentId && $request->bsid){
+                    $bsid = $request->bsid;
+                    $paymentId = $request->paymentId;
+                    // $queryString = parse_url($url, PHP_URL_QUERY);
+                    // parse_str($queryString, $queryParams);
+                    // $bsid = $queryParams['bsid'];
+                    // if(isset($queryParams['payment_id'])){
+                    //     $paymentId = $queryParams['payment_id'];
+                    // }else if(isset($queryParams['paymentId'])){
+                    //     $paymentId = $queryParams['paymentId'];  
+                    // }else{
+                    //     $paymentId = '';
+                    // }
+                    
                     if($bsid && $paymentId){
                         $decodedData = base64_decode($bsid);
                         $ids=explode('|',$decodedData);
@@ -1024,18 +1026,20 @@ class BookingController extends Controller
             $token = str_replace('Bearer ', '', $token);
             $user = AppUser::where('token',$token)->where('is_deleted',0)->first();
             if ($user) {
-             if($request->link){
-                $url = $request->link;
-                $queryString = parse_url($url, PHP_URL_QUERY);
-                parse_str($queryString, $queryParams);
-                $bsid = $queryParams['bsid'];
-                if(isset($queryParams['payment_id'])){
-                    $paymentId = $queryParams['payment_id'];
-                }else if(isset($queryParams['paymentId'])){
-                    $paymentId = $queryParams['paymentId'];  
-                }else{
-                    $paymentId = '';
-                }
+                if($request->paymentId && $request->bsid){
+                    $bsid = $request->bsid;
+                    $paymentId = $request->paymentId;
+                // $url = $request->link;
+                // $queryString = parse_url($url, PHP_URL_QUERY);
+                // parse_str($queryString, $queryParams);
+                // $bsid = $queryParams['bsid'];
+                // if(isset($queryParams['payment_id'])){
+                //     $paymentId = $queryParams['payment_id'];
+                // }else if(isset($queryParams['paymentId'])){
+                //     $paymentId = $queryParams['paymentId'];  
+                // }else{
+                //     $paymentId = '';
+                // }
                 //$paymentId = $queryParams['payment_id'];
                 if($bsid && $paymentId){
                     $decodedData = base64_decode($bsid);

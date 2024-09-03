@@ -726,7 +726,7 @@ class BookingController extends Controller
                 $data['error_url']= url('failed').'/?bsid='.$bsid.'&msg='. $err;
             } else {
                 $res = json_decode($response);
-                if($res){
+                if(isset($res->type) && $res->type){
                     if($res->type == 'success' && isset($res->data->InvoiceId)){
                         $PaymentURL = $res->data->PaymentURL;
                         $InvoiceId = $res->data->InvoiceId;

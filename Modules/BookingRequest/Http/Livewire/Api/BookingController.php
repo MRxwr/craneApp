@@ -673,7 +673,7 @@ class BookingController extends Controller
     public function doPayment($payment_data){
         $bsid=base64_encode($payment_data['booking_id'].'|'.$payment_data['price_id']);
          //$PaymentAPIKey = 'CKW-1640114323-2537';
-        $PaymentAPIKey = 'CKW-1664704211-8756';
+        $PaymentAPIKey = 'CKW-1720608905-1840';
         $paymentMethod=$payment_data['paymentMethod'];
         $name = $payment_data['customer_name'];
         $phone1 = $payment_data['customer_mobile'];
@@ -726,7 +726,7 @@ class BookingController extends Controller
                 $data['error_url']= url('failed').'/?bsid='.$bsid.'&msg='. $err;
             } else {
                 $res = json_decode($response);
-                dd($res);
+                
                 if($res->type == 'success' && isset($res->data->InvoiceId)){
                     $PaymentURL = $res->data->PaymentURL;
                     $InvoiceId = $res->data->InvoiceId;

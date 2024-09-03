@@ -734,12 +734,12 @@ class BookingController extends Controller
                         $data['payment_type']='knet/card';
                         $data['payment_url'] = $PaymentURL;  
                     }else{
-                        $error_url = url('payment/failed').'/?bsid='.$bsid.'&msg='.$res->msg;
+                        $error_url = url('payment/failed').'/?bsid='.$bsid.'&msg= payment gatway error';
                         $data['payment_status']='error';
                         $data['error_url']= $error_url;
                     }
                 }else{
-                    $error_url = url('payment/failed').'/?bsid='.$bsid.'&msg='.$res->msg;
+                    $error_url = url('payment/failed').'/?bsid='.$bsid.'&msg=payapi payment gatway error';
                     $data['msg']='Payapi error';
                     $data['payment_status']='error';
                     $data['error_url']= $error_url;

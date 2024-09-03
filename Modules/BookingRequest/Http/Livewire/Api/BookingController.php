@@ -689,7 +689,7 @@ class BookingController extends Controller
             "MobileCountryCode"         => "+965", 
             "CustomerMobile"            => substr($phone1,0,11),
             "CustomerEmail"             => $settingsEmail,
-            "invoiceValue"              => $totalPrice,
+            "InvoiceValue"              => $totalPrice,
             "SourceInfo"                => '',
             "CallBackUrl"               => url('success').'/?bsid='.$bsid,
             "ErrorUrl"                  => url('failed').'/?bsid='.$bsid

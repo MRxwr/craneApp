@@ -700,7 +700,7 @@ class BookingController extends Controller
         // curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, $certificate_location);
         //dd($params);
         curl_setopt_array($curl, array(
-            CURLOPT_URL => "https://createapi.link/api/v2/index.php",
+            CURLOPT_URL => "https://createapi.link/api/v3/index.php",
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_ENCODING => "",
             CURLOPT_MAXREDIRS => 10,

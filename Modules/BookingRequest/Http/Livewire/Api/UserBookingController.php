@@ -614,7 +614,7 @@ class UserBookingController extends Controller
                          $key2++;
                      }
                      if($bookingRequest->status==3 && $bookingRequest->driver_id==$driverId){ //ongoing
-                         
+                        $client_rating = getUserRating($bookingRequest->client_id);
                         $ongoingRequest[$key3]['bidid']=$bookingRequest->id;
                         $ongoingRequest[$key3]['request_id']=$bookingRequest->request_id;
                         $ongoingRequest[$key3]['from_location']=$bookingRequest->from_location;
@@ -652,7 +652,7 @@ class UserBookingController extends Controller
                             $key3++;
                      }
                     if($bookingRequest->status==4 && $bookingRequest->driver_id==$driverId){ // canceled
-                         
+                        $client_rating = getUserRating($bookingRequest->client_id);
                          $canceledRequest[$key4]['bidid']=$bookingRequest->id;
                          $canceledRequest[$key4]['request_id']=$bookingRequest->request_id;
                          $canceledRequest[$key4]['from_location']=$bookingRequest->from_location;
@@ -691,7 +691,8 @@ class UserBookingController extends Controller
                          $key4++;
                      }
                      if($bookingRequest->status==5 && $bookingRequest->driver_id==$driverId){ // completed
-                         $completedRequest[$key5]['bidid']=$bookingRequest->id;
+                        $client_rating = getUserRating($bookingRequest->client_id);
+                        $completedRequest[$key5]['bidid']=$bookingRequest->id;
                          $completedRequest[$key5]['request_id']=$bookingRequest->request_id;
                          $completedRequest[$key5]['from_location']=$bookingRequest->from_location;
                          $completedRequest[$key5]['to_location']=$bookingRequest->to_location;

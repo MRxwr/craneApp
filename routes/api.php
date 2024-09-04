@@ -20,4 +20,5 @@ Route::prefix('v1')->group(function () {
     Route::post('/home', [HomeController::class, 'getHome']);
     Route::post('/setting', [SettingController::class, 'getSetting']);
     Route::post('/test_notification', [SettingController::class, 'testFirebaseNotification']);
+    Route::get('/cron_notification', [SettingController::class, 'CronForCompleteTrip']);
 });

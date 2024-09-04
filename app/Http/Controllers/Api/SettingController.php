@@ -133,6 +133,8 @@ class SettingController extends Controller
                     }  
                     $bookingRequest->notify = 1;
                     $bookingRequest->save();
+                    $data['status']=$status;
+                    return outputSuccess($data); 
                 }   
             }catch (\Exception $e) {
                 $data['message']=_lang('Authentication error');

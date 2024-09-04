@@ -301,10 +301,18 @@ class BookingController extends Controller
                 $dt = BookingRequest::with('prices')->find($bidid);
                 $dt->status = $request->input('status');
                 if($dt->save()){
-                     $status =$dt->status;
-                     $activity = _lang('Changed order status to '.$status.'  by  ').$user->name;
-                     AddBookingLog($dt,$activity);
-                     $data['message']=_lang('Successfully change Status');
+                    if($request->input('status')==5 && $dt->start_time ){
+                        $dt->end_time = Carbon::now();
+                        $dt->status = 5;
+                        $activity = _lang('Driver reached to the Drop location and Trip is completed by ').$user->name;
+                        AddBookingLog($dt,$activity);
+                        $data['message']=_lang('Driver reached to the Drop location and Trip is completed by').$user->name;
+                    }else{
+                        $status =$dt->status;
+                        $activity = _lang('Changed order status to '.$status.'  by  ').$user->name;
+                        AddBookingLog($dt,$activity);
+                        $data['message']=_lang('Successfully change Status');
+                    }
                      return outputSuccess($data);
                 } 
             }else {
@@ -438,21 +446,19 @@ class BookingController extends Controller
                 $data['message']=_lang('Save order start/end');
                 $dt = BookingRequest::with('prices')->find($bidid);
                 if($dt){
-                    if($dt->start_time){
-                        if($dt->end_time==""){
-                            $dt->end_time = Carbon::now();
-                            $dt->status = 5;
-                            $activity = _lang('Order ended by  ').$user->name;
-                            $data['message']=_lang('Order ended by  ').$user->name;
-                        }else{
-                            $activity = 'Order already ended by  '.$user->name;
-                            $data['message']=_lang('Order already ended by  ').$user->name;
-                        }
-                    }else{
+                    if($dt->status==1){
+                            //$dt->end_time = Carbon::now();
+                            $dt->status = 2;
+                            $activity = _lang('Trip started by  ').$user->name;
+                            $data['message']=_lang('Order started by  ').$user->name;
+                            
+                    }else if($dt->status==2){
                         $dt->start_time = Carbon::now();
                         $dt->status = 3;
-                        $activity = _lang('Order started by  ').$user->name;
-                        $data['message']=_lang('Order started by  ').$user->name;
+                        $activity = _lang('Driver reached to the pickup location and Trip on going by ').$user->name;
+                        //$activity = _lang('Trip on going by  ').$user->name;
+                        $data['message']=_lang('Driver reached to the pickup location and Trip on going by  ').$user->name;
+                        
                     }
                     if($dt->save()){
                         AddBookingLog($dt,$activity);

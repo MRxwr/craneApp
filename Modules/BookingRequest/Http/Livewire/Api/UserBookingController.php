@@ -526,16 +526,16 @@ class UserBookingController extends Controller
                             $pendingRequest[$key0]['to_lat'] = $to_lat;
                             $pendingRequest[$key0]['to_lng'] = $to_long;
                             $pendingRequest[$key0]['time'] = $formattedDate;
-                        if($payment){
-                            $pendingRequest[$key0]['payment_status'] = $payment->payment_status; 
-                            $pendingRequest[$key0]['bid_amount'] = $payment->payment_amount; 
-                            $pendingRequest[$key0]['coupon_discount'] = $payment->coupon_discount; 
-                            $pendingRequest[$key0]['coupon_code'] = $payment->coupon_code; 
-                            $pendingRequest[$key0]['trip_cost'] = $payment->payment_amount; 
-                        }
-                        $upcommingRequest[$key0]['trip_start'] = $bookingRequest->start_time;
-                        $upcommingRequest[$key0]['trip_end'] = $bookingRequest->end_time; 
-                        $key0++ ;
+                            if($payment){
+                                $pendingRequest[$key0]['payment_status'] = $payment->payment_status; 
+                                $pendingRequest[$key0]['bid_amount'] = $payment->payment_amount; 
+                                $pendingRequest[$key0]['coupon_discount'] = $payment->coupon_discount; 
+                                $pendingRequest[$key0]['coupon_code'] = $payment->coupon_code; 
+                                $pendingRequest[$key0]['trip_cost'] = $payment->payment_amount; 
+                            }
+                            $upcommingRequest[$key0]['trip_start'] = $bookingRequest->start_time;
+                            $upcommingRequest[$key0]['trip_end'] = $bookingRequest->end_time; 
+                            $key0++ ;
                     }
                      if($bookingRequest->status==1 && $bookingRequest->driver_id==$driverId ){
                                 $client_rating = getUserRating($bookingRequest->client_id);
@@ -563,15 +563,16 @@ class UserBookingController extends Controller
                                 $upcommingRequest[$key1]['to_lat'] = $to_lat;
                                 $upcommingRequest[$key1]['to_lng'] = $to_long;
                                 $upcommingRequest[$key1]['time'] = $formattedDate;
-                            if($payment){
-                                $upcommingRequest[$key1]['payment_status'] = $payment->payment_status; 
-                                $upcommingRequest[$key1]['bid_amount'] = $payment->payment_amount; 
-                                $upcommingRequest[$key1]['coupon_discount'] = $payment->coupon_discount; 
-                                $upcommingRequest[$key1]['coupon_code'] = $payment->coupon_code; 
-                                $upcommingRequest[$key1]['trip_cost'] = $payment->payment_amount; 
-                            }
-                            $upcommingRequest[$key1]['trip_start'] = $bookingRequest->start_time;
-                            $upcommingRequest[$key1]['trip_end'] = $bookingRequest->end_time; 
+                                if($payment){
+                                    $upcommingRequest[$key1]['payment_status'] = $payment->payment_status; 
+                                    $upcommingRequest[$key1]['bid_amount'] = $payment->payment_amount; 
+                                    $upcommingRequest[$key1]['coupon_discount'] = $payment->coupon_discount; 
+                                    $upcommingRequest[$key1]['coupon_code'] = $payment->coupon_code; 
+                                    $upcommingRequest[$key1]['trip_cost'] = $payment->payment_amount; 
+                                }
+                                $upcommingRequest[$key1]['trip_start'] = $bookingRequest->start_time;
+                                $upcommingRequest[$key1]['trip_end'] = $bookingRequest->end_time; 
+                                
                             $key1++ ;
                         }
  
@@ -602,91 +603,92 @@ class UserBookingController extends Controller
                                 $arrivedRequest[$key2]['to_lat'] = $to_lat;
                                 $arrivedRequest[$key2]['to_lng'] = $to_long;
                                 $arrivedRequest[$key2]['time'] = $formattedDate;
-                            if($payment){
-                                $arrivedRequest[$key2]['payment_status'] = $payment->payment_status; 
-                                $arrivedRequest[$key2]['bid_amount'] = $payment->payment_amount; 
-                                $arrivedRequest[$key2]['coupon_discount'] = $payment->coupon_discount; 
-                                $arrivedRequest[$key2]['coupon_code'] = $payment->coupon_code; 
-                                $arrivedRequest[$key2]['trip_cost'] = $payment->payment_amount; 
-                            }
-                            $arrivedRequest[$key2]['trip_start'] = $bookingRequest->start_time;
-                            $arrivedRequest[$key2]['trip_end'] = $bookingRequest->end_time; 
-                         $key2++;
+                                if($payment){
+                                    $arrivedRequest[$key2]['payment_status'] = $payment->payment_status; 
+                                    $arrivedRequest[$key2]['bid_amount'] = $payment->payment_amount; 
+                                    $arrivedRequest[$key2]['coupon_discount'] = $payment->coupon_discount; 
+                                    $arrivedRequest[$key2]['coupon_code'] = $payment->coupon_code; 
+                                    $arrivedRequest[$key2]['trip_cost'] = $payment->payment_amount; 
+                                }
+                                $arrivedRequest[$key2]['trip_start'] = $bookingRequest->start_time;
+                                $arrivedRequest[$key2]['trip_end'] = $bookingRequest->end_time; 
+                            
+                            $key2++;
                      }
                      if($bookingRequest->status==3 && $bookingRequest->driver_id==$driverId){ //ongoing
-                        $client_rating = getUserRating($bookingRequest->client_id);
-                        $ongoingRequest[$key3]['bidid']=$bookingRequest->id;
-                        $ongoingRequest[$key3]['request_id']=$bookingRequest->request_id;
-                        $ongoingRequest[$key3]['from_location']=$bookingRequest->from_location;
-                        $ongoingRequest[$key3]['to_location']=$bookingRequest->to_location;
-                        $ongoingRequest[$key3]['client_id'] = $bookingRequest->client->id;
-                        $ongoingRequest[$key3]['client_name'] = $bookingRequest->client->name;
-                        $ongoingRequest[$key3]['client_mobile'] = $bookingRequest->client->mobile;
-                        $ongoingRequest[$key3]['client_avator'] = $bookingRequest->client->avator;
-                        $ongoingRequest[$key3]['client_rating'] = $client_rating;
-                        if($bookingRequest->driver_id>0){
-                            $driver_rating = getUserRating($bookingRequest->driver->id);
-                            $ongoingRequest[$key3]['driver_id'] = $bookingRequest->driver->id;
-                            $ongoingRequest[$key3]['driver_name'] = $bookingRequest->driver->name;
-                            $ongoingRequest[$key3]['driver_mobile'] = $bookingRequest->driver->mobile;
-                            $ongoingRequest[$key3]['driver_avator'] = $bookingRequest->driver->avator; 
-                            $ongoingRequest[$key3]['login_status'] = AppUserLogingStatus($bookingRequest->driver->id); 
-                            $ongoingRequest[$key3]['driver_rating'] = $driver_rating;
-                        }
-                        $ongoingRequest[$key3]['status'] = $bookingRequest->status;
-                        $ongoingRequest[$key3]['from_lat'] = $from_lat;
-                        $ongoingRequest[$key3]['from_lng'] = $from_long;
-                        $ongoingRequest[$key3]['to_lat'] = $to_lat;
-                        $ongoingRequest[$key3]['to_lng'] = $to_long;
-                        $ongoingRequest[$key3]['time'] = $formattedDate;
-                    if($payment){
-                        $ongoingRequest[$key3]['payment_status'] = $payment->payment_status; 
-                        $ongoingRequest[$key3]['bid_amount'] = $payment->payment_amount; 
-                        $ongoingRequest[$key3]['coupon_discount'] = $payment->coupon_discount; 
-                        $ongoingRequest[$key3]['coupon_code'] = $payment->coupon_code; 
-                        $ongoingRequest[$key3]['trip_cost'] = $payment->payment_amount; 
-                    }
-                    $ongoingRequest[$key3]['trip_start'] = $bookingRequest->start_time;
-                    $ongoingRequest[$key3]['trip_end'] = $bookingRequest->end_time; 
-                
+                            $client_rating = getUserRating($bookingRequest->client_id);
+                            $ongoingRequest[$key3]['bidid']=$bookingRequest->id;
+                            $ongoingRequest[$key3]['request_id']=$bookingRequest->request_id;
+                            $ongoingRequest[$key3]['from_location']=$bookingRequest->from_location;
+                            $ongoingRequest[$key3]['to_location']=$bookingRequest->to_location;
+                            $ongoingRequest[$key3]['client_id'] = $bookingRequest->client->id;
+                            $ongoingRequest[$key3]['client_name'] = $bookingRequest->client->name;
+                            $ongoingRequest[$key3]['client_mobile'] = $bookingRequest->client->mobile;
+                            $ongoingRequest[$key3]['client_avator'] = $bookingRequest->client->avator;
+                            $ongoingRequest[$key3]['client_rating'] = $client_rating;
+                            if($bookingRequest->driver_id>0){
+                                $driver_rating = getUserRating($bookingRequest->driver->id);
+                                $ongoingRequest[$key3]['driver_id'] = $bookingRequest->driver->id;
+                                $ongoingRequest[$key3]['driver_name'] = $bookingRequest->driver->name;
+                                $ongoingRequest[$key3]['driver_mobile'] = $bookingRequest->driver->mobile;
+                                $ongoingRequest[$key3]['driver_avator'] = $bookingRequest->driver->avator; 
+                                $ongoingRequest[$key3]['login_status'] = AppUserLogingStatus($bookingRequest->driver->id); 
+                                $ongoingRequest[$key3]['driver_rating'] = $driver_rating;
+                            }
+                            $ongoingRequest[$key3]['status'] = $bookingRequest->status;
+                            $ongoingRequest[$key3]['from_lat'] = $from_lat;
+                            $ongoingRequest[$key3]['from_lng'] = $from_long;
+                            $ongoingRequest[$key3]['to_lat'] = $to_lat;
+                            $ongoingRequest[$key3]['to_lng'] = $to_long;
+                            $ongoingRequest[$key3]['time'] = $formattedDate;
+                            if($payment){
+                                $ongoingRequest[$key3]['payment_status'] = $payment->payment_status; 
+                                $ongoingRequest[$key3]['bid_amount'] = $payment->payment_amount; 
+                                $ongoingRequest[$key3]['coupon_discount'] = $payment->coupon_discount; 
+                                $ongoingRequest[$key3]['coupon_code'] = $payment->coupon_code; 
+                                $ongoingRequest[$key3]['trip_cost'] = $payment->payment_amount; 
+                            }
+                            $ongoingRequest[$key3]['trip_start'] = $bookingRequest->start_time;
+                            $ongoingRequest[$key3]['trip_end'] = $bookingRequest->end_time; 
+                        
                             $key3++;
                      }
                     if($bookingRequest->status==4 && $bookingRequest->driver_id==$driverId){ // canceled
-                        $client_rating = getUserRating($bookingRequest->client_id);
-                         $canceledRequest[$key4]['bidid']=$bookingRequest->id;
-                         $canceledRequest[$key4]['request_id']=$bookingRequest->request_id;
-                         $canceledRequest[$key4]['from_location']=$bookingRequest->from_location;
-                         $canceledRequest[$key4]['to_location']=$bookingRequest->to_location;
-                         $canceledRequest[$key4]['client_id'] = $bookingRequest->client->id;
-                         $canceledRequest[$key4]['client_name'] = $bookingRequest->client->name;
-                         $canceledRequest[$key4]['client_mobile'] = $bookingRequest->client->mobile;
-                         $canceledRequest[$key4]['client_avator'] = $bookingRequest->client->avator;
-                         $canceledRequest[$key4]['client_rating'] = $client_rating;
-                         if($bookingRequest->driver_id>0){
-                             $driver_rating = getUserRating($bookingRequest->driver->id);
-                             $canceledRequest[$key4]['driver_id'] = $bookingRequest->driver->id;
-                             $canceledRequest[$key4]['driver_name'] = $bookingRequest->driver->name;
-                             $canceledRequest[$key4]['driver_mobile'] = $bookingRequest->driver->mobile;
-                             $canceledRequest[$key4]['driver_avator'] = $bookingRequest->driver->avator; 
-                             $canceledRequest[$key4]['login_status'] = AppUserLogingStatus($bookingRequest->driver->id); 
-                             $canceledRequest[$key4]['driver_rating'] = $driver_rating;
-                         }
-                         $canceledRequest[$key4]['status'] = $bookingRequest->status;
-                         $canceledRequest[$key4]['from_lat'] = $from_lat;
-                         $canceledRequest[$key4]['from_lng'] = $from_long;
-                         $canceledRequest[$key4]['to_lat'] = $to_lat;
-                         $canceledRequest[$key4]['to_lng'] = $to_long;
-                         $canceledRequest[$key4]['time'] = $formattedDate;
-                     if($payment){
-                         $canceledRequest[$key4]['payment_status'] = $payment->payment_status; 
-                         $canceledRequest[$key4]['bid_amount'] = $payment->payment_amount; 
-                         $canceledRequest[$key4]['coupon_discount'] = $payment->coupon_discount; 
-                         $canceledRequest[$key4]['coupon_code'] = $payment->coupon_code; 
-                         $canceledRequest[$key4]['trip_cost'] = $payment->payment_amount; 
-                     }
-                     $canceledRequest[$key4]['trip_start'] = $bookingRequest->start_time;
-                     $canceledRequest[$key4]['trip_end'] = $bookingRequest->end_time; 
-                 
+                            $client_rating = getUserRating($bookingRequest->client_id);
+                            $canceledRequest[$key4]['bidid']=$bookingRequest->id;
+                            $canceledRequest[$key4]['request_id']=$bookingRequest->request_id;
+                            $canceledRequest[$key4]['from_location']=$bookingRequest->from_location;
+                            $canceledRequest[$key4]['to_location']=$bookingRequest->to_location;
+                            $canceledRequest[$key4]['client_id'] = $bookingRequest->client->id;
+                            $canceledRequest[$key4]['client_name'] = $bookingRequest->client->name;
+                            $canceledRequest[$key4]['client_mobile'] = $bookingRequest->client->mobile;
+                            $canceledRequest[$key4]['client_avator'] = $bookingRequest->client->avator;
+                            $canceledRequest[$key4]['client_rating'] = $client_rating;
+                            if($bookingRequest->driver_id>0){
+                                $driver_rating = getUserRating($bookingRequest->driver->id);
+                                $canceledRequest[$key4]['driver_id'] = $bookingRequest->driver->id;
+                                $canceledRequest[$key4]['driver_name'] = $bookingRequest->driver->name;
+                                $canceledRequest[$key4]['driver_mobile'] = $bookingRequest->driver->mobile;
+                                $canceledRequest[$key4]['driver_avator'] = $bookingRequest->driver->avator; 
+                                $canceledRequest[$key4]['login_status'] = AppUserLogingStatus($bookingRequest->driver->id); 
+                                $canceledRequest[$key4]['driver_rating'] = $driver_rating;
+                            }
+                            $canceledRequest[$key4]['status'] = $bookingRequest->status;
+                            $canceledRequest[$key4]['from_lat'] = $from_lat;
+                            $canceledRequest[$key4]['from_lng'] = $from_long;
+                            $canceledRequest[$key4]['to_lat'] = $to_lat;
+                            $canceledRequest[$key4]['to_lng'] = $to_long;
+                            $canceledRequest[$key4]['time'] = $formattedDate;
+                        if($payment){
+                            $canceledRequest[$key4]['payment_status'] = $payment->payment_status; 
+                            $canceledRequest[$key4]['bid_amount'] = $payment->payment_amount; 
+                            $canceledRequest[$key4]['coupon_discount'] = $payment->coupon_discount; 
+                            $canceledRequest[$key4]['coupon_code'] = $payment->coupon_code; 
+                            $canceledRequest[$key4]['trip_cost'] = $payment->payment_amount; 
+                        }
+                        $canceledRequest[$key4]['trip_start'] = $bookingRequest->start_time;
+                        $canceledRequest[$key4]['trip_end'] = $bookingRequest->end_time; 
+                    
                         
                          $key4++;
                      }

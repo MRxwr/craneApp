@@ -202,6 +202,10 @@ class BookingController extends Controller
                     $prices['mobile'] = $bidprice->client->mobile;
                     $prices['price'] =  $bidprice->price;
                     $prices['is_accepted'] = $bidprice->is_accepted;
+                    $user_id=$bidprice->client->id;
+                    $title=_lang('Driver makes bid');
+                    $message=_lang('New bid has been received.');
+                    firebaseNotification($user_id,$title,$message='',$data=[]);
                 }
                 $data['order_request']= [$prices];
                 return outputSuccess($data);
@@ -341,7 +345,18 @@ class BookingController extends Controller
                 if($dt->save()){
                      $status =4;
                      $activity = _lang('Canceled the order  by  ').$user->name;
-                      AddBookingLog($dt,$activity);
+                     AddBookingLog($dt,$activity);
+                     if($user->user_type==1){
+                        $user_id=$user->id;
+                        $title=_lang('Canceled trip');
+                        $message=_lang('Trip has been cancelled by client.');
+                        firebaseNotification($user_id,$title,$message='',$data=[]);
+                     }else{
+                        $user_id=$user->id;
+                        $title=_lang('Canceled trip');
+                        $message=_lang('Trip has been cancelled by driver and refunded to your wallet.');
+                        firebaseNotification($user_id,$title,$message='',$data=[]);
+                     }
                      $data['message']=_lang('Successfully Canceled the order');
                      return outputSuccess($data);
                 } 
@@ -986,6 +1001,10 @@ class BookingController extends Controller
                             $data['message'] =' Payment Successfully Done';
                             $data['price'] = $price;
                             $data['payment'] = $payment; 
+                            $user_id=$payment->driver_id;
+                            $title=_lang('new trip');
+                            $message=_lang('Client paid successfully. Please start your trip ASAP.');
+                            firebaseNotification($user_id,$title,$message='',$data=[]);
                             return outputSuccess($data);
                         }
                     }else{

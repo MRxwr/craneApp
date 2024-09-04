@@ -14,6 +14,7 @@ use App\Models\Setting;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Storage;
+use Carbon\Carbon;
 
 class SettingController extends Controller
 {
@@ -110,5 +111,39 @@ class SettingController extends Controller
            
         }
 
+    }
+
+    public function CronForCompleteTrip(Request $request){
+        $threeHoursAgo = Carbon::now()->subHours(3);
+        $bookingRequests = BookingRequest::where('status', 5)->where('notify', 0)->where('updated_at', '<', $threeHoursAgo)->get();
+        if(bookingRequests){
+            try{
+                foreach($bookingRequests as $bookingRequest){
+                    if($bookingRequest->client_id>0){
+                        $user_id=bookingRequest->client_id;
+                        $title=_lang('Trip Completed');
+                        $message=_lang('Your driver is waiting for your feedback. You can rate him now.');
+                        $status =  firebaseNotification($user_id,$title,$message='',$data=[]);  
+                    }
+                    if($bookingRequest->driver_id>0){
+                        $user_id=bookingRequest->driver_id;
+                        $title=_lang('Trip Completed');
+                        $message=_lang('Please rate your last trip client.');
+                        $status =  firebaseNotification($user_id,$title,$message='',$data=[]);  
+                    }  
+                    $bookingRequest->notify = 1;
+                    $bookingRequest->save();
+                }   
+            }catch (\Exception $e) {
+                $data['message']=_lang('Authentication error');
+                $data['errors'] = [
+                    'message' => $e->getMessage(),
+                    'code' => $e->getCode(),
+                    'file' => $e->getFile(),
+                    'line' => $e->getLine()
+                ];
+                return outputError($data); 
+            } 
+        }
     }
 }

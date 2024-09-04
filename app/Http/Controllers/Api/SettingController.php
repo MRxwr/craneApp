@@ -117,6 +117,7 @@ class SettingController extends Controller
         $threeHoursAgo = Carbon::now()->subHours(3);
         $bookingRequests = BookingRequest::where('status', 5)->where('notify', 0)->where('updated_at', '<', $threeHoursAgo)->get();
         if(bookingRequests){
+            $data['status']='';
             try{
                 foreach($bookingRequests as $bookingRequest){
                     if($bookingRequest->client_id>0){
@@ -133,9 +134,10 @@ class SettingController extends Controller
                     }  
                     $bookingRequest->notify = 1;
                     $bookingRequest->save();
-                    $data['status']=$status;
-                    return outputSuccess($data); 
+                     
                 }   
+                $data['status']=$status;
+                    return outputSuccess($data);
             }catch (\Exception $e) {
                 $data['message']=_lang('Authentication error');
                 $data['errors'] = [

@@ -588,7 +588,7 @@ class UserBookingController extends Controller
                                 $arrivedRequest[$key2]['client_avator'] = $bookingRequest->client->avator;
                                 $arrivedRequest[$key2]['client_rating'] = $client_rating;
                                 if($bookingRequest->driver_id>0){
-                                    $arrivedRequest = getUserRating($bookingRequest->driver->id);
+                                    $driver_rating = getUserRating($bookingRequest->driver->id);
                                     $arrivedRequest[$key2]['driver_id'] = $bookingRequest->driver->id;
                                     $arrivedRequest[$key2]['driver_name'] = $bookingRequest->driver->name;
                                     $arrivedRequest[$key2]['driver_mobile'] = $bookingRequest->driver->mobile;
@@ -625,7 +625,7 @@ class UserBookingController extends Controller
                         $ongoingRequest[$key3]['client_avator'] = $bookingRequest->client->avator;
                         $ongoingRequest[$key3]['client_rating'] = $client_rating;
                         if($bookingRequest->driver_id>0){
-                            $ongoingRequest = getUserRating($bookingRequest->driver->id);
+                            $driver_rating = getUserRating($bookingRequest->driver->id);
                             $ongoingRequest[$key3]['driver_id'] = $bookingRequest->driver->id;
                             $ongoingRequest[$key3]['driver_name'] = $bookingRequest->driver->name;
                             $ongoingRequest[$key3]['driver_mobile'] = $bookingRequest->driver->mobile;
@@ -663,7 +663,7 @@ class UserBookingController extends Controller
                          $canceledRequest[$key4]['client_avator'] = $bookingRequest->client->avator;
                          $canceledRequest[$key4]['client_rating'] = $client_rating;
                          if($bookingRequest->driver_id>0){
-                             $canceledRequest = getUserRating($bookingRequest->driver->id);
+                             $driver_rating = getUserRating($bookingRequest->driver->id);
                              $canceledRequest[$key4]['driver_id'] = $bookingRequest->driver->id;
                              $canceledRequest[$key4]['driver_name'] = $bookingRequest->driver->name;
                              $canceledRequest[$key4]['driver_mobile'] = $bookingRequest->driver->mobile;
@@ -702,7 +702,7 @@ class UserBookingController extends Controller
                          $completedRequest[$key5]['client_avator'] = $bookingRequest->client->avator;
                          $completedRequest[$key5]['client_rating'] = $client_rating;
                          if($bookingRequest->driver_id>0){
-                             $completedRequest = getUserRating($bookingRequest->driver->id);
+                             $driver_rating = getUserRating($bookingRequest->driver->id);
                              $completedRequest[$key5]['driver_id'] = $bookingRequest->driver->id;
                              $completedRequest[$key5]['driver_name'] = $bookingRequest->driver->name;
                              $completedRequest[$key5]['driver_mobile'] = $bookingRequest->driver->mobile;

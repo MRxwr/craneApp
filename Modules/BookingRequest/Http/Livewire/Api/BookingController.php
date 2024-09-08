@@ -980,6 +980,7 @@ class BookingController extends Controller
                         $ids=explode('|',$decodedData);
                         
                         if(!empty($ids)){
+                            $data=[];
                             $bidid = $ids[0];
                             $pid = $ids[1];
                             $price = BookingPrice::find($pid);
@@ -1053,6 +1054,7 @@ class BookingController extends Controller
                     $ids=explode('|',$decodedData);
                     
                     if(!empty($ids)){
+                        $data=[];
                         $bidid = $ids[0];
                         $pid = $ids[1];
                         $dt = BookingRequest::with('prices')->find($bidid);

@@ -1002,9 +1002,9 @@ class BookingController extends Controller
                             $user_id=$payment->driver_id;
                             $title=_lang('new trip');
                             $message=_lang('Client paid successfully. Please start your trip ASAP.');
-                            var_dump($data);
-                            exit;
+                            
                             @firebaseNotification($user_id,$title,$message='',$data=[]);
+                            
                             return outputSuccess($data);
                         }
                     }else{

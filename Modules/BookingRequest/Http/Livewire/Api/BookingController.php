@@ -978,12 +978,14 @@ class BookingController extends Controller
                     if($bsid && $paymentId){
                         $decodedData = base64_decode($bsid);
                         $ids=explode('|',$decodedData);
-                        var_dump($ids);
+                        
                         if(!empty($ids)){
                             $bidid = $ids[0];
                             $pid = $ids[1];
                             $price = BookingPrice::find($pid);
                             $dt = BookingRequest::with('prices')->find($bidid);
+                            var_dump($dt);
+                            exit;
                             $dt->status = 1;
                             $dt->driver_id = $price->driver_id?$price->driver_id:0;
                             $dt->save();

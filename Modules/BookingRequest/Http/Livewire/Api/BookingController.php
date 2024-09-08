@@ -975,20 +975,10 @@ class BookingController extends Controller
                 if($request->paymentId && $request->bsid){
                     $bsid = $request->bsid;
                     $paymentId = $request->paymentId;
-                    // $queryString = parse_url($url, PHP_URL_QUERY);
-                    // parse_str($queryString, $queryParams);
-                    // $bsid = $queryParams['bsid'];
-                    // if(isset($queryParams['payment_id'])){
-                    //     $paymentId = $queryParams['payment_id'];
-                    // }else if(isset($queryParams['paymentId'])){
-                    //     $paymentId = $queryParams['paymentId'];  
-                    // }else{
-                    //     $paymentId = '';
-                    // }
-                    
                     if($bsid && $paymentId){
                         $decodedData = base64_decode($bsid);
                         $ids=explode('|',$decodedData);
+                        var_dump($ids);
                         if(!empty($ids)){
                             $bidid = $ids[0];
                             $pid = $ids[1];
@@ -1054,18 +1044,7 @@ class BookingController extends Controller
                 if($request->paymentId && $request->bsid){
                     $bsid = $request->bsid;
                     $paymentId = $request->paymentId;
-                // $url = $request->link;
-                // $queryString = parse_url($url, PHP_URL_QUERY);
-                // parse_str($queryString, $queryParams);
-                // $bsid = $queryParams['bsid'];
-                // if(isset($queryParams['payment_id'])){
-                //     $paymentId = $queryParams['payment_id'];
-                // }else if(isset($queryParams['paymentId'])){
-                //     $paymentId = $queryParams['paymentId'];  
-                // }else{
-                //     $paymentId = '';
-                // }
-                //$paymentId = $queryParams['payment_id'];
+                
                 if($bsid && $paymentId){
                     $decodedData = base64_decode($bsid);
                     $ids=explode('|',$decodedData);

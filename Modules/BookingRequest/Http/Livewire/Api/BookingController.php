@@ -984,8 +984,7 @@ class BookingController extends Controller
                             $pid = $ids[1];
                             $price = BookingPrice::find($pid);
                             $dt = BookingRequest::with('prices')->find($bidid);
-                            var_dump($dt);
-                            exit;
+                            
                             $dt->status = 1;
                             $dt->driver_id = $price->driver_id?$price->driver_id:0;
                             $dt->save();
@@ -1002,7 +1001,9 @@ class BookingController extends Controller
                             $user_id=$payment->driver_id;
                             $title=_lang('new trip');
                             $message=_lang('Client paid successfully. Please start your trip ASAP.');
-                            firebaseNotification($user_id,$title,$message='',$data=[]);
+                            var_dump($data);
+                            exit;
+                            @firebaseNotification($user_id,$title,$message='',$data=[]);
                             return outputSuccess($data);
                         }
                     }else{

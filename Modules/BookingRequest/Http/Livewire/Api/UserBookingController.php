@@ -575,7 +575,7 @@ class UserBookingController extends Controller
                                 
                             $key1++ ;
                         }
- 
+                    //arrived trips
                      if($bookingRequest->status==2 && $bookingRequest->driver_id==$driverId){ //arrived
                          
                          $client_rating = getUserRating($bookingRequest->client_id);
@@ -615,6 +615,7 @@ class UserBookingController extends Controller
                             
                             $key2++;
                      }
+                     //ongoing trips   
                      if($bookingRequest->status==3 && $bookingRequest->driver_id==$driverId){ //ongoing
                             $client_rating = getUserRating($bookingRequest->client_id);
                             $ongoingRequest[$key3]['bidid']=$bookingRequest->id;
@@ -653,6 +654,7 @@ class UserBookingController extends Controller
                         
                             $key3++;
                      }
+                       //cancelled trips
                     if($bookingRequest->status==4 && $bookingRequest->driver_id==$driverId){ // canceled
                             $client_rating = getUserRating($bookingRequest->client_id);
                             $canceledRequest[$key4]['bidid']=$bookingRequest->id;
@@ -692,6 +694,7 @@ class UserBookingController extends Controller
                         
                          $key4++;
                      }
+                     //completed trips
                      if($bookingRequest->status==5 && $bookingRequest->driver_id==$driverId){ // completed
                         $client_rating = getUserRating($bookingRequest->client_id);
                         $completedRequest[$key5]['bidid']=$bookingRequest->id;
@@ -743,14 +746,9 @@ class UserBookingController extends Controller
                  $data['list'][3]['title']=_lang('Canceled trips request');
                  $data['list'][3]['data']= [$canceledRequest];
 
-                 $data['list'][4]['title']=_lang('Canceled trips request');
+                 $data['list'][4]['title']=_lang('Completed trips request');
                  $data['list'][4]['data']= [$completedRequest];
 
-                 //$data['upcommingRequest']= [$upcommingRequest];
-                 //$data['arrivedRequest']= [$arrivedRequest];
-                 //$data['ongoingRequest']= [$ongoingRequest];
-                 //$data['canceledRequest']= [$canceledRequest];
-                 //$data['completedRequest']= [$completedRequest];
                  return outputSuccess($data);
                 // Proceed with authenticated user logic
                 

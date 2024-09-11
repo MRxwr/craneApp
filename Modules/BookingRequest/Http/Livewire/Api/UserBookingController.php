@@ -136,7 +136,7 @@ class UserBookingController extends Controller
     public function GetDriverHome(Request $request){
         $data = array();
         $today = Carbon::today();
-         $token = $request->header('Authorization');
+        $token = $request->header('Authorization');
         // Check if validation fails
         if (!$token) {
             // If validation fails, return response with validation errors
@@ -201,11 +201,28 @@ class UserBookingController extends Controller
              foreach ($dtnew as $key=>$bookingRequest) {
                     $lat ='';
                     $long='';
+                    $from_lat='';
+                    $from_long='';
+                    $to_lat='';
+                    $to_long='';
                     if($bookingRequest->to_latlong){
+
                         $latlong=explode(',',$bookingRequest->to_latlong);
                         if(count($latlong)==2){
                             $lat = $latlong[0];
                             $long = $latlong[1];
+                            $to_lat=$latlong[0];;
+                            $to_long=$latlong[1];
+                        }
+                    }
+                    if($bookingRequest->from_latlong){
+
+                        $latlong=explode(',',$bookingRequest->from_latlong);
+                        if(count($latlong)==2){
+                            $lat = $latlong[0];
+                            $long = $latlong[1];
+                            $from_lat=$latlong[0];;
+                            $from_long=$latlong[1];
                         }
                     }
                     if($bookingRequest->driver_id==0 && $bookingRequest->prices->count()>0){
@@ -224,6 +241,10 @@ class UserBookingController extends Controller
                                 $newTripRequest[$nkey]['client_rating'] = $client_rating;
                                 $newTripRequest[$nkey]['lat'] = $lat;
                                 $newTripRequest[$nkey]['lng'] = $long;
+                                $newTripRequest[$nkey]['to_lat'] = $to_lat;
+                                $newTripRequest[$nkey]['to_lng'] = $to_long;
+                                $newTripRequest[$nkey]['from_lat'] = $from_lat;
+                                $newTripRequest[$nkey]['from_lng'] = $from_long;
                                 $prices=[];
                                 $prices[$rkey]['price_id'] = $price->id;
                                 $prices[$rkey]['client_name'] = $price->client->name;
@@ -243,6 +264,10 @@ class UserBookingController extends Controller
                                 $pendingRequest[$pkey]['client_rating'] = $client_rating;
                                 $pendingRequest[$pkey]['lat'] = $lat;
                                 $pendingRequest[$pkey]['lng'] = $long;
+                                $pendingRequest[$pkey]['to_lat'] = $to_lat;
+                                $pendingRequest[$pkey]['to_lng'] = $to_long;
+                                $pendingRequest[$pkey]['from_lat'] = $from_lat;
+                                $pendingRequest[$pkey]['from_lng'] = $from_long;
                                 $prices=[];
                                 $prices[$npkey]['price_id'] = $price->id;
                                 $prices[$npkey]['client_name'] = $price->client->name;
@@ -286,10 +311,23 @@ class UserBookingController extends Controller
                     $lat ='';
                     $long='';
                     if($bookingRequest->to_latlong){
+
                         $latlong=explode(',',$bookingRequest->to_latlong);
                         if(count($latlong)==2){
                             $lat = $latlong[0];
                             $long = $latlong[1];
+                            $to_lat=$latlong[0];;
+                            $to_long=$latlong[1];
+                        }
+                    }
+                    if($bookingRequest->from_latlong){
+
+                        $latlong=explode(',',$bookingRequest->from_latlong);
+                        if(count($latlong)==2){
+                            $lat = $latlong[0];
+                            $long = $latlong[1];
+                            $from_lat=$latlong[0];;
+                            $from_long=$latlong[1];
                         }
                     }
                     // if($bookingRequest->status==0 && $bookingRequest->driver_id==0 ){
@@ -318,6 +356,10 @@ class UserBookingController extends Controller
                         $upcommingRequest[$key1]['status'] = $bookingRequest->status;
                         $upcommingRequest[$key1]['lat'] = $lat;
                         $upcommingRequest[$key1]['lng'] = $long;
+                        $upcommingRequest[$key1]['to_lat'] = $to_lat;
+                        $upcommingRequest[$key1]['to_lng'] = $to_long;
+                        $upcommingRequest[$key1]['from_lat'] = $from_lat;
+                        $upcommingRequest[$key1]['from_lng'] = $from_long;
                         $upcommingRequest[$key1]['rating'] = $bookingRequest->rating;
                         $key1++ ;
                        }
@@ -333,6 +375,10 @@ class UserBookingController extends Controller
                         $arrivedRequest[$key2]['status'] = $bookingRequest->status;
                         $arrivedRequest[$key2]['lat'] = $lat;
                         $arrivedRequest[$key2]['lng'] = $long;
+                        $arrivedRequest[$key2]['to_lat'] = $to_lat;
+                        $arrivedRequest[$key2]['to_lng'] = $to_long;
+                        $arrivedRequest[$key2]['from_lat'] = $from_lat;
+                        $arrivedRequest[$key2]['from_lng'] = $from_long;
                         $arrivedRequest[$key2]['rating'] = $bookingRequest->rating;
                         $key2++;
                     }
@@ -347,6 +393,10 @@ class UserBookingController extends Controller
                         $ongoingRequest[$key3]['status'] = $bookingRequest->status;
                         $ongoingRequest[$key3]['lat'] = $lat;
                         $ongoingRequest[$key3]['lng'] = $long;
+                        $ongoingRequest[$key3]['to_lat'] = $to_lat;
+                        $ongoingRequest[$key3]['to_lng'] = $to_long;
+                        $ongoingRequest[$key3]['from_lat'] = $from_lat;
+                        $ongoingRequest[$key3]['from_lng'] = $from_long;
                         $ongoingRequest[$key3]['rating'] = $bookingRequest->rating;
                         $key3++;
                     }
@@ -361,6 +411,10 @@ class UserBookingController extends Controller
                         $canceledRequest[$key4]['status'] = $bookingRequest->status;
                         $canceledRequest[$key4]['lat'] = $lat;
                         $canceledRequest[$key4]['lng'] = $long;
+                        $canceledRequest[$key4]['to_lat'] = $to_lat;
+                        $canceledRequest[$key4]['to_lng'] = $to_long;
+                        $canceledRequest[$key4]['from_lat'] = $from_lat;
+                        $canceledRequest[$key4]['from_lng'] = $from_long;
                         $canceledRequest[$key4]['rating'] = $bookingRequest->rating;
                         $key4++;
                     }
@@ -375,6 +429,10 @@ class UserBookingController extends Controller
                         $completedRequest[$key5]['status'] = $bookingRequest->status;
                         $completedRequest[$key5]['lat'] = $lat;
                         $completedRequest[$key5]['lng'] = $long;
+                        $completedRequest[$key5]['to_lat'] = $to_lat;
+                        $completedRequest[$key5]['to_lng'] = $to_long;
+                        $completedRequest[$key5]['from_lat'] = $from_lat;
+                        $completedRequest[$key5]['from_lng'] = $from_long;
                         $completedRequest[$key5]['rating'] = $bookingRequest->rating;
                        $key5++;
                     }

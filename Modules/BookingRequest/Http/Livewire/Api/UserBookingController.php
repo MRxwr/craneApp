@@ -39,7 +39,15 @@ class UserBookingController extends Controller
             if ($user) {
                 $clientId = $user->id;
                $data['message']=_lang('get Order request');
-               $dt = BookingRequest::with('prices')->with('payment')->where('client_id', $user->id)->where('is_deleted', 0)->whereIn('status',['',0,1,2,3,4,5])->get();
+               //$dt = BookingRequest::with('prices')->with('payment')->where('client_id', $user->id)->where('is_deleted', 0)->whereIn('status',['',0,1,2,3,4,5])->get();
+               $dt = BookingRequest::with('prices')
+               ->with('payment')
+               ->where('client_id', $user->id)
+               ->where('is_deleted', 0)
+               ->whereIn('status', ['', 0, 1, 2, 3, 4, 5])
+               ->orderBy('created_at', 'desc')
+               ->get();
+
                $orderRequest =[];
                $prices=[];
                 foreach ($dt as $key=>$bookingRequest){
@@ -175,6 +183,7 @@ class UserBookingController extends Controller
                 $query->whereDate('created_at', $today)
                     ->where('driver_id', $driverId);
             }])
+            ->orderBy('created_at', 'desc')
             ->get();
             $totalEarnings = $todayRequests->sum(function($bookingRequest) {
                 return @$bookingRequest->payment->payment_amount;
@@ -291,7 +300,7 @@ class UserBookingController extends Controller
                })
                ->with(['payment' => function($query) use ($driverId) {
                    $query->where('driver_id', $driverId);
-               }])->get();
+               }]) ->orderBy('created_at', 'desc')->get();
 
                $orderRequest =[];
               

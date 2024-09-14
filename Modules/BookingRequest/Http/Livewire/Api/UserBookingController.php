@@ -300,7 +300,7 @@ class UserBookingController extends Controller
                })
                ->with(['payment' => function($query) use ($driverId) {
                    $query->where('driver_id', $driverId);
-               }]) ->orderBy('created_at', 'desc')->get();
+               }])->orderBy('created_at', 'desc')->get();
 
                $orderRequest =[];
               

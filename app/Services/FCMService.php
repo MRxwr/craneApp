@@ -34,14 +34,20 @@ class FCMService
                 ->withNotification([
                     'title' => $title,
                     'body' => $body,
-                ]);
+                ])->withData($data); // Add custom data here;
 
             // Send the message
             $this->messaging->send($message);
 
-            return ['message' => 'Notification sent successfully'];
+            return [
+                'success' => true,
+                'message' => 'Notification sent successfully.',
+            ];
         } catch (\Exception $e) {
-            return ['error' => 'Failed to send notification', 'details' => $e->getMessage()];
+            return [
+                'success' => false,
+                'message' => 'Failed to send notification: ' . $e->getMessage(),
+            ];
         }
     }
 }

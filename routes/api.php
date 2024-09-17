@@ -4,6 +4,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\HomeController;
 use App\Http\Controllers\Api\SettingController;
+use App\Http\Controllers\Api\NotificationController;
+use App\Http\Controllers\Api\FirebaseAuthController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -19,6 +21,8 @@ use App\Http\Controllers\Api\SettingController;
 Route::prefix('v1')->group(function () {
     Route::post('/home', [HomeController::class, 'getHome']);
     Route::post('/setting', [SettingController::class, 'getSetting']);
+    Route::post('/send_notification', [NotificationController::class, 'sendNotification']);
+    Route::post('/request_token', [FirebaseAuthController::class, 'getBearerToken']);
     Route::post('/test_notification', [SettingController::class, 'testFirebaseNotification']);
     Route::get('/cron_notification', [SettingController::class, 'CronForCompleteTrip']);
 });

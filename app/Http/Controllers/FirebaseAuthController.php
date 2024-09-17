@@ -37,4 +37,5 @@ class FirebaseAuthController extends Controller
             return response()->json(['error' => 'Malformed token'], 400);
         }
     }
+    
 }

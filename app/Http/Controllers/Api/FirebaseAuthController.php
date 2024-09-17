@@ -23,7 +23,7 @@ class FirebaseAuthController extends Controller
     {
         try {
             // Example: Authenticate a user and get an ID token (Bearer token)
-            $email = 'Createkwco@gmail.com'; // Replace with your Firebase user's email
+            $email = 'createkwco@gmail.com'; // Replace with your Firebase user's email
             $password = 'N@b$90949089'; // Replace with the user's password
             
             // Sign in the user with email and password

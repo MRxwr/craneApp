@@ -1,37 +1,47 @@
 <?php
+
 namespace App\Services;
 
-use Illuminate\Support\Facades\Http;
+use Kreait\Firebase\Factory;
+use Kreait\Firebase\Messaging\CloudMessage;
 
 class FCMService
 {
-    protected $serverKey;
-    protected $senderId;
+    protected $messaging;
 
     public function __construct()
     {
-        $this->serverKey = env('FCM_SERVER_KEY');
-        $this->senderId = env('FCM_SENDER_ID');
+        // Initialize Firebase Messaging
+        $firebase = (new Factory)
+            ->withServiceAccount(config('firebase.credentials.file'));
+
+        $this->messaging = $firebase->createMessaging();
     }
 
-    public static function sendNotification($token, $title, $body, $data = [])
+    /**
+     * Send Firebase Cloud Message to a specific device token
+     *
+     * @param string $deviceToken
+     * @param string $title
+     * @param string $body
+     * @return array
+     */
+    public function sendNotification($deviceToken, $title, $body)
     {
-        $serverKey = env('FCM_SERVER_KEY');
-        $senderId = env('FCM_SENDER_ID');
-        $url = 'https://fcm.googleapis.com/fcm/send';
-        $payload = [
-            'to' => $token,
-            'notification' => [
-                'title' => $title,
-                'body' => $body,
-            ],
-            'data' => array_merge($data, ['sender_id' => $senderId]),
-        ];
-        $headers = [
-            'Authorization' => 'key=' . $serverKey,
-            'Content-Type' => 'application/json',
-        ];
-        $response = Http::withHeaders($headers)->post($url, $payload);
-        return $response->json();
+        try {
+            // Build the notification message
+            $message = CloudMessage::withTarget('token', $deviceToken)
+                ->withNotification([
+                    'title' => $title,
+                    'body' => $body,
+                ]);
+
+            // Send the message
+            $this->messaging->send($message);
+
+            return ['message' => 'Notification sent successfully'];
+        } catch (\Exception $e) {
+            return ['error' => 'Failed to send notification', 'details' => $e->getMessage()];
+        }
     }
 }

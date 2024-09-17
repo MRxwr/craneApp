@@ -28,10 +28,10 @@ class FirebaseAuthController extends Controller
             
             // Sign in the user with email and password
             $signInResult = $this->firebaseAuth->signInWithEmailAndPassword($email, $password);
-            
+            dd($signInResult);
             // Get the Bearer Token (Firebase ID Token)
             $idToken = $signInResult->idToken();  // This is the Bearer Token
-            dd($idToken);
+           
             return response()->json(['token' => $idToken]);
         } catch (\Exception $e) {
             

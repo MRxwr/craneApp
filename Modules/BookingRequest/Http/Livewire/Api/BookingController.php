@@ -448,12 +448,14 @@ class BookingController extends Controller
                 if($dt){
                     if($dt->status==1){
                             //$dt->end_time = Carbon::now();
-                            $dt->status = 2;
+                            $dt->started = 'started';
+                            $dt->status==1;
                             $activity = _lang('Trip started by  ').$user->name;
                             $data['message']=_lang('Order started by  ').$user->name;
                             
-                    }else if($dt->status==2){
+                    }else if($dt->status==1 && $dt->started=='started'){
                         $dt->start_time = Carbon::now();
+                        $dt->started = 'pickup';
                         $dt->status = 3;
                         $activity = _lang('Driver reached to the pickup location and Trip on going by ').$user->name;
                         //$activity = _lang('Trip on going by  ').$user->name;

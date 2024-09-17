@@ -116,7 +116,6 @@ class UserBookingController extends Controller
                        $orderRequest[$key]['trip_end'] = $bookingRequest->end_time;
                         
                   }
-                
                 $data['ClientOrder']= $orderRequest;
                return outputSuccess($data);
                 // Proceed with authenticated user logic

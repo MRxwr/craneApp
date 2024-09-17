@@ -13,6 +13,7 @@
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.0.1",
         "intervention/image": "^2.7",
+        "kreait/firebase-php": "7.0",
         "laravel/framework": "^8.75",
         "laravel/sanctum": "^2.11",
         "laravel/tinker": "^2.5",
@@ -20,7 +21,8 @@
         "maatwebsite/excel": "^3.1",
         "mhmiton/laravel-modules-livewire": "^1.5",
         "milon/barcode": "^9.0",
-        "nwidart/laravel-modules": "^8.3"
+        "nwidart/laravel-modules": "^8.3",
+        "spatie/laravel-image-optimizer": "^1.8"
     },
     "require-dev": {
         "facade/ignition": "^2.5",

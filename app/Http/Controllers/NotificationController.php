@@ -21,19 +21,22 @@ class NotificationController extends Controller
 
     public function sendNotification(Request $request)
     {
-        $deviceToken = $request->input('device_token'); // FCM device token
-
-        $message = CloudMessage::withTarget('token', $deviceToken)
-            ->withNotification([
-                'title' => 'Hello!',
-                'body' => 'This is a Firebase Cloud Message!',
-            ]);
-
         try {
-            $this->messaging->send($message);
-            return response()->json(['message' => 'Notification sent successfully']);
+            $user_id=$request->id;
+            $title=_lang('new trip');
+            $message=_lang('Client create New trip please Bid');
+            $status =  firebaseNotification($user_id,$title,$message='',$data=[]);
+            $data['status']=$status;
+            return outputSuccess($data);
         } catch (\Exception $e) {
-            return response()->json(['error' => 'Failed to send notification', 'details' => $e->getMessage()], 500);
+            $data['message']=_lang('Authentication error');
+            $data['errors'] = [
+                'message' => $e->getMessage(),
+                'code' => $e->getCode(),
+                'file' => $e->getFile(),
+                'line' => $e->getLine()
+            ];
+            return outputError($data);
         }
     }
 }

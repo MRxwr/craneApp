@@ -96,7 +96,7 @@ class SettingController extends Controller
                 $title=_lang('new trip');
                 $message=_lang('Client create New trip please Bid');
                 $status =  firebaseNotification($user_id,$title,$message='',$data=[]);
-                $data['status']=$status;
+                $data['data']=$status;
                 return outputSuccess($data);
             } catch (\Exception $e) {
                 $data['message']=_lang('Authentication error');

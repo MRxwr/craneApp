@@ -235,9 +235,17 @@ function upadteUserMeta($key,$value,$app_user_id){
     $log->save();
   }
   function firebaseNotification($user_id,$title,$message='',$data=[]){
-    if($user_id){
-        $user = AppUser::find($user_id);
-        FCMService::sendNotification($user->device_token,$title,$message,$data);
+   
+    try {
+        if($user_id){
+            $user = AppUser::find($user_id);
+           // FCMService::sendNotification($user->device_token,$title,$message,$data);
+           $firebaseNotificationService = app(FCMService::class);
+        return $firebaseNotificationService->sendNotification($user->device_token,$title,$message,$data);
+        }
+        
+    } catch (\Exception $e) {
+        return ['error' => 'Failed to send notification', 'details' => $e->getMessage()];
     }
 
   }

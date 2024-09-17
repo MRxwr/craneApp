@@ -26,7 +26,7 @@ class FCMService
      * @param string $body
      * @return array
      */
-    public function sendNotification($deviceToken, $title, $body)
+    public function sendNotification($deviceToken, $title, $body, $data = [])
     {
         try {
             // Build the notification message

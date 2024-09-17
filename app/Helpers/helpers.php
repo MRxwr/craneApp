@@ -242,7 +242,7 @@ function upadteUserMeta($key,$value,$app_user_id){
            // FCMService::sendNotification($user->device_token,$title,$message,$data);
            $firebaseNotificationService = app(FCMService::class);
         $response = $firebaseNotificationService->sendNotification($user->device_token,$title,$message,$data);
-        dd($response);
+        dd($response['message']);
       }
         
     } catch (\Exception $e) {

@@ -21,22 +21,17 @@ class FirebaseAuthController extends Controller
     // Function to verify Firebase ID Token
     public function getBearerToken()
     {
-        try {
-            // Example: Authenticate a user and get an ID token (Bearer token)
-            $email = 'createkwco@gmail.com'; // Replace with your Firebase user's email
-            $password = 'N@b$90949089'; // Replace with the user's password
-            
-            // Sign in the user with email and password
-            $signInResult = $this->firebaseAuth->signInWithEmailAndPassword($email, $password);
-            dd($signInResult);
-            // Get the Bearer Token (Firebase ID Token)
-            $idToken = $signInResult->idToken();  // This is the Bearer Token
-           
-            return response()->json(['token' => $idToken]);
-        } catch (\Exception $e) {
-            
-            return response()->json(['error' => 'Unable to get token', 'details' => $e->getMessage()], 500);
-        }
+         // Example: Authenticate a user and get an ID token (Bearer token)
+         $email = 'Createkwco@gmail.com'; // Replace with your Firebase user's email
+         $password = 'N@b$90949089'; // Replace with the user's password
+         
+         // Sign in the user with email and password
+         $signInResult = $this->firebaseAuth->signInWithEmailAndPassword($email, $password);
+         dd($signInResult);
+         // Get the Bearer Token (Firebase ID Token)
+         $idToken = $signInResult->idToken();  // This is the Bearer Token
+        
+         return response()->json(['token' => $idToken]);
     }
     
 }

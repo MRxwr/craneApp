@@ -13,10 +13,8 @@ class FirebaseAuthController extends Controller
     public function __construct()
     {
        // Initialize Firebase with the service account
-       $firebase = (new Factory)
-       ->withServiceAccount(config('firebase.credentials.file'));
-
-   $this->firebaseAuth = $firebase->createAuth();
+       $firebase = (new Factory)->withServiceAccount(config('firebase.credentials.file'));
+        $this->firebaseAuth = $firebase->createAuth();
     }
 
     // Function to verify Firebase ID Token

@@ -34,6 +34,7 @@ class FirebaseAuthController extends Controller
             
             return response()->json(['token' => $idToken]);
         } catch (\Exception $e) {
+            dd($e);
             return response()->json(['error' => 'Unable to get token', 'details' => $e->getMessage()], 500);
         }
     }

@@ -21,7 +21,7 @@ class FirebaseAuthController extends Controller
     // Function to verify Firebase ID Token
     public function getBearerToken()
     {
-        dd(config('firebase.credentials.file'));
+        dd(file_get_contents(config('firebase.credentials.file')));
          // Example: Authenticate a user and get an ID token (Bearer token)
          $email = 'Createkwco@gmail.com'; // Replace with your Firebase user's email
          $password = 'N@b$90949089'; // Replace with the user's password

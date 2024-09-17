@@ -239,11 +239,11 @@ function upadteUserMeta($key,$value,$app_user_id){
     try {
         if($user_id){
             $user = AppUser::find($user_id);
-            dd($user);
            // FCMService::sendNotification($user->device_token,$title,$message,$data);
            $firebaseNotificationService = app(FCMService::class);
-        return $firebaseNotificationService->sendNotification($user->device_token,$title,$message,$data);
-        }
+        $response = $firebaseNotificationService->sendNotification($user->device_token,$title,$message,$data);
+        dd($response);
+      }
         
     } catch (\Exception $e) {
         return ['error' => 'Failed to send notification', 'details' => $e->getMessage()];

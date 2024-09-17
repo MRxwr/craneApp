@@ -90,6 +90,7 @@ class SettingController extends Controller
     }
     public function testFirebaseNotification(Request $request){
         if($request->id){
+            dd($request->id);
             try {
                 $user_id=$request->id;
                 $title=_lang('new trip');

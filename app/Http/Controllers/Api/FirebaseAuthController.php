@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers\Api;
 
 use Illuminate\Http\Request;
@@ -8,8 +7,7 @@ use Kreait\Firebase\Auth;
 
 class FirebaseAuthController extends Controller
 {
-    protected $auth;
-
+    protected $firebaseAuth;
     public function __construct()
     {
        // Initialize Firebase with the service account

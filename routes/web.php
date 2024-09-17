@@ -9,7 +9,6 @@ use App\Http\Controllers\Login_controller;
 use App\Http\Livewire\Languages\Index as LanguagesIndex;
 use App\Http\Livewire\Locales\Index as LocalesIndex;
 use App\Http\Controllers\FirebaseAuthController;
-
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Session;

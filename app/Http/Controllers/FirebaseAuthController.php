@@ -1,41 +1,32 @@
 <?php
+namespace App\Http\Controllers\Api;
 
-namespace App\Http\Controllers;
-
-use Illuminate\Http\Request;
-use Kreait\Firebase\Factory;
-use Kreait\Firebase\Auth;
+use App\Http\Controllers\Controller;
+use App\Services\FirebaseService;
+use Illuminate\Http\JsonResponse;
 
 class FirebaseAuthController extends Controller
 {
-    protected $auth;
+    protected $firebaseService;
 
-    public function __construct()
+    public function __construct(FirebaseService $firebaseService)
     {
-        // Initialize Firebase
-        $firebase = (new Factory)
-            ->withServiceAccount(config('firebase.credentials.file'));
-
-        $this->auth = $firebase->createAuth();
+        $this->firebaseService = $firebaseService;
     }
 
-    // Function to verify Firebase ID Token
-    public function verifyToken(Request $request)
+    /**
+     * Get the Bearer Token and return it as JSON response.
+     *
+     * @return JsonResponse
+     */
+    public function getBearerToken()
     {
-        $idTokenString = $request->input('idToken');
+        $token = $this->firebaseService->getBearerToken();
 
-        try {
-            $verifiedIdToken = $this->auth->verifyIdToken($idTokenString);
-            $uid = $verifiedIdToken->claims()->get('sub');
-
-            $user = $this->auth->getUser($uid);
-            return response()->json(['message' => 'Token verified', 'user' => $user]);
-
-        } catch (\Kreait\Firebase\Exception\Auth\InvalidToken $e) {
-            return response()->json(['error' => 'Invalid token'], 401);
-        } catch (\InvalidArgumentException $e) {
-            return response()->json(['error' => 'Malformed token'], 400);
+        if ($token) {
+            return response()->json(['token' => $token], 200);
+        } else {
+            return response()->json(['error' => 'Unable to get token'], 500);
         }
     }
-    
 }

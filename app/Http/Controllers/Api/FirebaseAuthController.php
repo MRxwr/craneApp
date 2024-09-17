@@ -13,7 +13,7 @@ class FirebaseAuthController extends Controller
     {
        // Initialize Firebase with the service account
        $firebase = (new Factory)
-            ->withServiceAccount(config('firebase.credentials.file'));
+            ->withServiceAccount("/home/u341645071/domains/trycraneapp.com/public_html/admincp/storage/app/fcm/crane-dbb8b-firebase-adminsdk-uezkp-e824b13302.json");
 
        $this->firebaseAuth = $firebase->createAuth();
     }

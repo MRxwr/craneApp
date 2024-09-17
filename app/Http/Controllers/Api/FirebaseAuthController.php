@@ -31,10 +31,10 @@ class FirebaseAuthController extends Controller
             
             // Get the Bearer Token (Firebase ID Token)
             $idToken = $signInResult->idToken();  // This is the Bearer Token
-            
+            dd($idToken);
             return response()->json(['token' => $idToken]);
         } catch (\Exception $e) {
-            dd($e);
+            
             return response()->json(['error' => 'Unable to get token', 'details' => $e->getMessage()], 500);
         }
     }

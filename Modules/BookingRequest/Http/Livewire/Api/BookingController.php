@@ -452,20 +452,24 @@ class BookingController extends Controller
                             $dt->status=1;
                             $activity = _lang('Trip started by  ').$user->name;
                             $data['message']=_lang('Order started by  ').$user->name;
-                            
-                    }else if($dt->status==1 && $dt->started=='started'){
+                            if($dt->save()){
+                                AddBookingLog($dt,$activity);
+                                return outputSuccess($data);
+                            } 
+                        }else if($dt->status==1 && $dt->started=='started'){
                         $dt->start_time = Carbon::now();
                         $dt->started = 'pickup';
                         $dt->status = 3;
                         $activity = _lang('Driver reached to the pickup location and Trip on going by ').$user->name;
                         //$activity = _lang('Trip on going by  ').$user->name;
                         $data['message']=_lang('Driver reached to the pickup location and Trip on going by  ').$user->name;
-                        
+                        if($dt->save()){
+                            AddBookingLog($dt,$activity);
+                            return outputSuccess($data);
+                        }    
+                   
                     }
-                    if($dt->save()){
-                        AddBookingLog($dt,$activity);
-                        return outputSuccess($data);
-                    } 
+                    
                 }else{
                     $data['message']=_lang('Order not found');
                     return outputError($data);

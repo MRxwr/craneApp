@@ -449,7 +449,7 @@ class BookingController extends Controller
                     if($dt->status==1){
                             //$dt->end_time = Carbon::now();
                             $dt->started = 'started';
-                            $dt->status==1;
+                            $dt->status=1;
                             $activity = _lang('Trip started by  ').$user->name;
                             $data['message']=_lang('Order started by  ').$user->name;
                             

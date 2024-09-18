@@ -36,7 +36,6 @@ Route::get('/language/{locale}', function ($locale) {
      Session::put('locale', $locale);
     return redirect()->back();
 });
-Route::post('/verify-token', [FirebaseAuthController::class, 'verifyToken']);
 
 Route::get('/create-storage-link', function () {
     try {
@@ -59,6 +58,8 @@ Route::get('/config', function () {
     Artisan::call('config:cache');
     return 'config cache completed';
 });
+
+Route::post('/verify-token', [FirebaseAuthController::class, 'verifyToken']);
 Route::get('/success', [HomeController::class, 'success'])->name('success');
 Route::get('/failed', [HomeController::class, 'Failed'])->name('failed');
 Route::middleware(['web', 'auth'])->group(function () {

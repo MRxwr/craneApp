@@ -237,8 +237,10 @@ class UserBookingController extends Controller
                         $client_rating = getUserRating($bookingRequest->client_id);
                         $rkey=0;
                         $npkey=0;
+                        $numpen=0;
+                        $numnew=0;
                      foreach ($bookingRequest->prices as $keyr=>$price) {
-                            if(!$price->price){
+                            if(!$price->price && $numnew==0){
                                 $newTripRequest[$nkey]['bidid']=$bookingRequest->id;
                                 $newTripRequest[$nkey]['request_id']=$bookingRequest->request_id;
                                 $newTripRequest[$nkey]['from_location']=$bookingRequest->from_location;
@@ -261,7 +263,8 @@ class UserBookingController extends Controller
                                 $prices[$rkey]['is_accepted'] = $price->is_accepted;
                                 $newTripRequest[$nkey]['prices']= $prices;
                                 $nkey++;
-                            }else{
+                                $numnew++;
+                            }else if($price->price && $numpen==0){
                                 $pendingRequest[$pkey]['bidid']=$bookingRequest->id;
                                 $pendingRequest[$pkey]['request_id']=$bookingRequest->request_id;
                                 $pendingRequest[$pkey]['from_location']=$bookingRequest->from_location;
@@ -285,6 +288,7 @@ class UserBookingController extends Controller
                                 
                                 $pendingRequest[$pkey]['prices']= $prices; 
                                 $rkey++;
+                                $numpen++;
                             }
                         }
                      

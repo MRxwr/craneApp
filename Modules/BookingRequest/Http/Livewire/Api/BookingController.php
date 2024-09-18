@@ -998,6 +998,7 @@ class BookingController extends Controller
                             $payment->transaction_id=$paymentId;
                             $payment->payment_status='success';
                             $payment->save();
+                            BookingPrice::where('request_id',$bidid)->where('driver_id','!=',$price->driver_id)->update(['skip'=>1]);
                             $data['message'] =' Payment Successfully Done';
                             $data['price'] = $price;
                             $data['payment'] = $payment; 

@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Session;
 
 
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -54,6 +55,7 @@ Route::get('/install', function () {
     return 'install/cache completed';
 });
 Route::get('/config', function () {
+    Artisan::call('config:clear');
     Artisan::call('config:cache');
     return 'config cache completed';
 });

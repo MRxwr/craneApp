@@ -446,7 +446,7 @@ class BookingController extends Controller
                 $data['message']=_lang('Save order start/end');
                 $dt = BookingRequest::with('prices')->find($bidid);
                 if($dt){
-                    if($dt->status==1){
+                    if($dt->status==1 && $dt->started==''){
                             //$dt->end_time = Carbon::now();
                             $dt->started = 'started';
                             $dt->status=1;

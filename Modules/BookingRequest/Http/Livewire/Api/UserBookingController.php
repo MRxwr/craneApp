@@ -174,14 +174,14 @@ class UserBookingController extends Controller
                 $driverId = $user->id;
                $data['message']=_lang('get Order request');
                $todayRequests = BookingRequest::where('is_deleted', 0)
-            ->whereHas('payment', function($query) use ($today, $driverId) {
-                $query->whereDate('created_at', $today)
-                    ->where('driver_id', $driverId);
-            })
-            ->with(['payment' => function($query) use ($today, $driverId) {
-                $query->whereDate('created_at', $today)
-                    ->where('driver_id', $driverId);
-            }])
+                    ->whereHas('payment', function($query) use ($today, $driverId) {
+                        $query->whereDate('created_at', $today)
+                            ->where('driver_id', $driverId);
+                    })
+                    ->with(['payment' => function($query) use ($today, $driverId) {
+                        $query->whereDate('created_at', $today)
+                            ->where('driver_id', $driverId);
+                    }])
             ->orderBy('created_at', 'desc')
             ->get();
             $totalEarnings = $todayRequests->sum(function($bookingRequest) {
@@ -190,10 +190,10 @@ class UserBookingController extends Controller
             $totalDistance = $todayRequests->sum('distances'); // Assuming 'distance' is a field in BookingRequest
             $totalRequests = $todayRequests->count();
                $data['todayEarnings']= [
-                'total_earnings' => $totalEarnings,
+                'total_earnings' => number_format($totalEarnings, 3),
                 'total_distance' => $totalDistance,
                 'total_trips' => $totalRequests,
-                'time_online'=>$totalLoginTimeFormatted,
+                'time_online'=>number_format($totalLoginTimeFormatte,2),
                 'login_status' => AppUserLogingStatus($driverId)
             ];
 
@@ -507,6 +507,7 @@ class UserBookingController extends Controller
                 //$query->whereDate('created_at', $today)
                 $query->where('driver_id', $driverId);
             }])
+            ->where('status', 5)
             ->get();
 
             $totalEarnings = @$todayRequests->sum(function($bookingRequest) {
@@ -516,7 +517,7 @@ class UserBookingController extends Controller
             $totalDistance = $todayRequests->sum('distances'); // Assuming 'distance' is a field in BookingRequest
             $totalRequests = $todayRequests->count();
                $data['status']= [
-                'total_earnings' => $totalEarnings,
+                'total_earnings' => number_format($totalEarnings, 3, '.', ''),
                 'total_distance' => $totalDistance,
                 'total_orders' => $totalRequests,
                ];

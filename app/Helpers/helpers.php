@@ -239,10 +239,12 @@ function upadteUserMeta($key,$value,$app_user_id){
     try {
         if($user_id){
             $user = AppUser::find($user_id);
-           // FCMService::sendNotification($user->device_token,$title,$message,$data);
-           $firebaseNotificationService = app(FCMService::class);
-           $response = $firebaseNotificationService->sendNotification($user->device_token,$title,$message,$data);
-        
+           if($user){ 
+            // off firebase  notification by comment code below line
+            // if need to send notification by firebase use below code
+                //$firebaseNotificationService = app(FCMService::class);
+                //$response = $firebaseNotificationService->sendNotification($user->device_token,$title,$message,$data);
+             }
       }
         
     } catch (\Exception $e) {

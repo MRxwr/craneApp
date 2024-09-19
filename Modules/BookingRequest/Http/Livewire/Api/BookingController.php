@@ -351,6 +351,7 @@ class BookingController extends Controller
                 $dt->is_active = 4;
                 $dt->status = 4;
                 if($dt->save()){
+                    
                      $status =4;
                      $activity = _lang('Canceled the order  by  ').$user->name;
                      AddBookingLog($dt,$activity);

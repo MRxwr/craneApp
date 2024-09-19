@@ -337,6 +337,10 @@ class UserController extends Controller
             $data['errors'] = ['token'=>'header Authorization token is requred'];
             return outputError($data);
         }
+        $rules = [
+            'old_password' => 'required',
+            'new_password' => 'required|min:8',
+        ];
         // Perform validation
         $validator = Validator::make($request->all(), $rules);
         // Check if validation fails

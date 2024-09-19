@@ -946,8 +946,6 @@ class BookingController extends Controller
                 $data['message']=_lang('Send Crane Request');
                 $dt = BookingPrice::where('request_id',$bidid)->where('driver_id',$user->id)->first();
               if($dt){
-                  
-             
                 $dt->skip = 1;
                 if($dt->save()){
                      $activity = _lang('The order has been Skipped by ').$user->name;

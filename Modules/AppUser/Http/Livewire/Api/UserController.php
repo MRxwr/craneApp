@@ -326,5 +326,49 @@ class UserController extends Controller
             
         }
     }
+
+    public function chnagePassword(Request $request){ 
+        $data = array();
+        $token = $request->header('Authorization');
+        // Check if validation fails
+        if (!$token) {
+            // If validation fails, return response with validation errors
+            $data['message']=_lang('Authorization token is requred');
+            $data['errors'] = ['token'=>'header Authorization token is requred'];
+            return outputError($data);
+        }
+        // Validate the input data
+        $request->validate([
+            'old_password' => 'required',
+            'new_password' => 'required|min:8', // Ensure new password and its confirmation match
+        ]);
+        // Check if validation fails
+        if ($validator->fails()) {
+            $data['message']=_lang('validation error');
+            $data['errors'] = $validator->errors();
+            return outputError($data);
+        }
+        
+        $token = str_replace('Bearer ', '', $token);
+        $appuser =  AppUser::where('token',$token)->first();
+        $status='';
+        if ($appuser){
+            // Check if the provided old password matches the current password
+            if (!Hash::check($request->old_password, $user->password)) {
+                $data['message']=_lang('The provided old password does not match our records');
+            return outputError($data); 
+            }
+                $password = $request->input('new_password');
+                $appuser->password= Hash::make($password);
+                $appuser->save();
+                $data['message']=_lang( 'Password updated successfully ');
+               return outputSuccess($data);
+        }else {
+            // Authentication failed
+            $data['message']=_lang('Unauthorized due to token mismatch');
+            return outputError($data); 
+            
+        }
+    }
     
 }

@@ -33,7 +33,7 @@ Route::prefix('v1')->group(function () {
     Route::post('/reset/send-otp', [ForgotPasswordController::class, 'sendOTP']);
     Route::post('/reset/verify-otp', [ForgotPasswordController::class, 'verifyOTP']);
     Route::post('/reset/set_password', [ForgotPasswordController::class, 'SetNewPassword']);
-
+    Route::post('/profile/update_password', [UserController::class, 'chnagePassword']);
     Route::post('/client/profile', [UserController::class, 'userProfile']);
     Route::post('/client/profile/update', [UserController::class, 'updateProfile']);
     Route::post('/profile/settings', [UserController::class, 'getProfileSetting']);
@@ -44,4 +44,5 @@ Route::prefix('v1')->group(function () {
     Route::post('/delete_account', [UserController::class, 'deleteAccount']);
     Route::post('/driver/profile', [DriverController::class, 'userProfile']);
     Route::post('/driver/profile/update', [DriverController::class, 'updateProfile']);
+    
 });

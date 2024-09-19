@@ -348,10 +348,11 @@ class BookingController extends Controller
             if ($user) {
                 $bidid= $request->input('request_id');
                 $dt = BookingRequest::with('prices')->find($bidid);
+                dd($dt->payment());
                 $dt->is_active = 4;
                 $dt->status = 4;
                 if($dt->save()){
-                    
+
                      $status =4;
                      $activity = _lang('Canceled the order  by  ').$user->name;
                      AddBookingLog($dt,$activity);

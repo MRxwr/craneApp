@@ -348,15 +348,26 @@ class BookingController extends Controller
             if ($user) {
                 $bidid= $request->input('request_id');
                 $dt = BookingRequest::with('prices')->find($bidid);
-                if($payment=$dt->payment()->where('payment_status','success')->first()){
-                    dd($payment);
-                }
+                
                 $dt->is_active = 4;
                 $dt->status = 4;
                 if($dt->save()){
-
+                    if($payment=$dt->payment()->where('payment_status','success')->first()){
+                       // dd($payment->payment_amount);
+                        $wallet= floatval(getUserMeta('wallet',$user->id));
+                        $price= floatval($payment->payment_amount);
+                        $newwalletValue=$wallet+$price;
+                        upadteUserMeta('wallet',$newwalletValue,$user->id);
+                        $wdata['request_id']=$dt->id;
+                        $wdata['app_user_id']=$user->id;
+                        $wdata['amount']=$price;
+                        $wdata['mode']='credit';
+                        $wdata['remark']=_lang('Trip has been successfully canceled and refunded to wallet by ').$user->name;
+                        walletTransaction($wdata);
+                    }
                      $status =4;
-                     $activity = _lang('Canceled the order  by  ').$user->name;
+                     //$activity = _lang('Canceled the order  by  ').$user->name;
+                     $activity = _lang('Trip has been successfully canceled and refunded to wallet by ').$user->name;
                      AddBookingLog($dt,$activity);
                      if($user->user_type==1){
                         $user_id=$user->id;

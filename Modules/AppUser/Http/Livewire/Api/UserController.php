@@ -352,7 +352,7 @@ class UserController extends Controller
         $status='';
         if ($appuser){
             // Check if the provided old password matches the current password
-            if (!Hash::check($request->old_password, $user->password)) {
+            if (!Hash::check($request->old_password, $appuser->password)) {
                 $data['message']=_lang('The provided old password does not match our records');
             return outputError($data); 
             }

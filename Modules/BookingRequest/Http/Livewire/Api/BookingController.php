@@ -362,13 +362,16 @@ class BookingController extends Controller
                         $wdata['app_user_id']=$user->id;
                         $wdata['amount']=$price;
                         $wdata['mode']='credit';
-                        $wdata['remark']=_lang('Trip has been successfully canceled and refunded to wallet by ').$user->name;
+                        $wdata['remark']=_lang('Trip has been successfully canceled and refunded to wallet , canceled by ').$user->name;
                         walletTransaction($wdata);
+                        $activity = _lang('Trip has been successfully canceled and refunded to wallet , canceled by ').$user->name;
+                        AddBookingLog($dt,$activity);
+                    }else{
+                        $data['message']=_lang('Trip has been successfully canceled  by ').$user->name;
+                        AddBookingLog($dt,$activity);
                     }
                      $status =4;
                      //$activity = _lang('Canceled the order  by  ').$user->name;
-                     $activity = _lang('Trip has been successfully canceled and refunded to wallet by ').$user->name;
-                     AddBookingLog($dt,$activity);
                      if($user->user_type==1){
                         $user_id=$user->id;
                         $title=_lang('Canceled trip');

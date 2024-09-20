@@ -193,7 +193,7 @@ class UserBookingController extends Controller
                 'total_earnings' => number_format($totalEarnings, 3),
                 'total_distance' => $totalDistance,
                 'total_trips' => $totalRequests,
-                'time_online'=>number_format($totalLoginTimeFormatte,2),
+                'time_online'=>number_format($totalLoginTimeFormatted,2),
                 'login_status' => AppUserLogingStatus($driverId)
             ];
 

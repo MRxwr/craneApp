@@ -190,10 +190,10 @@ class UserBookingController extends Controller
             $totalDistance = $todayRequests->sum('distances'); // Assuming 'distance' is a field in BookingRequest
             $totalRequests = $todayRequests->count();
                $data['todayEarnings']= [
-                'total_earnings' => number_format($totalEarnings, 3),
+                'total_earnings' => number_format($totalEarnings,  3, '.', ''),
                 'total_distance' => $totalDistance,
                 'total_trips' => $totalRequests,
-                'time_online'=>number_format($totalLoginTimeFormatted,2),
+                'time_online'=>number_format($totalLoginTimeFormatted, 2, '.', ''),
                 'login_status' => AppUserLogingStatus($driverId)
             ];
 

@@ -183,9 +183,7 @@ class UserController extends Controller
         if ($appuser){
             $appuser->language = $language;
             $appuser->save();
-            if(!getUserMeta('is_notify',$appuser->id)){
-                upadteUserMeta('is_notify',$is_notify,$appuser->id);
-            }
+            upadteUserMeta('is_notify',$is_notify,$appuser->id);
             $data['message']=_lang('Profile');
             $data['meta']['language']= $appuser->language;
             $data['meta']['is_notify']= getUserMeta('is_notify',$appuser->id);

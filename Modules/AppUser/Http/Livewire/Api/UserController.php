@@ -134,12 +134,13 @@ class UserController extends Controller
             $user = AppUser::where('token',$token)->where('is_deleted',0)->first();
             if ($user) {
                 // Authentication successful
-                if(!getUserMeta('wallet',$user->id)){
-                    upadteUserMeta('wallet',0.00,$user->id);
-                }
-                if(!getUserMeta('is_notify',$user->id)){
-                    upadteUserMeta('is_notify',1,$user->id);
-                }
+                echo getUserMeta('is_notify',$user->id);
+                // if(!getUserMeta('wallet',$user->id)){
+                //     upadteUserMeta('wallet',0.00,$user->id);
+                // }
+                // if(!getUserMeta('is_notify',$user->id)){
+                //     upadteUserMeta('is_notify',1,$user->id);
+                // }
                 $data['message']=_lang('Profile');
                 $data['meta']['language']= $user->language;
                 $data['meta']['is_notify']= getUserMeta('is_notify',$user->id);

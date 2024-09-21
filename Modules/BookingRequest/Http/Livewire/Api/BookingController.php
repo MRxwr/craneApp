@@ -383,7 +383,7 @@ class BookingController extends Controller
                         $message=_lang('Trip has been cancelled by driver and refunded to your wallet.');
                         firebaseNotification($user_id,$title,$message='',$data=[]);
                      }
-                     $data['message']=_lang('Successfully Canceled the order');
+                     $data['message']=_lang('Trip has been cancelled by driver and refunded to your wallet');
                      return outputSuccess($data);
                 } 
             }else {

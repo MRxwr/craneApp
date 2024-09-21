@@ -349,8 +349,8 @@ class BookingController extends Controller
                 $bidid= $request->input('request_id');
                 $dt = BookingRequest::with('prices')->find($bidid);
                 
-                $dt->is_active = 4;
-                $dt->status = 4;
+                //$dt->is_active = 4;
+                //$dt->status = 4;
                 if($dt->save()){
                     // if($payment=$dt->payment()->where('payment_status','success')->first()){
                     //    // dd($payment->payment_amount);

@@ -9,7 +9,7 @@ use Modules\Roles\Entities\Role;
 use Modules\AppUser\Entities\AppUser;
 use Modules\AppUser\Entities\AppUserMeta;
 use Modules\AppUser\Entities\AppUserRating;
-use Modules\AppUser\Entities\Wallet;
+use Modules\AppUser\Entities\Wallets;
 use Modules\AppUser\Entities\LoginAttempt;
 use Modules\BookingRequest\Entities\BookingRequest;
 use Modules\BookingRequest\Entities\BookingLog;
@@ -253,7 +253,7 @@ function upadteUserMeta($key,$value,$app_user_id){
 
   }
   function walletTransaction($data){
-    $wallet = new Wallet();
+    $wallet = new Wallets();
     $wallet->request_id=$data['request_id'];
     $wallet->app_user_id=$data['app_user_id'];
     $wallet->amount=$data['amount'];

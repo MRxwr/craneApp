@@ -349,27 +349,27 @@ class BookingController extends Controller
                 $bidid= $request->input('request_id');
                 $dt = BookingRequest::with('prices')->find($bidid);
                 
-                //$dt->is_active = 4;
-                //$dt->status = 4;
+                $dt->is_active = 4;
+                $dt->status = 4;
                 if($dt->save()){
-                    // if($payment=$dt->payment()->where('payment_status','success')->first()){
-                    //    // dd($payment->payment_amount);
-                    //     $wallet= floatval(getUserMeta('wallet',$user->id));
-                    //     $price= floatval($payment->payment_amount);
-                    //     $newwalletValue=$wallet+$price;
-                    //     upadteUserMeta('wallet',$newwalletValue,$user->id);
-                    //     $wdata['request_id']=$dt->id;
-                    //     $wdata['app_user_id']=$user->id;
-                    //     $wdata['amount']=$price;
-                    //     $wdata['mode']='credit';
-                    //     $wdata['remark']=_lang('Trip has been successfully canceled and refunded to wallet , canceled by ').$user->name;
-                    //     walletTransaction($wdata);
-                    //     $activity = _lang('Trip has been successfully canceled and refunded to wallet , canceled by ').$user->name;
-                    //     AddBookingLog($dt,$activity);
-                    // }else{
-                    //     $data['message']=_lang('Trip has been successfully canceled  by ').$user->name;
-                    //     AddBookingLog($dt,$activity);
-                    // }
+                    if($payment=$dt->payment()->where('payment_status','success')->first()){
+                       // dd($payment->payment_amount);
+                        $wallet= floatval(getUserMeta('wallet',$user->id));
+                        $price= floatval($payment->payment_amount);
+                        $newwalletValue=$wallet+$price;
+                        upadteUserMeta('wallet',$newwalletValue,$user->id);
+                        $wdata['request_id']=$dt->id;
+                        $wdata['app_user_id']=$user->id;
+                        $wdata['amount']=$price;
+                        $wdata['mode']='credit';
+                        $wdata['remark']=_lang('Trip has been successfully canceled and refunded to wallet , canceled by ').$user->name;
+                        walletTransaction($wdata);
+                        $activity = _lang('Trip has been successfully canceled and refunded to wallet , canceled by ').$user->name;
+                        AddBookingLog($dt,$activity);
+                    }else{
+                        $data['message']=_lang('Trip has been successfully canceled  by ').$user->name;
+                        AddBookingLog($dt,$activity);
+                    }
                      $status =4;
                      //$activity = _lang('Canceled the order  by  ').$user->name;
                      if($user->user_type==1){

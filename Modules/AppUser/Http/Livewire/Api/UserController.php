@@ -155,8 +155,7 @@ class UserController extends Controller
             } else {
                 // Authentication failed
                 $data['message']=_lang('Unauthorized due to token mismatch');
-                return outputError($data); 
-                
+                return outputError($data);  
             }
         } catch (\Exception $e) {
             // Log or handle the exception

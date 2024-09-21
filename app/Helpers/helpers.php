@@ -192,6 +192,8 @@ function getUserMeta($key,$app_user_id){
     $usermeta= AppUserMeta::where('key',$key)->where('app_user_id',$app_user_id)->first();
     if($usermeta){
         return $usermeta->value;
+      }else{
+        return false;
       }
 } 
 function upadteUserMeta($key,$value,$app_user_id){

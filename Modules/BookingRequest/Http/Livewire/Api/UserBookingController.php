@@ -84,6 +84,7 @@ class UserBookingController extends Controller
                         $orderRequest[$key]['request_id']=$bookingRequest->request_id;
                         $orderRequest[$key]['from_location']=$bookingRequest->from_location;
                         $orderRequest[$key]['to_location']=$bookingRequest->to_location;
+                        $orderRequest[$key]['distance']=$bookingRequest->distances;
                         $orderRequest[$key]['client_id'] = $bookingRequest->client->id;
                         $orderRequest[$key]['client_name'] = $bookingRequest->client->name;
                         $orderRequest[$key]['client_mobile'] = $bookingRequest->client->mobile;

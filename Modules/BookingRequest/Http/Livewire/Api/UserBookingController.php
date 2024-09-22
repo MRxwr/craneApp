@@ -123,7 +123,7 @@ class UserBookingController extends Controller
                        }
                        $orderRequest[$key]['trip_start'] = $bookingRequest->start_time;
                        $orderRequest[$key]['trip_end'] = $bookingRequest->end_time;
-                       $orderRequest[$key]['trip_time'] = $total_seconds; 
+                       $orderRequest[$key]['time_interval'] = $total_seconds; 
                   }
                 $data['ClientOrder']= $orderRequest;
                return outputSuccess($data);

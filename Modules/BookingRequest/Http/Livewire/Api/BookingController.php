@@ -579,8 +579,8 @@ class BookingController extends Controller
                $driverList['bidid']=$bidid;
                $driverList['request_id']=$dt->request_id;
                $driverList['from_location']=$dt->from_location;
-               $driverList['distance']=$dt->distances;
                $driverList['to_location']=$dt->to_location;
+               $driverList['distance']=$dt->distances;
                $driverList['status']=$dt->status;
                if($bdprices){
                     foreach($bdprices as $key=>$price){

@@ -331,3 +331,31 @@ function AppUserLogingStatus($user_id){
         return 0;
     }              
 }
+if (!function_exists('formatDateWithOrdinal')) {
+    function formatDateWithOrdinal($date)
+    {
+        if ($date !== null) {
+            // Get the day, month, hour, and minute
+            $day = $date->format('j'); // Day of the month without leading zeros
+            $month = $date->format('M'); // Short month name (e.g., 'Sep')
+            $hour = $date->format('g'); // 12-hour format without leading zeros
+            $minute = $date->format('i'); // Minutes
+            $ampm = $date->format('A'); // AM or PM
+
+            // Add the ordinal suffix
+            $dayWithSuffix = $day . getOrdinalSuffix($day);
+
+            // Format the final output
+            return "{$dayWithSuffix} {$month} {$hour}:{$minute}{$ampm}";
+        }
+        return 'Date not available';
+    }
+
+    function getOrdinalSuffix($day)
+    {
+        if (in_array($day % 10, [1, 2, 3]) && !in_array($day % 100, [11, 12, 13])) {
+            return ['st', 'nd', 'rd'][$day % 10 - 1];
+        }
+        return 'th';
+    }
+}

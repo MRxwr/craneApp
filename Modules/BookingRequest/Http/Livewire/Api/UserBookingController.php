@@ -54,7 +54,7 @@ class UserBookingController extends Controller
                     $start_time = Carbon::parse($bookingRequest->start_time);
                     $end_time = Carbon::parse($bookingRequest->end_time);
                     
-                    if ($start_time && $end_time) {
+                    if ($start_time!='' && $end_time!='') {
                         $total_seconds = $end_time->diffInSeconds($start_time);
                     } else {
                         $total_seconds = 0; // Or handle when one of the times is null

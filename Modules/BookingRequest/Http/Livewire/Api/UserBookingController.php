@@ -51,9 +51,9 @@ class UserBookingController extends Controller
                $orderRequest =[];
                $prices=[];
                 foreach ($dt as $key=>$bookingRequest){
-                        $createdAt = $bookingRequest->created_at;
-                        $hour = $createdAt->format('g');
-                        $hour = $hour < 10 ? '100' : $hour;
+                    $createdAt = $bookingRequest->created_at;
+                    $hour = $createdAt->format('g'); // Get the hour in 12-hour format without leading zeros
+                    $hour = str_pad($hour, 2, '0', STR_PAD_LEFT);
                         // Format the rest
                         $formattedDate = $createdAt->format('dM ') . $hour . $createdAt->format(':iA');
                         $payment = BookingPayment::where('request_id', $bookingRequest->id)->first();

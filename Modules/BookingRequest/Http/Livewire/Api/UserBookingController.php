@@ -51,9 +51,8 @@ class UserBookingController extends Controller
                $orderRequest =[];
                $prices=[];
                 foreach ($dt as $key=>$bookingRequest){
-                    $start_time = Carbon::parse($bookingRequest->start_time);
-                    $end_time = Carbon::parse($bookingRequest->end_time);
-                    
+                    $start_time = $bookingRequest->start_time ? Carbon::parse($bookingRequest->start_time) : null;
+                    $end_time = $bookingRequest->end_time ? Carbon::parse($bookingRequest->end_time) : null;
                     if ($start_time!='' && $end_time!='') {
                         $total_seconds = $end_time->diffInSeconds($start_time);
                     } else {

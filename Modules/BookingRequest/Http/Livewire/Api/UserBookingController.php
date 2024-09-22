@@ -51,7 +51,17 @@ class UserBookingController extends Controller
                $orderRequest =[];
                $prices=[];
                 foreach ($dt as $key=>$bookingRequest){
-                    $createdAt = $bookingRequest->created_at;
+                    $start_time = Carbon::parse($bookingRequest->start_time);
+                    $end_time = Carbon::parse($bookingRequest->end_time);
+                    
+                    if ($start_time && $end_time) {
+                        $total_seconds = $end_time->diffInSeconds($start_time);
+                    } else {
+                        $total_seconds = 0; // Or handle when one of the times is null
+                    }
+                    
+                    
+                        $createdAt = $bookingRequest->created_at;
                     
                         // Format the rest
                         $formattedDate = formatDateWithOrdinal($createdAt);
@@ -114,7 +124,7 @@ class UserBookingController extends Controller
                        }
                        $orderRequest[$key]['trip_start'] = $bookingRequest->start_time;
                        $orderRequest[$key]['trip_end'] = $bookingRequest->end_time;
-                        
+                       $orderRequest[$key]['trip_time'] = $total_seconds; 
                   }
                 $data['ClientOrder']= $orderRequest;
                return outputSuccess($data);

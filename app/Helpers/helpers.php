@@ -242,10 +242,10 @@ function upadteUserMeta($key,$value,$app_user_id){
         if($user_id){
             $user = AppUser::find($user_id);
            if($user){ 
-            // off firebase  notification by comment code below line
-            // if need to send notification by firebase use below code
-                //$firebaseNotificationService = app(FCMService::class);
-                //$response = $firebaseNotificationService->sendNotification($user->device_token,$title,$message,$data);
+              // off firebase  notification by comment code below line
+              // if need to send notification by firebase use below code
+               $firebaseNotificationService = app(FCMService::class);
+               $response = $firebaseNotificationService->sendNotification($user->device_token,$title,$message,$data);
              }
       }
         

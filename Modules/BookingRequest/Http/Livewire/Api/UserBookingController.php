@@ -394,7 +394,7 @@ class UserBookingController extends Controller
                 $pendingRequest =[];
                 $prices=[];
                 $pkey=0;
-                dd($dtpending);
+                
                 foreach ($dtpending as $key=>$bookingRequest) {
                        $lat ='';
                        $long='';

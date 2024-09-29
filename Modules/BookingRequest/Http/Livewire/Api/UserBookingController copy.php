@@ -255,7 +255,7 @@ class UserBookingController extends Controller
                                 $prices[$npkey]['is_accepted'] = $price->is_accepted;
                                 
                                 $pendingRequest[$pkey]['prices']= $prices; 
-                                $nkey++;
+                                $npkey++;
                                 $pkey++;
                                  }
                               }

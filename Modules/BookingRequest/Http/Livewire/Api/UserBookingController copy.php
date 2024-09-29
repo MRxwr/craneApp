@@ -236,7 +236,7 @@ class UserBookingController extends Controller
                                 $nkey++;
                               }
                             }else{
-                                if($pkey==0 && $$npkey==0){
+                                if($pkey==0 && $npkey==0){
                                 $pendingRequest[$pkey]['bidid']=$bookingRequest->id;
                                 $pendingRequest[$pkey]['request_id']=$bookingRequest->request_id;
                                 $pendingRequest[$pkey]['from_location']=$bookingRequest->from_location;

@@ -254,7 +254,7 @@ class UserBookingController extends Controller
               ->where('is_deleted', '0')
               ->orderBy('created_at', 'desc')
               ->get();
-                $pendingRequest =[];
+            $pendingRequest =[];
             $prices=[];
             $pkey=0;
             foreach ($dtpending as $key=>$bookingRequest) {

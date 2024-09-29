@@ -214,7 +214,7 @@ class UserBookingController extends Controller
                         $npkey=0;
                      foreach ($bookingRequest->prices as $keyr=>$price) {
                             if(!$price->price){
-                                if($nkey==0){
+                                if($nkey==0 && $rkey==0){
                                 $newTripRequest[$nkey]['bidid']=$bookingRequest->id;
                                 $newTripRequest[$nkey]['request_id']=$bookingRequest->request_id;
                                 $newTripRequest[$nkey]['from_location']=$bookingRequest->from_location;
@@ -236,7 +236,7 @@ class UserBookingController extends Controller
                                 $nkey++;
                               }
                             }else{
-                                if($pkey==0){
+                                if($pkey==0 && $$npkey==0){
                                 $pendingRequest[$pkey]['bidid']=$bookingRequest->id;
                                 $pendingRequest[$pkey]['request_id']=$bookingRequest->request_id;
                                 $pendingRequest[$pkey]['from_location']=$bookingRequest->from_location;
@@ -255,7 +255,7 @@ class UserBookingController extends Controller
                                 $prices[$npkey]['is_accepted'] = $price->is_accepted;
                                 
                                 $pendingRequest[$pkey]['prices']= $prices; 
-                                $nkey++;
+                                $npkey++;
                                 $pkey++;
                             }
                             }

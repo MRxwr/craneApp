@@ -288,7 +288,8 @@ class UserBookingController extends Controller
             //                     $pendingRequest[$pkey]['to_lng'] = $to_long;
             //                     $pendingRequest[$pkey]['from_lat'] = $from_lat;
             //                     $pendingRequest[$pkey]['from_lng'] = $from_long;
-            //                     $prices=[];
+            //                     
+           // $prices=[];
             //                     $prices[$npkey]['price_id'] = $price->id;
             //                     $prices[$npkey]['client_name'] = $price->client->name;
             //                     $prices[$npkey]['mobile'] = $price->client->mobile;
@@ -422,22 +423,22 @@ class UserBookingController extends Controller
                                $from_long=$latlong[1];
                            }
                        }
-                       $client_rating = getUserRating($bookingRequest->client_id);
-                            $newTripRequest[$nkey]['bidid']=$bookingRequest->id;
-                            $newTripRequest[$nkey]['request_id']=$bookingRequest->request_id;
-                            $newTripRequest[$nkey]['from_location']=$bookingRequest->from_location;
-                            $newTripRequest[$nkey]['to_location']=$bookingRequest->to_location;
-                            $newTripRequest[$nkey]['client_id'] = $bookingRequest->client->id;
-                            $newTripRequest[$nkey]['client_name'] = $bookingRequest->client->name;
-                            $newTripRequest[$nkey]['client_mobile'] = $bookingRequest->client->mobile;
-                            $newTripRequest[$nkey]['client_rating'] = $client_rating;
-                            $newTripRequest[$nkey]['lat'] = $lat;
-                            $newTripRequest[$nkey]['lng'] = $long;
-                            $newTripRequest[$nkey]['to_lat'] = $to_lat;
-                            $newTripRequest[$nkey]['to_lng'] = $to_long;
-                            $newTripRequest[$nkey]['from_lat'] = $from_lat;
-                            $newTripRequest[$nkey]['from_lng'] = $from_long;
-                       
+                        $client_rating = getUserRating($bookingRequest->client_id);
+                        $pendingRequest[$pkey]['bidid']=$bookingRequest->id;
+                            $pendingRequest[$pkey]['request_id']=$bookingRequest->request_id;
+                            $pendingRequest[$pkey]['from_location']=$bookingRequest->from_location;
+                            $pendingRequest[$pkey]['to_location']=$bookingRequest->to_location;
+                            $pendingRequest[$pkey]['client_id'] = $bookingRequest->client->id;
+                            $pendingRequest[$pkey]['client_name'] = $bookingRequest->client->name;
+                            $pendingRequest[$pkey]['client_mobile'] = $bookingRequest->client->mobile;
+                            $pendingRequest[$pkey]['client_rating'] = $client_rating;
+                            $pendingRequest[$pkey]['lat'] = $lat;
+                            $pendingRequest[$pkey]['lng'] = $long;
+                            $pendingRequest[$pkey]['to_lat'] = $to_lat;
+                            $pendingRequest[$pkey]['to_lng'] = $to_long;
+                            $pendingRequest[$pkey]['from_lat'] = $from_lat;
+                            $pendingRequest[$pkey]['from_lng'] = $from_long;
+                            
                        if($bookingRequest->driver_id==0 && $bookingRequest->prices->count()>0){
                            //$client_rating = getUserRating($bookingRequest->client_id);
                            $npkey=0;

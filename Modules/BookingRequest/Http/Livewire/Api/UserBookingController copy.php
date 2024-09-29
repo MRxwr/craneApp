@@ -191,8 +191,14 @@ class UserBookingController extends Controller
 
             
             $dtnew = BookingRequest::with(['prices' => function($query) use ($user) {
-                     $query->where('driver_id', $user->id)->where('price', '==','')->where('is_accepted', '0')->where('skip',0);
-             }])->where('status', '0')->where('is_deleted',0)->orderBy('created_at', 'desc')->get();
+                $query->where('driver_id', $user->id)
+                      ->whereNull('price')// Use single '=' for the condition
+                      ->where('is_accepted', '0')
+                      ->where('skip', '0');
+            }])->where('status', '0')
+              ->where('is_deleted', '0')
+              ->orderBy('created_at', 'desc')
+              ->get();
              $newTripRequest =[];
              
              $prices=[];
@@ -240,9 +246,15 @@ class UserBookingController extends Controller
              
             // for pending 
             $dtpending = BookingRequest::with(['prices' => function($query) use ($user) {
-                    $query->where('driver_id', $user->id)->where('price','!=', '')->where('is_accepted', '0')->where('skip',0);
-                }])->where('status', '0')->where('is_deleted',0)->orderBy('created_at', 'desc')->limit(1)->get();
-            $pendingRequest =[];
+                $query->where('driver_id', $user->id)
+                      ->where('price', '>', 0) // Correct use of '!='
+                      ->where('is_accepted', '0')
+                      ->where('skip', '0');
+            }])->where('status', '0')
+              ->where('is_deleted', '0')
+              ->orderBy('created_at', 'desc')
+              ->get();
+                $pendingRequest =[];
             $prices=[];
             $pkey=0;
             foreach ($dtpending as $key=>$bookingRequest) {

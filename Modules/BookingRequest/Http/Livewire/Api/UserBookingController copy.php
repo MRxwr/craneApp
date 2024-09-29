@@ -234,7 +234,7 @@ class UserBookingController extends Controller
                                 $newTripRequest[$nkey]['prices']= $prices;
                                 $rkey++;
                                 $nkey++;
-                                }
+                              }
                             }else{
                                 if($pkey==0){
                                 $pendingRequest[$pkey]['bidid']=$bookingRequest->id;
@@ -255,10 +255,9 @@ class UserBookingController extends Controller
                                 $prices[$npkey]['is_accepted'] = $price->is_accepted;
                                 
                                 $pendingRequest[$pkey]['prices']= $prices; 
-                                $npkey++;
+                                $nkey++;
                                 $pkey++;
-                                 }
-                              }
+                            }
                             }
                         }
                      

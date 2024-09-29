@@ -290,9 +290,10 @@ class UserBookingController extends Controller
                                $pendingRequest[$pkey]['prices']= $prices; 
                                $npkey++;
                        }
-                       $pkey++;
+                       
                     
                    }
+                   $pkey++;
                }
              
              //$data['newTripRequest']= $newTripRequest;

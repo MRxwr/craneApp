@@ -191,8 +191,8 @@ class UserBookingController extends Controller
 
             
             $dtnew = BookingRequest::with(['prices' => function($query) use ($user) {
-                     $query->where('driver_id', $user->id)->where('is_accepted', '0')->where('skip',0);
-             }])->where('status', '0')->where('is_deleted',0)->orderBy('created_at', 'desc')->get();
+                     $query->where('driver_id', $user->id)->where('price', '')->where('is_accepted', '0')->where('skip',0);
+             }])->where('status', '0')->where('is_deleted',0)->orderBy('created_at', 'desc')->limit(1)->get();
              $newTripRequest =[];
              $pendingRequest =[];
              $prices=[];
@@ -214,7 +214,7 @@ class UserBookingController extends Controller
                         $npkey=0;
                      foreach ($bookingRequest->prices as $keyr=>$price) {
                             if(!$price->price){
-                                if($nkey==0 && $rkey==0){
+                                if($nkey>=0 && $rkey>=0){
                                 $newTripRequest[$nkey]['bidid']=$bookingRequest->id;
                                 $newTripRequest[$nkey]['request_id']=$bookingRequest->request_id;
                                 $newTripRequest[$nkey]['from_location']=$bookingRequest->from_location;

@@ -247,7 +247,7 @@ class UserBookingController extends Controller
             // for pending 
             $dtpending = BookingRequest::with(['prices' => function($query) use ($user) {
                 $query->where('driver_id', $user->id)
-                      ->where('price', '>', 0) // Correct use of '!='
+                      ->where('price', '!=', '') // Correct use of '!='
                       ->where('is_accepted', '0')
                       ->where('skip', '0');
             }])->where('status', '0')

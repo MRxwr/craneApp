@@ -145,9 +145,9 @@ class UserController extends Controller
                 $data['meta']['language']= $user->language;
                 $data['meta']['is_notify']= getUserMeta('is_notify',$user->id);
                 $data['meta']['wallet']= getUserMeta('wallet',$user->id);
-                $data['about']= Page::find(1)->toArray();
+                $data['about']= Page::find(8)->toArray();
                 $data['terms']= Page::find(2)->toArray();
-                $data['policy']= Page::find(3)->toArray();
+                $data['policy']= Page::find(9)->toArray();
                 $data['contact']['number']= getSetting('contact');
                 $data['contact']['email']= getSetting('email');
                 $data['contact']['address']= getSetting('address');
@@ -188,9 +188,9 @@ class UserController extends Controller
             $data['meta']['language']= $appuser->language;
             $data['meta']['is_notify']= getUserMeta('is_notify',$appuser->id);
             $data['meta']['wallet']= getUserMeta('wallet',$appuser->id);
-            $data['about']= Page::find(1)->toArray();
+            $data['about']= Page::find(8)->toArray();
             $data['terms']= Page::find(2)->toArray();
-            $data['policy']= Page::find(3)->toArray();
+            $data['policy']= Page::find(9)->toArray();
             $data['contact']['number']= getSetting('contact');
             $data['contact']['email']= getSetting('email');
             $data['contact']['address']= getSetting('address');

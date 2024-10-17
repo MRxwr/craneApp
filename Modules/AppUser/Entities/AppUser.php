@@ -50,6 +50,12 @@ class AppUser extends Authenticatable implements AuthenticatableContract
         return 'mobile';
     }
 
+    public function getAvatorAttribute($value)
+    {
+        // Return the image if it exists, otherwise return a default image
+        return $value ? $value : 'assets/img/default-user.jpg';
+    }
+
     /**
      * Get the unique identifier for the user.
      *

@@ -27,7 +27,11 @@ class Banner extends Model
     {
         return json_decode($value, true);
     }
-
+    public function getImageAttribute($value)
+    {
+        // Return the image if it exists, otherwise return a default image
+        return $value ? $value : 'assets/img/default-image.jpg';
+    }
     public function setDescriptionAttribute($value)
     {
         $this->attributes['description'] = json_encode($value);

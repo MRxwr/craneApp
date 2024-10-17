@@ -170,26 +170,28 @@ class RegisterController extends Controller
             $appuser->password = Hash::make($password);
             $appuser->email_verified_at = now();
             $appuser->user_type = 2;
+            
             if ($request->hasFile('avator')) {
                 $imageName = time().'.'.$request->avator->extension();  
                 $request->avator->move(public_path('avators'), $imageName);
-                $appuser->avator = $imageName;
+                $appuser->avator = 'avators/'.$imageName;
             }
             if ($request->hasFile('licence')) {
                 $imageName = 'LNC'.time().'.'.$request->licence->extension();  
                 $request->licence->move(public_path('drivers'), $imageName);
-                $appuser->licence = 'storage/drivers/'.$imageName;
+                $appuser->licence = 'drivers/'.$imageName;
             }
             if ($request->hasFile('idfront')) {
                 $imageName = 'IDF'.time().'.'.$request->idfront->extension();  
                 $request->idfront->move(public_path('drivers'), $imageName);
-                $appuser->idfront = 'storage/drivers/'.$imageName;
+                $appuser->idfront = 'drivers/'.$imageName;
             }
             if ($request->hasFile('idback')) {
                 $imageName = 'IDB'.time().'.'.$request->idback->extension();  
                 $request->idback->move(public_path('drivers'), $imageName);
-                $appuser->idback = 'storage/drivers/'.$imageName;
+                $appuser->idback = 'drivers/'.$imageName;
             }
+           
             $appuser->save();
             $data['user']= $appuser->toArray();
             $data['message']=_lang('Successfully Regiter');
@@ -219,23 +221,23 @@ class RegisterController extends Controller
             if ($request->hasFile('avator')) {
                 $imageName = time().'.'.$request->avator->extension();  
                 $request->avator->move(public_path('avators'), $imageName);
-                $appuser->avator = $imageName;
+                $appuser->avator = 'avators/'.$imageName;
             }
             
             if ($request->hasFile('licence')) {
                 $imageName = 'LNC'.time().'.'.$request->licence->extension();  
                 $request->licence->move(public_path('drivers'), $imageName);
-                $appuser->licence = 'storage/drivers/'.$imageName;
+                $appuser->licence = 'drivers/'.$imageName;
             }
             if ($request->hasFile('idfront')) {
                 $imageName = 'IDF'.time().'.'.$request->idfront->extension();  
                 $request->idfront->move(public_path('drivers'), $imageName);
-                $appuser->idfront = 'storage/drivers/'.$imageName;
+                $appuser->idfront = 'drivers/'.$imageName;
             }
             if ($request->hasFile('idback')) {
                 $imageName = 'IDB'.time().'.'.$request->idback->extension();  
                 $request->idback->move(public_path('drivers'), $imageName);
-                $appuser->idback = 'storage/drivers/'.$imageName;
+                $appuser->idback = 'drivers/'.$imageName;
             }
             $appuser->save();
             $data['user']= $appuser->toArray();

@@ -107,6 +107,14 @@ class UserBookingController extends Controller
                             $orderRequest[$key]['driver_avator'] = $bookingRequest->driver->avator; 
                             $orderRequest[$key]['login_status'] = AppUserLogingStatus($bookingRequest->driver->id); 
                             $orderRequest[$key]['driver_rating'] = $driver_rating;
+                        }else{
+                            //$driver_rating = getUserRating($bookingRequest->driver->id);
+                            $orderRequest[$key]['driver_id'] = '';
+                            $orderRequest[$key]['driver_name'] = '';
+                            $orderRequest[$key]['driver_mobile'] = '';
+                            $orderRequest[$key]['driver_avator'] = 'assets/img/default-user.jpg';; 
+                            $orderRequest[$key]['login_status'] = ''; 
+                            $orderRequest[$key]['driver_rating'] ='';
                         }
                         $orderRequest[$key]['status'] = $bookingRequest->status;
                         $orderRequest[$key]['from_lat'] = $from_lat;

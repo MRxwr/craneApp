@@ -113,8 +113,8 @@ class UserBookingController extends Controller
                             $orderRequest[$key]['driver_name'] = '';
                             $orderRequest[$key]['driver_mobile'] = '';
                             $orderRequest[$key]['driver_avator'] = 'assets/img/default-user.jpg';; 
-                            $orderRequest[$key]['login_status'] = ''; 
-                            $orderRequest[$key]['driver_rating'] ='';
+                            $orderRequest[$key]['login_status'] = 0; 
+                            $orderRequest[$key]['driver_rating'] =0;
                         }
                         $orderRequest[$key]['status'] = $bookingRequest->status;
                         $orderRequest[$key]['from_lat'] = $from_lat;
@@ -768,8 +768,8 @@ class UserBookingController extends Controller
                                 $pendingRequest[$key0]['driver_name'] = '';
                                 $pendingRequest[$key0]['driver_mobile'] = '';
                                 $pendingRequest[$key0]['driver_avator'] = 'assets/img/default-user.jpg';; 
-                                $pendingRequest[$key0]['login_status'] = ''; 
-                                $pendingRequest[$key0]['driver_rating'] ='';
+                                $pendingRequest[$key0]['login_status'] = 0; 
+                                $pendingRequest[$key0]['driver_rating'] =0;
                             }
                             $pendingRequest[$key0]['status'] = $bookingRequest->status;
                             $pendingRequest[$key0]['from_lat'] = $from_lat;
@@ -813,8 +813,8 @@ class UserBookingController extends Controller
                                     $upcommingRequest[$key1]['driver_name'] = '';
                                     $upcommingRequest[$key1]['driver_mobile'] = '';
                                     $upcommingRequest[$key1]['driver_avator'] = 'assets/img/default-user.jpg';; 
-                                    $upcommingRequest[$key1]['login_status'] = ''; 
-                                    $upcommingRequest[$key1]['driver_rating'] ='';
+                                    $upcommingRequest[$key1]['login_status'] = 0; 
+                                    $upcommingRequest[$key1]['driver_rating'] =0;
                                 }
                                 $upcommingRequest[$key1]['status'] = $bookingRequest->status;
                                 $upcommingRequest[$key1]['from_lat'] = $from_lat;
@@ -861,8 +861,8 @@ class UserBookingController extends Controller
                                     $arrivedRequest[$key2]['driver_name'] = '';
                                     $arrivedRequest[$key2]['driver_mobile'] = '';
                                     $arrivedRequest[$key2]['driver_avator'] = 'assets/img/default-user.jpg';; 
-                                    $arrivedRequest[$key2]['login_status'] = ''; 
-                                    $arrivedRequest[$key2]['driver_rating'] ='';
+                                    $arrivedRequest[$key2]['login_status'] = 0; 
+                                    $arrivedRequest[$key2]['driver_rating'] =0;
                                 }
                                 $arrivedRequest[$key2]['status'] = $bookingRequest->status;
                                 $arrivedRequest[$key2]['from_lat'] = $from_lat;
@@ -908,8 +908,8 @@ class UserBookingController extends Controller
                                 $ongoingRequest[$key3]['driver_name'] = '';
                                 $ongoingRequest[$key3]['driver_mobile'] = '';
                                 $ongoingRequest[$key3]['driver_avator'] = 'assets/img/default-user.jpg';; 
-                                $ongoingRequest[$key3]['login_status'] = ''; 
-                                $ongoingRequest[$key3]['driver_rating'] ='';
+                                $ongoingRequest[$key3]['login_status'] = 0; 
+                                $ongoingRequest[$key3]['driver_rating'] =0;
                             }
                             $ongoingRequest[$key3]['status'] = $bookingRequest->status;
                             $ongoingRequest[$key3]['from_lat'] = $from_lat;
@@ -955,8 +955,8 @@ class UserBookingController extends Controller
                                 $canceledRequest[$key4]['driver_name'] = '';
                                 $canceledRequest[$key4]['driver_mobile'] = '';
                                 $canceledRequest[$key4]['driver_avator'] = 'assets/img/default-user.jpg';; 
-                                $canceledRequest[$key4]['login_status'] = ''; 
-                                $canceledRequest[$key4]['driver_rating'] ='';
+                                $canceledRequest[$key4]['login_status'] = 0; 
+                                $canceledRequest[$key4]['driver_rating'] =0;
                             }
                             $canceledRequest[$key4]['status'] = $bookingRequest->status;
                             $canceledRequest[$key4]['from_lat'] = $from_lat;
@@ -1003,8 +1003,8 @@ class UserBookingController extends Controller
                             $completedRequest[$key5]['driver_name'] = '';
                             $completedRequest[$key5]['driver_mobile'] = '';
                             $completedRequest[$key5]['driver_avator'] = 'assets/img/default-user.jpg';; 
-                            $completedRequest[$key5]['login_status'] = ''; 
-                            $completedRequest[$key5]['driver_rating'] ='';
+                            $completedRequest[$key5]['login_status'] = 0; 
+                            $completedRequest[$key5]['driver_rating'] =0;
                         }
                          $completedRequest[$key5]['status'] = $bookingRequest->status;
                          $completedRequest[$key5]['from_lat'] = $from_lat;

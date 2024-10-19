@@ -762,6 +762,14 @@ class UserBookingController extends Controller
                                 $pendingRequest[$key0]['driver_avator'] = $prices->driver->avator; 
                                 $pendingRequest[$key0]['login_status'] = AppUserLogingStatus($prices->driver->id); 
                                 $pendingRequest[$key0]['driver_rating'] = $driver_rating;
+                            }else{
+                                //$driver_rating = getUserRating($bookingRequest->driver->id);
+                                $pendingRequest[$key0]['driver_id'] = '';
+                                $pendingRequest[$key0]['driver_name'] = '';
+                                $pendingRequest[$key0]['driver_mobile'] = '';
+                                $pendingRequest[$key0]['driver_avator'] = 'assets/img/default-user.jpg';; 
+                                $pendingRequest[$key0]['login_status'] = ''; 
+                                $pendingRequest[$key0]['driver_rating'] ='';
                             }
                             $pendingRequest[$key0]['status'] = $bookingRequest->status;
                             $pendingRequest[$key0]['from_lat'] = $from_lat;
@@ -799,6 +807,14 @@ class UserBookingController extends Controller
                                     $upcommingRequest[$key1]['driver_avator'] = $bookingRequest->driver->avator; 
                                     $upcommingRequest[$key1]['login_status'] = AppUserLogingStatus($bookingRequest->driver->id); 
                                     $upcommingRequest[$key1]['driver_rating'] = $driver_rating;
+                                }else{
+                                    //$driver_rating = getUserRating($bookingRequest->driver->id);
+                                    $upcommingRequest[$key1]['driver_id'] = '';
+                                    $upcommingRequest[$key1]['driver_name'] = '';
+                                    $upcommingRequest[$key1]['driver_mobile'] = '';
+                                    $upcommingRequest[$key1]['driver_avator'] = 'assets/img/default-user.jpg';; 
+                                    $upcommingRequest[$key1]['login_status'] = ''; 
+                                    $upcommingRequest[$key1]['driver_rating'] ='';
                                 }
                                 $upcommingRequest[$key1]['status'] = $bookingRequest->status;
                                 $upcommingRequest[$key1]['from_lat'] = $from_lat;
@@ -839,6 +855,14 @@ class UserBookingController extends Controller
                                     $arrivedRequest[$key2]['driver_avator'] = $bookingRequest->driver->avator; 
                                     $arrivedRequest[$key2]['login_status'] = AppUserLogingStatus($bookingRequest->driver->id); 
                                     $arrivedRequest[$key2]['driver_rating'] = $driver_rating;
+                                }else{
+                                    //$driver_rating = getUserRating($bookingRequest->driver->id);
+                                    $arrivedRequest[$key2]['driver_id'] = '';
+                                    $arrivedRequest[$key2]['driver_name'] = '';
+                                    $arrivedRequest[$key2]['driver_mobile'] = '';
+                                    $arrivedRequest[$key2]['driver_avator'] = 'assets/img/default-user.jpg';; 
+                                    $arrivedRequest[$key2]['login_status'] = ''; 
+                                    $arrivedRequest[$key2]['driver_rating'] ='';
                                 }
                                 $arrivedRequest[$key2]['status'] = $bookingRequest->status;
                                 $arrivedRequest[$key2]['from_lat'] = $from_lat;
@@ -878,6 +902,14 @@ class UserBookingController extends Controller
                                 $ongoingRequest[$key3]['driver_avator'] = $bookingRequest->driver->avator; 
                                 $ongoingRequest[$key3]['login_status'] = AppUserLogingStatus($bookingRequest->driver->id); 
                                 $ongoingRequest[$key3]['driver_rating'] = $driver_rating;
+                            }else{
+                                //$driver_rating = getUserRating($bookingRequest->driver->id);
+                                $ongoingRequest[$key3]['driver_id'] = '';
+                                $ongoingRequest[$key3]['driver_name'] = '';
+                                $ongoingRequest[$key3]['driver_mobile'] = '';
+                                $ongoingRequest[$key3]['driver_avator'] = 'assets/img/default-user.jpg';; 
+                                $ongoingRequest[$key3]['login_status'] = ''; 
+                                $ongoingRequest[$key3]['driver_rating'] ='';
                             }
                             $ongoingRequest[$key3]['status'] = $bookingRequest->status;
                             $ongoingRequest[$key3]['from_lat'] = $from_lat;
@@ -917,6 +949,14 @@ class UserBookingController extends Controller
                                 $canceledRequest[$key4]['driver_avator'] = $bookingRequest->driver->avator; 
                                 $canceledRequest[$key4]['login_status'] = AppUserLogingStatus($bookingRequest->driver->id); 
                                 $canceledRequest[$key4]['driver_rating'] = $driver_rating;
+                            }else{
+                                //$driver_rating = getUserRating($bookingRequest->driver->id);
+                                $canceledRequest[$key4]['driver_id'] = '';
+                                $canceledRequest[$key4]['driver_name'] = '';
+                                $canceledRequest[$key4]['driver_mobile'] = '';
+                                $canceledRequest[$key4]['driver_avator'] = 'assets/img/default-user.jpg';; 
+                                $canceledRequest[$key4]['login_status'] = ''; 
+                                $canceledRequest[$key4]['driver_rating'] ='';
                             }
                             $canceledRequest[$key4]['status'] = $bookingRequest->status;
                             $canceledRequest[$key4]['from_lat'] = $from_lat;
@@ -957,7 +997,15 @@ class UserBookingController extends Controller
                              $completedRequest[$key5]['driver_avator'] = $bookingRequest->driver->avator; 
                              $completedRequest[$key5]['login_status'] = AppUserLogingStatus($bookingRequest->driver->id); 
                              $completedRequest[$key5]['driver_rating'] = $driver_rating;
-                         }
+                         }else{
+                            //$driver_rating = getUserRating($bookingRequest->driver->id);
+                            $completedRequest[$key5]['driver_id'] = '';
+                            $completedRequest[$key5]['driver_name'] = '';
+                            $completedRequest[$key5]['driver_mobile'] = '';
+                            $completedRequest[$key5]['driver_avator'] = 'assets/img/default-user.jpg';; 
+                            $completedRequest[$key5]['login_status'] = ''; 
+                            $completedRequest[$key5]['driver_rating'] ='';
+                        }
                          $completedRequest[$key5]['status'] = $bookingRequest->status;
                          $completedRequest[$key5]['from_lat'] = $from_lat;
                          $completedRequest[$key5]['from_lng'] = $from_long;

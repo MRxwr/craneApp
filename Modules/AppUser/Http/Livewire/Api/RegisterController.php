@@ -26,7 +26,6 @@ class RegisterController extends Controller
 
         // Perform validation
         $validator = Validator::make($request->all(), $rules);
-
         // Check if validation fails
         if ($validator->fails()) {
             // If validation fails, return response with validation errors

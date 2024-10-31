@@ -204,8 +204,8 @@ class BookingController extends Controller
                     $prices['is_accepted'] = $bidprice->is_accepted;
                     $user_id=$bidprice->client->id;
                     $title=_lang('Driver makes bid');
-                    $message=_lang('New bid has been received.');
-                    firebaseNotification($user_id,$title,$message='',$data=[]);
+                    $message=_lang('A driver has made a bid.');
+                    firebaseNotification($user_id,$title,$message,$data=[]);
                 }
                 $data['order_request']= [$prices];
                 return outputSuccess($data);

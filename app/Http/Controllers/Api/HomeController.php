@@ -98,8 +98,9 @@ class HomeController extends Controller
                 $data['time']= $time;
                 $data['distance']= $distance;
                 $data['ongoingOrders']= [$ongoingRequest];
-
                 return outputSuccess($data);   
+            }else if(is_guest($token)){
+
             }else {
                 // Authentication failed
                 $data['message']=_lang('Unauthorized due to token mismatch');

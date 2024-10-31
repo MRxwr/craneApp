@@ -111,7 +111,7 @@ class HomeController extends Controller
                 $data['distance']= 0;
                 $data['ongoingOrders']= [];
                 return outputSuccess($data);   
-            }else {
+            }else{
                 // Authentication failed
                 $data['message']=_lang('Unauthorized due to token mismatch');
                 return outputError($data);  

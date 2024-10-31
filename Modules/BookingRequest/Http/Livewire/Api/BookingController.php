@@ -67,13 +67,17 @@ class BookingController extends Controller
                                     $price = new  BookingPrice();
                                     $price->request_id =$bidr->id;
                                     $price->client_id =$user->id;
-                                    $price->driver_id =$driver->id; 
+                                    $price->driver_id = $driver->id; 
                                     if($price->save()){
                                         $notify=[];
                                         $notify['client_id']=$user->id;
-                                        $notify['driver_id']=$driver->id;
+                                        $notify['driver_id']= $driver->id;
                                         $notify['message']=_lang('Notification to driver for new order');
                                         $notify['notifyTo']='driver';
+                                        $user_id=$driver->id;
+                                        $title=_lang('Help me');
+                                        $message=_lang('I need you to pick up my vehicle ASAP.');
+                                        firebaseNotification($user_id,$title,$message,$data=[]);
                                     }
                                 }
                             }else{
@@ -87,6 +91,11 @@ class BookingController extends Controller
                                     $notify['driver_id']=$driver->id;
                                     $notify['message']=_lang('Notification to driver for new order');
                                     $notify['notifyTo']='driver';
+
+                                    $user_id=$driver->id;
+                                    $title=_lang('Help me');
+                                    $message=_lang('I need you to pick up my vehicle ASAP.');
+                                    firebaseNotification($user_id,$title,$message,$data=[]);
                                     
                                 }
                             }

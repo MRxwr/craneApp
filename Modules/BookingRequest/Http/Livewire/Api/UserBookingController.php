@@ -395,16 +395,28 @@ class UserBookingController extends Controller
                  }
                  
                 // for pending 
-                $dtpending = BookingRequest::with(['prices' => function($query) use ($user) {
-                    $query->where('driver_id', $user->id)
-                          ->whereNotNull('price')   // Ensures price is not NULL
-                          ->where('price', '!=', '') // Ensures price is not an empty string
-                          ->where('is_accepted', '0')
-                          ->where('skip', '0');
-                }])
-                ->where('status', '0')
-                ->where('is_deleted', '0')
-                ->orderBy('created_at', 'desc')
+                // $dtpending = BookingRequest::with(['prices' => function($query) use ($user) {
+                //     $query->where('driver_id', $user->id)
+                //           ->whereNotNull('price')   // Ensures price is not NULL
+                //           ->where('price', '!=', '') // Ensures price is not an empty string
+                //           ->where('is_accepted', '0')
+                //           ->where('skip', '0');
+                // }])
+                // ->where('status', '0')
+                // ->where('is_deleted', '0')
+                // ->orderBy('created_at', 'desc')
+                // ->get();
+                $dtpending = BookingRequest::join('booking_prices', function($join) use ($user) {
+                    $join->on('booking_requests.id', '=', 'booking_prices.request_id')
+                         ->where('booking_prices.driver_id', $user->id)
+                         ->whereNotNull('booking_prices.price')
+                         ->where('booking_prices.is_accepted', 0)
+                         ->where('booking_prices.skip', 0);
+                })
+                ->where('booking_requests.status', 0)
+                ->where('booking_requests.is_deleted', 0)
+                ->orderBy('booking_requests.created_at', 'desc')
+                ->select('booking_requests.*') // To only select booking request columns
                 ->get();
                 $pendingRequest =[];
                 $prices=[];

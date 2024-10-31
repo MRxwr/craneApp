@@ -315,15 +315,16 @@ class UserBookingController extends Controller
 
 
 
-                $dtnew = BookingRequest::with(['prices' => function($query) use ($user) {
-                    $query->where('driver_id', $user->id)
-                          ->whereNull('price')// Use single '=' for the condition
-                          ->where('is_accepted', '0')
-                          ->where('skip', '0');
-                }])->where('status', '0')
-                  ->where('is_deleted', '0')
-                  ->orderBy('created_at', 'desc')
-                  ->get();
+            $dtnew = BookingRequest::where('status', 0)
+            ->where('is_deleted', 0)
+            ->orderBy('created_at', 'desc')
+            ->with(['prices' => function($query) use ($user) {
+                $query->where('driver_id', $user->id)
+                      ->whereNull('price')
+                      ->where('is_accepted', 0)
+                      ->where('skip', 0);
+            }])
+            ->get();
                  $newTripRequest =[];
                  
                  $prices=[];
@@ -468,7 +469,8 @@ class UserBookingController extends Controller
                    }
              
              //$data['newTripRequest']= $newTripRequest;
-              //ongoing trip
+             
+             //ongoing trip
                $dt = BookingRequest::where('is_deleted', 0)
                ->whereHas('payment', function($query) use ($driverId) {
                    $query->where('driver_id', $driverId);

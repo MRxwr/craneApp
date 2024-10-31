@@ -794,8 +794,6 @@ class BookingController extends Controller
 
        return $data;
     }
-
-
     //For client : return list driver of this order
     public function getOderDetails(Request $request){
         $data = array();

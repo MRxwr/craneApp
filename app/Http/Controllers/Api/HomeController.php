@@ -100,7 +100,17 @@ class HomeController extends Controller
                 $data['ongoingOrders']= [$ongoingRequest];
                 return outputSuccess($data);   
             }else if(is_guest($token)){
-
+                $services= Service::where('is_active',1)->where('is_deleted',0)
+                ->select('id', 'title', 'description','image') ->get()->toArray();
+                $banners= Banner::where('is_active',1)->where('is_deleted',0)
+                ->select('id', 'title', 'description','image') ->get()->toArray();
+                $data['message']=_lang('Get Home Data');
+                $data['sevices']= $services;
+                $data['banners']= $banners;
+                $data['time']= 0;
+                $data['distance']= 0;
+                $data['ongoingOrders']= [];
+                return outputSuccess($data);   
             }else {
                 // Authentication failed
                 $data['message']=_lang('Unauthorized due to token mismatch');

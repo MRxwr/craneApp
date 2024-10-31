@@ -315,12 +315,12 @@ class UserBookingController extends Controller
 
 
 
-            $dtnew = BookingRequest::join('prices', function($join) use ($user) {
-                $join->on('booking_requests.id', '=', 'prices.booking_request_id')
-                     ->where('prices.driver_id', $user->id)
-                     ->whereNull('prices.price')
-                     ->where('prices.is_accepted', 0)
-                     ->where('prices.skip', 0);
+            $dtnew = BookingRequest::join('request_prices', function($join) use ($user) {
+                $join->on('booking_requests.id', '=', 'request_prices.booking_request_id')
+                     ->where('request_prices.driver_id', $user->id)
+                     ->whereNull('request_prices.price')
+                     ->where('request_prices.is_accepted', 0)
+                     ->where('request_prices.skip', 0);
             })
             ->where('booking_requests.status', 0)
             ->where('booking_requests.is_deleted', 0)

@@ -327,6 +327,7 @@ class UserBookingController extends Controller
             ->orderBy('booking_requests.created_at', 'desc')
             ->select('booking_requests.*') // To only select booking request columns
             ->get();
+            // solved issue 
                  $newTripRequest =[];
                  
                  $prices=[];
@@ -396,13 +397,15 @@ class UserBookingController extends Controller
                 // for pending 
                 $dtpending = BookingRequest::with(['prices' => function($query) use ($user) {
                     $query->where('driver_id', $user->id)
-                          ->where('price', '!=', '') // Correct use of '!='
+                          ->whereNotNull('price')   // Ensures price is not NULL
+                          ->where('price', '!=', '') // Ensures price is not an empty string
                           ->where('is_accepted', '0')
                           ->where('skip', '0');
-                }])->where('status', '0')
-                  ->where('is_deleted', '0')
-                  ->orderBy('created_at', 'desc')
-                  ->get();
+                }])
+                ->where('status', '0')
+                ->where('is_deleted', '0')
+                ->orderBy('created_at', 'desc')
+                ->get();
                 $pendingRequest =[];
                 $prices=[];
                 $pkey=0;

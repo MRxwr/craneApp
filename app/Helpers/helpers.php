@@ -358,4 +358,12 @@ if (!function_exists('formatDateWithOrdinal')) {
         }
         return 'th';
     }
+    function is_guest($token){
+        $guesttoken ='guest3601f035a9bc98a9d78eda4550e8c50473281f54bc07b0ef';
+        if($token==$guesttoken){
+            return true;
+        }else{
+            return false;
+        }
+    }
 }

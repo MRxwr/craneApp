@@ -315,15 +315,17 @@ class UserBookingController extends Controller
 
 
 
-            $dtnew = BookingRequest::where('status', 0)
-            ->where('is_deleted', 0)
-            ->orderBy('created_at', 'desc')
-            ->with(['prices' => function($query) use ($user) {
-                $query->where('driver_id', $user->id)
-                      ->whereNull('price')
-                      ->where('is_accepted', 0)
-                      ->where('skip', 0);
-            }])
+            $dtnew = BookingRequest::join('prices', function($join) use ($user) {
+                $join->on('booking_requests.id', '=', 'prices.booking_request_id')
+                     ->where('prices.driver_id', $user->id)
+                     ->whereNull('prices.price')
+                     ->where('prices.is_accepted', 0)
+                     ->where('prices.skip', 0);
+            })
+            ->where('booking_requests.status', 0)
+            ->where('booking_requests.is_deleted', 0)
+            ->orderBy('booking_requests.created_at', 'desc')
+            ->select('booking_requests.*') // To only select booking request columns
             ->get();
                  $newTripRequest =[];
                  

@@ -73,9 +73,9 @@ function _lang($slug){
     }
     $lang = Locale::where('slug',$slug)->first();
    if($lang ){
-     return $lang->locales[$code];
+        return $lang->locales[$code];
    }else{
-      return str_replace("_"," ",$slug);
+        return str_replace("_"," ",$slug);
    }
 }
 function getActiveLanguages(){
@@ -89,15 +89,15 @@ function getSetting($slug){
    $locale = (Session::get('locale')? Session::get('locale'):'en');
    $setting = Setting::find(1);
    if($slug=='sitetitle'){
-     return $setting->sitetitle[$locale];
+        return $setting->sitetitle[$locale];
    }elseif($slug=='sitedesc'){
-    return $setting->sitedesc[$locale];
+        return $setting->sitedesc[$locale];
    }elseif($slug=='logo'){
-    return $setting->logo;
+        return $setting->logo;
    }elseif($slug=='favicon'){
-    return $setting->favicon;
+        return $setting->favicon;
    }else{
-    return $setting->$slug;
+        return $setting->$slug;
    }
 }
 function LanguagesDropdown(){

@@ -153,7 +153,19 @@ class UserController extends Controller
                 $data['contact']['address']= getSetting('address');
                 return outputSuccess($data);
                 // Proceed with authenticated user logic
-            } else {
+            } else if(is_guest($token)){
+                $data['message']=_lang('Profile');
+                $data['meta']['language']= 'ar';
+                $data['meta']['is_notify']= 0;
+                $data['meta']['wallet']= 0.00;
+                $data['about']= Page::find(8)->toArray();
+                $data['terms']= Page::find(2)->toArray();
+                $data['policy']= Page::find(9)->toArray();
+                $data['contact']['number']= getSetting('contact');
+                $data['contact']['email']= getSetting('email');
+                $data['contact']['address']= getSetting('address');
+                return outputSuccess($data);   
+            }else {
                 // Authentication failed
                 $data['message']=_lang('Unauthorized due to token mismatch');
                 return outputError($data);  

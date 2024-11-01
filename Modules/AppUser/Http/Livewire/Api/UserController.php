@@ -156,8 +156,8 @@ class UserController extends Controller
             } else if(is_guest($token)){
                 $data['message']=_lang('Profile');
                 $data['meta']['language']= 'ar';
-                $data['meta']['is_notify']= 0;
-                $data['meta']['wallet']= 0.00;
+                $data['meta']['is_notify']= '0';
+                $data['meta']['wallet']= '0.00';
                 $data['about']= Page::find(8)->toArray();
                 $data['terms']= Page::find(2)->toArray();
                 $data['policy']= Page::find(9)->toArray();

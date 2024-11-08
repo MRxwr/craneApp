@@ -735,6 +735,25 @@ class BookingController extends Controller
         $settingsEmail = $payment_data['customer_email'];
         $totalPrice = $payment_data['pay_amount'];
 
+            $extraMerchantData=array(
+                0=>array(
+                    'amount'=>(string)$totalPrice,
+                    'knetCharge'=>'0.25',
+                    'knetChargeType'=>'fixed',
+                    'ccCharge'=>'0.25',
+                    'ccChargeType'=>'fixed',
+                    'ibanNumber'=>"{$AdminSettings[0]["mainIban"]}"
+                ),
+                1=>array(
+                    'amount'=>(string)$totalPrice,
+                    'knetCharge'=>'0.25',
+                    'knetChargeType'=>'fixed',
+                    'ccCharge'=>'0.25',
+                    'ccChargeType'=>'fixed',
+                    'ibanNumber'=>"{$AdminSettings[0]["mainIban"]}"
+                )
+            );  
+
         $params = array(
             "endpoint"                  => "PaymentRequestExicute",
             "apikey"                    => $PaymentAPIKey,

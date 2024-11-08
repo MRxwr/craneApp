@@ -84,6 +84,7 @@
                                 <input type="text" class="form-control" placeholder="SMS Username " name="sms_username" value="{{$row->sms_username}}">
                             </div>
                         </div>
+
                         <div class="form-group row">
                             <div class="col-lg-3 col-12">{{_lang('SMS Password')}} </div>
                             <div class="col-lg-9 col-12">
@@ -97,7 +98,12 @@
                              <input type="text" class="form-control" placeholder="SMS Sender ID" name="sms_senderid" value="{{$row->sms_senderid}}">
                             </div>
                         </div>
-
+                        <div class="form-group row">
+                            <div class="col-lg-3 col-12"> {{_lang('Pay API Key')}}</div>
+                            <div class="col-lg-9 col-12">
+                               <input type="text" class="form-control" placeholder="Main Iban" name="payapi_key" value="{{$row->payapi_key}}">
+                            </div>
+                        </div>
                         <div class="form-group row">
                             <div class="col-lg-3 col-12"> {{_lang('Main Iban')}}</div>
                             <div class="col-lg-9 col-12">
@@ -120,8 +126,6 @@
                                </select>
                             </div>
                         </div>
-
-                        
 
                     </div>
                 </div>

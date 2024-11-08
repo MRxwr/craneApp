@@ -727,32 +727,45 @@ class BookingController extends Controller
     //payment action 
     public function doPayment($payment_data){
         $bsid=base64_encode($payment_data['booking_id'].'|'.$payment_data['price_id']);
-         //$PaymentAPIKey = 'CKW-1640114323-2537';
-        $PaymentAPIKey = 'CKW-1720608905-1840';
+        //$PaymentAPIKey = 'CKW-1640114323-2537';
+        //$PaymentAPIKey = 'CKW-1720608905-1840';
+        $PaymentAPIKey = getSetting('payapi_key');
         $paymentMethod=$payment_data['paymentMethod'];
         $name = $payment_data['customer_name'];
         $phone1 = $payment_data['customer_mobile'];
         $settingsEmail = $payment_data['customer_email'];
+        
         $totalPrice = $payment_data['pay_amount'];
-
-            $extraMerchantData=array(
-                0=>array(
-                    'amount'=>(string)$totalPrice,
-                    'knetCharge'=>'0.25',
-                    'knetChargeType'=>'fixed',
-                    'ccCharge'=>'0.25',
-                    'ccChargeType'=>'fixed',
-                    'ibanNumber'=>"{$AdminSettings[0]["mainIban"]}"
-                ),
-                1=>array(
-                    'amount'=>(string)$totalPrice,
-                    'knetCharge'=>'0.25',
-                    'knetChargeType'=>'fixed',
-                    'ccCharge'=>'0.25',
-                    'ccChargeType'=>'fixed',
-                    'ibanNumber'=>"{$AdminSettings[0]["mainIban"]}"
-                )
-            );  
+        
+        $admin_amount =1;
+        if(getSetting('chargeType')=='percentage'){
+            $admin_amount = $totalPrice * getSetting('chargeAmount') / 100;
+            $rest_of_amount = $totalPrice - $admin_amount;
+        }else if(getSetting('chargeType')=='percentage'){
+            $admin_amount = getSetting('chargeAmount'); 
+            $rest_of_amount = $totalPrice - $admin_amount;
+        }else{
+            $admin_amount = 1;
+            $rest_of_amount = $totalPrice - $admin_amount; 
+        }
+        $extraMerchantData=array(
+            0=>array(
+                'amount'=>(string)$admin_amount,
+                'knetCharge'=>'0.25',
+                'knetChargeType'=>'fixed',
+                'ccCharge'=>'0.25',
+                'ccChargeType'=>'fixed',
+                'ibanNumber'=>getSetting('mainIban')
+            ),
+            1=>array(
+                'amount'=>(string)$rest_of_amount,
+                'knetCharge'=>'0.25',
+                'knetChargeType'=>'fixed',
+                'ccCharge'=>'0.25',
+                'ccChargeType'=>'fixed',
+                'ibanNumber'=>getSetting('vendor1Iban')
+            )
+        );  
 
         $params = array(
             "endpoint"                  => "PaymentRequestExicute",
@@ -766,7 +779,8 @@ class BookingController extends Controller
             "InvoiceValue"              => $totalPrice,
             "SourceInfo"                => '',
             "CallBackUrl"               => url('success').'/?bsid='.$bsid,
-            "ErrorUrl"                  => url('failed').'/?bsid='.$bsid
+            "ErrorUrl"                  => url('failed').'/?bsid='.$bsid,
+            "extraMerchantData"         => $extraMerchantData
             );
         $curl = curl_init();
         // $certificate_location = 'C:\wamp64\bin\php\php7.2.33\extras\ssl\cacert.pem';

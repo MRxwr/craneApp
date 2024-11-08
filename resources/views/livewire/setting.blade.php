@@ -106,15 +106,8 @@
                         </div>
                         <div class="form-group row">
                             <div class="col-lg-3 col-12"> {{_lang('Main Iban')}}</div>
-                            <div class="col-lg-9 col-12">
+                            <div class="col-lg-5 col-12">
                                <input type="text" class="form-control" placeholder="Main Iban" name="mainIban" value="{{$row->mainIban}}">
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <div class="col-lg-3 col-12"> {{_lang('1st Vendor Iban')}}</div>
-                             <div class="col-lg-5 col-12">
-                               <input type="text" class="form-control" placeholder="1st Vendor Iban" name="vendor1Iban" value="{{$row->vendor1Iban}}">
                             </div>
                             <div class="col-lg-2 col-12">
                                <input type="text" class="form-control" placeholder="25" name="chargeAmount" value="{{$row->chargeAmount}}">
@@ -125,6 +118,14 @@
                                    <option value='percentage' {{($row->chargeType == 'percentage') ? 'selected' : ''}}>Percentage</option>
                                </select>
                             </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <div class="col-lg-3 col-12"> {{_lang('1st Vendor Iban')}}</div>
+                             <div class="col-lg-9 col-12">
+                               <input type="text" class="form-control" placeholder="1st Vendor Iban" name="vendor1Iban" value="{{$row->vendor1Iban}}">
+                            </div>
+                            
                         </div>
 
                     </div>

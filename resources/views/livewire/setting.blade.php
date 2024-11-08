@@ -115,8 +115,8 @@
                             </div>
                             <div class="col-lg-2 col-12">
                                <select class="form-control" name="chargeType">
-                                   <option value='fixed' {{($row->chargeType == 'fixed') ? 'selected' : ''}} >{{$row->chargeAmount}}>Fixed</option>
-                                   <option value='percentage' {{($row->chargeType == 'percentage') ? 'selected' : ''}} >{{$row->chargeAmount}}>Percentage</option>
+                                   <option value='fixed' {{($row->chargeType == 'fixed') ? 'selected' : ''}}>Fixed</option>
+                                   <option value='percentage' {{($row->chargeType == 'percentage') ? 'selected' : ''}}>Percentage</option>
                                </select>
                             </div>
                         </div>

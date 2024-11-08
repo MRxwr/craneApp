@@ -117,7 +117,7 @@
                                <input type="text" class="form-control" placeholder="1st Vendor Iban" name="vendor1Iban" value="{{$row->vendor1Iban}}">
                             </div>
                             <div class="col-lg-2 col-12">
-                               <input type="number" class="form-control" placeholder="25" name="chargeAmount" value="{{$row->chargeAmount}}">
+                               <input type="text" class="form-control" placeholder="25" name="chargeAmount" value="{{$row->chargeAmount}}">
                             </div>
                             <div class="col-lg-2 col-12">
                                <select class="form-control" name="chargeType">

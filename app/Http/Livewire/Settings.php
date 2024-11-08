@@ -44,6 +44,7 @@ class Settings extends Component
             $row->sms_username = $request->sms_username;
             $row->sms_password = $request->sms_password;
             $row->sms_senderid = $request->sms_senderid;
+            $row->payapi_key = $request->payapi_key;
             $row->mainIban = $request->mainIban;
             $row->vendor1Iban = $request->vendor1Iban;
             $row->chargeAmount = $request->chargeAmount;

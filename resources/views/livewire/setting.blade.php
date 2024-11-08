@@ -90,10 +90,32 @@
                             <input type="text" class="form-control" placeholder="SMS Password" name="sms_password" value="{{$row->sms_password}}">
                             </div>
                         </div>
+                        
                         <div class="form-group row">
                             <div class="col-lg-3 col-12"> {{_lang('SMS Sender ID')}}</div>
                             <div class="col-lg-9 col-12">
                              <input type="text" class="form-control" placeholder="SMS Sender ID" name="sms_senderid" value="{{$row->sms_senderid}}">
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <div class="col-lg-3 col-12"> {{_lang('vendor1Iban')}}</div>
+                            <div class="col-lg-9 col-12">
+                             <input type="text" class="form-control" placeholder="Admin Iban" name="mainIban" value="{{$row->mainIban}}">
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <div class="col-lg-3 col-12"> {{_lang('1st Vendor Iban')}}</div>
+                            <div class="col-lg-9 col-12">
+                             <input type="text" class="form-control" placeholder="1st Vendor Iban" name="vendor1Iban" value="{{$row->sms_senderid}}">
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <div class="col-lg-3 col-12"> {{_lang('2nd Vendor Iban')}}</div>
+                            <div class="col-lg-9 col-12">
+                             <input type="text" class="form-control" placeholder="2nd Vendor Iban" name="vendor2Iban" value="{{$row->vendor2Iban}}">
                             </div>
                         </div>
 

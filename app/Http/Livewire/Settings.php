@@ -44,6 +44,10 @@ class Settings extends Component
             $row->sms_username = $request->sms_username;
             $row->sms_password = $request->sms_password;
             $row->sms_senderid = $request->sms_senderid;
+            $row->mainIban = $request->mainIban;
+            $row->vendor1Iban = $request->vendor1Iban;
+            $row->vendor2Iban = $request->vendor2Iban;
+            
 
             if ($request->hasFile('logo')) {
                 $imageName = 'logo-'.time().'.'.$request->logo->extension();

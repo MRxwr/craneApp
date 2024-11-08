@@ -37,7 +37,7 @@
 
                     </div>
 
-                    <div class="col-lg-4 col-6">
+                    <div class="col-lg-6 col-6">
                             <div class="form-group row">
                                 <div class="col-lg-3 col-12">{{_lang('Admin language')}}</div>
                                 <div class="col-lg-9 col-12">
@@ -99,25 +99,29 @@
                         </div>
 
                         <div class="form-group row">
-                            <div class="col-lg-3 col-12"> {{_lang('vendor1Iban')}}</div>
+                            <div class="col-lg-3 col-12"> {{_lang('Main Iban')}}</div>
                             <div class="col-lg-9 col-12">
-                             <input type="text" class="form-control" placeholder="Admin Iban" name="mainIban" value="{{$row->mainIban}}">
+                               <input type="text" class="form-control" placeholder="Main Iban" name="mainIban" value="{{$row->mainIban}}">
                             </div>
                         </div>
 
                         <div class="form-group row">
                             <div class="col-lg-3 col-12"> {{_lang('1st Vendor Iban')}}</div>
-                            <div class="col-lg-9 col-12">
-                             <input type="text" class="form-control" placeholder="1st Vendor Iban" name="vendor1Iban" value="{{$row->sms_senderid}}">
+                             <div class="col-lg-5 col-12">
+                               <input type="text" class="form-control" placeholder="1st Vendor Iban" name="vendor1Iban" value="{{$row->vendor1Iban}}">
+                            </div>
+                            <div class="col-lg-2 col-12">
+                               <input type="number" class="form-control" placeholder="25" name="chargeAmount" value="{{$row->chargeAmount}}">
+                            </div>
+                            <div class="col-lg-2 col-12">
+                               <select class="form-control" name="chargeType">
+                                   <option value='fixed' {{($row->chargeType == 'fixed') ? 'selected' : ''}} >{{$row->chargeAmount}}>Fixed</option>
+                                   <option value='percentage' {{($row->chargeType == 'percentage') ? 'selected' : ''}} >{{$row->chargeAmount}}>Percentage</option>
+                               </select>
                             </div>
                         </div>
 
-                        <div class="form-group row">
-                            <div class="col-lg-3 col-12"> {{_lang('2nd Vendor Iban')}}</div>
-                            <div class="col-lg-9 col-12">
-                             <input type="text" class="form-control" placeholder="2nd Vendor Iban" name="vendor2Iban" value="{{$row->vendor2Iban}}">
-                            </div>
-                        </div>
+                        
 
                     </div>
                 </div>

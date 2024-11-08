@@ -46,8 +46,8 @@ class Settings extends Component
             $row->sms_senderid = $request->sms_senderid;
             $row->mainIban = $request->mainIban;
             $row->vendor1Iban = $request->vendor1Iban;
-            $row->vendor2Iban = $request->vendor2Iban;
-            
+            $row->chargeAmount = $request->chargeAmount;
+            $row->chargeType = $request->chargeType;
 
             if ($request->hasFile('logo')) {
                 $imageName = 'logo-'.time().'.'.$request->logo->extension();

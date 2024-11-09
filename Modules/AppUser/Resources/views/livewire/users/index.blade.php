@@ -90,15 +90,15 @@
                                             @endif
 
                                             @if (akses('edit-user'))
-                                                <a class="dropdown-item has-icon" href="#"
+                                                <a class="dropdown-item has-icon " href="#"
                                                     wire:click.prevent="change_password({{ $dt->id }})"><i
                                                         class="bi bi-lock"></i>
                                                         {{_lang('Change Password')}}</a>
                                             @endif
 
                                             @if (akses('edit-user'))
-                                                <a class="dropdown-item has-icon" href="#"
-                                                    wire:click.prevent="change_iban({{ $dt->id }})"><i
+                                                <a class="dropdown-item has-icon" href="#" onClick="change_iban({{ $dt->iban }})"
+                                                    wire:click.prevent="change_iban({{ $dt->id }})" data-iban="{{ $dt->iban }}"><i
                                                         class="bi bi-lock"></i>
                                                         {{_lang('Change Iban')}}</a>
                                             @endif
@@ -280,12 +280,11 @@
                     <div class="card">
                         <div class="card-header">
                             
-                        {{-- Display current IBAN if it exists --}}
-                        @if(!empty($iban))
-                            <div class="alert alert-info">
-                                <strong>Current IBAN:</strong> {{ $iban }}
+                        
+                            <div class="alert alert-info" id="iban_div" style="display: none;">
+                                <strong>Current IBAN: <span id="iban_span"></span></strong> 
                             </div>
-                        @endif
+                       
                         </div>
                         <form wire:submit.prevent="update_iban">
                             <div class="card-body">
@@ -349,6 +348,12 @@
                     }
 
                 })
+                var change_iban= function (iban) {
+                    if (iban) {
+                        $('#iban_div').show();
+                        $('#iban_span').html(iban);
+                    }
+                }
         </script>
     @endsection
 

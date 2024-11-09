@@ -357,10 +357,7 @@
                         // Show the IBAN div and set the IBAN text in the modal
                         $('#iban_div').show();  // Ensure the div is displayed
                         $('#iban_span').text(iban);  // Set the IBAN text inside the span
-                    } else {
-                        // Optionally, hide the IBAN div if no value exists
-                        $('#iban_div').hide();
-                    }
+                    } 
                     
                     // Show the modal
                     $('#modalChnageIban').modal('show');

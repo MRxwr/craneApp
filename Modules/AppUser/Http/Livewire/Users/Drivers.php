@@ -200,7 +200,7 @@ class Drivers extends Component
         $pagings = MasterData::list_pagings();
         
 
-        return view('appuser::livewire.users.index', compact(
+        return view('appuser::livewire.users.driver', compact(
             'data',
             'pagings',
             

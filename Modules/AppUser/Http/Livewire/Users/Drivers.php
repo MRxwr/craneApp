@@ -94,6 +94,38 @@ class Drivers extends Component
            $this->emit('pesanGagal', $pesan);
        }
     }
+
+    public function change_iban($id)
+    {
+        $this->is_edit = 1;
+        $this->id_edit = $id;
+
+        $this->forms = AppUserTrait::find_data($id);
+
+        $this->emit('modalChnageIban', 'show');
+    }
+
+    public function update_iban(){
+        $this->validate([
+            'iban' => 'required'
+        ]);
+        try {
+            if ($this->id_edit) {
+                $dt = AppUser::find($this->id_edit);
+                //dd($this->password);
+                isset($this->iban) ? $dt->iban = $this->iban : '';
+               if( $dt->save()){
+                 $this->emit('modalChnageIban', 'hide');
+                 $this->emit('pesanSukses', 'Sucess..');
+                 $this->reset(['is_edit', 'id_edit']);
+               }
+            }
+       } catch (\Exception $th) {
+           //throw $th;
+           $pesan = MasterData::pesan_gagal($th);
+           $this->emit('pesanGagal', $pesan);
+       }
+    }
    
 
     public function tambah_data()

@@ -96,6 +96,13 @@
                                                         {{_lang('Change Password')}}</a>
                                             @endif
 
+                                            @if (akses('edit-user'))
+                                                <a class="dropdown-item has-icon" href="#"
+                                                    wire:click.prevent="change_iban({{ $dt->id }})"><i
+                                                        class="bi bi-lock"></i>
+                                                        {{_lang('Change Iban')}}</a>
+                                            @endif
+
                                             @if (akses('delete-user'))
                                                 <a class="dropdown-item has-icon"
                                                     onclick="return confirm('Confirm delete?') || event.stopImmediatePropagation()"
@@ -259,6 +266,50 @@
         </div>
     </div>
 
+    <div class="modal fade" tabindex="-1" role="dialog" id="modalChnageIban" wire:ignore.self>
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Change Iban</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+
+                    <div class="card">
+                        <div class="card-header">
+                            
+                            
+                        </div>
+                        <form wire:submit.prevent="update_iban">
+                            <div class="card-body">
+                                {{ $message ?? '' }}
+                                <div class="form-group">
+                                    <label for="iban"> {{_lang('New Password')}}</label>
+                                    <input wire:model="iban" name="iban" type="text" class="form-control" id="iban"
+                                        placeholder="Enter Iban">
+                                    {{-- {{ $forms['iban'] }} --}}
+                                    @error('forms.iban')
+                                        <span style="color: red;" class="error">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                                
+                               
+                            </div>
+                            <div class="card-footer">
+                                <button type="submit" class="btn btn-primary"> {{_lang('Submit')}}</button>
+                                <img src="{{ asset('loading-bar.gif') }}" alt="" wire:loading wire:target="store">
+                            </div>
+                        </form>
+                    </div>
+
+                </div>
+                
+            </div>
+        </div>
+    </div>
+
     @section('scripts')
         <script>
             Livewire.on('modalAdd', aksi => {
@@ -281,6 +332,16 @@
                     $('#modalChnagePassword').modal('hide');
                     
                 }
+
+                })
+            Livewire.on('modalChnageIban', aksi => {
+                    if (aksi == 'show') {
+                        $('#modalChnageIban').modal('show');
+                    } else {
+                    
+                        $('#modalChnageIban').modal('hide');
+                        
+                    }
 
                 })
         </script>

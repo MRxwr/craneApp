@@ -348,26 +348,20 @@
                     }
 
                 })
-                // Function to display the selected IBAN
-            var change_iban = function (iban) {
-                console.log("Selected IBAN:", iban);  // Log the selected IBAN for debugging
-
-                const ibanDiv = document.getElementById('iban_div');
-                const ibanSpan = document.getElementById('iban_span');
-
-                if (iban) {
-                    ibanDiv.style.display = 'block';  // Show the IBAN display area
-                    ibanSpan.textContent = `Selected IBAN: ${iban}`;  // Update with "Selected IBAN"
-                } else {
-                    ibanDiv.style.display = 'none';  // Hide if no IBAN is provided
-                }
-            }
-
-            // Attach event listeners to all elements with the class 'change-iban-button'
-            document.querySelectorAll('.change-iban-button').forEach(button => {
-                button.addEventListener('click', function() {
-                    const iban = this.getAttribute('data-iban');  // Retrieve data-iban attribute
-                    change_iban(iban);  // Call change_iban with the retrieved IBAN
+              
+        </script>
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                document.querySelectorAll('.change-iban-button').forEach(button => {
+                    button.addEventListener('click', function () {
+                        const iban = this.getAttribute('data-iban');
+                        if (iban) {
+                            document.getElementById('iban_div').style.display = 'block';
+                            document.getElementById('iban_span').textContent = iban;
+                        } else {
+                            document.getElementById('iban_div').style.display = 'none';
+                        }
+                    });
                 });
             });
         </script>

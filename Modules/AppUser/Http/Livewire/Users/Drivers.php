@@ -101,8 +101,9 @@ class Drivers extends Component
         $this->id_edit = $id;
 
         $this->forms = AppUserTrait::find_data($id);
-
-        $this->emit('modalChnageIban', 'show');
+        $dt = AppUser::find($id);
+        $iban = $dt->iban;
+        $this->emit('modalChnageIban', 'show',$iban);
     }
 
     public function update_iban(){
@@ -112,6 +113,7 @@ class Drivers extends Component
         try {
             if ($this->id_edit) {
                 $dt = AppUser::find($this->id_edit);
+                
                 //dd($this->password);
                 isset($this->iban) ? $dt->iban = $this->iban : '';
                if( $dt->save()){

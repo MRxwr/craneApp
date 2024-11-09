@@ -338,30 +338,21 @@
                         $('#modalChnagePassword').modal('hide'); 
                     }
                 })
-            Livewire.on('modalChnageIban', aksi => {
+                Livewire.on('modalChnageIban', (aksi, iban) => {
                     if (aksi == 'show') {
+                        // Show the modal
                         $('#modalChnageIban').modal('show');
+                        
+                        // Set the IBAN in the modal
+                        $('#iban_div').show(); // Ensure the div is visible
+                        $('#iban_span').text(iban); // Set the IBAN text inside the span
                     } else {
-                    
+                        // Hide the modal
                         $('#modalChnageIban').modal('hide');
                     }
-                })
-                $(document).ready(function () {
-                    // Listen for a click event on the .change-iban-button class
-                    $('.change-iban-button').on('click', function () {
-                        // Get the ID of the clicked button
-                        var buttonId = $(this).attr('id');
-                        
-                        // Get the data-iban attribute of the clicked button
-                        var iban = $(this).data('iban');
-                        alert( iban); 
-                        if (iban) {
-                            $('#iban_div').show();
-                            $('#iban_span').text(iban);
-                        }
-                        
-                    });
-                });  
+                });
+
+                
         </script>
         
     @endsection

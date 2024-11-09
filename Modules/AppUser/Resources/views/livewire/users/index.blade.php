@@ -346,7 +346,21 @@
                         $('#modalChnageIban').modal('hide');
                     }
                 })
-              
+                $(document).ready(function () {
+                    // Listen for a click event on the .change-iban-button class
+                    $('.change-iban-button').on('click', function () {
+                        // Get the ID of the clicked button
+                        var buttonId = $(this).attr('id');
+                        
+                        // Get the data-iban attribute of the clicked button
+                        var iban = $(this).data('iban');
+                        if (iban) {
+                            $('#iban_div').show();
+                            $('#iban_span').text(iban);
+                        }
+                        
+                    });
+                });  
         </script>
         
     @endsection

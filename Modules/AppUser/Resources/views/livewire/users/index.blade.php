@@ -354,9 +354,9 @@
                         
                         // Get the data-iban attribute of the clicked button
                         var iban = $(this).data('iban');
-                        alert( iban); 
+                         
                         if (iban) {
-                            $('#iban_div').show();
+                            $('#iban_div').css('display', 'block');
                             $('#iban_span').text(iban);
                         }
                         

@@ -280,13 +280,18 @@
                     <div class="card">
                         <div class="card-header">
                             
-                            
+                        {{-- Display current IBAN if it exists --}}
+                        @if(!empty($iban))
+                            <div class="alert alert-info">
+                                <strong>Current IBAN:</strong> {{ $iban }}
+                            </div>
+                        @endif
                         </div>
                         <form wire:submit.prevent="update_iban">
                             <div class="card-body">
                                 {{ $message ?? '' }}
                                 <div class="form-group">
-                                    <label for="iban"> {{_lang('New Password')}}</label>
+                                    <label for="iban"> {{_lang('Change Iban')}}</label>
                                     <input wire:model="iban" name="iban" type="text" class="form-control" id="iban"
                                         placeholder="Enter Iban">
                                     {{-- {{ $forms['iban'] }} --}}

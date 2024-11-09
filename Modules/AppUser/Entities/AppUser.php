@@ -22,7 +22,8 @@ class AppUser extends Authenticatable implements AuthenticatableContract
                 'dob',
                 'is_active',
                 'user_type',
-                'avator'
+                'avator',
+                'iban'
             ];
     // The attributes that should be hidden for arrays
     protected $hidden = [

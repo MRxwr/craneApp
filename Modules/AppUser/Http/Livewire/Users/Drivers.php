@@ -18,7 +18,7 @@ class Drivers extends Component
 
     public $paging, $search;
     public $forms = [];
-    public $id_edit, $is_edit,$avator, $password;
+    public $id_edit, $is_edit,$avator, $password,$iban;
 
     public function mount()
     {

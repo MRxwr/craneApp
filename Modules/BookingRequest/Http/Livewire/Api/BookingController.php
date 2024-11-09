@@ -691,6 +691,7 @@ class BookingController extends Controller
                         $payment_data['customer_email'] = $user->email;;
                         $payment_data['paymentMethod'] = $payment_method;
                         $payment_data['pay_amount']= $price;
+                        $payment_data['driver_id']= $driver_id;
                         $pdata = $this->doPayment($payment_data);
                         $remark =_lang('payment successfully done through payapi by ').$user->name;
                         $payment_type ='knet/card';
@@ -736,7 +737,9 @@ class BookingController extends Controller
         $settingsEmail = $payment_data['customer_email'];
         
         $totalPrice = $payment_data['pay_amount'];
-        
+        $driver_id=$payment_data['driver_id'];
+        $driver = AppUser::find($driver_id);
+        $driver_iban = $driver->iban;
         $admin_amount =1;
         if(getSetting('chargeType')=='percentage'){
             $admin_amount = $totalPrice * getSetting('chargeAmount') / 100;
@@ -745,7 +748,7 @@ class BookingController extends Controller
             $admin_amount = getSetting('chargeAmount'); 
             $rest_of_amount = $totalPrice - $admin_amount;
         }else{
-            $admin_amount = 1;
+            $admin_amount = 1.5;
             $rest_of_amount = $totalPrice - $admin_amount; 
         }
         $extraMerchantData=array(
@@ -763,7 +766,7 @@ class BookingController extends Controller
                 'knetChargeType'=>'fixed',
                 'ccCharge'=>'0.25',
                 'ccChargeType'=>'fixed',
-                'ibanNumber'=>getSetting('vendor1Iban')
+                'ibanNumber'=>$driver_iban
             )
         );  
 

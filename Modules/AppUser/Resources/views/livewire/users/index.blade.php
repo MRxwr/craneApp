@@ -99,7 +99,7 @@
                                             @endif
 
                                             @if (akses('edit-user'))
-                                                <a class="dropdown-item has-icon change-iban-button" href="#" 
+                                                <a class="dropdown-item has-icon change-iban-button" href="#" id="change-iban-button{{ $dt->id }}"
                                                     wire:click.prevent="change_iban({{ $dt->id }})" data-iban="{{ $dt->iban }}"><i
                                                         class="bi bi-lock"></i>
                                                         {{_lang('Change Iban')}}</a>
@@ -351,9 +351,10 @@
                     $('.change-iban-button').on('click', function () {
                         // Get the ID of the clicked button
                         var buttonId = $(this).attr('id');
-                        alert( buttonId); 
+                        
                         // Get the data-iban attribute of the clicked button
                         var iban = $(this).data('iban');
+                        alert( iban); 
                         if (iban) {
                             $('#iban_div').show();
                             $('#iban_span').text(iban);

@@ -351,7 +351,7 @@
                     $('.change-iban-button').on('click', function () {
                         // Get the ID of the clicked button
                         var buttonId = $(this).attr('id');
-                        
+                        alert( buttonId); 
                         // Get the data-iban attribute of the clicked button
                         var iban = $(this).data('iban');
                         if (iban) {

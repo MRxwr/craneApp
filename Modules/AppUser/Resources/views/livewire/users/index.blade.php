@@ -338,30 +338,34 @@
                         $('#modalChnagePassword').modal('hide'); 
                     }
                 })
-            Livewire.on('modalChnageIban', aksi => {
-                    if (aksi == 'show') {
-                        $('#modalChnageIban').modal('show');
-                    } else {
+            // Livewire.on('modalChnageIban', aksi => {
+            //         if (aksi == 'show') {
+            //             $('#modalChnageIban').modal('show');
+            //         } else {
                     
-                        $('#modalChnageIban').modal('hide');
-                    }
-                })
+            //             $('#modalChnageIban').modal('hide');
+            //         }
+            // })
                 $(document).ready(function () {
-                    // Listen for a click event on the .change-iban-button class
-                    $('.change-iban-button').on('click', function () {
-                        // Get the ID of the clicked button
-                        var buttonId = $(this).attr('id');
-                        
-                        // Get the data-iban attribute of the clicked button
-                        var iban = $(this).data('iban');
-                         
-                        if (iban) {
-                            $('#iban_div').css('display', 'block');
-                            $('#iban_span').text(iban);
-                        }
-                        
-                    });
-                });  
+                // Listen for a click event on .change-iban-button
+                $('.change-iban-button').on('click', function () {
+                    // Get the IBAN value from data-iban attribute
+                    var iban = $(this).data('iban');
+                    
+                    // Check if IBAN exists
+                    if (iban) {
+                        // Show the IBAN div and set the IBAN text in the modal
+                        $('#iban_div').show();  // Ensure the div is displayed
+                        $('#iban_span').text(iban);  // Set the IBAN text inside the span
+                    } else {
+                        // Optionally, hide the IBAN div if no value exists
+                        $('#iban_div').hide();
+                    }
+                    
+                    // Show the modal
+                    $('#modalChnageIban').modal('show');
+                });
+            }); 
         </script>
         
     @endsection

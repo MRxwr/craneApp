@@ -47,6 +47,7 @@
                             <th>{{_lang('Mobile')}}</th>
                             <th>{{_lang('Email')}}</th>
                             <th>{{_lang('DOB')}}</th>
+                            <th>{{_lang('IBAN')}}</th>
                             <th>{{_lang('Status')}}</th>
                             <th>{{_lang('Action')}}  </th>
                         </tr>
@@ -58,6 +59,7 @@
                                 <td>{{ $dt->mobile }}</td>
                                 <td>{{ $dt->email }}</td>
                                 <td>{{ $dt->dob }}</td>
+                                <td>{{ $dt->iban }}</td>
                                 <td>
                                     @if (akses('edit-user'))
                                         @if ($dt->is_active == 1)
@@ -329,14 +331,12 @@
 
             })
             Livewire.on('modalChnagePassword', aksi => {
-                if (aksi == 'show') {
-                    $('#modalChnagePassword').modal('show');
-                } else {
-                  
-                    $('#modalChnagePassword').modal('hide');
+                    if (aksi == 'show') {
+                        $('#modalChnagePassword').modal('show');
+                    } else {
                     
-                }
-
+                        $('#modalChnagePassword').modal('hide'); 
+                    }
                 })
             Livewire.on('modalChnageIban', aksi => {
                     if (aksi == 'show') {
@@ -344,27 +344,11 @@
                     } else {
                     
                         $('#modalChnageIban').modal('hide');
-                        
                     }
-
                 })
               
         </script>
-        <script>
-            document.addEventListener('DOMContentLoaded', function () {
-                document.querySelectorAll('.change-iban-button').forEach(button => {
-                    button.addEventListener('click', function () {
-                        const iban = this.getAttribute('data-iban');
-                        if (iban) {
-                            document.getElementById('iban_div').style.display = 'block';
-                            document.getElementById('iban_span').textContent = iban;
-                        } else {
-                            document.getElementById('iban_div').style.display = 'none';
-                        }
-                    });
-                });
-            });
-        </script>
+        
     @endsection
 
 </div>

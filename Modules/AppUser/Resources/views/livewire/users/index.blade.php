@@ -47,7 +47,7 @@
                             <th>{{_lang('Mobile')}}</th>
                             <th>{{_lang('Email')}}</th>
                             <th>{{_lang('DOB')}}</th>
-                            <th>{{_lang('IBAN')}}</th>
+                            
                             <th>{{_lang('Status')}}</th>
                             <th>{{_lang('Action')}}  </th>
                         </tr>
@@ -59,7 +59,7 @@
                                 <td>{{ $dt->mobile }}</td>
                                 <td>{{ $dt->email }}</td>
                                 <td>{{ $dt->dob }}</td>
-                                <td>{{ $dt->iban }}</td>
+                                
                                 <td>
                                     @if (akses('edit-user'))
                                         @if ($dt->is_active == 1)
@@ -98,12 +98,12 @@
                                                         {{_lang('Change Password')}}</a>
                                             @endif
 
-                                            @if (akses('edit-user'))
+                                            <!-- @if (akses('edit-user'))
                                                 <a class="dropdown-item has-icon change-iban-button" href="#" id="change-iban-button({{ $dt->id }}"
                                                     wire:click.prevent="change_iban({{ $dt->id }})" data-iban="{{ $dt->iban }}"><i
                                                         class="bi bi-lock"></i>
                                                         {{_lang('Change Iban')}}</a>
-                                            @endif
+                                            @endif -->
 
                                             @if (akses('delete-user'))
                                                 <a class="dropdown-item has-icon"

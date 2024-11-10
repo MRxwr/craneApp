@@ -241,7 +241,7 @@ function upadteUserMeta($key,$value,$app_user_id){
     try {
         if($user_id){
             $user = AppUser::find($user_id);
-           if($user){ 
+           if($user && $user->device_token){
               // off firebase  notification by comment code below line
               // if need to send notification by firebase use below code
                $firebaseNotificationService = app(FCMService::class);

@@ -377,6 +377,7 @@ class BookingController extends Controller
                         AddBookingLog($dt,$activity);
                     }else{
                         $data['message']=_lang('Trip has been successfully canceled  by ').$user->name;
+                        $activity=_lang('Trip has been successfully canceled  by ').$user->name;
                         AddBookingLog($dt,$activity);
                     }
                      $status =4;

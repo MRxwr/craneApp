@@ -191,37 +191,36 @@ class UserBookingController extends Controller
                 $driverId = $user->id;
                $data['message']=_lang('get Order request');
                $todayRequests = BookingRequest::where('is_deleted', 0)
-                    ->whereHas('payment', function($query) use ($today, $driverId) {
-                        $query->whereDate('created_at', $today)
-                            ->where('driver_id', $driverId);
-                    })
-                    ->with(['payment' => function($query) use ($today, $driverId) {
-                        $query->whereDate('created_at', $today)
-                            ->where('driver_id', $driverId);
-                    }])
-                    ->orderBy('created_at', 'desc')
-                    ->get();
+                ->whereHas('payment', function($query) use ($today, $driverId) {
+                    $query->whereDate('created_at', $today)
+                        ->where('driver_id', $driverId)
+                        ->where('payment_status', 'success');
+                })
+                ->with(['payment' => function($query) use ($today, $driverId) {
+                    $query->whereDate('created_at', $today)
+                        ->where('driver_id', $driverId)
+                        ->where('payment_status', 'success');
+                }])
+                ->orderBy('created_at', 'desc')
+                ->get();
 
-                // Calculate total earnings for successful payments
-                $totalEarnings = $todayRequests->sum(function($bookingRequest) {
-                    return $bookingRequest->payment && $bookingRequest->payment->payment_status === 'success'
-                        ? $bookingRequest->payment->payment_amount
-                        : 0;
-                });
-
-                // Filter successful requests
-                $successfulRequests = $todayRequests->filter(function($bookingRequest) {
-                    return $bookingRequest->payment && $bookingRequest->payment->payment_status === 'success';
-                });
-
-                // Calculate total distance for successful payments
-                $totalDistance = 0;
-                foreach ($successfulRequests as $successBookingRequest) {
-                    $totalDistance += (float)($successBookingRequest->distance ?? 0); // Ensure distance is valid
-                }
-
-                // Count total number of successful requests
-                $totalRequests = $successfulRequests->count();
+            $totalEarnings = $todayRequests->sum(function($bookingRequest) {
+                return $bookingRequest->payment && $bookingRequest->payment->payment_status === 'success'
+                    ? $bookingRequest->payment->payment_amount
+                    : 0;
+            });
+   
+            // Filter todayRequests for successful payments only
+            $successfulRequests = $todayRequests->filter(function($bookingRequest) {
+                return $bookingRequest->payment && $bookingRequest->payment->payment_status === 'success';
+            });
+             $totalDistance = $todayRequests->sum('distances'); // Assuming 'distance' is a field in BookingRequest
+             
+             // $totalRequests = $todayRequests->count();
+            // Calculate the total distance for successful payments
+            //$totalDistance = $successfulRequests->sum('distance');
+            // Count the total number of requests with successful payments
+            $totalRequests = $successfulRequests->count();
                $data['todayEarnings']= [
                 'total_earnings' => number_format((float)$totalEarnings,  3, '.', ''),
                 'total_distance' => $totalDistance,

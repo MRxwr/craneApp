@@ -331,7 +331,7 @@ class UserController extends Controller
             // Proceed with authenticated user logic
         }else {
             // Authentication failed
-            $data['message']=_lang('Unauthorized due to token mismatch');
+            $data['message']=_lang('user not found');
             return outputError($data); 
             
         }

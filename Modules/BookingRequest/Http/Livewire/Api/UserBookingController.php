@@ -208,9 +208,10 @@ class UserBookingController extends Controller
                     : 0;
             });
             $totalDistance = $todayRequests->sum(function($bookingRequest) {
-                return ($bookingRequest->payment && $bookingRequest->payment->payment_status === 'success')
-                    ? $bookingRequest->distance
-                    : 0;
+                if ($bookingRequest->payment && $bookingRequest->payment->payment_status === 'success') {
+                    return $bookingRequest->distance;
+                }
+                return 0;
             });
             // Filter todayRequests for successful payments only
             $successfulRequests = $todayRequests->filter(function($bookingRequest) {

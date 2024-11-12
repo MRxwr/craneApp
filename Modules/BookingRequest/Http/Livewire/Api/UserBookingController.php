@@ -212,8 +212,11 @@ class UserBookingController extends Controller
             $successfulRequests = $todayRequests->filter(function($bookingRequest) {
                 return $bookingRequest->payment && $bookingRequest->payment->payment_status === 'success';
             });
-             $totalDistance = $todayRequests->sum('distances'); // Assuming 'distance' is a field in BookingRequest
-            // $totalRequests = $todayRequests->count();
+             //$totalDistance = $todayRequests->sum('distances'); // Assuming 'distance' is a field in BookingRequest
+             $totalDistance = $successfulRequests->sum(function($bookingRequest) {
+                return (float)$bookingRequest->distance;
+            });
+             // $totalRequests = $todayRequests->count();
             // Calculate the total distance for successful payments
             //$totalDistance = $successfulRequests->sum('distance');
             // Count the total number of requests with successful payments

@@ -36,7 +36,7 @@ class LoginController extends Controller
         if($isverified){
             $appuser = AppUser::where('mobile', $mobileNumber)->where('is_deleted',0)->first();
             if ($appuser){
-                $data['message']=_lang('Successful loggedin');
+                $data['message']=_lang('Successfully logged in');
                 if ($request->has('password')) {
                         // Password is provided, attempt to authenticate with password
                         $credentials = $request->only('mobile', 'password');

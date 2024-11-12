@@ -693,12 +693,12 @@ class BookingController extends Controller
                         $payment_data['paymentMethod'] = $payment_method;
                         $payment_data['pay_amount']= $price;
                         $payment_data['driver_id']= $driver_id;
-                        $pdata = $this->doPayment($payment_data);
-                        $remark =_lang('payment successfully done through payapi by ').$user->name;
+                        $remark =_lang('payment ongoing through payapi by ').$user->name;
                         $payment_type ='knet/card';
                         $transaction_id='';
                         if(DoBooking($dt,$transaction_id,$payment_type,$price,$remark)){
-                            $activity = _lang('payment successfully done through payapi by ').$user->name;
+                            $pdata = $this->doPayment($payment_data);
+                            $activity = _lang('payment ongoing  through payapi by ').$user->name;
                              AddBookingLog($dt,$activity);  
                              $driverList[$bidid]['prices']=$prices;
                              $data['payment_data']= $pdata;
@@ -1052,7 +1052,6 @@ class BookingController extends Controller
                             $pid = $ids[1];
                             $price = BookingPrice::find($pid);
                             $dt = BookingRequest::with('prices')->find($bidid);
-                            
                             $dt->status = 1;
                             $dt->driver_id = $price->driver_id?$price->driver_id:0;
                             $dt->save();
@@ -1122,6 +1121,7 @@ class BookingController extends Controller
                     $ids=explode('|',$decodedData);
                     
                     if(!empty($ids)){
+                        $remark =_lang('Payment Declined');
                         $data=[];
                         $bidid = $ids[0];
                         $pid = $ids[1];
@@ -1130,6 +1130,8 @@ class BookingController extends Controller
                         $payment=BookingPayment::where('request_id',$bidid)->first();
                         $payment->driver_id = $price->driver_id?$price->driver_id:0;
                         $payment->transaction_id='';
+                        $payment->payment_amount='';
+                        $payment->remark=$remark;
                         $payment->payment_status='failed';
                         $payment->save();
                         //$data['dt'] = $dt;

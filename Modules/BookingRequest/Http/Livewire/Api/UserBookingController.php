@@ -219,7 +219,7 @@ class UserBookingController extends Controller
             // $totalDistance = $todayRequests->sum('distances'); // Assuming 'distance' is a field in BookingRequest
             // $totalRequests = $todayRequests->count();
             // Calculate the total distance for successful payments
-            $totalDistance = $successfulRequests->sum('distance');
+            //$totalDistance = $successfulRequests->sum('distance');
             // Count the total number of requests with successful payments
             $totalRequests = $successfulRequests->count();
                $data['todayEarnings']= [

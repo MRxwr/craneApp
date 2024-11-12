@@ -1130,7 +1130,7 @@ class BookingController extends Controller
                         $payment=BookingPayment::where('request_id',$bidid)->first();
                         $payment->driver_id = $price->driver_id?$price->driver_id:0;
                         $payment->transaction_id='';
-                        $payment->payment_amount='';
+                        //$payment->payment_amount='';
                         $payment->remark=$remark;
                         $payment->payment_status='failed';
                         $payment->save();

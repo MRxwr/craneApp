@@ -273,7 +273,7 @@ function upadteUserMeta($key,$value,$app_user_id){
     }
   }
 
-  function DoBooking($dt,$transaction_id,$payment_type,$price,$remark){
+  function DoBooking($dt,$transaction_id,$payment_type,$price,$remark, $driver_id){
     $booking =  new BookingPayment();
     $booking->request_id =$dt->id;
     $booking->client_id =$dt->client_id;
@@ -281,6 +281,7 @@ function upadteUserMeta($key,$value,$app_user_id){
     $booking->payment_type =$payment_type;
     if($payment_type=='wallet'){
         $booking->payment_status ='success';
+        $booking->driver_id =$driver_id;
     }else{
         $booking->payment_status ='ongoing';
     }

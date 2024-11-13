@@ -678,7 +678,12 @@ class BookingController extends Controller
                                 $transaction_id=time();
                                 $data['payment_data']['success_url'] = url('success').'/?bsid='.$bsid.'&paymentId='.$transaction_id.'&transaction_id='.$transaction_id;
                                 $data['payment_data']['failed_url'] = url('failed').'/?bsid='.$bsid.'&paymentId='.$transaction_id.'&transaction_id='.$transaction_id;
-                                if(DoBooking($dt,$transaction_id,$payment_type,$price,$remark)){
+                                if(DoBooking($dt,$transaction_id,$payment_type,$price,$remark,$driver_id)){
+                                    $dt->status = 1;
+                                    $dt->driver_id = $bidprice->driver_id?$bidprice->driver_id:0;
+                                    $dt->save();
+                                    $bidprice->is_accepted = 1;
+                                    $bidprice->save();
                                     AddBookingLog($dt,$activity);
                                     return outputSuccess($data);
                                 }
@@ -703,7 +708,7 @@ class BookingController extends Controller
                             $remark =_lang('payment ongoing through payapi by ').$user->name;
                             $payment_type ='knet/card';
                             $transaction_id='';
-                            if(DoBooking($dt,$transaction_id,$payment_type,$price,$remark)){
+                            if(DoBooking($dt,$transaction_id,$payment_type,$price,$remark, $driver_id)){
                                 $pdata = $this->doPayment($payment_data);
                                 $activity = _lang('payment ongoing  through payapi by ').$user->name;
                                 AddBookingLog($dt,$activity);  

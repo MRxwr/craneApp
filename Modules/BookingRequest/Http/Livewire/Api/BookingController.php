@@ -367,11 +367,11 @@ class BookingController extends Controller
                         $price= floatval($payment->payment_amount);
                         $newwalletValue=$wallet+$price;
                         upadteUserMeta('wallet',$newwalletValue,$user->id);
-                        $wdata['request_id']=$dt->id;
-                        $wdata['app_user_id']=$user->id;
-                        $wdata['amount']=$price;
-                        $wdata['mode']='credit';
-                        $wdata['remark']=_lang('Trip has been successfully canceled and refunded to wallet , canceled by ').$user->name;
+                          $wdata['request_id']=$dt->id;
+                          $wdata['app_user_id']=$user->id;
+                          $wdata['amount']=$price;
+                          $wdata['mode']='credit';
+                          $wdata['remark']=_lang('Trip has been successfully canceled and refunded to wallet , canceled by ').$user->name;
                         walletTransaction($wdata);
                         $activity = _lang('Trip has been successfully canceled and refunded to wallet , canceled by ').$user->name;
                         AddBookingLog($dt,$activity);
@@ -648,64 +648,72 @@ class BookingController extends Controller
                $dt = BookingRequest::with('prices')->find($bidid);
                $bidprice = $dt->prices->where('driver_id', $driver_id)->first();
                $prices=[];
-               $data['message']=_lang('Place Order Request');
+                  $data['message']=_lang('Place Order Request');
                 if($bidprice){
-                    if($is_wallet==1){
-                        $price = floatval($bidprice->price);
-                        if(checkCoupon($price)){
-                            $price = checkCoupon($price);
-                        }
-                        $wallet= floatval(getUserMeta('wallet',$user->id));
-                        if($wallet>=$price){
-                            $newwalletValue=$wallet-$price;
-                            upadteUserMeta('wallet',$newwalletValue,$user->id);
-                            $wdata['request_id']=$dt->id;
-                            $wdata['app_user_id']=$user->id;
-                            $wdata['amount']=$price;
-                            $wdata['mode']='debit';
-                            $wdata['remark']=_lang('payment successfully done through wallet by ').$user->name;
-                             walletTransaction($wdata);
-                            $data['payment_data']['payment_type']='wallet';
-                            $data['payment_data']['payment_status']='success';
-                            $activity = _lang('payment successfully done through wallet by ').$user->name;
-                            $remark =_lang('payment successfully done through wallet by ').$user->name;
-                            $payment_type ='wallet';
-                            $transaction_id=time();
-                            if(DoBooking($dt,$transaction_id,$payment_type,$price,$remark)){
-                                AddBookingLog($dt,$activity);
-                                return outputSuccess($data);
-                            }
-                        }else{
-                            $data['message']=_lang('Insufficient funds in the wallet');
-                            return outputError($data); 
-                        }
-
+                    if(checkSuccessPayment($bidid)){
+                        $data['message']=_lang('This trip is already successfully paid');
+                        return outputError($data); 
                     }else{
-                        $price = floatval($bidprice->price);
-                        if(checkCoupon($price)){
-                            $price = checkCoupon($price);
+                        if($is_wallet==1){
+                            $price = floatval($bidprice->price);
+                            if(checkCoupon($price)){
+                                $price = checkCoupon($price);
+                            }
+                            $wallet= floatval(getUserMeta('wallet',$user->id));
+                            if($wallet>=$price){
+                                $bsid=base64_encode($dt->id.'|'.$bidprice->id);
+                                $newwalletValue=$wallet-$price;
+                                upadteUserMeta('wallet',$newwalletValue,$user->id);
+                                $wdata['request_id']=$dt->id;
+                                $wdata['app_user_id']=$user->id;
+                                $wdata['amount']=$price;
+                                $wdata['mode']='debit';
+                                $wdata['remark']=_lang('payment successfully done through wallet by ').$user->name;
+                                walletTransaction($wdata);
+                                $data['payment_data']['payment_type']='wallet';
+                                $data['payment_data']['payment_status']='success';
+                                $activity = _lang('payment successfully done through wallet by ').$user->name;
+                                $remark =_lang('payment successfully done through wallet by ').$user->name;
+                                $payment_type ='wallet';
+                                $transaction_id=time();
+                                $data['payment_data']['success_url'] = url('success').'/?bsid='.$bsid.'&paymentId='.$transaction_id.'&transaction_id='.$transaction_id;
+                                $data['payment_data']['failed_url'] = url('failed').'/?bsid='.$bsid.'&paymentId='.$transaction_id.'&transaction_id='.$transaction_id;
+                                if(DoBooking($dt,$transaction_id,$payment_type,$price,$remark)){
+                                    AddBookingLog($dt,$activity);
+                                    return outputSuccess($data);
+                                }
+                            }else{
+                                $data['message']=_lang('Insufficient funds in the wallet');
+                                return outputError($data); 
+                            }
+
+                        }else{
+                            $price = floatval($bidprice->price);
+                            if(checkCoupon($price)){
+                                $price = checkCoupon($price);
+                            }
+                            $payment_data['booking_id']=$dt->id;
+                            $payment_data['price_id'] = $bidprice->id;
+                            $payment_data['customer_name']=$user->name;
+                            $payment_data['customer_mobile'] = $user->mobile;
+                            $payment_data['customer_email'] = $user->email;;
+                            $payment_data['paymentMethod'] = $payment_method;
+                            $payment_data['pay_amount']= $price;
+                            $payment_data['driver_id']= $driver_id;
+                            $remark =_lang('payment ongoing through payapi by ').$user->name;
+                            $payment_type ='knet/card';
+                            $transaction_id='';
+                            if(DoBooking($dt,$transaction_id,$payment_type,$price,$remark)){
+                                $pdata = $this->doPayment($payment_data);
+                                $activity = _lang('payment ongoing  through payapi by ').$user->name;
+                                AddBookingLog($dt,$activity);  
+                                $driverList[$bidid]['prices']=$prices;
+                                $data['payment_data']= $pdata;
+                                return outputSuccess($data);
+                            } 
                         }
-                        $payment_data['booking_id']=$dt->id;
-                        $payment_data['price_id'] = $bidprice->id;
-                        $payment_data['customer_name']=$user->name;
-                        $payment_data['customer_mobile'] = $user->mobile;
-                        $payment_data['customer_email'] = $user->email;;
-                        $payment_data['paymentMethod'] = $payment_method;
-                        $payment_data['pay_amount']= $price;
-                        $payment_data['driver_id']= $driver_id;
-                        $remark =_lang('payment ongoing through payapi by ').$user->name;
-                        $payment_type ='knet/card';
-                        $transaction_id='';
-                        if(DoBooking($dt,$transaction_id,$payment_type,$price,$remark)){
-                            $pdata = $this->doPayment($payment_data);
-                            $activity = _lang('payment ongoing  through payapi by ').$user->name;
-                             AddBookingLog($dt,$activity);  
-                             $driverList[$bidid]['prices']=$prices;
-                             $data['payment_data']= $pdata;
-                            return outputSuccess($data);
-                        } 
-                    }
-                    
+                       
+                   }
                 }
                 // Proceed with authenticated user logic
             }else {

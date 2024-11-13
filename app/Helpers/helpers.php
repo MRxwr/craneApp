@@ -367,3 +367,14 @@ if (!function_exists('formatDateWithOrdinal')) {
         }
     }
 }
+
+function checkSuccessPayment($request_id){
+    $payment = BookingPayment::where('request_id', $request_id)
+    ->where('payment_status', 'success')
+    ->first();
+    if($payment){
+        return true;    
+    }else{
+        return false;
+    }
+}

@@ -190,7 +190,7 @@ class UserBookingController extends Controller
 
                $driverId = $user->id;
                $data['message']=_lang('get Order request');
-               $todayRequests = BookingRequest::where('is_deleted', 0)
+               $todayRequests = BookingRequest::where('is_deleted', 0)->where('status','!=',4)
                 ->whereHas('payment', function($query) use ($today, $driverId) {
                     $query->whereDate('created_at', $today)
                         ->where('driver_id', $driverId)

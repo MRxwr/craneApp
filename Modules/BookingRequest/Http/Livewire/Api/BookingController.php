@@ -799,6 +799,7 @@ class BookingController extends Controller
             "ErrorUrl"                  => url('failed').'/?bsid='.$bsid,
             "extraMerchantData"         => $extraMerchantData
             );
+            var_dump($params); exit;
         $curl = curl_init();
         // $certificate_location = 'C:\wamp64\bin\php\php7.2.33\extras\ssl\cacert.pem';
         // curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, $certificate_location);

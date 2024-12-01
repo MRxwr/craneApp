@@ -860,7 +860,7 @@ class BookingController extends Controller
     $err = curl_error($curl);
     curl_close($curl);
     $response = json_decode($response,true);
-    
+    var_dump($response); 
     //saving info and redirecting to payment pages
     if ($err) {
         echo "cURL Error #:" . $err;
@@ -868,7 +868,7 @@ class BookingController extends Controller
         $data['payment_status']='error';
         $data['error_url']= url('failed').'/?bsid='.$bsid.'&msg='. $err;
     } else {
-        var_dump($response); 
+        
         if( isset($response["status"]) && $response["status"] == true && isset($response["data"]["link"]) && !empty($response["data"]["link"]) ){
             $data['message']=_lang('Send Crane Request');
             $data['payment_status']='success';

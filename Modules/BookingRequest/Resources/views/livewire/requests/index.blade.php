@@ -150,6 +150,21 @@
                         </div>
                     @endif
 
+                    @if($forms['payments'])
+                        <div class="form-group col-md-12 table-responsive">
+                        <table class="table table-bordered table-md">
+                                @foreach($forms['payments'] as $payment)
+                                    <tr> 
+                                        <td>{{$payment['driver']}}</td>
+                                        <td>{{$payment['mobile']}}</td>
+                                        <td>{{$payment['price']}}KD</td>
+                                        <td>{{($payment['is_accepted']?'Yes':'No')}}</td>
+                                    </tr>
+                                @endforeach
+                            </table>
+                        </div>
+                    @endif
+
                     @if($forms['logs'])
                         <div class="form-group col-md-12 table-responsive">
                         <table class="table table-bordered table-md">

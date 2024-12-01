@@ -765,25 +765,26 @@ class BookingController extends Controller
             $admin_amount = 1.5;
             $rest_of_amount = $totalPrice - $admin_amount; 
         }
-        $extraMerchantData=array(
-            0=>array(
-                'amount'=>(string)$admin_amount,
-                'knetCharge'=>'0.25',
-                'knetChargeType'=>'fixed',
-                'ccCharge'=>'0.25',
-                'ccChargeType'=>'fixed',
-                'ibanNumber'=>getSetting('mainIban')
-            ),
-            1=>array(
-                'amount'=>(string)$rest_of_amount,
-                'knetCharge'=>'0.25',
-                'knetChargeType'=>'fixed',
-                'ccCharge'=>'0.25',
-                'ccChargeType'=>'fixed',
-                'ibanNumber'=>$driver_iban
-            )
-        );  
-
+        $extraMerchantData= array();
+        // $extraMerchantData=array(
+        //     0=>array(
+        //         'amount'=>(string)$admin_amount,
+        //         'knetCharge'=>'0.25',
+        //         'knetChargeType'=>'fixed',
+        //         'ccCharge'=>'0.25',
+        //         'ccChargeType'=>'fixed',
+        //         'ibanNumber'=>getSetting('mainIban')
+        //     ),
+        //     1=>array(
+        //         'amount'=>(string)$rest_of_amount,
+        //         'knetCharge'=>'0.25',
+        //         'knetChargeType'=>'fixed',
+        //         'ccCharge'=>'0.25',
+        //         'ccChargeType'=>'fixed',
+        //         'ibanNumber'=>$driver_iban
+        //     )
+        // );  
+  
         $params = array(
             "endpoint"                  => "PaymentRequestExicute",
             "apikey"                    => $PaymentAPIKey,
@@ -797,9 +798,20 @@ class BookingController extends Controller
             "SourceInfo"                => '',
             "CallBackUrl"               => url('success').'/?bsid='.$bsid,
             "ErrorUrl"                  => url('failed').'/?bsid='.$bsid,
-            "extraMerchantData"         => $extraMerchantData
+            "extraMerchantData[0][amount]" => (string)$admin_amount,
+            "extraMerchantData[0][knetCharge]" => '0.25',
+            "extraMerchantData[0][knetChargeType]" => 'fixed',
+            "extraMerchantData[0][ccCharge]" => '0.25',
+            "extraMerchantData[0][ccChargeType]" => 'fixed',
+            "extraMerchantData[0][ibanNumber]" => getSetting('mainIban'),
+            "extraMerchantData[1][amount]" => (string)$rest_of_amount,
+            "extraMerchantData[1][knetCharge]" => '0.25',
+            "extraMerchantData[1][knetChargeType]" => 'fixed',
+            "extraMerchantData[1][ccCharge]" => '0.25',
+            "extraMerchantData[1][ccChargeType]" => 'fixed',
+            "extraMerchantData[1][ibanNumber]" => $driver_iban,
             );
-            var_dump($params); exit;
+           // var_dump($params); exit;
         $curl = curl_init();
         // $certificate_location = 'C:\wamp64\bin\php\php7.2.33\extras\ssl\cacert.pem';
         // curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, $certificate_location);

@@ -868,6 +868,7 @@ class BookingController extends Controller
         $data['payment_status']='error';
         $data['error_url']= url('failed').'/?bsid='.$bsid.'&msg='. $err;
     } else {
+        var_dump($response); 
         if( isset($response["status"]) && $response["status"] == true && isset($response["data"]["link"]) && !empty($response["data"]["link"]) ){
             $data['message']=_lang('Send Crane Request');
             $data['payment_status']='success';

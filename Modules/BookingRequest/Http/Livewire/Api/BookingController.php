@@ -863,7 +863,7 @@ class BookingController extends Controller
     
     //saving info and redirecting to payment pages
     if ($err) {
-        //echo "cURL Error #:" . $err;
+        echo "cURL Error #:" . $err;
         $error_url = url('failed').'/?bsid='.$bsid.'&msg='. $err;
         $data['payment_status']='error';
         $data['error_url']= url('failed').'/?bsid='.$bsid.'&msg='. $err;

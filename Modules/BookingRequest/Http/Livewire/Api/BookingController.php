@@ -786,7 +786,7 @@ class BookingController extends Controller
         // );  
   
         $params = array(
-            "endpoint"                  => "PaymentRequestExicute",
+            "endpoint"                  => "PaymentRequestExicuteForVendors",
             "apikey"                    => $PaymentAPIKey,
             "PaymentMethodId"           => $paymentMethod,
             "CustomerName"              => $name,

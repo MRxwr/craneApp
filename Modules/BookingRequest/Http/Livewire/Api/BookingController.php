@@ -857,6 +857,7 @@ class BookingController extends Controller
                 ),
             ));
     $response = curl_exec($curl);
+    $err = curl_error($curl);
     curl_close($curl);
     $response = json_decode($response,true);
     

@@ -748,6 +748,7 @@ class BookingController extends Controller
         $paymentMethod=$payment_data['paymentMethod'];
         $name = $payment_data['customer_name'];
         $phone1 = $payment_data['customer_mobile'];
+        $cutomierMobile = substr($phone1,0,11);
         $settingsEmail = $payment_data['customer_email'];
         
         $totalPrice = $payment_data['pay_amount'];
@@ -823,7 +824,7 @@ class BookingController extends Controller
                 'reference[id]' => $orderId,
                 'customer[name]' => "{$name}",
                 'customer[email]' => "{$settingsEmail}",
-                'customer[mobile]' => "{substr($phone1,0,11)}",
+                'customer[mobile]' => "{$cutomierMobile}",
                 'returnUrl' => url('success').'/?bsid='.$bsid,
                 'cancelUrl' => url('failed').'/?bsid='.$bsid,
                 'notificationUrl' => url('failed').'/?bsid='.$bsid,

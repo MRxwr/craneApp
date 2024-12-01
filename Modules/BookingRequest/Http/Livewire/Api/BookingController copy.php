@@ -759,7 +759,7 @@ class BookingController extends Controller
         if(getSetting('chargeType')=='percentage'){
             $admin_amount = $totalPrice * getSetting('chargeAmount') / 100;
             $rest_of_amount = $totalPrice - $admin_amount;
-        }else if(getSetting('chargeType')=='percentage'){
+        }else if(getSetting('chargeType')=='fixed'){
             $admin_amount = getSetting('chargeAmount'); 
             $rest_of_amount = $totalPrice - $admin_amount;
         }else{
@@ -793,7 +793,7 @@ class BookingController extends Controller
             "CustomerName"              => $name,
             "DisplayCurrencyIso"        => "KWD", 
             "MobileCountryCode"         => "+965", 
-            "CustomerMobile"            => substr($phone1,0,11),
+            "CustomerMobile"            => "{$cutomierMobile}",
             "CustomerEmail"             => $settingsEmail,
             "InvoiceValue"              => $totalPrice,
             "SourceInfo"                => '',

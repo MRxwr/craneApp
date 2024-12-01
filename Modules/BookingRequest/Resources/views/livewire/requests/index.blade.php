@@ -155,10 +155,11 @@
                         <table class="table table-bordered table-md">
                                 @foreach($forms['payments'] as $payment)
                                     <tr> 
-                                        <td>{{$payment['driver']}}</td>
-                                        <td>{{$payment['mobile']}}</td>
-                                        <td>{{$payment['price']}}KD</td>
-                                        <td>{{($payment['is_accepted']?'Yes':'No')}}</td>
+                                        <td>{{($payment['transaction_id'])}}</td>
+                                        <td>{{$payment['client']}}</td>
+                                        <td>{{$payment['payment_type']}}</td>
+                                        <td>{{$payment['payment_status']}}</td>
+                                        <td>{{$payment['payment_amount']}}KD</td> 
                                     </tr>
                                 @endforeach
                             </table>

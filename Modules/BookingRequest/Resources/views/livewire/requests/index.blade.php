@@ -138,6 +138,12 @@
                     @if($forms['prices'])
                         <div class="form-group col-md-12 table-responsive">
                         <table class="table table-bordered table-md">
+                            <tr>
+                                <th>{{ _lang('Driver') }}</th>
+                                <th>{{ _lang('Mobile') }}</th>
+                                <th>{{ _lang('Price') }}</th>
+                                <th>{{ _lang('Accepted') }}</th>
+                            </tr>
                                 @foreach($forms['prices'] as $price)
                                     <tr> 
                                         <td>{{$price['driver']}}</td>
@@ -153,15 +159,24 @@
                     @if($forms['payments'])
                         <div class="form-group col-md-12 table-responsive">
                         <table class="table table-bordered table-md">
-                                @foreach($forms['payments'] as $payment)
-                                    <tr> 
-                                        <td>{{($payment['transaction_id'])}}</td>
-                                        <td>{{$payment['client']}}</td>
-                                        <td>{{$payment['payment_type']}}</td>
-                                        <td>{{$payment['payment_status']}}</td>
-                                        <td>{{$payment['payment_amount']}}KD</td> 
-                                    </tr>
-                                @endforeach
+                            <tr> 
+                                <th>{{ _lang('Transaction id') }}</th>
+                                <th>{{ _lang('Payment by') }}</th>
+                                <th>{{ _lang('Type') }}</th>
+                                <th>{{ _lang('Status ') }}</th>
+                                <th>{{ _lang('Amount') }}</th>
+                                <th>{{ _lang('Date') }}</th>
+                            </tr>
+                            @foreach($forms['payments'] as $payment)
+                            <tr> 
+                                <td>{{($payment['transaction_id'])}}</td>
+                                <td>{{$payment['client']}}</td>
+                                <td>{{$payment['payment_type']}}</td>
+                                <td>{{$payment['payment_status']}}</td>
+                                <td>{{$payment['payment_amount']}}KD</td> 
+                                <td>{{$payment['created_at']}}</td>
+                            </tr>
+                            @endforeach
                             </table>
                         </div>
                     @endif

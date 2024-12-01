@@ -67,7 +67,8 @@ trait BookingRequestTrait
                 $payments[$payment->id]['payment_type'] = $payment->payment_type;
                 $payments[$payment->id]['payment_status'] = $payment->payment_status;
                 $payments[$payment->id]['payment_amount'] =  $payment->payment_amount;
-                $payments[$payment->id]['transaction_id'] = $payment->transaction_id; //$payments[$payment->id]['is_accepted'] = $payment->is_accepted;
+                $payments[$payment->id]['transaction_id'] = $payment->transaction_id; 
+                $payments[$payment->id]['created_at'] = $payment->created_at;
             }
         }
         if($dt->prices){

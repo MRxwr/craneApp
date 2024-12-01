@@ -120,13 +120,13 @@
                             </div>
                         </div>
 
-                        <div class="form-group row">
+                        <!-- <div class="form-group row">
                             <div class="col-lg-3 col-12"> {{_lang('1st Vendor Iban')}}</div>
                              <div class="col-lg-9 col-12">
                                <input type="text" class="form-control" placeholder="1st Vendor Iban" name="vendor1Iban" value="{{$row->vendor1Iban}}">
-                            </div>
-                            
-                        </div>
+                            </div>  
+                        </div> -->
+                        
 
                     </div>
                 </div>

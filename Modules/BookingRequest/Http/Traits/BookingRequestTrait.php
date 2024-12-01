@@ -16,6 +16,7 @@ trait BookingRequestTrait
             'client_name' => '',
             'client_mobile' => '',
             'prices' => '',
+            'payments' => '',
             'logs' => '',
             'is_active' => '',
             ];
@@ -53,9 +54,18 @@ trait BookingRequestTrait
 
     public static function find_data($id)
     {
-        $dt = BookingRequest::with('prices', 'logs')->find($id);
-        //dd($dt->prices);
+        $dt = BookingRequest::with('prices','payment', 'logs')->find($id);
+        dd($dt->payment);
         $prices=[];
+        $payments=[];
+        if($dt->payment){
+            foreach($dt->payments as $payment){
+                $payments[$payment->id]['driver'] = $price->driver->name;
+                $payments[$payment->id]['payment_status'] = $price->payment->payment_status;
+                $payments[$payment->id]['price'] =  $payment->price;
+                $payments[$payment->id]['transaction_id'] = $payment->transaction_id; //$payments[$payment->id]['is_accepted'] = $payment->is_accepted;
+            }
+        }
         if($dt->prices){
             foreach($dt->prices as $price){
                 $prices[$price->id]['driver'] = $price->driver->name;

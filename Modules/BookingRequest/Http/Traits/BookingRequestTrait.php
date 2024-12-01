@@ -2,6 +2,7 @@
 namespace Modules\BookingRequest\Http\Traits;
 
 use Modules\BookingRequest\Entities\BookingRequest;
+use Modules\BookingRequest\Entities\BookingPayment;
 
 trait BookingRequestTrait
 {
@@ -54,15 +55,18 @@ trait BookingRequestTrait
 
     public static function find_data($id)
     {
-        $dt = BookingRequest::with('prices','payment', 'logs')->find($id);
+        $dt = BookingRequest::with('prices', 'logs')->find($id);
         dd($dt->payment);
+
+        $dt->payments = BookingPayment::where('request_id', $id)->get();
         $prices=[];
         $payments=[];
-        if($dt->payment){
+        if($dt->payments){
             foreach($dt->payments as $payment){
-                $payments[$payment->id]['driver'] = $price->driver->name;
-                $payments[$payment->id]['payment_status'] = $price->payment->payment_status;
-                $payments[$payment->id]['price'] =  $payment->price;
+                $payments[$payment->id]['driver'] = $payment->client->name;
+                $payments[$payment->id]['payment_type'] = $payment->payment_type;
+                $payments[$payment->id]['payment_status'] = $payment->payment_status;
+                $payments[$payment->id]['amount'] =  $payment->payment_amount;
                 $payments[$payment->id]['transaction_id'] = $payment->transaction_id; //$payments[$payment->id]['is_accepted'] = $payment->is_accepted;
             }
         }
@@ -102,6 +106,7 @@ trait BookingRequestTrait
             'client_name' => $dt->client->name,
             'client_mobile' => $dt->client->mobile,
             'prices' => $prices,
+            'payments' => $payments,
             'logs' => $logs,
             'is_active' => $dt->is_active,
             ];

@@ -832,7 +832,7 @@ class BookingController extends Controller
                 'extraMerchantData[0][knetChargeType]' => 'fixed',
                 'extraMerchantData[0][ccCharge]' => '0.25',
                 'extraMerchantData[0][ccChargeType]' => 'fixed',
-                'extraMerchantData[0][ibanNumber]' => "{getSetting('mainIban')}",
+                'extraMerchantData[0][ibanNumber]' => getSetting('mainIban'),
                 'extraMerchantData[1][amount]' => (string)$rest_of_amount,
                 'extraMerchantData[1][knetCharge]' => '0.25',
                 'extraMerchantData[1][knetChargeType]' => 'fixed',

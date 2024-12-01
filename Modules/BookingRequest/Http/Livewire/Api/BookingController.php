@@ -840,7 +840,7 @@ class BookingController extends Controller
                 'extraMerchantData[1][ccChargeType]' => 'fixed',
                 'extraMerchantData[1][ibanNumber]' => "{$driver_iban}",
                 );
-        
+        var_dump($postBody);exit;
             $curl = curl_init();
             curl_setopt_array($curl, array(
                 CURLOPT_URL => 'https://uapi.upayments.com/api/v1/charge',
@@ -860,7 +860,7 @@ class BookingController extends Controller
     $err = curl_error($curl);
     curl_close($curl);
     $response = json_decode($response,true);
-    var_dump($response); 
+ 
     //saving info and redirecting to payment pages
     if ($err) {
         echo "cURL Error #:" . $err;

@@ -784,104 +784,85 @@ class BookingController extends Controller
         //         'ibanNumber'=>$driver_iban
         //     )
         // );  
-        $titmestamp = time();
-        $orderId = $titmestamp;
-        $paymentGateway = 'knet';
-        // $params = array(
-        //     "endpoint"                  => "PaymentRequestExicuteForVendors",
-        //     "apikey"                    => $PaymentAPIKey,
-        //     "PaymentMethodId"           => $paymentMethod,
-        //     "CustomerName"              => $name,
-        //     "DisplayCurrencyIso"        => "KWD", 
-        //     "MobileCountryCode"         => "+965", 
-        //     "CustomerMobile"            => substr($phone1,0,11),
-        //     "CustomerEmail"             => $settingsEmail,
-        //     "InvoiceValue"              => $totalPrice,
-        //     "SourceInfo"                => '',
-        //     "CallBackUrl"               => url('success').'/?bsid='.$bsid,
-        //     "ErrorUrl"                  => url('failed').'/?bsid='.$bsid,
-        //     "extraMerchantData[0][amount]" => (string)$admin_amount,
-        //     "extraMerchantData[0][knetCharge]" => '0.25',
-        //     "extraMerchantData[0][knetChargeType]" => 'fixed',
-        //     "extraMerchantData[0][ccCharge]" => '0.25',
-        //     "extraMerchantData[0][ccChargeType]" => 'fixed',
-        //     "extraMerchantData[0][ibanNumber]" => getSetting('mainIban'),
-        //     "extraMerchantData[1][amount]" => (string)$rest_of_amount,
-        //     "extraMerchantData[1][knetCharge]" => '0.25',
-        //     "extraMerchantData[1][knetChargeType]" => 'fixed',
-        //     "extraMerchantData[1][ccCharge]" => '0.25',
-        //     "extraMerchantData[1][ccChargeType]" => 'fixed',
-        //     "extraMerchantData[1][ibanNumber]" => $driver_iban,
-        //     );
-            $postBody = array(
-                'language' => 'en',
-                'paymentGateway[src]' => "{$paymentGateway}",
-                'order[id]' => $orderId,
-                'order[currency]' => 'KWD',
-                'order[amount]' => (string)$totalPrice,
-                'order[description]' => "Booking payment",
-                'reference[id]' => $orderId,
-                'customer[name]' => "{$name}",
-                'customer[email]' => "{$settingsEmail}",
-                'customer[mobile]' => "{substr($phone1,0,11)}",
-                'returnUrl' => url('success').'/?bsid='.$bsid,
-                'cancelUrl' => url('failed').'/?bsid='.$bsid,
-                'notificationUrl' => url('failed').'/?bsid='.$bsid,
-                'extraMerchantData[0][amount]' =>  (string)$admin_amount,
-                'extraMerchantData[0][knetCharge]' => '0.25',
-                'extraMerchantData[0][knetChargeType]' => 'fixed',
-                'extraMerchantData[0][ccCharge]' => '0.25',
-                'extraMerchantData[0][ccChargeType]' => 'fixed',
-                'extraMerchantData[0][ibanNumber]' => "{getSetting('mainIban')}",
-                'extraMerchantData[1][amount]' => (string)$rest_of_amount,
-                'extraMerchantData[1][knetCharge]' => '0.25',
-                'extraMerchantData[1][knetChargeType]' => 'fixed',
-                'extraMerchantData[1][ccCharge]' => '0.25',
-                'extraMerchantData[1][ccChargeType]' => 'fixed',
-                'extraMerchantData[1][ibanNumber]' => "{$driver_iban}",
-                );
-        
-            $curl = curl_init();
-            curl_setopt_array($curl, array(
-                CURLOPT_URL => 'https://uapi.upayments.com/api/v1/charge',
-                CURLOPT_RETURNTRANSFER => true,
-                CURLOPT_ENCODING => '',
-                CURLOPT_MAXREDIRS => 10,
-                CURLOPT_TIMEOUT => 0,
-                CURLOPT_FOLLOWLOCATION => true,
-                CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-                CURLOPT_CUSTOMREQUEST => 'POST',
-                CURLOPT_POSTFIELDS => $postBody,
-                CURLOPT_HTTPHEADER => array(
-                    'Authorization: Bearer afmceR6nHQaIehhpOel036LBhC8hihuB8iNh9ACF',
-                ),
-            ));
-    $response = curl_exec($curl);
-    curl_close($curl);
-    $response = json_decode($response,true);
-    
-    //saving info and redirecting to payment pages
-    if ($err) {
-        //echo "cURL Error #:" . $err;
-        $error_url = url('failed').'/?bsid='.$bsid.'&msg='. $err;
-        $data['payment_status']='error';
-        $data['error_url']= url('failed').'/?bsid='.$bsid.'&msg='. $err;
-    } else {
-        if( isset($response["status"]) && $response["status"] == true && isset($response["data"]["link"]) && !empty($response["data"]["link"]) ){
-            $data['message']=_lang('Send Crane Request');
-            $data['payment_status']='success';
-            $data['payment_type']='knet/card';
-            $data['payment_url'] = $response["data"]["link"];
-            // $response["data"] = array(
-            //     "paymentURL" => $response["data"]["link"],
-            //     "InvoiceId"  => $orderId
-            // );
-        }else{
-            $data['message']=_lang('Send Crane Request');
-            $data['payment_status']='error';
-            $data['error_url']= url('failed').'/?bsid='.$bsid.'&msg='. $err;
-        }
-    }
+  
+        $params = array(
+            "endpoint"                  => "PaymentRequestExicuteForVendors",
+            "apikey"                    => $PaymentAPIKey,
+            "PaymentMethodId"           => $paymentMethod,
+            "CustomerName"              => $name,
+            "DisplayCurrencyIso"        => "KWD", 
+            "MobileCountryCode"         => "+965", 
+            "CustomerMobile"            => substr($phone1,0,11),
+            "CustomerEmail"             => $settingsEmail,
+            "InvoiceValue"              => $totalPrice,
+            "SourceInfo"                => '',
+            "CallBackUrl"               => url('success').'/?bsid='.$bsid,
+            "ErrorUrl"                  => url('failed').'/?bsid='.$bsid,
+            "extraMerchantData[0][amount]" => (string)$admin_amount,
+            "extraMerchantData[0][knetCharge]" => '0.25',
+            "extraMerchantData[0][knetChargeType]" => 'fixed',
+            "extraMerchantData[0][ccCharge]" => '0.25',
+            "extraMerchantData[0][ccChargeType]" => 'fixed',
+            "extraMerchantData[0][ibanNumber]" => getSetting('mainIban'),
+            "extraMerchantData[1][amount]" => (string)$rest_of_amount,
+            "extraMerchantData[1][knetCharge]" => '0.25',
+            "extraMerchantData[1][knetChargeType]" => 'fixed',
+            "extraMerchantData[1][ccCharge]" => '0.25',
+            "extraMerchantData[1][ccChargeType]" => 'fixed',
+            "extraMerchantData[1][ibanNumber]" => $driver_iban,
+            );
+            //var_dump($params); exit;
+        $curl = curl_init();
+        // $certificate_location = 'C:\wamp64\bin\php\php7.2.33\extras\ssl\cacert.pem';
+        // curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, $certificate_location);
+        // curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, $certificate_location);
+        //dd($params);
+        curl_setopt_array($curl, array(
+            CURLOPT_URL => "https://createapi.link/api/v3/index.php",
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => "",
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 30000,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => "POST",
+            CURLOPT_POSTFIELDS => json_encode($params),
+            CURLOPT_HTTPHEADER => array(
+                // Set here requred headers
+                "accept: */*",
+                "accept-language: en-US,en;q=0.8",
+                "content-type: application/json",
+            ),
+        ));
+        $response = curl_exec($curl);
+        $data=array();
+        $err = curl_error($curl);
+            curl_close($curl);
+            if ($err) {
+                //echo "cURL Error #:" . $err;
+                $error_url = url('failed').'/?bsid='.$bsid.'&msg='. $err;
+                $data['payment_status']='error';
+                $data['error_url']= url('failed').'/?bsid='.$bsid.'&msg='. $err;
+            } else {
+                $res = json_decode($response);
+                if(isset($res->type)){
+                    if($res->type == 'success' && isset($res->data->InvoiceId)){
+                        $PaymentURL = $res->data->PaymentURL;
+                        $InvoiceId = $res->data->InvoiceId;
+                        $data['payment_status']='success';
+                        $data['payment_type']='knet/card';
+                        $data['payment_url'] = $PaymentURL;  
+                    }else{
+                        $error_url = url('payment/failed').'/?bsid='.$bsid.'&msg= payment gatway error';
+                        $data['payment_status']='error';
+                        $data['error_url']= $error_url;
+                    }
+                }else{
+                    $error_url = url('payment/failed').'/?bsid='.$bsid.'&msg=payapi payment gatway error';
+                    $data['msg']='Payapi error';
+                    $data['payment_status']='error';
+                    $data['error_url']= $error_url;
+                }
+            }
 
        return $data;
     }

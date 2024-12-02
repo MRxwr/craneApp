@@ -95,7 +95,7 @@
                                             @if (akses('view-request'))
                                             <a class="dropdown-item has-icon" href="#"
                                                 wire:click.prevent="payments_data({{ $dt->id }})"><i
-                                                    class="bi bi-currency"></i>
+                                                    class="bi bi-currency-dollar"></i>
                                                     {{_lang('Booking Payments')}}</a>
                                             @endif
                                             @if (akses('delete-request'))

@@ -92,6 +92,12 @@
                                                     class="bi bi-list"></i>
                                                     {{_lang('Booking Prices')}}</a>
                                             @endif
+                                            @if (akses('view-request'))
+                                            <a class="dropdown-item has-icon" href="#"
+                                                wire:click.prevent="payments_data({{ $dt->id }})"><i
+                                                    class="bi bi-list"></i>
+                                                    {{_lang('Booking Payments')}}</a>
+                                            @endif
                                             @if (akses('delete-request'))
                                                 <a class="dropdown-item has-icon"
                                                     onclick="return confirm('Confirm delete?') || event.stopImmediatePropagation()"
@@ -265,6 +271,47 @@
         </div>
     </div>
 
+    <div class="modal fade" tabindex="-1" role="dialog" id="modalPayments" wire:ignore.self>
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">{{ _lang('All Payments for this booking') }}</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    {{ $message ?? '' }}
+                        @if($forms['payments'])
+                            <div class="form-group col-md-12 table-responsive">
+                            <table class="table table-bordered table-md">
+                                <tr> 
+                                    <th>{{ _lang('Transaction id') }}</th>
+                                    <th>{{ _lang('Payment by') }}</th>
+                                    <th>{{ _lang('Type') }}</th>
+                                    <th>{{ _lang('Status ') }}</th>
+                                    <th>{{ _lang('Amount') }}</th>
+                                    <th>{{ _lang('Date') }}</th>
+                                </tr>
+                                @foreach($forms['payments'] as $payment)
+                                <tr> 
+                                    <td>{{($payment['transaction_id'])}}</td>
+                                    <td>{{$payment['client']}}</td>
+                                    <td>{{$payment['payment_type']}}</td>
+                                    <td>{{$payment['payment_status']}}</td>
+                                    <td>{{$payment['payment_amount']}}KD</td> 
+                                    <td>{{$payment['created_at']}}</td>
+                                </tr>
+                                @endforeach
+                                </table>
+                            </div>
+                        @endif
+                </div>
+               
+            </div>
+        </div>
+    </div>
+
     @section('scripts')
         <script>
             Livewire.on('modalAdd', aksi => {
@@ -282,6 +329,13 @@
                     $('#modalPrice').modal('show');
                 } else {
                     $('#modalPrice').modal('hide');
+                }
+            })
+            Livewire.on('modalPayments', aksi => {
+                if (aksi == 'show') {
+                    $('#modalPayments').modal('show');
+                } else {
+                    $('#modalPayments').modal('hide');
                 }
             })
             Livewire.on('modalLogs', aksi => {

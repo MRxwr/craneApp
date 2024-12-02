@@ -120,6 +120,14 @@ class Index extends Component
         $this->emit('modalPrice', 'show');
     }
 
+    public function payments_data($id)
+    {
+        $this->is_edit = 1;
+        $this->id_edit = $id;
+        $this->forms = BookingRequestTrait::find_data($id);
+        $this->emit('modalPayments', 'show');
+    }
+
     public function store()
     {
         $this->validate([

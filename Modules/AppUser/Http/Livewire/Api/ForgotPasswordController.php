@@ -61,9 +61,10 @@ class ForgotPasswordController extends Controller
                 $data['message']=_lang('This mobile number not exists');
                 return outputError($data);
             }   
-           
-       
-        }   
+        } else {
+            $data['message']=_lang('mobile not  verified');
+            return outputError($data); 
+        }  
     }
 
     public function verifyOTP(Request $request){ 

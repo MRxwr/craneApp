@@ -43,7 +43,8 @@ class RegisterController extends Controller
         $password =$request->password;
         $isverified = OtpUser::where('mobile', $mobileNumber)->where('verified', 1)->first();
         if($isverified){
-            $appuser = AppUser::where('mobile', $mobileNumber)->first();
+            //$appuser = AppUser::where('mobile', $mobileNumber)->first();
+            $appuser = AppUser::where('mobile', $mobileNumber)->where('is_deleted',0)->first();
             if ($appuser){
                 $appuser->name = $name;
                 $appuser->email = $email;

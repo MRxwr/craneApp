@@ -32,6 +32,8 @@ class LoginController extends Controller
         }
         $mobileNumber = $request->input('mobile');
         $mobileNumber = str_replace('+', '', $mobileNumber);
+        $is_deleted = AppUser::where('mobile', $mobileNumber)->where('is_deleted',1)->first();
+        if($is_deleted){
         $isverified = OtpUser::where('mobile', $mobileNumber)->where('verified', 1)->first();
         if($isverified){
             $appuser = AppUser::where('mobile', $mobileNumber)->where('is_deleted',0)->first();
@@ -57,7 +59,8 @@ class LoginController extends Controller
                         }
                     } else {
                         $mobile = $request->only('mobile');
-                        $user = AppUser::where('mobile', $mobile)->first();
+                        //$user = AppUser::where('mobile', $mobile)->first();
+                        $user::where('mobile', $mobile)->where('is_deleted',0)->first();
                         if ($user) {
                             Auth::guard('api')->user();
                             if($token=GenerateApiToken($user)){
@@ -82,6 +85,10 @@ class LoginController extends Controller
             $data['message']=_lang('mobile not  verified');
             return outputError($data); 
         }
+    }else{
+        $data['message']=_lang('This user is  deleted with this mobile number');
+        return outputError($data);
+    }
 
     }
 

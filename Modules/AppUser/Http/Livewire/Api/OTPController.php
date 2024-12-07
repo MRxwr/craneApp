@@ -34,12 +34,16 @@ class OTPController extends Controller
         $user = OtpUser::where('mobile', $mobileNumber)->first();
         $data['otp'] = $otp;
         if ($user) {
-            $user->otp = $otp;
-            $user->mobile = $mobileNumber;
-            $user->verified = true;
-            $user->save();
-            $msg = str_replace('{{OTP}}', $otp, _lang('Use {{OTP}} as your login code for The Crane. Please do not share this code with anyone.'));
-            sendSMS($msg,$mobileNumber,$flag=0);
+            if($user->verified == true) {
+                $user->otp = '';
+                $user->save();
+            }else {
+                $user->otp = $otp;
+                $user->verified = false;
+                $user->save();
+                $msg = str_replace('{{OTP}}', $otp, _lang('Use {{OTP}} as your login code for The Crane. Please do not share this code with anyone.'));
+                sendSMS($msg,$mobileNumber,$flag=0);
+            }
             return outputSuccess($data);
         } else {
            // Create a new OtpUser

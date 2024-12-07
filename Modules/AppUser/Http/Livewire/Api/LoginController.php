@@ -32,9 +32,9 @@ class LoginController extends Controller
         }
         $mobileNumber = $request->input('mobile');
         $mobileNumber = str_replace('+', '', $mobileNumber);
-        $is_deleted = AppUser::where('mobile', $mobileNumber)->where('is_deleted',1)->first();
+        $is_deleted = AppUser::where('mobile', $mobileNumber)->where('is_deleted',0)->first();
         if($is_deleted){
-        $isverified = OtpUser::where('mobile', $mobileNumber)->where('verified', 1)->first();
+         $isverified = OtpUser::where('mobile', $mobileNumber)->where('verified', 1)->first();
         if($isverified){
             $appuser = AppUser::where('mobile', $mobileNumber)->where('is_deleted',0)->first();
             if ($appuser){

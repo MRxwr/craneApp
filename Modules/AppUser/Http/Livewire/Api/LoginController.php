@@ -36,7 +36,7 @@ class LoginController extends Controller
         if($is_deleted){
          $isverified = OtpUser::where('mobile', $mobileNumber)->where('verified', 1)->first();
         if($isverified){
-            $appuser = AppUser::where('mobile', $mobileNumber)->where('is_deleted',0)->first();
+            $appuser = AppUser::where('mobile', $mobileNumber)->where('is_deleted',0)->where('is_active',1)->first();
             if ($appuser){
                 $data['message']=_lang('Successfully logged in');
                 if ($request->has('password')) {
@@ -78,7 +78,7 @@ class LoginController extends Controller
                         }
                      } 
                 } else {
-                    $data['message']=_lang('login faild Regiter');
+                    $data['message']=_lang('login faild! user not active');
                     return outputError($data);
                 }   
         }else{

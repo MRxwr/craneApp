@@ -143,14 +143,14 @@ class RegisterController extends Controller
         if ($user) {
             $user->otp = $otp;
             $user->mobile = $mobileNumber;
-            $user->verified = true;
+            $user->verified = 1;
             $user->save(); 
         } else {
            // Create a new OtpUser
             $otpUser = OtpUser::create([
                 'otp' => $otp,
                 'mobile' => $mobileNumber,
-                'verified' => true,
+                'verified' => 1,
             ]);
         }
         $name = $request->input('name');

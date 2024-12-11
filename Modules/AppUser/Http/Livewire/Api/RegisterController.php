@@ -169,6 +169,7 @@ class RegisterController extends Controller
             $appuser->device_token = $device_token;
             $appuser->password = Hash::make($password);
             $appuser->email_verified_at = now();
+            $appuser->is_active = 0;
             $appuser->user_type = 2;
             
             if ($request->hasFile('avator')) {
@@ -217,6 +218,7 @@ class RegisterController extends Controller
             $appuser->device_token = $device_token;
             $appuser->password = Hash::make($password);
             $appuser->email_verified_at = now();
+            $appuser->is_active = 0;
             $appuser->user_type = 2;
             if ($request->hasFile('avator')) {
                 $imageName = time().'.'.$request->avator->extension();  

@@ -147,11 +147,16 @@ class RegisterController extends Controller
             $user->save(); 
         } else {
            // Create a new OtpUser
-            $otpUser = OtpUser::create([
-                'otp' => $otp,
-                'mobile' => $mobileNumber,
-                'verified' => 1,
-            ]);
+            $otpUser = new OtpUser();
+            $otpUser->otp = $otp;
+            $otpUser->mobile = $mobileNumber;
+            $otpUser->verified = 1;
+            $otpUser->save(); 
+            // $otpUser = OtpUser::create([
+            //     'otp' => $otp,
+            //     'mobile' => $mobileNumber,
+            //     'verified' => 1,
+            // ]);
         }
         $name = $request->input('name');
         $email = $request->input('email');

@@ -148,4 +148,30 @@ class SettingController extends Controller
             } 
         }
     }
+    public function CronForAutimatedCancelTrip(Request $request){
+        $threeHoursAgo = Carbon::now()->subHours(3);
+        $bookingRequests = BookingRequest::where('status', 0)->where('created_at', '<', $threeHoursAgo)->get();
+        if(bookingRequests){
+            $data['status']='';
+            try{
+                foreach($bookingRequests as $bookingRequest){
+                    $bookingRequest->notify = 1; 
+                    $bookingRequest->status = 4;
+                    $bookingRequest->save();
+                     
+                }   
+                $data['status']=$status;
+                    return outputSuccess($data);
+            }catch (\Exception $e) {
+                $data['message']=_lang('Authentication error');
+                $data['errors'] = [
+                    'message' => $e->getMessage(),
+                    'code' => $e->getCode(),
+                    'file' => $e->getFile(),
+                    'line' => $e->getLine()
+                ];
+                return outputError($data); 
+            } 
+        }
+    }
 }

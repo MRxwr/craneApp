@@ -63,7 +63,9 @@ class BookingController extends Controller
                      if($drivers->count()>0){
                         foreach($drivers as $driver){
                             if($driver->id>0){
-                                if( $driver->id==$driver_id){}else{
+                                if( $driver->id==$driver_id){
+
+                                }else{
                                     $price = new  BookingPrice();
                                     $price->request_id =$bidr->id;
                                     $price->client_id =$user->id;
@@ -75,28 +77,10 @@ class BookingController extends Controller
                                         $notify['message']=_lang('Notification to driver for new order');
                                         $notify['notifyTo']='driver';
                                         $user_id=$driver->id;
-                                        $title=_lang('Help me');
-                                        $message=_lang('I need you to pick up my vehicle ASAP.');
-                                        firebaseNotification($user_id,$title,$message,$data=[]);
+                                        $title=_lang('New Bid');
+                                        $message=_lang('New request is available. You can start biding.');
+                                        @firebaseNotification($user_id,$title,$message,$data=[]);
                                     }
-                                }
-                            }else{
-                                $price = new  BookingPrice();
-                                $price->request_id =$bidr->id;
-                                $price->client_id =$user->id;
-                                $price->driver_id =$driver->id; 
-                                if($price->save()){
-                                    $notify=[];
-                                    $notify['client_id']=$user->id;
-                                    $notify['driver_id']=$driver->id;
-                                    $notify['message']=_lang('Notification to driver for new order');
-                                    $notify['notifyTo']='driver';
-
-                                    $user_id=$driver->id;
-                                    $title=_lang('Help me');
-                                    $message=_lang('I need you to pick up my vehicle ASAP.');
-                                    firebaseNotification($user_id,$title,$message,$data=[]);
-                                    
                                 }
                             }
                         }
